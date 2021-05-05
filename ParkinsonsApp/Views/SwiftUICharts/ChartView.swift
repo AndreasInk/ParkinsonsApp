@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Charts
 struct WeekChartView: View {
   
     @Binding var week: Week

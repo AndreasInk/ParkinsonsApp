@@ -61,6 +61,13 @@
 		E10BEF4626420B6200317E38 /* Path+QuadCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF3526420B6200317E38 /* Path+QuadCurve.swift */; };
 		E10BEF4726420B6200317E38 /* MultiLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF3626420B6200317E38 /* MultiLineChartView.swift */; };
 		E10BEF4826420B6200317E38 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF3726420B6200317E38 /* Line.swift */; };
+		E10BEF4C2642CE8F00317E38 /* Social.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF4B2642CE8F00317E38 /* Social.swift */; };
+		E10BEF502642DF6700317E38 /* ExperimentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF4F2642DF6700317E38 /* ExperimentView.swift */; };
+		E10BEF522642DF7500317E38 /* ExperimentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF512642DF7500317E38 /* ExperimentCard.swift */; };
+		E10BEF542642DF8500317E38 /* ExperimentFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF532642DF8500317E38 /* ExperimentFeedView.swift */; };
+		E10BEF562642E11600317E38 /* HalfCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF552642E11600317E38 /* HalfCircleView.swift */; };
+		E1AD1EE42642E3810086BC84 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EE32642E3810086BC84 /* PostView.swift */; };
+		E1AD1EE62642EE8E0086BC84 /* CreateExperimentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,6 +128,13 @@
 		E10BEF3526420B6200317E38 /* Path+QuadCurve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Path+QuadCurve.swift"; sourceTree = "<group>"; };
 		E10BEF3626420B6200317E38 /* MultiLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiLineChartView.swift; sourceTree = "<group>"; };
 		E10BEF3726420B6200317E38 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		E10BEF4B2642CE8F00317E38 /* Social.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.swift; sourceTree = "<group>"; };
+		E10BEF4F2642DF6700317E38 /* ExperimentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentView.swift; sourceTree = "<group>"; };
+		E10BEF512642DF7500317E38 /* ExperimentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentCard.swift; sourceTree = "<group>"; };
+		E10BEF532642DF8500317E38 /* ExperimentFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentFeedView.swift; sourceTree = "<group>"; };
+		E10BEF552642E11600317E38 /* HalfCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfCircleView.swift; sourceTree = "<group>"; };
+		E1AD1EE32642E3810086BC84 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExperimentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +176,6 @@
 				E10BEF1E264207CA00317E38 /* Data+Ext */,
 				E10BEF1D264207C300317E38 /* ML */,
 				E10BEECE2641FE0C00317E38 /* Assets.xcassets */,
-				E10BEF2326420B6200317E38 /* SwiftUICharts */,
 				E10BEEE7264200C000317E38 /* Poppins */,
 				E10BEED32641FE0C00317E38 /* LaunchScreen.storyboard */,
 				E10BEED62641FE0C00317E38 /* Info.plist */,
@@ -183,14 +196,9 @@
 			isa = PBXGroup;
 			children = (
 				E10BEECC2641FE0B00317E38 /* ContentView.swift */,
-				E10BEEE02641FEC200317E38 /* HomeView.swift */,
-				E10BEF19264205B800317E38 /* ChartView.swift */,
-				E10BEF102642017B00317E38 /* ButtonGridView.swift */,
-				E10BEF122642018500317E38 /* ButtonGridButton.swift */,
-				E10BEF14264202C000317E38 /* DataView.swift */,
-				E10BEF0E2642014300317E38 /* CardView.swift */,
-				E10BEEE52641FF3800317E38 /* SettingsView.swift */,
-				E10BEEE22641FF1B00317E38 /* ShareView.swift */,
+				E10BEF4D2642DF2600317E38 /* Home */,
+				E10BEF4E2642DF2B00317E38 /* Experiment */,
+				E10BEF2326420B6200317E38 /* SwiftUICharts */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -233,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				E10BEEDC2641FE9600317E38 /* Data.swift */,
+				E10BEF4B2642CE8F00317E38 /* Social.swift */,
 				E10BEEDE2641FEB900317E38 /* Extensions.swift */,
 			);
 			path = "Data+Ext";
@@ -249,6 +258,7 @@
 		E10BEF2326420B6200317E38 /* SwiftUICharts */ = {
 			isa = PBXGroup;
 			children = (
+				E10BEF19264205B800317E38 /* ChartView.swift */,
 				E10BEF2426420B6200317E38 /* BarChart */,
 				E10BEF2926420B6200317E38 /* Helpers.swift */,
 				E10BEF2A26420B6200317E38 /* PieChart */,
@@ -292,6 +302,33 @@
 				E10BEF3726420B6200317E38 /* Line.swift */,
 			);
 			path = LineChart;
+			sourceTree = "<group>";
+		};
+		E10BEF4D2642DF2600317E38 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E10BEEE02641FEC200317E38 /* HomeView.swift */,
+				E10BEF102642017B00317E38 /* ButtonGridView.swift */,
+				E10BEF122642018500317E38 /* ButtonGridButton.swift */,
+				E10BEF14264202C000317E38 /* DataView.swift */,
+				E10BEF0E2642014300317E38 /* CardView.swift */,
+				E10BEEE52641FF3800317E38 /* SettingsView.swift */,
+				E10BEEE22641FF1B00317E38 /* ShareView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		E10BEF4E2642DF2B00317E38 /* Experiment */ = {
+			isa = PBXGroup;
+			children = (
+				E10BEF4F2642DF6700317E38 /* ExperimentView.swift */,
+				E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */,
+				E1AD1EE32642E3810086BC84 /* PostView.swift */,
+				E10BEF552642E11600317E38 /* HalfCircleView.swift */,
+				E10BEF532642DF8500317E38 /* ExperimentFeedView.swift */,
+				E10BEF512642DF7500317E38 /* ExperimentCard.swift */,
+			);
+			path = Experiment;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -389,12 +426,14 @@
 			files = (
 				E10BEEDF2641FEB900317E38 /* Extensions.swift in Sources */,
 				E10BEF3C26420B6200317E38 /* Helpers.swift in Sources */,
+				E10BEF542642DF8500317E38 /* ExperimentFeedView.swift in Sources */,
 				E10BEF4526420B6200317E38 /* MagnifierRect.swift in Sources */,
 				E10BEF1A264205B800317E38 /* ChartView.swift in Sources */,
 				E10BEF3826420B6200317E38 /* BarChartView.swift in Sources */,
 				E10BEF0F2642014300317E38 /* CardView.swift in Sources */,
 				E10BEF4026420B6200317E38 /* PieChartView.swift in Sources */,
 				E10BEF3B26420B6200317E38 /* BarChartCell.swift in Sources */,
+				E1AD1EE42642E3810086BC84 /* PostView.swift in Sources */,
 				E10BEF112642017B00317E38 /* ButtonGridView.swift in Sources */,
 				E10BEF132642018500317E38 /* ButtonGridButton.swift in Sources */,
 				E10BEEE62641FF3800317E38 /* SettingsView.swift in Sources */,
@@ -403,21 +442,26 @@
 				E10BEF3A26420B6200317E38 /* LabelView.swift in Sources */,
 				E10BEF4226420B6200317E38 /* LineView.swift in Sources */,
 				E10BEF4426420B6200317E38 /* LineChartView.swift in Sources */,
+				E10BEF4C2642CE8F00317E38 /* Social.swift in Sources */,
 				E10BEF3E26420B6200317E38 /* PieChartHelpers.swift in Sources */,
 				E10BEF4126420B6200317E38 /* IndicatorPoint.swift in Sources */,
 				E10BEF4326420B6200317E38 /* Legend.swift in Sources */,
 				E10BEECB2641FE0B00317E38 /* SceneDelegate.swift in Sources */,
 				E10BEF4626420B6200317E38 /* Path+QuadCurve.swift in Sources */,
+				E10BEF522642DF7500317E38 /* ExperimentCard.swift in Sources */,
 				E10BEF4826420B6200317E38 /* Line.swift in Sources */,
 				E10BEF1C264207BF00317E38 /* reg_model.mlmodel in Sources */,
 				E10BEF3F26420B6200317E38 /* PieChartCell.swift in Sources */,
 				E10BEF3926420B6200317E38 /* BarChartRow.swift in Sources */,
+				E1AD1EE62642EE8E0086BC84 /* CreateExperimentView.swift in Sources */,
 				E10BEEE32641FF1B00317E38 /* ShareView.swift in Sources */,
 				E10BEF4726420B6200317E38 /* MultiLineChartView.swift in Sources */,
 				E10BEF3D26420B6200317E38 /* PieChartRow.swift in Sources */,
 				E10BEEE12641FEC200317E38 /* HomeView.swift in Sources */,
+				E10BEF502642DF6700317E38 /* ExperimentView.swift in Sources */,
 				E10BEECD2641FE0B00317E38 /* ContentView.swift in Sources */,
 				E10BEEDD2641FE9600317E38 /* Data.swift in Sources */,
+				E10BEF562642E11600317E38 /* HalfCircleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

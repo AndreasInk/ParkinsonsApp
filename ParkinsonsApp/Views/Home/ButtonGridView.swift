@@ -14,7 +14,8 @@ struct ButtonGridView: View {
         GridItem(.adaptive(minimum: 80))
         ]
     @Binding var days: [Day]
-    @State var buttons = [GridButton(title: "Score", image: Image(systemName: "heart")), GridButton(title: "Balance", image: Image(systemName: "scalemass")),GridButton(title: "Stride", image: Image(systemName: "ruler")), GridButton(title: "Speed", image: Image(systemName: "figure.walk")), GridButton(title: "Steps", image: Image(systemName: "arrow.forward")), GridButton(title: "Friends", image: Image(systemName: "person.3"))]
+    @State var buttons = [GridButton(title: "Score", image: Image(systemName: "heart")), GridButton(title: "Balance", image: Image(systemName: "scalemass")),GridButton(title: "Stride", image: Image(systemName: "ruler"))]
+    //GridButton(title: "Speed", image: Image(systemName: "figure.walk")), GridButton(title: "Steps", image: Image(systemName: "arrow.forward")), GridButton(title: "Friends", image: Image(systemName: "person.3"))
     
     var body: some View {
         GeometryReader { geo in

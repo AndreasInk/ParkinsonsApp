@@ -48,6 +48,11 @@ struct DataView: View {
                 }
             VStack {
                 ScrollView {
+                
+            if !refresh {
+        switch gridButton.title {
+        case "Score":
+            VStack {
                 DatePicker("", selection: $date, displayedComponents: .date)
                     .datePickerStyle(CompactDatePickerStyle())
                     .padding()
@@ -81,10 +86,6 @@ struct DataView: View {
                             }
                         }
                     })
-            if !refresh {
-        switch gridButton.title {
-        case "Score":
-            VStack {
                 HStack {
                 Text("Total Score")
                     .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
@@ -106,10 +107,114 @@ struct DataView: View {
             .transition(.opacity)
             
         case "Balance":
-            DayChartView(title: "Balance", chartData: $balance, refresh: $refresh)
+            VStack {
+                DatePicker("", selection: $date, displayedComponents: .date)
+                    .datePickerStyle(CompactDatePickerStyle())
+                    .padding()
+                    .onChange(of: date, perform: { value in
+                        // ready = false
+                        refresh = true
+                        loadData  { (score) in
+                            
+                            
+                        }
+                        max.points.removeAll()
+                        let filtered2 = balance.points.filter { word in
+                            return word.0 != "NA"
+                        }
+                        print(filtered2)
+                        let average = average(numbers: filtered2.map {$0.1})
+                       let minScore = filtered2.map {$0.1}.max()
+                        let filtered = filtered2.filter { word in
+                            return word.1 == minScore
+                        }
+                        
+                       
+                        max.points.append((String("Average"), average))
+                        max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
+                        
+                        maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
+                        print(days)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            withAnimation(.easeInOut) {
+                        refresh = false
+                            }
+                        }
+                    })
+                HStack {
+                Text("Balance")
+                    .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
+                    Spacer()
+                }
+                DayChartView(title: "Balance", chartData: $score, refresh: $refresh)
+            Text("Overtime your balance may change depending on how you are feeling, use your score with your doctor to determine what habits are working best to improve your health, generally a higher balance value indicates poorer health.")
+                .fixedSize(horizontal: false, vertical: true)
+                .multilineTextAlignment(.leading)
+                .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                if max.points.last?.1 != max.points.first?.1 {
+                    DayChartView(title: "Balance", chartData: $max, refresh: $refresh)
+                Text(maxText)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                }
+            } .padding()
+            .transition(.opacity)
             
         case "Stride":
-            DayChartView(title: "Stride", chartData: $length, refresh: $refresh)
+            VStack {
+                DatePicker("", selection: $date, displayedComponents: .date)
+                    .datePickerStyle(CompactDatePickerStyle())
+                    .padding()
+                    .onChange(of: date, perform: { value in
+                        // ready = false
+                        refresh = true
+                        loadData  { (score) in
+                            
+                            
+                        }
+                        max.points.removeAll()
+                        let filtered2 = length.points.filter { word in
+                            return word.0 != "NA"
+                        }
+                        print(filtered2)
+                        let average = average(numbers: filtered2.map {$0.1})
+                       let minScore = filtered2.map {$0.1}.max()
+                        let filtered = filtered2.filter { word in
+                            return word.1 == minScore
+                        }
+                        
+                       
+                        max.points.append((String("Average"), average))
+                        max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
+                        
+                        maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
+                        print(days)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            withAnimation(.easeInOut) {
+                        refresh = false
+                            }
+                        }
+                    })
+                HStack {
+                Text("Step Length")
+                    .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
+                    Spacer()
+                }
+                DayChartView(title: "Step Length", chartData: $length, refresh: $refresh)
+            Text("Overtime your balance may change depending on how you are feeling, use your score with your doctor to determine what habits are working best to improve your health, generally a higher balance value indicates poorer health.")
+                .fixedSize(horizontal: false, vertical: true)
+                .multilineTextAlignment(.leading)
+                .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                if max.points.last?.1 != max.points.first?.1 {
+                    DayChartView(title: "Step Length", chartData: $max, refresh: $refresh)
+                Text(maxText)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                }
+            } .padding()
+            .transition(.opacity)
             
         case "Speed":
             DayChartView(title: "Walking Speed", chartData: $score, refresh: $refresh)

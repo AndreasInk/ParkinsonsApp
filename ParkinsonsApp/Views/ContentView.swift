@@ -20,6 +20,7 @@ struct ContentView: View {
     
     let model = reg_model()
     
+    @State var user = User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]())
     var body: some View {
         ZStack {
             Color.white
@@ -94,7 +95,7 @@ struct ContentView: View {
                 Color.white
                     .ignoresSafeArea()
                
-                    HomeView(week: $week, days: $days)
+                HomeView(week: $week, days: $days, user: $user)
                     .transition(.opacity)
                      
                         .onChange(of: days, perform: { value in

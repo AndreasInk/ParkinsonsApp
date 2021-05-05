@@ -6,16 +6,19 @@
 //
 
 import SwiftUI
-import Charts
+
 
 struct HomeView: View {
     @State var welcome = ["Welcome!", "Hello!", "Hello there!"]
-    @State var share = false
+    @State var social = false
     @State var settings = false
     @State var name = UserDefaults.standard.string(forKey: "name")
     let model = reg_model()
     @Binding var week: Week
     @Binding var days: [Day]
+    @State var experiment = Experiment(id: UUID(), title: "Running", description: "Will running improve our health?", users: [User](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post]())])], week: [Week]())
+    @Binding var user: User
+    
     var body: some View {
         VStack {
             HStack {
@@ -157,14 +160,14 @@ struct HomeView: View {
                         
                     }
                 Button(action: {
-                    share.toggle()
+                    social.toggle()
                 }) {
-                    Image(systemName: "shippingbox")
+                    Image(systemName: "person.3")
                         .font(.largeTitle)
                         .padding()
                 }
-                .sheet(isPresented: $share, content: {
-                    ShareView()
+                .sheet(isPresented: $social, content: {
+                    ExperimentFeedView(user: $user)
                 })
                 
                 Button(action: {
@@ -190,6 +193,9 @@ struct HomeView: View {
             }
             //CardView()
             ButtonGridView(days: $days)
+            
+            ExperimentCard(user: $user, experiment: experiment)
+            
             WeekChartView(week: $week)
                 .padding(.bottom)
         }

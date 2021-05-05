@@ -30,6 +30,7 @@ struct ButtonGridButton: View {
         }
                 Text(gridButton.title)
                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                
             }.padding(.horizontal)
        
         }
