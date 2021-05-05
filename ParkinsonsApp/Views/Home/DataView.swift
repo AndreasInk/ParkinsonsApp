@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreML
 
 struct DataView: View {
     @Binding var days: [Day]
@@ -19,7 +20,6 @@ struct DataView: View {
     @State private var date = Date()
     @State var ready = false
     @State var maxText = ""
-    let model = reg_model()
     @State var refresh = false
     @State var min =  ChartData(values: [("", 0.0)])
     @State var max =  ChartData(values: [("", 0.0)])
@@ -462,7 +462,8 @@ struct DataView: View {
     }
     func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {
         do {
-            let prediction =  try self.model.prediction(double_: double, speed: speed, length: length)
+            let model = try reg_model(configuration: MLModelConfiguration())
+            let prediction =  try model.prediction(double_: double, speed: speed, length: length)
             completionHandler(PredictedScore(prediction: prediction.sourceName, predicted_parkinsons: prediction.sourceName > 0.5 ? 1 : 0))
         } catch {
             
