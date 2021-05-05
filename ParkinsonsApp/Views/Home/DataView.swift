@@ -74,16 +74,18 @@ struct DataView: View {
                             return word.1 == minScore
                         }
                         
-                       
+                        if average.isNormal {
                         max.points.append((String("Average"), average))
                         max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
                         
                         maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
                         print(days)
+                        }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             withAnimation(.easeInOut) {
                         refresh = false
                             }
+                        
                         }
                     })
                 HStack {
@@ -146,7 +148,7 @@ struct DataView: View {
                     .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
                     Spacer()
                 }
-                DayChartView(title: "Balance", chartData: $score, refresh: $refresh)
+                DayChartView(title: "Balance", chartData: $balance, refresh: $refresh)
             Text("Overtime your balance may change depending on how you are feeling, use your score with your doctor to determine what habits are working best to improve your health, generally a higher balance value indicates poorer health.")
                 .fixedSize(horizontal: false, vertical: true)
                 .multilineTextAlignment(.leading)

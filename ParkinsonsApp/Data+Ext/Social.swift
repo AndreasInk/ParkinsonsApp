@@ -25,6 +25,7 @@ struct Experiment: Hashable, Codable {
     var posts: [Post]
     var week: [Week]
     var habit: [Habit]?
+    var imageName: String?
 }
 
 struct Post: Hashable, Codable {

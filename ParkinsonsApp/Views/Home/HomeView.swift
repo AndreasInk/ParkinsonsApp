@@ -20,11 +20,12 @@ struct HomeView: View {
     @Binding var user: User
     
     var body: some View {
+        ScrollView {
         VStack {
             HStack {
                 Text(welcome.randomElement() ?? "Hello there!")
                 .bold()
-                .font(.custom("Poppins-Bold", size: 24, relativeTo: .title))
+                .font(.custom("Poppins-Bold", size: 20, relativeTo: .title))
                 .foregroundColor(Color("blue"))
                     .padding(.horizontal)
                 Spacer()
@@ -197,8 +198,10 @@ struct HomeView: View {
             ExperimentCard(user: $user, experiment: experiment)
             
             WeekChartView(week: $week)
-                .padding(.bottom)
+               
         }
+        }
+            
     }
     func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {
         if double.isNormal {

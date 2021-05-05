@@ -35,10 +35,43 @@ struct ExperimentView: View {
             Text("Group Progress")
                 .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
                 Spacer()
+                if experiment.users.map{$0.id}.contains(user.id) {
+                Button(action: {
+                    
+                }) {
+                    HStack {
+                    
+                    Image(systemName: "plus")
+                        .padding()
+                        .font(.headline)
+                        .foregroundColor(Color("blue"))
+                        
+                        Text("Habit")
+                            .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                    }
+                }
+                }
             }
             .padding(.bottom)
                     
                     WeekChartView(week: $week)
+                    if experiment.users.map{$0.id}.contains(user.id) {
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            
+                        }) {
+                            HStack {
+                            Image(systemName: "plus")
+                                .padding()
+                                .font(.headline)
+                                .foregroundColor(Color("blue"))
+                                Text("Post")
+                                    .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                            }
+                        }
+                    }
+                    }
 //            HalvedCircularBar(progress: CGFloat(experiment.groupScore.last?.prediction ?? 0.0), min: 0, max: 0)
                 ForEach(experiment.posts, id: \.self) { post in
                     PostView(post: post)
