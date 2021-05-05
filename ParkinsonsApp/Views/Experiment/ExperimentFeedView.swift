@@ -13,6 +13,7 @@ struct ExperimentFeedView: View {
     @State var i = 0
     @State var experiments = [Experiment]()
     @State var add = false
+    @State var refresh = false
     var body: some View {
         ZStack {
             Color.clear
@@ -35,52 +36,88 @@ struct ExperimentFeedView: View {
                             .foregroundColor(Color("blue"))
                     }
                     .sheet(isPresented: $add, content: {
-                        CreateExperimentView(user: $user)
+                        CreateExperimentView(user: $user, add: $add)
                     })
                     Spacer()
                 }
                 HStack {
                     Spacer()
                     Button(action: {
+                        if !refresh {
                         i = 0
+                        refresh = true
+                        
                         self.loadUsersExperiments() { experiments in
                             self.experiments = experiments
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            refresh = false
+                            }
+                        }
                         }
                     }) {
                         Text("Your Habits")
                             .font(.custom("Poppins-Bold", size: 16, relativeTo: .subheadline))
                             .foregroundColor(i == 0 ? Color("teal") : Color(.gray).opacity(0.4))
-                    }
+                    } .frame(width: 100)
                     Spacer()
                     Button(action: {
+                        if !refresh {
                         i = 1
+                        refresh = true
+                        
                         self.loadPopularExperiments() { experiments in
                             self.experiments = experiments
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            refresh = false
+                            }
+                        }
                         }
                     }) {
                         Text("Popular")
                             .font(.custom("Poppins-Bold", size: 16, relativeTo: .subheadline))
                             .foregroundColor(i == 1 ? Color("teal") : Color(.gray).opacity(0.4))
-                    }
+                    } .frame(width: 100)
                     Spacer()
                     Button(action: {
+                        if !refresh {
                         i = 2
+                        refresh = true
+                        
+                          
                         self.loadRecentExperiments() { experiments in
                             self.experiments = experiments
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            refresh = false
+                            }
+                        }
                         }
                     }) {
                         Text("Recent")
                             .font(.custom("Poppins-Bold", size: 16, relativeTo: .subheadline))
                             .foregroundColor(i == 2 ? Color("teal") : Color(.gray).opacity(0.4))
-                    }
+                    } .frame(width: 100)
                     Spacer()
                 } .padding(.top)
         ScrollView {
         VStack {
-           
-            ForEach(experiments.indices, id: \.self) { i in
+            if !refresh {
+            ForEach(experiments.reversed().indices, id: \.self) { i in
+                if experiments.indices.contains(i) {
             ExperimentCard(user: $user, experiment: $experiments[i])
-        }
+                } else {
+                    EmptyView()
+                        .onAppear() {
+                    refresh = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        withAnimation(.easeInOut) {
+                    refresh = false
+                        }
+                    }
+                    
+                    }
+                }
+            }
+            }
         }
         }
             }

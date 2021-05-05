@@ -54,7 +54,7 @@ struct ExperimentCard: View {
                 }
             } .padding()
                 
-                Image("share")
+            Image(experiment.imageName)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 125, height: 125, alignment: .center)

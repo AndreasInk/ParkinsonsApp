@@ -22,6 +22,8 @@ struct CreateExperimentView: View {
     @State var showImages = false
     
     @Binding var user: User
+    
+    @Binding var add: Bool
     var body: some View {
         ScrollView {
         VStack {
@@ -93,7 +95,7 @@ struct CreateExperimentView: View {
                 experiment.users.append(user)
                 experiment.usersIDs.append(user.id.uuidString)
                 saveExperiment()
-                
+                add = false
             }) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 25.0)

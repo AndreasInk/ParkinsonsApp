@@ -162,13 +162,48 @@ struct ContentView: View {
 
                                
                             }
+                            for day in days {
+                            for i in user.experiments.indices {
+                                var groupScore = user.experiments[i].groupScore.last
+                                
+                                let filtered2 = day.score.filter { word in
+                                    return word.date.get(.day) == Date().get(.day)
+                                }
+                                let filtered = filtered2.filter { word in
+                                    return word.date.get(.month) == Date().get(.month)
+                                }
+                                let userAverage = average(numbers: filtered.map {$0.score})
+                                if let prediction = groupScore?.prediction  {
+                                let groupAverage = average(numbers: [userAverage, prediction])
+                                
+                                if groupAverage.isNormal {
+                                    user.experiments[i].groupScore.append(PredictedScore(prediction: groupAverage, predicted_parkinsons: 0))
+                                    saveExperiment(experiment: user.experiments[i])
+                                } else {
+                                    
+                                }
+                               
+                                } else {
+                                    user.experiments[i].groupScore.append(PredictedScore(prediction: userAverage, predicted_parkinsons: 0))
+                                    saveExperiment(experiment: user.experiments[i])
+                                }
+                            }
                             
+                            }
                         })
                     
             
             }
         }
         
+    }
+    func saveExperiment(experiment: Experiment) {
+        let db = Firestore.firestore()
+        do {
+            try db.collection("experiments").document(experiment.id.uuidString).setData(from: experiment)
+        } catch let error {
+            print("Error writing city to Firestore: \(error)")
+        }
     }
     func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {
         if double.isNormal {
