@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -41,8 +41,26 @@
 		E10BEF112642017B00317E38 /* ButtonGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF102642017B00317E38 /* ButtonGridView.swift */; };
 		E10BEF132642018500317E38 /* ButtonGridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF122642018500317E38 /* ButtonGridButton.swift */; };
 		E10BEF15264202C000317E38 /* DataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF14264202C000317E38 /* DataView.swift */; };
-		E10BEF182642056100317E38 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = E10BEF172642056100317E38 /* Charts */; };
 		E10BEF1A264205B800317E38 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF19264205B800317E38 /* ChartView.swift */; };
+		E10BEF1C264207BF00317E38 /* reg_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF1B264207BF00317E38 /* reg_model.mlmodel */; };
+		E10BEF22264208B800317E38 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E10BEF21264208B800317E38 /* HealthKit.framework */; };
+		E10BEF3826420B6200317E38 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF2526420B6200317E38 /* BarChartView.swift */; };
+		E10BEF3926420B6200317E38 /* BarChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF2626420B6200317E38 /* BarChartRow.swift */; };
+		E10BEF3A26420B6200317E38 /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF2726420B6200317E38 /* LabelView.swift */; };
+		E10BEF3B26420B6200317E38 /* BarChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF2826420B6200317E38 /* BarChartCell.swift */; };
+		E10BEF3C26420B6200317E38 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF2926420B6200317E38 /* Helpers.swift */; };
+		E10BEF3D26420B6200317E38 /* PieChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF2B26420B6200317E38 /* PieChartRow.swift */; };
+		E10BEF3E26420B6200317E38 /* PieChartHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF2C26420B6200317E38 /* PieChartHelpers.swift */; };
+		E10BEF3F26420B6200317E38 /* PieChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF2D26420B6200317E38 /* PieChartCell.swift */; };
+		E10BEF4026420B6200317E38 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF2E26420B6200317E38 /* PieChartView.swift */; };
+		E10BEF4126420B6200317E38 /* IndicatorPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF3026420B6200317E38 /* IndicatorPoint.swift */; };
+		E10BEF4226420B6200317E38 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF3126420B6200317E38 /* LineView.swift */; };
+		E10BEF4326420B6200317E38 /* Legend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF3226420B6200317E38 /* Legend.swift */; };
+		E10BEF4426420B6200317E38 /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF3326420B6200317E38 /* LineChartView.swift */; };
+		E10BEF4526420B6200317E38 /* MagnifierRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF3426420B6200317E38 /* MagnifierRect.swift */; };
+		E10BEF4626420B6200317E38 /* Path+QuadCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF3526420B6200317E38 /* Path+QuadCurve.swift */; };
+		E10BEF4726420B6200317E38 /* MultiLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF3626420B6200317E38 /* MultiLineChartView.swift */; };
+		E10BEF4826420B6200317E38 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF3726420B6200317E38 /* Line.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +101,26 @@
 		E10BEF122642018500317E38 /* ButtonGridButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonGridButton.swift; sourceTree = "<group>"; };
 		E10BEF14264202C000317E38 /* DataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataView.swift; sourceTree = "<group>"; };
 		E10BEF19264205B800317E38 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		E10BEF1B264207BF00317E38 /* reg_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = reg_model.mlmodel; sourceTree = "<group>"; };
+		E10BEF1F264208B800317E38 /* ParkinsonsApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ParkinsonsApp.entitlements; sourceTree = "<group>"; };
+		E10BEF21264208B800317E38 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		E10BEF2526420B6200317E38 /* BarChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
+		E10BEF2626420B6200317E38 /* BarChartRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartRow.swift; sourceTree = "<group>"; };
+		E10BEF2726420B6200317E38 /* LabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
+		E10BEF2826420B6200317E38 /* BarChartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartCell.swift; sourceTree = "<group>"; };
+		E10BEF2926420B6200317E38 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		E10BEF2B26420B6200317E38 /* PieChartRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartRow.swift; sourceTree = "<group>"; };
+		E10BEF2C26420B6200317E38 /* PieChartHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartHelpers.swift; sourceTree = "<group>"; };
+		E10BEF2D26420B6200317E38 /* PieChartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartCell.swift; sourceTree = "<group>"; };
+		E10BEF2E26420B6200317E38 /* PieChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
+		E10BEF3026420B6200317E38 /* IndicatorPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorPoint.swift; sourceTree = "<group>"; };
+		E10BEF3126420B6200317E38 /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
+		E10BEF3226420B6200317E38 /* Legend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Legend.swift; sourceTree = "<group>"; };
+		E10BEF3326420B6200317E38 /* LineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
+		E10BEF3426420B6200317E38 /* MagnifierRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagnifierRect.swift; sourceTree = "<group>"; };
+		E10BEF3526420B6200317E38 /* Path+QuadCurve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Path+QuadCurve.swift"; sourceTree = "<group>"; };
+		E10BEF3626420B6200317E38 /* MultiLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiLineChartView.swift; sourceTree = "<group>"; };
+		E10BEF3726420B6200317E38 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E10BEF182642056100317E38 /* Charts in Frameworks */,
+				E10BEF22264208B800317E38 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +140,7 @@
 			children = (
 				E10BEEC72641FE0B00317E38 /* ParkinsonsApp */,
 				E10BEEC62641FE0B00317E38 /* Products */,
+				E10BEF20264208B800317E38 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,12 +155,14 @@
 		E10BEEC72641FE0B00317E38 /* ParkinsonsApp */ = {
 			isa = PBXGroup;
 			children = (
+				E10BEF1F264208B800317E38 /* ParkinsonsApp.entitlements */,
 				E10BEEC82641FE0B00317E38 /* AppDelegate.swift */,
 				E10BEECA2641FE0B00317E38 /* SceneDelegate.swift */,
 				E10BEEE42641FF1F00317E38 /* Views */,
-				E10BEEDC2641FE9600317E38 /* Data.swift */,
-				E10BEEDE2641FEB900317E38 /* Extensions.swift */,
+				E10BEF1E264207CA00317E38 /* Data+Ext */,
+				E10BEF1D264207C300317E38 /* ML */,
 				E10BEECE2641FE0C00317E38 /* Assets.xcassets */,
+				E10BEF2326420B6200317E38 /* SwiftUICharts */,
 				E10BEEE7264200C000317E38 /* Poppins */,
 				E10BEED32641FE0C00317E38 /* LaunchScreen.storyboard */,
 				E10BEED62641FE0C00317E38 /* Info.plist */,
@@ -180,6 +221,79 @@
 			path = Poppins;
 			sourceTree = "<group>";
 		};
+		E10BEF1D264207C300317E38 /* ML */ = {
+			isa = PBXGroup;
+			children = (
+				E10BEF1B264207BF00317E38 /* reg_model.mlmodel */,
+			);
+			path = ML;
+			sourceTree = "<group>";
+		};
+		E10BEF1E264207CA00317E38 /* Data+Ext */ = {
+			isa = PBXGroup;
+			children = (
+				E10BEEDC2641FE9600317E38 /* Data.swift */,
+				E10BEEDE2641FEB900317E38 /* Extensions.swift */,
+			);
+			path = "Data+Ext";
+			sourceTree = "<group>";
+		};
+		E10BEF20264208B800317E38 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E10BEF21264208B800317E38 /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E10BEF2326420B6200317E38 /* SwiftUICharts */ = {
+			isa = PBXGroup;
+			children = (
+				E10BEF2426420B6200317E38 /* BarChart */,
+				E10BEF2926420B6200317E38 /* Helpers.swift */,
+				E10BEF2A26420B6200317E38 /* PieChart */,
+				E10BEF2F26420B6200317E38 /* LineChart */,
+			);
+			path = SwiftUICharts;
+			sourceTree = "<group>";
+		};
+		E10BEF2426420B6200317E38 /* BarChart */ = {
+			isa = PBXGroup;
+			children = (
+				E10BEF2526420B6200317E38 /* BarChartView.swift */,
+				E10BEF2626420B6200317E38 /* BarChartRow.swift */,
+				E10BEF2726420B6200317E38 /* LabelView.swift */,
+				E10BEF2826420B6200317E38 /* BarChartCell.swift */,
+			);
+			path = BarChart;
+			sourceTree = "<group>";
+		};
+		E10BEF2A26420B6200317E38 /* PieChart */ = {
+			isa = PBXGroup;
+			children = (
+				E10BEF2B26420B6200317E38 /* PieChartRow.swift */,
+				E10BEF2C26420B6200317E38 /* PieChartHelpers.swift */,
+				E10BEF2D26420B6200317E38 /* PieChartCell.swift */,
+				E10BEF2E26420B6200317E38 /* PieChartView.swift */,
+			);
+			path = PieChart;
+			sourceTree = "<group>";
+		};
+		E10BEF2F26420B6200317E38 /* LineChart */ = {
+			isa = PBXGroup;
+			children = (
+				E10BEF3026420B6200317E38 /* IndicatorPoint.swift */,
+				E10BEF3126420B6200317E38 /* LineView.swift */,
+				E10BEF3226420B6200317E38 /* Legend.swift */,
+				E10BEF3326420B6200317E38 /* LineChartView.swift */,
+				E10BEF3426420B6200317E38 /* MagnifierRect.swift */,
+				E10BEF3526420B6200317E38 /* Path+QuadCurve.swift */,
+				E10BEF3626420B6200317E38 /* MultiLineChartView.swift */,
+				E10BEF3726420B6200317E38 /* Line.swift */,
+			);
+			path = LineChart;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -197,7 +311,6 @@
 			);
 			name = ParkinsonsApp;
 			packageProductDependencies = (
-				E10BEF172642056100317E38 /* Charts */,
 			);
 			productName = ParkinsonsApp;
 			productReference = E10BEEC52641FE0B00317E38 /* ParkinsonsApp.app */;
@@ -227,7 +340,6 @@
 			);
 			mainGroup = E10BEEBC2641FE0B00317E38;
 			packageReferences = (
-				E10BEF162642056100317E38 /* XCRemoteSwiftPackageReference "swiftui-charts" */,
 			);
 			productRefGroup = E10BEEC62641FE0B00317E38 /* Products */;
 			projectDirPath = "";
@@ -276,15 +388,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				E10BEEDF2641FEB900317E38 /* Extensions.swift in Sources */,
+				E10BEF3C26420B6200317E38 /* Helpers.swift in Sources */,
+				E10BEF4526420B6200317E38 /* MagnifierRect.swift in Sources */,
 				E10BEF1A264205B800317E38 /* ChartView.swift in Sources */,
+				E10BEF3826420B6200317E38 /* BarChartView.swift in Sources */,
 				E10BEF0F2642014300317E38 /* CardView.swift in Sources */,
+				E10BEF4026420B6200317E38 /* PieChartView.swift in Sources */,
+				E10BEF3B26420B6200317E38 /* BarChartCell.swift in Sources */,
 				E10BEF112642017B00317E38 /* ButtonGridView.swift in Sources */,
 				E10BEF132642018500317E38 /* ButtonGridButton.swift in Sources */,
 				E10BEEE62641FF3800317E38 /* SettingsView.swift in Sources */,
 				E10BEEC92641FE0B00317E38 /* AppDelegate.swift in Sources */,
 				E10BEF15264202C000317E38 /* DataView.swift in Sources */,
+				E10BEF3A26420B6200317E38 /* LabelView.swift in Sources */,
+				E10BEF4226420B6200317E38 /* LineView.swift in Sources */,
+				E10BEF4426420B6200317E38 /* LineChartView.swift in Sources */,
+				E10BEF3E26420B6200317E38 /* PieChartHelpers.swift in Sources */,
+				E10BEF4126420B6200317E38 /* IndicatorPoint.swift in Sources */,
+				E10BEF4326420B6200317E38 /* Legend.swift in Sources */,
 				E10BEECB2641FE0B00317E38 /* SceneDelegate.swift in Sources */,
+				E10BEF4626420B6200317E38 /* Path+QuadCurve.swift in Sources */,
+				E10BEF4826420B6200317E38 /* Line.swift in Sources */,
+				E10BEF1C264207BF00317E38 /* reg_model.mlmodel in Sources */,
+				E10BEF3F26420B6200317E38 /* PieChartCell.swift in Sources */,
+				E10BEF3926420B6200317E38 /* BarChartRow.swift in Sources */,
 				E10BEEE32641FF1B00317E38 /* ShareView.swift in Sources */,
+				E10BEF4726420B6200317E38 /* MultiLineChartView.swift in Sources */,
+				E10BEF3D26420B6200317E38 /* PieChartRow.swift in Sources */,
 				E10BEEE12641FEC200317E38 /* HomeView.swift in Sources */,
 				E10BEECD2641FE0B00317E38 /* ContentView.swift in Sources */,
 				E10BEEDD2641FE9600317E38 /* Data.swift in Sources */,
@@ -356,7 +486,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -411,7 +541,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -426,6 +556,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ParkinsonsApp/ParkinsonsApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ParkinsonsApp/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;
@@ -435,7 +566,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Ai.ParkinsonsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Ai.ParkinsonsApp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -447,6 +578,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ParkinsonsApp/ParkinsonsApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ParkinsonsApp/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;
@@ -456,7 +588,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Ai.ParkinsonsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Ai.ParkinsonsApp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -485,25 +617,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		E10BEF162642056100317E38 /* XCRemoteSwiftPackageReference "swiftui-charts" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/spacenation/swiftui-charts.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		E10BEF172642056100317E38 /* Charts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E10BEF162642056100317E38 /* XCRemoteSwiftPackageReference "swiftui-charts" */;
-			productName = Charts;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E10BEEBD2641FE0B00317E38 /* Project object */;
 }

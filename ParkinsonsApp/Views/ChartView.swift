@@ -7,35 +7,19 @@
 
 import SwiftUI
 import Charts
-struct ChartView: View {
-    @State var weekdays = ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"]
+struct WeekChartView: View {
+  
+    @Binding var week: Week
     var body: some View {
-        VStack {
-            HStack {
-            Text("Overall Score")
-                .font(.custom("Poppins-Bold", size: 16, relativeTo: .subheadline))
-                Spacer()
-            } .padding()
-        Chart(data: [0.1, 0.3, 0.2, 0.5, 0.4, 0.9, 0.1])
-            .chartStyle(
-                ColumnChartStyle(column: Capsule().foregroundColor(Color("teal")), spacing: 2)
-            )
-            .padding()
-            HStack {
-                Spacer()
-                ForEach(weekdays, id: \.self) { day in
-                    Text(day)
-                        .font(.custom("Poppins-Bold", size: 10, relativeTo: .subheadline))
-                        .frame(width: 25)
-                    Spacer()
-                }
-            }
-        }
+        return  BarChartView(data: ChartData(values: [(week.mon.totalScore == 21.0 ? "NA" : "Monday", (week.mon.totalScore ?? 0.0) == 21.0 ? 0.0 : week.mon.totalScore ?? 0.01), (week.tue.totalScore == 21.0 ? "NA" : "Tuesday", (week.tue.totalScore ?? 0.0) == 21.0 ? 0.0 : week.tue.totalScore ?? 0.01), (week.wed.totalScore == 21.0 ? "NA" : "Wednesday", (week.wed.totalScore ?? 0.0) == 21.0 ? 0.0 : week.wed.totalScore ?? 0.01), (week.thur.totalScore == 21.0 ? "NA" : "Thursday", (week.thur.totalScore ?? 0.0) == 21.0 ? 0.0 : week.thur.totalScore ?? 0.01), (week.fri.totalScore == 21.0 ? "NA" : "Friday", (week.fri.totalScore ?? 0.0) == 21.0 ? 0.0 : week.fri.totalScore ?? 0.01), (week.sat.totalScore == 21.0 ? "NA" : "Saturday", (week.sat.totalScore ?? 0.0) == 21.0 ? 0.0 : week.sat.totalScore ?? 0.01), (week.sun.totalScore == 21.0 ? "NA" : "Sunday", (week.sun.totalScore ?? 0.0) == 21.0 ? 0.0 : week.sun.totalScore ?? 0.01)])  , title: "Stride Progress", legend: "")
     }
 }
 
-struct ChartView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChartView()
+struct DayChartView: View {
+    @State var title: String
+    @Binding var chartData: ChartData
+    var body: some View {
+        return  BarChartView(data: chartData , title: title, legend: "")
     }
 }
+

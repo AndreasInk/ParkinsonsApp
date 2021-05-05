@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ButtonGridButton: View {
+  
     @State var gridButton: GridButton
     @State var open = false
+    
+    @Binding var days: [Day]
     var body: some View {
        
         Button(action: {
@@ -29,8 +32,9 @@ struct ButtonGridButton: View {
                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
             }.padding(.horizontal)
        
-        } .sheet(isPresented: $open, content: {
-            DataView()
+        }
+        .sheet(isPresented: $open, content: {
+            DataView(days: $days, gridButton: gridButton)
         })
     
     }
