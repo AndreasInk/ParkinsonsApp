@@ -81,7 +81,7 @@ struct DataView: View {
                             }
                         }
                     })
-            if ready {
+            if !refresh {
         switch gridButton.title {
         case "Score":
             VStack {
@@ -103,6 +103,8 @@ struct DataView: View {
                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
                 }
             } .padding()
+            .transition(.opacity)
+            
         case "Balance":
             DayChartView(title: "Balance", chartData: $balance, refresh: $refresh)
             

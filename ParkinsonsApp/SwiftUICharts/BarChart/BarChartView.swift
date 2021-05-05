@@ -119,7 +119,7 @@ import SwiftUI
                 })
         )
             .gesture(TapGesture()
-                     
+                       
         )
     }
      }
