@@ -78,6 +78,7 @@
 		E1AD1EFE26431E1C0086BC84 /* ParkinsonsWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EFA26431E1A0086BC84 /* ParkinsonsWidget.intentdefinition */; };
 		E1AD1EFF26431E1C0086BC84 /* ParkinsonsWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EFA26431E1A0086BC84 /* ParkinsonsWidget.intentdefinition */; };
 		E1AD1F0226431E1C0086BC84 /* ParkinsonsWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E1AD1EF226431E1A0086BC84 /* ParkinsonsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E1AD1F0826434A620086BC84 /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0726434A620086BC84 /* AddPostView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +178,7 @@
 		E1AD1EFA26431E1A0086BC84 /* ParkinsonsWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = ParkinsonsWidget.intentdefinition; sourceTree = "<group>"; };
 		E1AD1EFB26431E1C0086BC84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1AD1EFD26431E1C0086BC84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1AD1F0726434A620086BC84 /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -380,6 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				E10BEF4F2642DF6700317E38 /* ExperimentView.swift */,
+				E1AD1F0726434A620086BC84 /* AddPostView.swift */,
 				E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */,
 				E1AD1EE32642E3810086BC84 /* PostView.swift */,
 				E10BEF552642E11600317E38 /* HalfCircleView.swift */,
@@ -542,6 +545,7 @@
 				E10BEF112642017B00317E38 /* ButtonGridView.swift in Sources */,
 				E10BEF132642018500317E38 /* ButtonGridButton.swift in Sources */,
 				E10BEEE62641FF3800317E38 /* SettingsView.swift in Sources */,
+				E1AD1F0826434A620086BC84 /* AddPostView.swift in Sources */,
 				E10BEEC92641FE0B00317E38 /* AppDelegate.swift in Sources */,
 				E10BEF15264202C000317E38 /* DataView.swift in Sources */,
 				E10BEF3A26420B6200317E38 /* LabelView.swift in Sources */,

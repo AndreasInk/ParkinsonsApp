@@ -78,8 +78,8 @@ struct ExperimentFeedView: View {
         ScrollView {
         VStack {
            
-        ForEach(experiments, id: \.self) { experiment in
-            ExperimentCard(user: $user, experiment: experiment)
+            ForEach(experiments.indices, id: \.self) { i in
+            ExperimentCard(user: $user, experiment: $experiments[i])
         }
         }
         }

@@ -26,7 +26,7 @@ struct Experiment: Hashable, Codable {
     var groupScore: [PredictedScore]
     var posts: [Post]
     var week: [Week]
-    var habit: [Habit]?
+    var habit: [Habit]
     var imageName: String
     var upvotes: Int
 }

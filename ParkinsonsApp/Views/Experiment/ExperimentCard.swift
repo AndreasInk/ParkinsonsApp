@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ExperimentCard: View {
     @Binding var user: User
-    @State var experiment: Experiment
+    @Binding var experiment: Experiment
     @State var open = false
     @State var disable = false
     var body: some View {

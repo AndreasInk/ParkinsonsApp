@@ -22,7 +22,29 @@ struct WeekChartView: View {
         }
     }
 }
-
+struct HabitWeekChartView: View {
+  
+    @Binding var week: Week
+    @State var chartData = ChartData(values: [("", 0.0)])
+    
+    @State var refresh = false
+    var body: some View {
+        ZStack {
+            Color.clear
+                .onAppear() {
+                    
+                    chartData = ChartData(values: [( "Monday", Double(week.mon.habit.count)), ("Tuesday", Double(week.tue.habit.count)), ("Wednesday", Double(week.wed.habit.count))])
+                    
+                    chartData.points.append(("Thursday", Double(week.thur.habit.count)))
+                    chartData.points.append(("Friday", Double(week.fri.habit.count)))
+                    chartData.points.append(("Saturday", Double(week.sat.habit.count)))
+                    chartData.points.append(("Sunday", Double(week.sun.habit.count)))
+                }
+            BarChartView(data: $chartData, title: "Score", legend: "", refresh: $refresh)
+            
+        }
+    }
+}
 struct DayChartView: View {
     @State var title: String
     @Binding var chartData: ChartData
