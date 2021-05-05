@@ -21,7 +21,7 @@ struct ButtonGridView: View {
         LazyVGrid(columns: columns, spacing: 20) {
             ForEach(buttons.indices, id: \.self) { i in
                 ButtonGridButton(gridButton: buttons[i], days: $days)
-                    .frame(height: geo.size.width/4)
+                    .frame(height: geo.size.width/3)
             }
         }
         }

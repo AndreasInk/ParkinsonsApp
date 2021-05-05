@@ -19,9 +19,11 @@ struct HomeView: View {
     var body: some View {
         VStack {
             HStack {
-                Circle()
-                    .frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    .padding()
+                Text(welcome.randomElement() ?? "Hello there!")
+                .bold()
+                .font(.custom("Poppins-Bold", size: 24, relativeTo: .title))
+                .foregroundColor(Color("blue"))
+                    .padding(.horizontal)
                 Spacer()
                     .onAppear() {
                         do {
@@ -176,14 +178,7 @@ struct HomeView: View {
                     SettingsView()
                 })
             }
-            HStack {
-            Text(welcome.randomElement() ?? "Hello there!" + (name ?? "Steve"))
-            .bold()
-            .font(.custom("Poppins-Bold", size: 24, relativeTo: .title))
-            .foregroundColor(Color("blue"))
-                .padding(.horizontal)
-                Spacer()
-            }
+           
             .onAppear() {
                 days.append(week.mon)
                 days.append(week.tue)

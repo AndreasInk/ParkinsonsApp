@@ -10,7 +10,7 @@ import SwiftUI
 struct CardView: View {
     @State var image = "doc"
     @State var text = "Share your data with your doctor"
-    @State var cta = "Share"
+    @State var cta = "Export Data"
   
     @State var open = false
     var body: some View {
@@ -19,6 +19,7 @@ struct CardView: View {
                 .foregroundColor(Color(.lightText))
                 .opacity(0.4)
             VStack {
+                Spacer()
                 HStack {
                 Image(image)
                     .resizable()
@@ -28,18 +29,20 @@ struct CardView: View {
                 }
                 HStack {
                     Text(text)
-                        .font(.custom("Poppins-Bold", size: 14, relativeTo: .headline))
+                        .font(.custom("Poppins-Bold", size: 16, relativeTo: .title))
                         .foregroundColor(Color("blue"))
                 }
                 if cta != ""  {
+                    Spacer()
                 HStack {
                 Button(action: {
                     open = true
                 }) {
                     Text(cta)
                         
-                        .font(.custom("Poppins-Bold", size: 12, relativeTo: .headline))
+                        .font(.custom("Poppins-Bold", size: 18, relativeTo: .title))
                         .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
                         .padding()
                         .padding(.horizontal, 92)
                         .background(RoundedRectangle(cornerRadius: 25.0).foregroundColor(Color("blue")))
