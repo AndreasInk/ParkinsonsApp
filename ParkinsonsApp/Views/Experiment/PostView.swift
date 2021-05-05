@@ -6,27 +6,29 @@
 //
 
 import SwiftUI
-
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 struct PostView: View {
-    @State var post: Post
+    @Binding var experiment: Experiment
+    @State var i: Int
     @State var addComment = false
     @State var comment = Post(id: UUID(), title: "", text: "", createdBy: User(id: UUID(), name: "", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post]())
     var body: some View {
         VStack {
             HStack {
-                Text(post.createdBy.name)
+                Text(experiment.posts[i].createdBy.name)
                 .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
                     .foregroundColor(Color("blue"))
                 Spacer()
             }
         HStack {
-        Text(post.title)
+        Text(experiment.posts[i].title)
             .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
             Spacer()
         }
        
         HStack {
-        Text(post.text)
+        Text(experiment.posts[i].text)
             .font(.custom("Poppins-Bold", size: 16, relativeTo: .subheadline))
             Spacer()
     }
@@ -63,9 +65,11 @@ struct PostView: View {
                                 .stroke(Color.gray.opacity(0.5), lineWidth: 0.5)
                         )
                     Button(action: {
-                        post.comments.append(comment)
+                        experiment.posts[i].comments.append(comment)
+                        saveExperiment()
                         addComment.toggle()
                         comment.comments.removeAll()
+                        
                     }) {
                         HStack {
                         Image(systemName: "plus")
@@ -78,7 +82,7 @@ struct PostView: View {
                 }
             }
             Divider()
-            ForEach(post.comments, id: \.self) { comment in
+            ForEach(experiment.posts[i].comments, id: \.self) { comment in
                 HStack {
                     Text(comment.createdBy.name)
                         .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
@@ -92,6 +96,14 @@ struct PostView: View {
             }
             
         } .padding()
+    }
+    func saveExperiment() {
+        let db = Firestore.firestore()
+        do {
+            try db.collection("experiments").document(experiment.id.uuidString).setData(from: experiment)
+        } catch let error {
+            print("Error writing city to Firestore: \(error)")
+        }
     }
 }
 

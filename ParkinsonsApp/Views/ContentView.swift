@@ -20,13 +20,32 @@ struct ContentView: View {
     
     @State var week = Week(id: UUID().uuidString,  sun: Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0), mon:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](),  walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0), tue:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0), wed:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0), thur:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0), fri:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0), sat:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0))
     let model = reg_model()
-    
+    @State private var useCount = UserDefaults.standard.integer(forKey: "useCount")
     @State var user = User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]())
     var body: some View {
         ZStack {
             Color.white
             .ignoresSafeArea()
+                .onDisappear() {
+                    let encoder = JSONEncoder()
+                    
+                    if let encoded = try? encoder.encode(user) {
+                        if let json = String(data: encoded, encoding: .utf8) {
+                            print(json)
+                            do {
+                                let url = self.getDocumentsDirectory().appendingPathComponent("user.txt")
+                                try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
+                            
+                            } catch {
+                                print("erorr")
+                            }
+                        }
+
+                       
+                    }
+                }
             .onAppear() {
+                
                 let url = self.getDocumentsDirectory().appendingPathComponent("user.txt")
                 do {
                    

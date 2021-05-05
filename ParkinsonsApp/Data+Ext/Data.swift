@@ -72,6 +72,7 @@ struct Day: Identifiable, Codable, Hashable {
     var walkingSpeed: [WalkingSpeed]
     var strideLength: [Stride]
     var aysm: [Asymmetry]
+    var habit: [Habit]?
     var date: Date
     var totalScore: Double
     

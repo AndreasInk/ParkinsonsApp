@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 struct CreateExperimentView: View {
+    
     @State var experiment  = Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post]())])], week: [Week](), imageName: "data2", upvotes: 0)
     @State var images = ["meal", "cook", "plate", "workout", "running", "nature", "hiking", "yoga", "mediation", "reading", "newspaper", "water", "call", "chat", "art", "edu", "data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8", "data9", "data10"]
     @State var habitTitle = ""
@@ -19,6 +20,8 @@ struct CreateExperimentView: View {
         GridItem(.adaptive(minimum: 80))
         ]
     @State var showImages = false
+    
+    @Binding var user: User
     var body: some View {
         ScrollView {
         VStack {
@@ -60,6 +63,7 @@ struct CreateExperimentView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                
                 .onChange(of: habitTitle, perform: { value in
+                    experiment.users.append(user)
                     experiment.habit = [Habit(id: UUID(), title: habitTitle, date: Date())]
                 })
             Button(action: {
@@ -86,6 +90,8 @@ struct CreateExperimentView: View {
             }
             Spacer()
             Button(action: {
+                experiment.users.append(user)
+                experiment.usersIDs.append(user.id.uuidString)
                 saveExperiment()
                 
             }) {

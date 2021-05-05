@@ -9,9 +9,12 @@ import SwiftUI
 import FirebaseFirestoreSwift
 import FirebaseFirestore
 struct ExperimentView: View {
-    @State var experiment = Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post]())])], week: [Week](), imageName: "data2", upvotes: 0)
+    @Binding var experiment: Experiment
     @Binding var user: User
     @State var week = Week(id: UUID().uuidString,  sun: Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0), mon:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](),  walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0), tue:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0), wed:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0), thur:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0), fri:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0), sat:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0))
+    @State var chartData =  ChartData(values: [("", 0.0)])
+    @State var showAddHabit = true
+    @State var refresh = false
     var body: some View {
         VStack {
             ScrollView {
@@ -25,6 +28,11 @@ struct ExperimentView: View {
                 if let thisWeek = experiment.week.last {
                 week = thisWeek
                 }
+                if let habit = experiment.habit {
+                for habit in habit {
+                    chartData.points.append((String(habit.title), 1))
+                }
+                }
             }
             HStack {
             Text(experiment.description)
@@ -36,9 +44,14 @@ struct ExperimentView: View {
             Text("Group Progress")
                 .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
                 Spacer()
+                if showAddHabit {
                 if experiment.users.map{$0.id}.contains(user.id) {
                 Button(action: {
-                    
+                    experiment.habit?.append(Habit(id: UUID(), title: (experiment.habit?.last?.title ?? ""), date: Date()))
+                    showAddHabit = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 180.0) {
+                        showAddHabit = true
+                    }
                 }) {
                     HStack {
                     
@@ -52,10 +65,21 @@ struct ExperimentView: View {
                     }
                 }
                 }
+                }
             }
             .padding(.bottom)
-                    
+                    HStack {
+                    Text("Score Progress")
+                        .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                        Spacer()
+                    }
                     WeekChartView(week: $week)
+                    HStack {
+                    Text("Habit Progress")
+                        .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                        Spacer()
+                    }
+                    DayChartView(title: "", chartData: $chartData, refresh: $refresh)
                     if experiment.users.map{$0.id}.contains(user.id) {
                     HStack {
                         Spacer()
@@ -75,7 +99,7 @@ struct ExperimentView: View {
                     }
 //            HalvedCircularBar(progress: CGFloat(experiment.groupScore.last?.prediction ?? 0.0), min: 0, max: 0)
                     ForEach(experiment.posts.indices, id: \.self) { i in
-                    PostView(post: experiment.posts[i])
+                        PostView(experiment: $experiment, i: i)
                 }
                     .onDisappear() {
                         saveExperiment()

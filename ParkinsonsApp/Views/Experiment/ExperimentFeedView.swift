@@ -35,7 +35,7 @@ struct ExperimentFeedView: View {
                             .foregroundColor(Color("blue"))
                     }
                     .sheet(isPresented: $add, content: {
-                        CreateExperimentView()
+                        CreateExperimentView(user: $user)
                     })
                     Spacer()
                 }

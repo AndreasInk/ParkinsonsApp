@@ -61,7 +61,7 @@ struct ExperimentCard: View {
         } .padding()
         .clipShape(RoundedRectangle(cornerRadius: 25.0))
          .sheet(isPresented: $open) {
-            ExperimentView(experiment: experiment, user: $user)
+            ExperimentView(experiment: $experiment, user: $user)
         }
 
         } .padding(10)
