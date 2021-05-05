@@ -17,54 +17,54 @@ struct ExperimentCard: View {
         ZStack {
             Color("blue")
                 .clipShape(RoundedRectangle(cornerRadius: 25.0))
+            
+            // .blur(radius: 5)
+            HStack {
                 
-               // .blur(radius: 5)
-         HStack {
-    
-            VStack {
-               Spacer()
-                HStack {
-                    Text(experiment.title + " Experiment")
-                        .fixedSize(horizontal: false, vertical: true)
-                    .font(.custom("Poppins-Bold", size: 18, relativeTo: .subheadline))
-                    .foregroundColor(Color(.white))
+                VStack {
                     Spacer()
-                }
-               
+                    HStack {
+                        Text(experiment.title + " Experiment")
+                            .fixedSize(horizontal: false, vertical: true)
+                            .font(.custom("Poppins-Bold", size: 18, relativeTo: .subheadline))
+                            .foregroundColor(Color(.white))
+                        Spacer()
+                    }
+                    
                     Spacer()
-                if !disable {
-                HStack {
-                    Button(action: {
-                       
-                        open = true
-                    }) {
-                        
-                        
-                        Text(experiment.users.map{$0.id}.contains(user.id) ? "Open" : "Join")
-                            .font(.custom("Poppins-Bold", size: 16, relativeTo: .subheadline))
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(    RoundedRectangle(cornerRadius: 25.0)
-                                                .foregroundColor(Color("teal")))
-                        
-                    } //.buttonStyle(cardStyle())
-                    Spacer()
-                }
-                Spacer()
-                }
-            } .padding()
+                    if !disable {
+                        HStack {
+                            Button(action: {
+                                
+                                open = true
+                            }) {
+                                
+                                
+                                Text(experiment.users.map{$0.id}.contains(user.id) ? "Open" : "Join")
+                                    .font(.custom("Poppins-Bold", size: 16, relativeTo: .subheadline))
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(    RoundedRectangle(cornerRadius: 25.0)
+                                                        .foregroundColor(Color("teal")))
+                                
+                            } //.buttonStyle(cardStyle())
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                } .padding()
                 
-            Image(experiment.imageName)
+                Image(experiment.imageName)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 125, height: 125, alignment: .center)
-        } .padding()
-        .clipShape(RoundedRectangle(cornerRadius: 25.0))
-         .sheet(isPresented: $open) {
-            ExperimentView(experiment: $experiment, user: $user)
-        }
-
+            } .padding()
+            .clipShape(RoundedRectangle(cornerRadius: 25.0))
+            .sheet(isPresented: $open) {
+                ExperimentView(experiment: $experiment, user: $user)
+            }
+            
         } .padding(10)
-}
+    }
 }
 

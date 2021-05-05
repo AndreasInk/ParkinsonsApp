@@ -11,7 +11,7 @@ struct CardView: View {
     @State var image = "doc"
     @State var text = "Share your data with your doctor"
     @State var cta = "Export Data"
-  
+    
     @State var open = false
     var body: some View {
         ZStack {
@@ -21,10 +21,10 @@ struct CardView: View {
             VStack {
                 Spacer()
                 HStack {
-                Image(image)
-                    .resizable()
-                    .scaledToFit()
-                    .padding()
+                    Image(image)
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
                     
                 }
                 HStack {
@@ -34,31 +34,31 @@ struct CardView: View {
                 }
                 if cta != ""  {
                     Spacer()
-                HStack {
-                Button(action: {
-                    open = true
-                }) {
-                    Text(cta)
+                    HStack {
+                        Button(action: {
+                            open = true
+                        }) {
+                            Text(cta)
+                                
+                                .font(.custom("Poppins-Bold", size: 18, relativeTo: .title))
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.center)
+                                .padding()
+                                .padding(.horizontal, 92)
+                                .background(RoundedRectangle(cornerRadius: 25.0).foregroundColor(Color("blue")))
+                        } .sheet(isPresented: $open) {
+                            if cta == "Share" {
+                                // ShareView()
+                            } else if cta == "Read More" {
+                                //  ReadMore()
+                            } else if cta == "Join" {
+                                ShareSheet(activityItems: ["Hello World"])
+                                
+                            }
+                        }
                         
-                        .font(.custom("Poppins-Bold", size: 18, relativeTo: .title))
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                        .padding(.horizontal, 92)
-                        .background(RoundedRectangle(cornerRadius: 25.0).foregroundColor(Color("blue")))
-                } .sheet(isPresented: $open) {
-                    if cta == "Share" {
-                       // ShareView()
-                    } else if cta == "Read More" {
-                      //  ReadMore()
-                    } else if cta == "Join" {
-                        ShareSheet(activityItems: ["Hello World"])
                         
                     }
-                }
-                    
-                   
-            }
                 }
             } .padding(.horizontal)
         }

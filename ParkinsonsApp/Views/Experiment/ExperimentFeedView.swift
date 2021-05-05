@@ -44,15 +44,15 @@ struct ExperimentFeedView: View {
                     Spacer()
                     Button(action: {
                         if !refresh {
-                        i = 0
-                        refresh = true
-                        
-                        self.loadUsersExperiments() { experiments in
-                            self.experiments = experiments
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            refresh = false
+                            i = 0
+                            refresh = true
+                            
+                            self.loadUsersExperiments() { experiments in
+                                self.experiments = experiments
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    refresh = false
+                                }
                             }
-                        }
                         }
                     }) {
                         Text("Your Habits")
@@ -62,15 +62,15 @@ struct ExperimentFeedView: View {
                     Spacer()
                     Button(action: {
                         if !refresh {
-                        i = 1
-                        refresh = true
-                        
-                        self.loadPopularExperiments() { experiments in
-                            self.experiments = experiments
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            refresh = false
+                            i = 1
+                            refresh = true
+                            
+                            self.loadPopularExperiments() { experiments in
+                                self.experiments = experiments
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    refresh = false
+                                }
                             }
-                        }
                         }
                     }) {
                         Text("Popular")
@@ -80,16 +80,16 @@ struct ExperimentFeedView: View {
                     Spacer()
                     Button(action: {
                         if !refresh {
-                        i = 2
-                        refresh = true
-                        
-                          
-                        self.loadRecentExperiments() { experiments in
-                            self.experiments = experiments
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            refresh = false
+                            i = 2
+                            refresh = true
+                            
+                            
+                            self.loadRecentExperiments() { experiments in
+                                self.experiments = experiments
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    refresh = false
+                                }
                             }
-                        }
                         }
                     }) {
                         Text("Recent")
@@ -98,48 +98,48 @@ struct ExperimentFeedView: View {
                     } .frame(width: 100)
                     Spacer()
                 } .padding(.top)
-        ScrollView {
-        VStack {
-            if !refresh {
-            ForEach(experiments.reversed().indices, id: \.self) { i in
-                if experiments.indices.contains(i) {
-            ExperimentCard(user: $user, experiment: $experiments[i])
-                } else {
-                    EmptyView()
-                        .onAppear() {
-                    refresh = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        withAnimation(.easeInOut) {
-                    refresh = false
+                ScrollView {
+                    VStack {
+                        if !refresh {
+                            ForEach(experiments.reversed().indices, id: \.self) { i in
+                                if experiments.indices.contains(i) {
+                                    ExperimentCard(user: $user, experiment: $experiments[i])
+                                } else {
+                                    EmptyView()
+                                        .onAppear() {
+                                            refresh = true
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                                withAnimation(.easeInOut) {
+                                                    refresh = false
+                                                }
+                                            }
+                                            
+                                        }
+                                }
+                            }
                         }
                     }
-                    
-                    }
                 }
-            }
-            }
-        }
-        }
             }
         }
     }
     func loadRecentExperiments(performAction: @escaping ([Experiment]) -> Void) {
         let db = Firestore.firestore()
-     let docRef = db.collection("experiments")
+        let docRef = db.collection("experiments")
         var userList = [Experiment]()
         let query = docRef.order(by: "date")
         query.getDocuments { (documents, error) in
             if !(documents?.isEmpty ?? true) {
-        for document in documents!.documents {
-                let result = Result {
-                    try document.data(as: Experiment.self)
-                }
-            
-                switch result {
+                for document in documents!.documents {
+                    let result = Result {
+                        try document.data(as: Experiment.self)
+                    }
+                    
+                    switch result {
                     case .success(let user):
                         if let user = user {
                             userList.append(user)
-                 
+                            
                         } else {
                             
                             print("Document does not exist")
@@ -147,30 +147,30 @@ struct ExperimentFeedView: View {
                     case .failure(let error):
                         print("Error decoding user: \(error)")
                     }
-     
-        
+                    
+                    
+                }
             }
-            }
-              performAction(userList)
+            performAction(userList)
         }
     }
     func loadUsersExperiments(performAction: @escaping ([Experiment]) -> Void) {
         let db = Firestore.firestore()
-     let docRef = db.collection("experiments")
+        let docRef = db.collection("experiments")
         var userList = [Experiment]()
         let query = docRef.whereField("usersIDs", arrayContains: user.id.uuidString)
         query.getDocuments { (documents, error) in
             if !(documents?.isEmpty ?? true) {
-        for document in documents!.documents {
-                let result = Result {
-                    try document.data(as: Experiment.self)
-                }
-            
-                switch result {
+                for document in documents!.documents {
+                    let result = Result {
+                        try document.data(as: Experiment.self)
+                    }
+                    
+                    switch result {
                     case .success(let user):
                         if let user = user {
                             userList.append(user)
-                 
+                            
                         } else {
                             
                             print("Document does not exist")
@@ -178,30 +178,30 @@ struct ExperimentFeedView: View {
                     case .failure(let error):
                         print("Error decoding user: \(error)")
                     }
-     
-        
+                    
+                    
+                }
             }
-            }
-              performAction(userList)
+            performAction(userList)
         }
     }
     func loadPopularExperiments(performAction: @escaping ([Experiment]) -> Void) {
         let db = Firestore.firestore()
-     let docRef = db.collection("experiments")
+        let docRef = db.collection("experiments")
         var userList = [Experiment]()
         let query = docRef.whereField("upvotes", isGreaterThan: 3)
         query.getDocuments { (documents, error) in
             if !(documents?.isEmpty ?? true) {
-        for document in documents!.documents {
-                let result = Result {
-                    try document.data(as: Experiment.self)
-                }
-            
-                switch result {
+                for document in documents!.documents {
+                    let result = Result {
+                        try document.data(as: Experiment.self)
+                    }
+                    
+                    switch result {
                     case .success(let user):
                         if let user = user {
                             userList.append(user)
-                 
+                            
                         } else {
                             
                             print("Document does not exist")
@@ -209,11 +209,11 @@ struct ExperimentFeedView: View {
                     case .failure(let error):
                         print("Error decoding user: \(error)")
                     }
-     
-        
+                    
+                    
+                }
             }
-            }
-              performAction(userList)
+            performAction(userList)
         }
     }
 }
