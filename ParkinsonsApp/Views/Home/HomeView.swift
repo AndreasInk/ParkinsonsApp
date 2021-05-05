@@ -7,7 +7,8 @@
 
 import SwiftUI
 import CoreML
-
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 struct HomeView: View {
     @State var welcome = ["Welcome!", "Hello!", "Hello there!"]
     @State var social = false
@@ -30,6 +31,9 @@ struct HomeView: View {
                         .padding(.horizontal)
                     Spacer()
                         .onAppear() {
+                            self.loadPopularExperiments() { experiments in
+                                experiment = experiments.first ?? experiment
+                            }
                             do {
                                 let double = week.mon.balance.map({ $0.value })
                                 
@@ -207,6 +211,37 @@ struct HomeView: View {
     func average(numbers: [Double]) -> Double {
         // print(numbers)
         return Double(numbers.reduce(0,+))/Double(numbers.count)
+    }
+    func loadPopularExperiments(performAction: @escaping ([Experiment]) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("experiments")
+        var userList = [Experiment]()
+        let query = docRef.order(by: "upvotes")
+        query.getDocuments { (documents, error) in
+            if !(documents?.isEmpty ?? true) {
+                for document in documents!.documents {
+                    let result = Result {
+                        try document.data(as: Experiment.self)
+                    }
+                    
+                    switch result {
+                    case .success(let user):
+                        if let user = user {
+                            userList.append(user)
+                            
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+                    
+                    
+                }
+            }
+            performAction(userList)
+        }
     }
 }
 
