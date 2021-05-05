@@ -8,18 +8,18 @@
 
 import SwiftUI
 
-public struct BarChartView : View {
+ struct BarChartView : View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    private var data: ChartData
-    public var title: String
-    public var legend: String?
-    public var style: ChartStyle
-    public var darkModeStyle: ChartStyle
-    public var formSize:CGSize
-    public var dropShadow: Bool
-    public var cornerImage: Image
-    public var valueSpecifier:String
-    
+    @Binding var data: ChartData
+     var title: String
+     var legend: String?
+     var style: ChartStyle =  Styles.lineChartStyleOne
+     var darkModeStyle: ChartStyle = Styles.lineChartStyleOne
+     var formSize:CGSize = ChartForm.extraLarge
+     var dropShadow: Bool = false
+     var cornerImage: Image = Image(systemName: "heart")
+     var valueSpecifier:String = "%.1f"
+    @Binding  var refresh: Bool
     @State private var touchLocation: CGFloat = -1.0
     @State private var showValue: Bool = false
     @State private var showLabelValue: Bool = false
@@ -33,19 +33,19 @@ public struct BarChartView : View {
     var isFullWidth:Bool {
         return self.formSize == ChartForm.large
     }
-    public init(data:ChartData, title: String, legend: String? = nil, style: ChartStyle =  Styles.lineChartStyleOne, form: CGSize? = ChartForm.extraLarge, dropShadow: Bool? = false, cornerImage:Image? = Image(systemName: "waveform.path.ecg"), valueSpecifier: String? = "%.1f"){
-        self.data = data
-        self.title = title
-        self.legend = legend
-        self.style = style
-        self.darkModeStyle =  Styles.lineChartStyleOne
-        self.formSize = form!
-        self.dropShadow = dropShadow!
-        self.cornerImage = cornerImage!
-        self.valueSpecifier = valueSpecifier!
-    }
+//    init(title: String, legend: String? = nil, style: ChartStyle =  Styles.lineChartStyleOne, form: CGSize? = ChartForm.extraLarge, dropShadow: Bool? = false, cornerImage:Image? = Image(systemName: "waveform.path.ecg"), valueSpecifier: String? = "%.1f"){
+//        self.title = title
+//        self.legend = legend
+//        self.style = style
+//        self.darkModeStyle =  Styles.lineChartStyleOne
+//        self.formSize = form!
+//        self.dropShadow = dropShadow!
+//        self.cornerImage = cornerImage!
+//        self.valueSpecifier = valueSpecifier!
+//    }
     
-    public var body: some View {
+     var body: some View {
+        if !refresh {
         ZStack{
             Rectangle()
                 .fill(Color("teal"))
@@ -76,10 +76,14 @@ public struct BarChartView : View {
                         .foregroundColor(.white)
                   
                 }.padding()
+                .onChange(of: data.points.map{$0.0}, perform: { value in
+                    self.currentValue = self.getCurrentValue()?.1 ?? 0
+                })
                 BarChartRow(data: data.points.map{$0.1},
                             accentColor: self.colorScheme == .dark ? self.darkModeStyle.accentColor : self.style.accentColor,
                             gradient: self.colorScheme == .dark ? self.darkModeStyle.gradientColor : self.style.gradientColor,
                             touchLocation: self.$touchLocation)
+                   
                 if self.legend != nil  && self.formSize == ChartForm.medium && !self.showLabelValue{
                     Text(self.legend!)
                         .font(.headline)
@@ -93,10 +97,12 @@ public struct BarChartView : View {
                 }
                 
             }
+           
         }.frame(minWidth:self.formSize.width,
                 maxWidth: self.isFullWidth ? .infinity : self.formSize.width,
                 minHeight:self.formSize.height,
                 maxHeight:self.formSize.height)
+        
             .gesture(DragGesture()
                 .onChanged({ value in
                     self.touchLocation = value.location.x/self.formSize.width
@@ -113,9 +119,10 @@ public struct BarChartView : View {
                 })
         )
             .gesture(TapGesture()
+                     
         )
     }
-    
+     }
     func getArrowOffset(touchLocation:CGFloat) -> Binding<CGFloat> {
         let realLoc = (self.touchLocation * self.formSize.width) - 50
         if realLoc < 10 {
@@ -138,13 +145,3 @@ public struct BarChartView : View {
     }
 }
 
-#if DEBUG
-struct ChartView_Previews : PreviewProvider {
-    static var previews: some View {
-        BarChartView(data: TestData.values ,
-                     title: "Model 3 sales",
-                     legend: "Quarterly",
-                     valueSpecifier: "%.0f")
-    }
-}
-#endif

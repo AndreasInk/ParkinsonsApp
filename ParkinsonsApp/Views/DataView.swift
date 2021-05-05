@@ -17,7 +17,9 @@ struct DataView: View {
     @State var gridButton: GridButton
     @State private var date = Date()
     @State var ready = false
+    @State var maxText = ""
     let model = reg_model()
+    @State var refresh = false
   @State var min =  ChartData(values: [("", 0.0)])
     @State var max =  ChartData(values: [("", 0.0)])
     var body: some View {
@@ -28,6 +30,7 @@ struct DataView: View {
                     
                       
                     }
+                   
                     let filtered2 = score.points.filter { word in
                         return word.0 != "NA"
                     }
@@ -41,7 +44,7 @@ struct DataView: View {
                    
                     max.points.append((String("Average"), average))
                     max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
-                    print(days)
+                    maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
                 }
             VStack {
                 ScrollView {
@@ -50,11 +53,12 @@ struct DataView: View {
                     .padding()
                     .onChange(of: date, perform: { value in
                         // ready = false
-                        
+                        refresh = true
                         loadData  { (score) in
                             
                             
                         }
+                        max.points.removeAll()
                         let filtered2 = score.points.filter { word in
                             return word.0 != "NA"
                         }
@@ -68,7 +72,14 @@ struct DataView: View {
                        
                         max.points.append((String("Average"), average))
                         max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
+                        
+                        maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
                         print(days)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            withAnimation(.easeInOut) {
+                        refresh = false
+                            }
+                        }
                     })
             if ready {
         switch gridButton.title {
@@ -79,31 +90,31 @@ struct DataView: View {
                     .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
                     Spacer()
                 }
-            DayChartView(title: "Score", chartData: $score)
+                DayChartView(title: "Score", chartData: $score, refresh: $refresh)
             Text("Overtime your score may change depending on how you are feeling, use your score with your doctor to determine what habits are working best to improve your health, generally a higher score indicates poorer health.")
                 .fixedSize(horizontal: false, vertical: true)
                 .multilineTextAlignment(.leading)
                 .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
                 if max.points.last?.1 != max.points.first?.1 {
-                DayChartView(title: "Score", chartData: $max)
-                Text("At \(max.points.last?.0 ?? "") your score was higher than any other hour today.")
+                    DayChartView(title: "Score", chartData: $max, refresh: $refresh)
+                Text(maxText)
                     .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
                 }
             } .padding()
         case "Balance":
-            DayChartView(title: "Balance", chartData: $score)
+            DayChartView(title: "Balance", chartData: $balance, refresh: $refresh)
             
         case "Stride":
-            DayChartView(title: "Stride", chartData: $length)
+            DayChartView(title: "Stride", chartData: $length, refresh: $refresh)
             
         case "Speed":
-            DayChartView(title: "Walking Speed", chartData: $score)
+            DayChartView(title: "Walking Speed", chartData: $score, refresh: $refresh)
         case "Steps":
-            DayChartView(title: "Steps", chartData: $score)
+            DayChartView(title: "Steps", chartData: $score, refresh: $refresh)
         default:
-            DayChartView(title: "Score", chartData: $score)
+            DayChartView(title: "Score", chartData: $score, refresh: $refresh)
         }
             }
         }
