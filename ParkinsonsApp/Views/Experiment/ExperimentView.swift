@@ -56,7 +56,6 @@ struct ExperimentView: View {
                         if showAddHabit {
                             if experiment.users.map{$0.id}.contains(user.id) {
                                 Button(action: {
-                                    #warning("Fix dates of the week")
                                     experiment.habit.append(Habit(id: UUID(), title: "Run", date: Date()))
                                     
                                     for habit in experiment.habit {
@@ -66,21 +65,21 @@ struct ExperimentView: View {
                                         
                                         //   if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
                                         if experiment.week.indices.contains(experiment.week.count - 1) {
-                                            if today == 0 {
+                                            if today == 1 {
                                                 experiment.week[experiment.week.count - 1].mon.habit.append(Habit(id: UUID(), title: ("Monday"), date: Date()))
-                                            } else if today == 1 {
+                                            } else if today == 2 {
                                                 
                                                 experiment.week[experiment.week.count - 1].tue.habit.append(Habit(id: UUID(), title: ("Tuesday"), date: Date()))
                                                 
-                                            } else if today == 2 {
-                                                experiment.week[experiment.week.count - 1].wed.habit.append(Habit(id: UUID(), title: ("Wednesday"), date: Date()))
                                             } else if today == 3 {
+                                                experiment.week[experiment.week.count - 1].wed.habit.append(Habit(id: UUID(), title: ("Wednesday"), date: Date()))
+                                            } else if today == 4 {
                                                 experiment.week[experiment.week.count - 1].thur.habit.append(Habit(id: UUID(), title: ("Thursday"), date: Date()))
-                                            }  else if today == 4 {
-                                                experiment.week[experiment.week.count - 1].fri.habit.append(Habit(id: UUID(), title: ("Friday"), date: Date()))
                                             }  else if today == 5 {
+                                                experiment.week[experiment.week.count - 1].fri.habit.append(Habit(id: UUID(), title: ("Friday"), date: Date()))
+                                            }  else if today == 6 {
                                                 experiment.week[experiment.week.count - 1].sat.habit.append(Habit(id: UUID(), title: ("Saturday"), date: Date()))
-                                            } else if today == 6 {
+                                            } else if today == 0 {
                                                 experiment.week[experiment.week.count - 1].sun.habit.append(Habit(id: UUID(), title: ("Sunday"), date: Date()))
                                                 
                                             }
@@ -93,21 +92,21 @@ struct ExperimentView: View {
                                             
                                             //   if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
                                             
-                                            if today == 0 {
+                                            if today == 1 {
                                                 experiment.week[experiment.week.count - 1].mon.habit.append(Habit(id: UUID(), title: ("Monday"), date: Date()))
-                                            } else if today == 1 {
+                                            } else if today == 2 {
                                                 
                                                 experiment.week[experiment.week.count - 1].tue.habit.append(Habit(id: UUID(), title: ("Tuesday"), date: Date()))
                                                 
-                                            } else if today == 2 {
-                                                experiment.week[experiment.week.count - 1].wed.habit.append(Habit(id: UUID(), title: ("Wednesday"), date: Date()))
                                             } else if today == 3 {
+                                                experiment.week[experiment.week.count - 1].wed.habit.append(Habit(id: UUID(), title: ("Wednesday"), date: Date()))
+                                            } else if today == 4 {
                                                 experiment.week[experiment.week.count - 1].thur.habit.append(Habit(id: UUID(), title: ("Thursday"), date: Date()))
-                                            }  else if today == 4 {
-                                                experiment.week[experiment.week.count - 1].fri.habit.append(Habit(id: UUID(), title: ("Friday"), date: Date()))
                                             }  else if today == 5 {
+                                                experiment.week[experiment.week.count - 1].fri.habit.append(Habit(id: UUID(), title: ("Friday"), date: Date()))
+                                            }  else if today == 6 {
                                                 experiment.week[experiment.week.count - 1].sat.habit.append(Habit(id: UUID(), title: ("Saturday"), date: Date()))
-                                            } else if today == 6 {
+                                            } else if today == 0 {
                                                 experiment.week[experiment.week.count - 1].sun.habit.append(Habit(id: UUID(), title: ("Sunday"), date: Date()))
                                                 
                                             }

@@ -340,21 +340,21 @@ struct ContentView: View {
                     //print(value)
                     
                     //   if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
-                    if today == 0 {
+                    if today == 1 {
                         self.week.mon.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    } else if today == 1 {
+                    } else if today == 2 {
                         
                         self.week.tue.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
                         
-                    } else if today == 2 {
-                        self.week.wed.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
                     } else if today == 3 {
+                        self.week.wed.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
+                    } else if today == 4 {
                         self.week.thur.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    }  else if today == 4 {
-                        self.week.fri.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
                     }  else if today == 5 {
+                        self.week.fri.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
+                    }  else if today == 6 {
                         self.week.sat.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    } else if today == 6 {
+                    } else if today == 0 {
                         self.week.sun.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
                         
                     }
@@ -449,21 +449,21 @@ struct ContentView: View {
                     // print(statsCollection)
                     
                     
-                    if today == 0 {
+                    if today == 1 {
                         self.week.mon.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    } else if today == 1 {
+                    } else if today == 2 {
                         
                         self.week.tue.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
                         
-                    } else if today == 2 {
-                        self.week.wed.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
                     } else if today == 3 {
+                        self.week.wed.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
+                    } else if today == 4 {
                         self.week.thur.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    }  else if today == 4 {
-                        self.week.fri.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
                     }  else if today == 5 {
+                        self.week.fri.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
+                    }  else if today == 6 {
                         self.week.sat.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    } else if today == 6 {
+                    } else if today == 0 {
                         self.week.sun.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
                         
                     }
@@ -566,22 +566,22 @@ struct ContentView: View {
                     //  print(value)
                     
                     
-                    if today == 0 {
+                    if today == 1 {
                         self.week.mon.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
                         print(self.week)
-                    } else if today == 1 {
+                    } else if today == 2 {
                         
                         self.week.tue.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
                         
-                    } else if today == 2 {
-                        self.week.wed.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
                     } else if today == 3 {
+                        self.week.wed.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
+                    } else if today == 4 {
                         self.week.thur.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                    }  else if today == 4 {
-                        self.week.fri.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
                     }  else if today == 5 {
+                        self.week.fri.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
+                    }  else if today == 6 {
                         self.week.sat.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                    } else if today == 6 {
+                    } else if today == 0 {
                         self.week.sun.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
                         
                         // }
@@ -677,22 +677,22 @@ struct ContentView: View {
                         //  print(value)
                         
                         
-                        if today == 0 {
+                        if today == 1 {
                             print(self.week)
-                            
-                        } else if today == 1 {
+                            self.week.mon.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
+                        } else if today == 2 {
                             
                             self.week.tue.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
                             
-                        } else if today == 2 {
-                            self.week.wed.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
                         } else if today == 3 {
+                            self.week.wed.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
+                        } else if today == 4 {
                             self.week.thur.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        }  else if today == 4 {
-                            self.week.fri.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
                         }  else if today == 5 {
+                            self.week.fri.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
+                        }  else if today == 6 {
                             self.week.sat.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        } else if today == 6 {
+                        } else if today == 0 {
                             self.week.sun.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
                         }
                         
