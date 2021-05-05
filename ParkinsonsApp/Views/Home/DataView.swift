@@ -245,7 +245,7 @@ struct DataView: View {
             return b.walkingSpeed.last?.date.get(.day) ?? 0 == date.get(.day)
         }
         print(filtered)
-        let day = filtered.last ?? Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date())
+        let day = filtered.last ?? Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), date: Date(), totalScore: 0.0)
             print(1)
             let components = date.get(.day, .month, .year, .hour)
             let components2 = day.walkingSpeed.last?.date.get(.day, .month, .year, .hour)

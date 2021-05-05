@@ -18,14 +18,17 @@ struct User: Hashable, Codable {
 
 struct Experiment: Hashable, Codable {
     var id: UUID
+    var date: Date
     var title: String
     var description: String
     var users: [User]
+    var usersIDs: [String]
     var groupScore: [PredictedScore]
     var posts: [Post]
     var week: [Week]
     var habit: [Habit]?
-    var imageName: String?
+    var imageName: String
+    var upvotes: Int
 }
 
 struct Post: Hashable, Codable {

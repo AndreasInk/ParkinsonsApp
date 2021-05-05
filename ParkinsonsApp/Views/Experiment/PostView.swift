@@ -16,6 +16,7 @@ struct PostView: View {
             HStack {
                 Text(post.createdBy.name)
                 .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                    .foregroundColor(Color("blue"))
                 Spacer()
             }
         HStack {

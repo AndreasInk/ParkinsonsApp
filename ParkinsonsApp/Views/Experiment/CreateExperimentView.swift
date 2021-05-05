@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
-
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 struct CreateExperimentView: View {
-    @State var experiment = Experiment(id: UUID(), title: "", description: "", users: [User](), groupScore: [PredictedScore](), posts: [Post](), week: [Week]())
+    @State var experiment  = Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post]())])], week: [Week](), imageName: "data2", upvotes: 0)
     @State var images = ["meal", "cook", "plate", "workout", "running", "nature", "hiking", "yoga", "mediation", "reading", "newspaper", "water", "call", "chat", "art", "edu", "data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8", "data9", "data10"]
     @State var habitTitle = ""
     
@@ -85,6 +86,7 @@ struct CreateExperimentView: View {
             }
             Spacer()
             Button(action: {
+                saveExperiment()
                 
             }) {
                 ZStack {
@@ -104,10 +106,13 @@ struct CreateExperimentView: View {
         }
     }
 }
-}
-
-struct CreateExperimentView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreateExperimentView()
+    func saveExperiment() {
+        let db = Firestore.firestore()
+        do {
+            try db.collection("experiments").document(experiment.id.uuidString).setData(from: experiment)
+        } catch let error {
+            print("Error writing city to Firestore: \(error)")
+        }
     }
 }
+

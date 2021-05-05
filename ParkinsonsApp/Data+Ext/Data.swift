@@ -73,7 +73,7 @@ struct Day: Identifiable, Codable, Hashable {
     var strideLength: [Stride]
     var aysm: [Asymmetry]
     var date: Date
-    var totalScore: Double?
+    var totalScore: Double
     
 }
 

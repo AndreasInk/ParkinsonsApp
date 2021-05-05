@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -68,7 +68,41 @@
 		E10BEF562642E11600317E38 /* HalfCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF552642E11600317E38 /* HalfCircleView.swift */; };
 		E1AD1EE42642E3810086BC84 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EE32642E3810086BC84 /* PostView.swift */; };
 		E1AD1EE62642EE8E0086BC84 /* CreateExperimentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */; };
+		E1AD1EE926430BAD0086BC84 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E1AD1EE826430BAD0086BC84 /* FirebaseFirestore */; };
+		E1AD1EEB26430BAD0086BC84 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E1AD1EEA26430BAD0086BC84 /* FirebaseFirestoreSwift-Beta */; };
+		E1AD1EED26430C1D0086BC84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1AD1EEC26430C1D0086BC84 /* GoogleService-Info.plist */; };
+		E1AD1EF426431E1A0086BC84 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1AD1EF326431E1A0086BC84 /* WidgetKit.framework */; };
+		E1AD1EF626431E1A0086BC84 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1AD1EF526431E1A0086BC84 /* SwiftUI.framework */; };
+		E1AD1EF926431E1A0086BC84 /* ParkinsonsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EF826431E1A0086BC84 /* ParkinsonsWidget.swift */; };
+		E1AD1EFC26431E1C0086BC84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1AD1EFB26431E1C0086BC84 /* Assets.xcassets */; };
+		E1AD1EFE26431E1C0086BC84 /* ParkinsonsWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EFA26431E1A0086BC84 /* ParkinsonsWidget.intentdefinition */; };
+		E1AD1EFF26431E1C0086BC84 /* ParkinsonsWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EFA26431E1A0086BC84 /* ParkinsonsWidget.intentdefinition */; };
+		E1AD1F0226431E1C0086BC84 /* ParkinsonsWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E1AD1EF226431E1A0086BC84 /* ParkinsonsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E1AD1F0026431E1C0086BC84 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E10BEEBD2641FE0B00317E38 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1AD1EF126431E1A0086BC84;
+			remoteInfo = ParkinsonsWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E1AD1F0626431E1C0086BC84 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E1AD1F0226431E1C0086BC84 /* ParkinsonsWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		E10BEEC52641FE0B00317E38 /* ParkinsonsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParkinsonsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +169,14 @@
 		E10BEF552642E11600317E38 /* HalfCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfCircleView.swift; sourceTree = "<group>"; };
 		E1AD1EE32642E3810086BC84 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExperimentView.swift; sourceTree = "<group>"; };
+		E1AD1EEC26430C1D0086BC84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E1AD1EF226431E1A0086BC84 /* ParkinsonsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ParkinsonsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1AD1EF326431E1A0086BC84 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		E1AD1EF526431E1A0086BC84 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		E1AD1EF826431E1A0086BC84 /* ParkinsonsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkinsonsWidget.swift; sourceTree = "<group>"; };
+		E1AD1EFA26431E1A0086BC84 /* ParkinsonsWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = ParkinsonsWidget.intentdefinition; sourceTree = "<group>"; };
+		E1AD1EFB26431E1C0086BC84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E1AD1EFD26431E1C0086BC84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +184,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1AD1EEB26430BAD0086BC84 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				E10BEF22264208B800317E38 /* HealthKit.framework in Frameworks */,
+				E1AD1EE926430BAD0086BC84 /* FirebaseFirestore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1AD1EEF26431E1A0086BC84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1AD1EF626431E1A0086BC84 /* SwiftUI.framework in Frameworks */,
+				E1AD1EF426431E1A0086BC84 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				E10BEEC72641FE0B00317E38 /* ParkinsonsApp */,
+				E1AD1EF726431E1A0086BC84 /* ParkinsonsWidget */,
 				E10BEEC62641FE0B00317E38 /* Products */,
 				E10BEF20264208B800317E38 /* Frameworks */,
 			);
@@ -162,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				E10BEEC52641FE0B00317E38 /* ParkinsonsApp.app */,
+				E1AD1EF226431E1A0086BC84 /* ParkinsonsWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -179,6 +234,7 @@
 				E10BEEE7264200C000317E38 /* Poppins */,
 				E10BEED32641FE0C00317E38 /* LaunchScreen.storyboard */,
 				E10BEED62641FE0C00317E38 /* Info.plist */,
+				E1AD1EEC26430C1D0086BC84 /* GoogleService-Info.plist */,
 				E10BEED02641FE0C00317E38 /* Preview Content */,
 			);
 			path = ParkinsonsApp;
@@ -251,6 +307,8 @@
 			isa = PBXGroup;
 			children = (
 				E10BEF21264208B800317E38 /* HealthKit.framework */,
+				E1AD1EF326431E1A0086BC84 /* WidgetKit.framework */,
+				E1AD1EF526431E1A0086BC84 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -331,6 +389,17 @@
 			path = Experiment;
 			sourceTree = "<group>";
 		};
+		E1AD1EF726431E1A0086BC84 /* ParkinsonsWidget */ = {
+			isa = PBXGroup;
+			children = (
+				E1AD1EF826431E1A0086BC84 /* ParkinsonsWidget.swift */,
+				E1AD1EFA26431E1A0086BC84 /* ParkinsonsWidget.intentdefinition */,
+				E1AD1EFB26431E1C0086BC84 /* Assets.xcassets */,
+				E1AD1EFD26431E1C0086BC84 /* Info.plist */,
+			);
+			path = ParkinsonsWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -341,17 +410,38 @@
 				E10BEEC12641FE0B00317E38 /* Sources */,
 				E10BEEC22641FE0B00317E38 /* Frameworks */,
 				E10BEEC32641FE0B00317E38 /* Resources */,
+				E1AD1F0626431E1C0086BC84 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1AD1F0126431E1C0086BC84 /* PBXTargetDependency */,
+			);
+			name = ParkinsonsApp;
+			packageProductDependencies = (
+				E1AD1EE826430BAD0086BC84 /* FirebaseFirestore */,
+				E1AD1EEA26430BAD0086BC84 /* FirebaseFirestoreSwift-Beta */,
+			);
+			productName = ParkinsonsApp;
+			productReference = E10BEEC52641FE0B00317E38 /* ParkinsonsApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E1AD1EF126431E1A0086BC84 /* ParkinsonsWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1AD1F0326431E1C0086BC84 /* Build configuration list for PBXNativeTarget "ParkinsonsWidgetExtension" */;
+			buildPhases = (
+				E1AD1EEE26431E1A0086BC84 /* Sources */,
+				E1AD1EEF26431E1A0086BC84 /* Frameworks */,
+				E1AD1EF026431E1A0086BC84 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = ParkinsonsApp;
-			packageProductDependencies = (
-			);
-			productName = ParkinsonsApp;
-			productReference = E10BEEC52641FE0B00317E38 /* ParkinsonsApp.app */;
-			productType = "com.apple.product-type.application";
+			name = ParkinsonsWidgetExtension;
+			productName = ParkinsonsWidgetExtension;
+			productReference = E1AD1EF226431E1A0086BC84 /* ParkinsonsWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -363,6 +453,9 @@
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					E10BEEC42641FE0B00317E38 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+					E1AD1EF126431E1A0086BC84 = {
 						CreatedOnToolsVersion = 12.5;
 					};
 				};
@@ -377,12 +470,14 @@
 			);
 			mainGroup = E10BEEBC2641FE0B00317E38;
 			packageReferences = (
+				E1AD1EE726430BAD0086BC84 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = E10BEEC62641FE0B00317E38 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				E10BEEC42641FE0B00317E38 /* ParkinsonsApp */,
+				E1AD1EF126431E1A0086BC84 /* ParkinsonsWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -414,6 +509,15 @@
 				E10BEF00264200C000317E38 /* Poppins-Medium.ttf in Resources */,
 				E10BEED22641FE0C00317E38 /* Preview Assets.xcassets in Resources */,
 				E10BEECF2641FE0C00317E38 /* Assets.xcassets in Resources */,
+				E1AD1EED26430C1D0086BC84 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1AD1EF026431E1A0086BC84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1AD1EFC26431E1C0086BC84 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +534,7 @@
 				E10BEF4526420B6200317E38 /* MagnifierRect.swift in Sources */,
 				E10BEF1A264205B800317E38 /* ChartView.swift in Sources */,
 				E10BEF3826420B6200317E38 /* BarChartView.swift in Sources */,
+				E1AD1EFF26431E1C0086BC84 /* ParkinsonsWidget.intentdefinition in Sources */,
 				E10BEF0F2642014300317E38 /* CardView.swift in Sources */,
 				E10BEF4026420B6200317E38 /* PieChartView.swift in Sources */,
 				E10BEF3B26420B6200317E38 /* BarChartCell.swift in Sources */,
@@ -465,7 +570,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E1AD1EEE26431E1A0086BC84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1AD1EFE26431E1C0086BC84 /* ParkinsonsWidget.intentdefinition in Sources */,
+				E1AD1EF926431E1A0086BC84 /* ParkinsonsWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E1AD1F0126431E1C0086BC84 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1AD1EF126431E1A0086BC84 /* ParkinsonsWidgetExtension */;
+			targetProxy = E1AD1F0026431E1C0086BC84 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E10BEED32641FE0C00317E38 /* LaunchScreen.storyboard */ = {
@@ -598,6 +720,7 @@
 		E10BEEDA2641FE0C00317E38 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ParkinsonsApp/ParkinsonsApp.entitlements;
@@ -620,6 +743,7 @@
 		E10BEEDB2641FE0C00317E38 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ParkinsonsApp/ParkinsonsApp.entitlements;
@@ -634,6 +758,50 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Ai.ParkinsonsApp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E1AD1F0426431E1C0086BC84 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MC27HKM86M;
+				INFOPLIST_FILE = ParkinsonsWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Ai.ParkinsonsApp2.ParkinsonsWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E1AD1F0526431E1C0086BC84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MC27HKM86M;
+				INFOPLIST_FILE = ParkinsonsWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Ai.ParkinsonsApp2.ParkinsonsWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -660,7 +828,40 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		E1AD1F0326431E1C0086BC84 /* Build configuration list for PBXNativeTarget "ParkinsonsWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1AD1F0426431E1C0086BC84 /* Debug */,
+				E1AD1F0526431E1C0086BC84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E1AD1EE726430BAD0086BC84 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E1AD1EE826430BAD0086BC84 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1AD1EE726430BAD0086BC84 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		E1AD1EEA26430BAD0086BC84 /* FirebaseFirestoreSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1AD1EE726430BAD0086BC84 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreSwift-Beta";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E10BEEBD2641FE0B00317E38 /* Project object */;
 }

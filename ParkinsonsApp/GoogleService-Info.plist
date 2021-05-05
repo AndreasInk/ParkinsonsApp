@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>164691172151-f64iip0pdkeqjg0rnutmcaspl2a6tc8f.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.164691172151-f64iip0pdkeqjg0rnutmcaspl2a6tc8f</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB8aAkG3xuU-C5cT_Mk41zGlTCWY_uu9iw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>164691172151</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.2020.pd-social</string>
+	<key>PROJECT_ID</key>
+	<string>pd-social</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pd-social.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:164691172151:ios:54a140dff331720a1858b2</string>
+	<key>DATABASE_URL</key>
+	<string>https://pd-social.firebaseio.com</string>
+</dict>
+</plist>
