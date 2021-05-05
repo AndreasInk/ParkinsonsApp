@@ -14,6 +14,7 @@ struct DataView: View {
     @State var length = ChartData(values: [("", 0.0)])
     @State var tremor = ChartData(values: [("", 0.0)])
     @State var score = ChartData(values: [("", 0.0)])
+    @State var habits = ChartData(values: [("", 0.0)])
     @State var gridButton: GridButton
     @State private var date = Date()
     @State var ready = false
@@ -222,6 +223,55 @@ struct DataView: View {
             DayChartView(title: "Walking Speed", chartData: $score, refresh: $refresh)
         case "Steps":
             DayChartView(title: "Steps", chartData: $score, refresh: $refresh)
+            
+        case "Score and Habits":
+            VStack {
+                DatePicker("", selection: $date, displayedComponents: .date)
+                    .datePickerStyle(CompactDatePickerStyle())
+                    .padding()
+                    .onChange(of: date, perform: { value in
+                        // ready = false
+                        refresh = true
+                        loadData  { (score) in
+                            
+                            
+                        }
+                        max.points.removeAll()
+                        let filtered2 = length.points.filter { word in
+                            return word.0 != "NA"
+                        }
+                        print(filtered2)
+                        let average = average(numbers: filtered2.map {$0.1})
+                       let minScore = filtered2.map {$0.1}.max()
+                        let filtered = filtered2.filter { word in
+                            return word.1 == minScore
+                        }
+                        
+                       
+                        max.points.append((String("Average"), average))
+                        max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
+                        
+                        maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
+                        print(days)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            withAnimation(.easeInOut) {
+                        refresh = false
+                            }
+                        }
+                    })
+                HStack {
+                Text("Score and Habits")
+                    .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
+                    Spacer()
+                }
+                DayChartView(title: "Score", chartData: $score, refresh: $refresh)
+       
+             
+                    DayChartView(title: "Habits", chartData: $habits, refresh: $refresh)
+               
+                
+            } .padding()
+            .transition(.opacity)
         default:
             DayChartView(title: "Score", chartData: $score, refresh: $refresh)
         }
@@ -236,6 +286,7 @@ struct DataView: View {
         length.points.removeAll()
         tremor.points.removeAll()
         score.points.removeAll()
+        habits.points.removeAll()
         print("DATE")
         print(date.get(.day))
         let filtered = days.filter { b in
@@ -244,8 +295,40 @@ struct DataView: View {
                    print(date.get(.day))
             return b.walkingSpeed.last?.date.get(.day) ?? 0 == date.get(.day)
         }
+        let filtered2 = days.filter { b in
+            print("bsnjhdjhduhsduhsduhd")
+           
+            return b.habit.last?.date.get(.day) ?? 0 == date.get(.day)
+        }
         print(filtered)
         let day = filtered.last ?? Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0)
+        let day2 = filtered2.last ?? Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0)
+        let components22 = date.get(.day, .month, .year, .hour)
+        let components222 = day2.habit.last?.date.get(.day, .month, .year, .hour)
+    if let today = components222?.day, let month = components222?.month, let year = components222?.year, let hour = components222?.hour {
+        if let today2 = components22.day, let month2 = components22.month, let year2 = components22.year {
+            print("day: \(day), month: \(month), year: \(year)")
+        
+        if "\(today)" + "\(month)" + "\(year)" == "\(today2)" + "\(month2)" +  "\(year2)" {
+            print(176276327627623)
+        for i in 0...23 {
+           
+           
+           // if !balance.points.isEmpty {
+                let filtered = day2.habit.filter { b in
+                    return b.date.get(.hour) == i
+                }
+              
+            
+            habits.points.append((String(filtered.last?.date.get(.hour) ?? 0 ), Double(filtered.count)))
+                
+               
+               
+        }
+        }
+        }
+    }
+
             print(1)
             let components = date.get(.day, .month, .year, .hour)
             let components2 = day.walkingSpeed.last?.date.get(.day, .month, .year, .hour)
@@ -324,6 +407,8 @@ struct DataView: View {
                         previousHour = hour
                     
                 }
+                
+               
 //                var dates4 = day.score.map { $0.date }
 //                var previousHour4 = -1
 //                for i in 0...23 {
@@ -363,6 +448,7 @@ struct DataView: View {
                 let filtered3 = day.walkingSpeed.filter { b in
                     return b.date.get(.hour) == i
                 }
+                
                 if filtered.count > 0 {
                 getLocalScore(double: average(numbers: filtered.map {$0.value}), speed: average(numbers: filtered3.map {$0.speed}), length:  average(numbers: filtered2.map {$0.length})) { (score) in
                     self.score.points.append((String(i), score.prediction))
@@ -375,7 +461,12 @@ struct DataView: View {
                 
             }
         }
+        refresh = true
         ready = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            refresh = false
+        }
     
     }
     func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {

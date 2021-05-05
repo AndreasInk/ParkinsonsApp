@@ -16,6 +16,9 @@ struct ExperimentView: View {
     @State var showAddHabit = true
     @State var refresh = false
     @State var addPost = false
+    @State var moreData = false
+    
+    @State var days = [Day]()
     var body: some View {
         VStack {
             ScrollView {
@@ -28,9 +31,18 @@ struct ExperimentView: View {
             .onAppear() {
                 if let thisWeek = experiment.week.last {
                 week = thisWeek
+                    days.append(week.mon)
+                    days.append(week.tue)
+                    days.append(week.wed)
+                    days.append(week.thur)
+                    days.append(week.fri)
+                    days.append(week.sat)
+                    days.append(week.sun)
+                    print(days)
                 }
-                
+               
             }
+           
             HStack {
             Text(experiment.description)
                 .font(.custom("Poppins-Bold", size: 16, relativeTo: .subheadline))
@@ -44,6 +56,7 @@ struct ExperimentView: View {
                 if showAddHabit {
                 if experiment.users.map{$0.id}.contains(user.id) {
                 Button(action: {
+                    #warning("Fix dates of the week")
                     experiment.habit.append(Habit(id: UUID(), title: "Run", date: Date()))
                    
                     for habit in experiment.habit {
@@ -122,11 +135,28 @@ struct ExperimentView: View {
                 }
             }
             .padding(.bottom)
+                    
                     HStack {
                     Text("Score Progress")
                         .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
                         Spacer()
-                    }
+                        
+                        Button(action: {
+                           
+                            moreData = true
+                        }) {
+                            HStack {
+                            Image(systemName: "chart.bar")
+                                .padding()
+                                .font(.headline)
+                                .foregroundColor(Color("blue"))
+                                Text("More Data")
+                                    .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                            }
+                        }
+                    } .sheet(isPresented: $moreData, content: {
+                        DataView(days: $days, gridButton: GridButton(title: "Score and Habits", image: Image("")))
+                    })
                     WeekChartView(week: $week)
                     HStack {
                     Text("Habit Progress")
@@ -134,10 +164,20 @@ struct ExperimentView: View {
                         Spacer()
                     }
                     HabitWeekChartView(week: $week)
+                        .onAppear() {
+                            days.append(week.mon)
+                            days.append(week.tue)
+                            days.append(week.wed)
+                            days.append(week.thur)
+                            days.append(week.fri)
+                            days.append(week.sat)
+                            days.append(week.sun)
+                        }
                     if experiment.users.map{$0.id}.contains(user.id) {
                     HStack {
                         Spacer()
                         Button(action: {
+                          
                             addPost = true
                         }) {
                             HStack {
