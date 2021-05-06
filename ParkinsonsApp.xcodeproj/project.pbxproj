@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D6AC752826446717008DD701 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AC752726446717008DD701 /* OnboardingView.swift */; };
 		E10BEEC92641FE0B00317E38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEEC82641FE0B00317E38 /* AppDelegate.swift */; };
 		E10BEECB2641FE0B00317E38 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEECA2641FE0B00317E38 /* SceneDelegate.swift */; };
 		E10BEECD2641FE0B00317E38 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEECC2641FE0B00317E38 /* ContentView.swift */; };
@@ -133,6 +134,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D6AC752726446717008DD701 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		E10BEEC52641FE0B00317E38 /* ParkinsonsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParkinsonsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E10BEEC82641FE0B00317E38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E10BEECA2641FE0B00317E38 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -240,6 +242,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D6AC7526264466FA008DD701 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				D6AC752726446717008DD701 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		E10BEEBC2641FE0B00317E38 = {
 			isa = PBXGroup;
 			children = (
@@ -290,6 +300,7 @@
 		E10BEEE42641FF1F00317E38 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D6AC7526264466FA008DD701 /* Onboarding */,
 				E10BEECC2641FE0B00317E38 /* ContentView.swift */,
 				E184963B2644375500A69834 /* ButtonStyles */,
 				E10BEF4D2642DF2600317E38 /* Home */,
@@ -665,6 +676,7 @@
 				E10BEF502642DF6700317E38 /* ExperimentView.swift in Sources */,
 				E10BEECD2641FE0B00317E38 /* ContentView.swift in Sources */,
 				E184963526442D7600A69834 /* SettingsRow.swift in Sources */,
+				D6AC752826446717008DD701 /* OnboardingView.swift in Sources */,
 				E1AD1F11264367650086BC84 /* WidgetPreview.swift in Sources */,
 				E10BEEDD2641FE9600317E38 /* Data.swift in Sources */,
 			);
