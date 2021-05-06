@@ -92,6 +92,7 @@
 		E13A18CA26436E1900FC66B0 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEEF264200C000317E38 /* Poppins-ExtraBoldItalic.ttf */; };
 		E13A18CB26436E1900FC66B0 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEF9264200C000317E38 /* Poppins-Italic.ttf */; };
 		E13A18CC26436E1900FC66B0 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEEE264200C000317E38 /* Poppins-SemiBoldItalic.ttf */; };
+		E13A18CF2643868D00FC66B0 /* NiceNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = E13A18CE2643868D00FC66B0 /* NiceNotifications */; };
 		E1AD1EE42642E3810086BC84 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EE32642E3810086BC84 /* PostView.swift */; };
 		E1AD1EE62642EE8E0086BC84 /* CreateExperimentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */; };
 		E1AD1EE926430BAD0086BC84 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E1AD1EE826430BAD0086BC84 /* FirebaseFirestore */; };
@@ -216,6 +217,7 @@
 			files = (
 				E1AD1EEB26430BAD0086BC84 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				E10BEF22264208B800317E38 /* HealthKit.framework in Frameworks */,
+				E13A18CF2643868D00FC66B0 /* NiceNotifications in Frameworks */,
 				E1AD1EE926430BAD0086BC84 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +467,7 @@
 			packageProductDependencies = (
 				E1AD1EE826430BAD0086BC84 /* FirebaseFirestore */,
 				E1AD1EEA26430BAD0086BC84 /* FirebaseFirestoreSwift-Beta */,
+				E13A18CE2643868D00FC66B0 /* NiceNotifications */,
 			);
 			productName = ParkinsonsApp;
 			productReference = E10BEEC52641FE0B00317E38 /* ParkinsonsApp.app */;
@@ -515,6 +518,7 @@
 			mainGroup = E10BEEBC2641FE0B00317E38;
 			packageReferences = (
 				E1AD1EE726430BAD0086BC84 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				E13A18CD2643868D00FC66B0 /* XCRemoteSwiftPackageReference "NiceNotifications" */,
 			);
 			productRefGroup = E10BEEC62641FE0B00317E38 /* Products */;
 			projectDirPath = "";
@@ -910,6 +914,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E13A18CD2643868D00FC66B0 /* XCRemoteSwiftPackageReference "NiceNotifications" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nicephoton/NiceNotifications.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = "0.0.2-alpha";
+			};
+		};
 		E1AD1EE726430BAD0086BC84 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -921,6 +933,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E13A18CE2643868D00FC66B0 /* NiceNotifications */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E13A18CD2643868D00FC66B0 /* XCRemoteSwiftPackageReference "NiceNotifications" */;
+			productName = NiceNotifications;
+		};
 		E1AD1EE826430BAD0086BC84 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E1AD1EE726430BAD0086BC84 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

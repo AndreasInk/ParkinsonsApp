@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "DateBuilder",
+        "repositoryURL": "https://github.com/nicephoton/DateBuilder",
+        "state": {
+          "branch": null,
+          "revision": "69e57ecbfcea2ae863e8dd74ead60399321407f5",
+          "version": "0.0.5"
+        }
+      },
+      {
         "package": "Firebase",
         "repositoryURL": "https://github.com/firebase/firebase-ios-sdk.git",
         "state": {
@@ -89,6 +98,15 @@
           "branch": null,
           "revision": "7ee9ef9f627d85cbe1b8c4f49a3ed26eed216c77",
           "version": "2.30908.0"
+        }
+      },
+      {
+        "package": "NiceNotifications",
+        "repositoryURL": "https://github.com/nicephoton/NiceNotifications.git",
+        "state": {
+          "branch": null,
+          "revision": "caabc57c2e5c110a3a76fa73ca1bb0e4a9961a9b",
+          "version": "0.0.2-alpha"
         }
       },
       {

@@ -10,13 +10,28 @@ import Firebase
 import HealthKit
 import WidgetKit
 import CoreML
+import NiceNotifications
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var week = Week(id: UUID().uuidString,  sun: Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), mon:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](),  walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), tue:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), wed:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), thur:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), fri:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), sat:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0))
-    
+    var remindTimeHour = UserDefaults().array(forKey: "remindTimeHour")
+    var remindTimeMinute = UserDefaults().array(forKey: "remindTimeMinute")
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        if let remindTimeHour = remindTimeHour as? [Int] {
+            if let remindTimeMinute = remindTimeMinute as? [Int] {
+        for i in remindTimeHour {
+        LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
+            EveryDay(forDays: 7, starting: .today)
+                .at(hour: remindTimeHour[i] , minute: remindTimeMinute[i])
+                .schedule(title: "Carry Your Phone", body: "to observe your health")
+             
+        }
+        }
+            }
+        }
+        
         let readData = Set([
             HKObjectType.quantityType(forIdentifier: .walkingSpeed)!,
             HKObjectType.quantityType(forIdentifier: .walkingStepLength)!,
@@ -46,6 +61,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
                             let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
+                            if score.prediction == 1.0 {
+                             
+                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
+                                    EveryDay(forDays: 1, starting: .today)
+                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
+                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
+                                }
+                            }
                             WidgetCenter.shared.reloadAllTimelines()
                         }
                     }
@@ -59,6 +82,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
                             let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
+                            
+                            if score.prediction == 1.0 {
+                             
+                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
+                                    EveryDay(forDays: 1, starting: .today)
+                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
+                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
+                                }
+                            }
                             WidgetCenter.shared.reloadAllTimelines()
                         }
                     }
@@ -73,6 +105,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
                             let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
+                            if score.prediction == 1.0 {
+                             
+                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
+                                    EveryDay(forDays: 1, starting: .today)
+                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
+                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
+                                }
+                            }
                             WidgetCenter.shared.reloadAllTimelines()
                         }
                     }
@@ -87,6 +127,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
                             let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
+                            if score.prediction == 1.0 {
+                             
+                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
+                                    EveryDay(forDays: 1, starting: .today)
+                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
+                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
+                                }
+                            }
                             WidgetCenter.shared.reloadAllTimelines()
                         }
                     }
@@ -101,6 +149,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
                             let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
+                            if score.prediction == 1.0 {
+                             
+                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
+                                    EveryDay(forDays: 1, starting: .today)
+                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
+                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
+                                }
+                            }
                             WidgetCenter.shared.reloadAllTimelines()
                         }
                     }
@@ -115,6 +171,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
                             let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
+                            if score.prediction == 1.0 {
+                             
+                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
+                                    EveryDay(forDays: 1, starting: .today)
+                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
+                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
+                                }
+                            }
                             WidgetCenter.shared.reloadAllTimelines()
                         }
                     }
@@ -128,6 +192,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
                             let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
                             UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
+                            if score.prediction == 1.0 {
+                             
+                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
+                                    EveryDay(forDays: 1, starting: .today)
+                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
+                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
+                                }
+                            }
                             WidgetCenter.shared.reloadAllTimelines()
                         }
                     }
