@@ -19,9 +19,137 @@ struct HomeView: View {
     @Binding var days: [Day]
     @State var experiment = Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post]())])], week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
     @Binding var user: User
-    
+    @State var ready = false
     var body: some View {
+        ZStack {
+            
+            Color.clear
+                .onAppear() {
+                    
+                    do {
+                        let double = week.mon.balance.map({ $0.value })
+                        
+                        let speed = week.mon.walkingSpeed.map({ $0.speed })
+                        let length = week.mon.strideLength.map({ $0.length })
+                        
+                        
+                        
+                        getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
+                            week.mon.totalScore = score.prediction
+                            if week.mon.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
+                                // progressValue = score.prediction
+                            }
+                        }
+                        
+                    }
+                    do {
+                        let double = week.tue.balance.map({ $0.value })
+                        let speed = week.tue.walkingSpeed.map({ $0.speed })
+                        let length = week.tue.strideLength.map({ $0.length })
+                        
+                        
+                        
+                        getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
+                            week.tue.totalScore = score.prediction
+                            if week.tue.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
+                                // progressValue = score.prediction
+                            }
+                        }
+                        
+                        
+                    }
+                    do {
+                        let double = week.wed.balance.map({ $0.value })
+                        let speed = week.wed.walkingSpeed.map({ $0.speed })
+                        let length = week.wed.strideLength.map({ $0.length })
+                        
+                        
+                        
+                        
+                        getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
+                            week.wed.totalScore = score.prediction
+                            if week.wed.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
+                                //progressValue = score.prediction
+                            }
+                        }
+                        
+                        
+                        
+                    }
+                    do {
+                        let double = week.thur.balance.map({ $0.value })
+                        let speed = week.thur.walkingSpeed.map({ $0.speed })
+                        let length = week.thur.strideLength.map({ $0.length })
+                        
+                        
+                        
+                        getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
+                            week.thur.totalScore = score.prediction
+                            if week.thur.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
+                                // progressValue = score.prediction
+                            }
+                        }
+                        
+                    }
+                    do {
+                        let double = week.fri.balance.map({ $0.value })
+                        let speed = week.fri.walkingSpeed.map({ $0.speed })
+                        let length = week.fri.strideLength.map({ $0.length })
+                        
+                        
+                        
+                        getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
+                            week.fri.totalScore = score.prediction
+                            if week.fri.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
+                                // progressValue = score.prediction
+                            }
+                        }
+                        
+                    }
+                    do {
+                        let double = week.sat.balance.map({ $0.value })
+                        let speed = week.sat.walkingSpeed.map({ $0.speed })
+                        let length = week.sat.strideLength.map({ $0.length })
+                        
+                        
+                        
+                        getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
+                            week.sat.totalScore = score.prediction
+                            if week.sat.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
+                                //  progressValue = score.prediction
+                            }
+                        }
+                        
+                        
+                    }
+                    do {
+                        let double = week.sun.balance.map({ $0.value })
+                        let speed = week.sun.walkingSpeed.map({ $0.speed })
+                        let length = week.sun.strideLength.map({ $0.length })
+                        
+                        
+                        
+                        
+                        getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
+                            week.sun.totalScore = score.prediction
+                            if week.sun.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
+                                // progressValue = score.prediction
+                            }
+                        }
+                        
+                        
+                    }
+                    self.loadPopularExperiments() { experiments in
+                        
+                        experiment = experiments.first ?? experiment
+                            ready = true
+                    
+                    }
+                }
+                
+                
         ScrollView {
+            if ready {
             VStack {
                 HStack {
                     Text(welcome.randomElement() ?? "Hello there!")
@@ -30,126 +158,7 @@ struct HomeView: View {
                         .foregroundColor(Color("blue"))
                         .padding(.horizontal)
                     Spacer()
-                        .onAppear() {
-                            self.loadPopularExperiments() { experiments in
-                                experiment = experiments.first ?? experiment
-                            }
-                            do {
-                                let double = week.mon.balance.map({ $0.value })
-                                
-                                let speed = week.mon.walkingSpeed.map({ $0.speed })
-                                let length = week.mon.strideLength.map({ $0.length })
-                                
-                                
-                                
-                                getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                                    week.mon.totalScore = score.prediction
-                                    if week.mon.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                                        // progressValue = score.prediction
-                                    }
-                                }
-                                
-                            }
-                            do {
-                                let double = week.tue.balance.map({ $0.value })
-                                let speed = week.tue.walkingSpeed.map({ $0.speed })
-                                let length = week.tue.strideLength.map({ $0.length })
-                                
-                                
-                                
-                                getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                                    week.tue.totalScore = score.prediction
-                                    if week.tue.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                                        // progressValue = score.prediction
-                                    }
-                                }
-                                
-                                
-                            }
-                            do {
-                                let double = week.wed.balance.map({ $0.value })
-                                let speed = week.wed.walkingSpeed.map({ $0.speed })
-                                let length = week.wed.strideLength.map({ $0.length })
-                                
-                                
-                                
-                                
-                                getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                                    week.wed.totalScore = score.prediction
-                                    if week.wed.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                                        //progressValue = score.prediction
-                                    }
-                                }
-                                
-                                
-                                
-                            }
-                            do {
-                                let double = week.thur.balance.map({ $0.value })
-                                let speed = week.thur.walkingSpeed.map({ $0.speed })
-                                let length = week.thur.strideLength.map({ $0.length })
-                                
-                                
-                                
-                                getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                                    week.thur.totalScore = score.prediction
-                                    if week.thur.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                                        // progressValue = score.prediction
-                                    }
-                                }
-                                
-                            }
-                            do {
-                                let double = week.fri.balance.map({ $0.value })
-                                let speed = week.fri.walkingSpeed.map({ $0.speed })
-                                let length = week.fri.strideLength.map({ $0.length })
-                                
-                                
-                                
-                                getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                                    week.fri.totalScore = score.prediction
-                                    if week.fri.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                                        // progressValue = score.prediction
-                                    }
-                                }
-                                
-                            }
-                            do {
-                                let double = week.sat.balance.map({ $0.value })
-                                let speed = week.sat.walkingSpeed.map({ $0.speed })
-                                let length = week.sat.strideLength.map({ $0.length })
-                                
-                                
-                                
-                                getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                                    week.sat.totalScore = score.prediction
-                                    if week.sat.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                                        //  progressValue = score.prediction
-                                    }
-                                }
-                                
-                                
-                            }
-                            do {
-                                let double = week.sun.balance.map({ $0.value })
-                                let speed = week.sun.walkingSpeed.map({ $0.speed })
-                                let length = week.sun.strideLength.map({ $0.length })
-                                
-                                
-                                
-                                
-                                getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                                    week.sun.totalScore = score.prediction
-                                    if week.sun.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                                        // progressValue = score.prediction
-                                    }
-                                }
-                                
-                                
-                            }
-                            
-                            
-                        }
+                        
                     Button(action: {
                         social.toggle()
                     }) {
@@ -183,13 +192,17 @@ struct HomeView: View {
                     days.append(week.sun)
                 }
                 //CardView()
+                
                 ButtonGridView(days: $days)
-                
+                    
                 ExperimentCard(user: $user, experiment: $experiment)
-                
+                    
                 WeekChartView(week: $week)
-                
+                   
             }
+            
+        }
+        }
         }
         
     }

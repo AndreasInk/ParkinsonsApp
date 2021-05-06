@@ -50,7 +50,7 @@ struct DataView: View {
             VStack {
                 ScrollView {
                     
-                    if !refresh {
+                    
                         switch gridButton.title {
                         case "Score":
                             VStack {
@@ -59,6 +59,7 @@ struct DataView: View {
                                     .padding()
                                     .onChange(of: date, perform: { value in
                                         // ready = false
+                                        
                                         refresh = true
                                         loadData  { (score) in
                                             
@@ -94,20 +95,26 @@ struct DataView: View {
                                         .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
                                     Spacer()
                                 }
-                                DayChartView(title: "Score", chartData: $score, refresh: $refresh)
+                                if !refresh {
+                                DayChartView(title: "Score", chartData: $score, refresh: refresh)
                                 Text("Overtime your score may change depending on how you are feeling, use your score with your doctor to determine what habits are working best to improve your health, generally a higher score indicates poorer health.")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                                
+                                
                                 if max.points.last?.1 != max.points.first?.1 {
-                                    DayChartView(title: "Score", chartData: $max, refresh: $refresh)
+                                    DayChartView(title: "Score", chartData: $max, refresh: refresh)
                                     Text(maxText)
                                         .multilineTextAlignment(.leading)
                                         .fixedSize(horizontal: false, vertical: true)
                                         .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
                                 }
+                                }
+                                    
+                                    
                             } .padding()
-                            .transition(.opacity)
+                            .transition(.slide)
                             
                         case "Balance":
                             VStack {
@@ -149,17 +156,19 @@ struct DataView: View {
                                         .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
                                     Spacer()
                                 }
-                                DayChartView(title: "Balance", chartData: $balance, refresh: $refresh)
+                                if !refresh {
+                                DayChartView(title: "Balance", chartData: $balance, refresh: refresh)
                                 Text("Overtime your balance may change depending on how you are feeling, use your score with your doctor to determine what habits are working best to improve your health, generally a higher balance value indicates poorer health.")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
                                 if max.points.last?.1 != max.points.first?.1 {
-                                    DayChartView(title: "Balance", chartData: $max, refresh: $refresh)
+                                    DayChartView(title: "Balance", chartData: $max, refresh: refresh)
                                     Text(maxText)
                                         .multilineTextAlignment(.leading)
                                         .fixedSize(horizontal: false, vertical: true)
                                         .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                                }
                                 }
                             } .padding()
                             .transition(.opacity)
@@ -204,25 +213,27 @@ struct DataView: View {
                                         .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
                                     Spacer()
                                 }
-                                DayChartView(title: "Step Length", chartData: $length, refresh: $refresh)
+                                if !refresh {
+                                DayChartView(title: "Step Length", chartData: $length, refresh: refresh)
                                 Text("Overtime your balance may change depending on how you are feeling, use your score with your doctor to determine what habits are working best to improve your health, generally a higher balance value indicates poorer health.")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
                                 if max.points.last?.1 != max.points.first?.1 {
-                                    DayChartView(title: "Step Length", chartData: $max, refresh: $refresh)
+                                    DayChartView(title: "Step Length", chartData: $max, refresh: refresh)
                                     Text(maxText)
                                         .multilineTextAlignment(.leading)
                                         .fixedSize(horizontal: false, vertical: true)
                                         .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
                                 }
+                                }
                             } .padding()
                             .transition(.opacity)
                             
                         case "Speed":
-                            DayChartView(title: "Walking Speed", chartData: $score, refresh: $refresh)
+                            DayChartView(title: "Walking Speed", chartData: $score, refresh: refresh)
                         case "Steps":
-                            DayChartView(title: "Steps", chartData: $score, refresh: $refresh)
+                            DayChartView(title: "Steps", chartData: $score, refresh: refresh)
                             
                         case "Score and Habits":
                             VStack {
@@ -264,19 +275,19 @@ struct DataView: View {
                                         .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
                                     Spacer()
                                 }
-                                DayChartView(title: "Score", chartData: $score, refresh: $refresh)
+                                DayChartView(title: "Score", chartData: $score, refresh: refresh)
                                 
                                 
-                                DayChartView(title: "Habits", chartData: $habits, refresh: $refresh)
+                                DayChartView(title: "Habits", chartData: $habits, refresh: refresh)
                                 
                                 
                             } .padding()
                             .transition(.opacity)
                         default:
-                            DayChartView(title: "Score", chartData: $score, refresh: $refresh)
+                            DayChartView(title: "Score", chartData: $score, refresh: refresh)
                         }
                     }
-                }
+                
             }
         }
     }

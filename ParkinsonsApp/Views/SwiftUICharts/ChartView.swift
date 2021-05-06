@@ -48,7 +48,7 @@ struct HabitWeekChartView: View {
 struct DayChartView: View {
     @State var title: String
     @Binding var chartData: ChartData
-    @Binding var refresh: Bool
+    @State var refresh: Bool = false
     var body: some View {
         return  BarChartView(data: $chartData , title: title, legend: "", refresh: $refresh)
     }
