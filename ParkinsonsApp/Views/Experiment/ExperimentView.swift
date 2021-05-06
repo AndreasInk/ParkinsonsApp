@@ -208,7 +208,10 @@ struct ExperimentView: View {
                 }
             if !experiment.users.map{$0.id}.contains(user.id) {
                 Button(action: {
-                    
+                    experiment.users.append(user)
+                    experiment.usersIDs.append(user.id.uuidString)
+                    user.experiments.append(experiment)
+                    saveExperiment()
                 }) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 25.0)

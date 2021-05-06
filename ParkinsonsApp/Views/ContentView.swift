@@ -135,7 +135,23 @@ struct ContentView: View {
                 
                 HomeView(week: $week, days: $days, user: $user)
                     .transition(.opacity)
-                    
+                    .onChange(of: user, perform: { value in
+                        let encoder = JSONEncoder()
+                        if let encoded = try? encoder.encode(user) {
+                            if let json = String(data: encoded, encoding: .utf8) {
+                              
+                                do {
+                                    let url = self.getDocumentsDirectory().appendingPathComponent("user.txt")
+                                    try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
+                                    
+                                } catch {
+                                    print("erorr")
+                                }
+                            }
+                            
+                            
+                        }
+                    })
                     .onChange(of: days, perform: { value in
                         let encoder = JSONEncoder()
                         days = days.removeDuplicates()
