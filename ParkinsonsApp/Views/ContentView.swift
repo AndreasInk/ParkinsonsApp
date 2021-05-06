@@ -187,7 +187,8 @@ struct ContentView: View {
                                         user.experiments[i].groupScore.append(PredictedScore(prediction: groupAverage, predicted_parkinsons: 0))
                                         saveExperiment(experiment: user.experiments[i])
                                     } else {
-                                        
+                                        user.experiments[i].groupScore.append(PredictedScore(prediction: userAverage, predicted_parkinsons: 0))
+                                        saveExperiment(experiment: user.experiments[i])
                                     }
                                     
                                 } else {
