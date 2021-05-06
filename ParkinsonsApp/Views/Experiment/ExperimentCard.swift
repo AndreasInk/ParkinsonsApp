@@ -47,7 +47,7 @@ struct ExperimentCard: View {
                                     .background(    RoundedRectangle(cornerRadius: 25.0)
                                                         .foregroundColor(Color("teal")))
                                 
-                            } //.buttonStyle(cardStyle())
+                            } .buttonStyle(CTAButtonStyle())
                             Spacer()
                         }
                         Spacer()

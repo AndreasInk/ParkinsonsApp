@@ -33,7 +33,7 @@ struct ButtonGridButton: View {
                 
             }.padding(.horizontal)
             
-        }
+        } .buttonStyle(GridButtonStyle())
         .sheet(isPresented: $open, content: {
             DataView(days: $days, gridButton: gridButton)
         })

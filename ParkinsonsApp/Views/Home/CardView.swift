@@ -46,7 +46,8 @@ struct CardView: View {
                                 .padding()
                                 .padding(.horizontal, 92)
                                 .background(RoundedRectangle(cornerRadius: 25.0).foregroundColor(Color("blue")))
-                        } .sheet(isPresented: $open) {
+                        } .buttonStyle(CTAButtonStyle())
+                        .sheet(isPresented: $open) {
                             if cta == "Share" {
                                 // ShareView()
                             } else if cta == "Read More" {

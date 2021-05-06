@@ -90,4 +90,12 @@ struct GridButton {
 }
 
 
+struct Setting: Codable, Hashable {
+    var title: String
+    var text: String
+    var onOff: Bool
+    var dates: [Int]?
+    var cta: String?
+}
+
 
