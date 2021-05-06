@@ -39,14 +39,14 @@ struct DataView: View {
                         return word.0 != "NA"
                     }
                    
-                    let average = average(numbers: filtered2.map {$0.1})
+                    let average2 = average(numbers: filtered2.map {$0.1})
                     let minScore = filtered2.map {$0.1}.max()
                     let filtered = filtered2.filter { word in
                         return word.1 == minScore
                     }
                     
                     
-                    max.points.append((String("Average"), average))
+                    max.points.append((String("Average"), average2))
                     max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
                     maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
                 }
@@ -74,14 +74,14 @@ struct DataView: View {
                                             return word.0 != "NA"
                                         }
                                        
-                                        let average = average(numbers: filtered2.map {$0.1})
+                                        let average2 = average(numbers: filtered2.map {$0.1})
                                         let minScore = filtered2.map {$0.1}.max()
                                         let filtered = filtered2.filter { word in
                                             return word.1 == minScore
                                         }
                                         
-                                        if average.isNormal {
-                                            max.points.append((String("Average"), average))
+                                        if average2.isNormal {
+                                            max.points.append((String("Average"), average2))
                                             max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
                                             
                                             maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
@@ -137,14 +137,14 @@ struct DataView: View {
                                             return word.0 != "NA"
                                         }
                                        
-                                        let average = average(numbers: filtered2.map {$0.1})
+                                        let average2 = average(numbers: filtered2.map {$0.1})
                                         let minScore = filtered2.map {$0.1}.max()
                                         let filtered = filtered2.filter { word in
                                             return word.1 == minScore
                                         }
                                         
                                         
-                                        max.points.append((String("Average"), average))
+                                        max.points.append((String("Average"), average2))
                                         max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
                                         
                                         maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
@@ -194,14 +194,14 @@ struct DataView: View {
                                             return word.0 != "NA"
                                         }
                                        
-                                        let average = average(numbers: filtered2.map {$0.1})
+                                        let average2 = average(numbers: filtered2.map {$0.1})
                                         let minScore = filtered2.map {$0.1}.max()
                                         let filtered = filtered2.filter { word in
                                             return word.1 == minScore
                                         }
                                         
                                         
-                                        max.points.append((String("Average"), average))
+                                        max.points.append((String("Average"), average2))
                                         max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
                                         
                                         maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
@@ -256,14 +256,14 @@ struct DataView: View {
                                             return word.0 != "NA"
                                         }
                                        
-                                        let average = average(numbers: filtered2.map {$0.1})
+                                        let average2 = average(numbers: filtered2.map {$0.1})
                                         let minScore = filtered2.map {$0.1}.max()
                                         let filtered = filtered2.filter { word in
                                             return word.1 == minScore
                                         }
                                         
                                         
-                                        max.points.append((String("Average"), average))
+                                        max.points.append((String("Average"), average2))
                                         max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
                                         
                                         maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
