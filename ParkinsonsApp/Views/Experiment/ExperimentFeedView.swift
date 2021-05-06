@@ -63,23 +63,23 @@ struct ExperimentFeedView: View {
                             .foregroundColor(i == 0 ? Color("teal") : Color(.gray).opacity(0.4))
                     } .frame(width: 100)
                     Spacer()
-                    Button(action: {
-                        if !refresh {
-                            i = 1
-                            refresh = true
-                            
-                            self.loadPopularExperiments() { experiments in
-                                self.experiments = experiments
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    refresh = false
-                                }
-                            }
-                        }
-                    }) {
-                        Text("Popular")
-                            .font(.custom("Poppins-Bold", size: 16, relativeTo: .subheadline))
-                            .foregroundColor(i == 1 ? Color("teal") : Color(.gray).opacity(0.4))
-                    } .frame(width: 100)
+//                    Button(action: {
+//                        if !refresh {
+//                            i = 1
+//                            refresh = true
+//                            
+//                            self.loadPopularExperiments() { experiments in
+//                                self.experiments = experiments
+//                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//                                    refresh = false
+//                                }
+//                            }
+//                        }
+//                    }) {
+//                        Text("Popular")
+//                            .font(.custom("Poppins-Bold", size: 16, relativeTo: .subheadline))
+//                            .foregroundColor(i == 1 ? Color("teal") : Color(.gray).opacity(0.4))
+//                    } .frame(width: 100)
                     Spacer()
                     Button(action: {
                         if !refresh {

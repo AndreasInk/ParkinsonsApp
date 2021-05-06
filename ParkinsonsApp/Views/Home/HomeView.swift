@@ -22,6 +22,7 @@ struct HomeView: View {
     @State var ready = false
     @State var isTutorial = false
     @State var tutorialNum = 0
+    @Binding var settings2: [Setting]
     var body: some View {
         ZStack {
             
@@ -181,7 +182,7 @@ struct HomeView: View {
                             .padding()
                     }  .opacity(isTutorial ? (tutorialNum == 4 ? 1.0 : 0.1) : 1.0)
                     .sheet(isPresented: $settings, content: {
-                        SettingsView()
+                        SettingsView(settings: $settings2)
                     })
                 }
                 

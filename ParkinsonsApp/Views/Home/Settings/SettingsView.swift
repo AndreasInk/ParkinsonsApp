@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State var settings = [Setting(title: "Notifications", text: "We'll send notifications to remind you to keep your phone in your pocket to gain insights and send updates on habits", onOff: true, dates: [9]), Setting(title: "Accessability", text: "Enable these features to make it easier to use the app", onOff: true), Setting(title: "Customize Your Widget", text: "You track your score on your home screen with widgets", onOff: true), Setting(title: "Share Your Experience", text: "By sharing your experience with the app, we can make it even better!  ", onOff: true), Setting(title: "Share Your Data", text: "By sharing your data, we can make scoring even better!  ", onOff: true), Setting(title: "Share With Your Doctor", text: "Export your data to your doctor to give important insights to your doctor to help you.", onOff: true)]
+    @Binding var settings: [Setting]
 
     var body: some View {
         ScrollView {
@@ -17,15 +17,37 @@ struct SettingsView: View {
                 SettingsRow(setting: $settings[i])
                 Divider()
             }
+            .onChange(of: settings, perform: { value in
+                let encoder = JSONEncoder()
+                settings = settings.removeDuplicates()
+                if let encoded = try? encoder.encode(settings.removeDuplicates()) {
+                    if let json = String(data: encoded, encoding: .utf8) {
+                        
+                        do {
+                            let url = self.getDocumentsDirectory().appendingPathComponent("settings.txt")
+                            try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
+                            
+                        } catch {
+                            print("erorr")
+                        }
+                    }
+                    
+                    
+                }
+            })
             Spacer()
         }
            
         }
     }
-}
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
+    func getDocumentsDirectory() -> URL {
+        // find all possible documents directories for this user
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        
+        // just send back the first one, which ought to be the only one
+        return paths[0]
     }
 }
+
+
+

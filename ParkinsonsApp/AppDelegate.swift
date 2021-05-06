@@ -15,22 +15,13 @@ import NiceNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var week = Week(id: UUID().uuidString,  sun: Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), mon:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](),  walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), tue:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), wed:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), thur:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), fri:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), sat:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0))
-    var remindTimeHour = UserDefaults().array(forKey: "remindTimeHour")
-    var remindTimeMinute = UserDefaults().array(forKey: "remindTimeMinute")
+    
+  
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
-        if let remindTimeHour = remindTimeHour as? [Int] {
-            if let remindTimeMinute = remindTimeMinute as? [Int] {
-        for i in remindTimeHour {
-        LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-            EveryDay(forDays: 7, starting: .today)
-                .at(hour: remindTimeHour[i] , minute: remindTimeMinute[i])
-                .schedule(title: "Carry Your Phone", body: "to observe your health")
-             
-        }
-        }
-            }
-        }
+     
+       
+       
         
         let readData = Set([
             HKObjectType.quantityType(forIdentifier: .walkingSpeed)!,
@@ -722,6 +713,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         healthStore.execute(query4)
     }
+func getDocumentsDirectory() -> URL {
+    // find all possible documents directories for this user
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    
+    // just send back the first one, which ought to be the only one
+    return paths[0]
+}
     // MARK: UISceneSession Lifecycle
     func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {
         
