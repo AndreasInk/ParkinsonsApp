@@ -20,6 +20,8 @@ struct HomeView: View {
     @State var experiment = Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post]())])], week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
     @Binding var user: User
     @State var ready = false
+    @State var isTutorial = false
+    @State var tutorialNum = 0
     var body: some View {
         ZStack {
             
@@ -157,6 +159,7 @@ struct HomeView: View {
                         .font(.custom("Poppins-Bold", size: 20, relativeTo: .title))
                         .foregroundColor(Color("blue"))
                         .padding(.horizontal)
+                        .opacity(isTutorial ? (tutorialNum == -1 ? 1.0 : 0.1) : 1.0)
                     Spacer()
                         
                     Button(action: {
@@ -165,7 +168,7 @@ struct HomeView: View {
                         Image(systemName: "person.3")
                             .font(.largeTitle)
                             .padding()
-                    }
+                    }  .opacity(isTutorial ? (tutorialNum == 3 ? 1.0 : 0.1) : 1.0)
                     .sheet(isPresented: $social, content: {
                         ExperimentFeedView(user: $user)
                     })
@@ -176,7 +179,7 @@ struct HomeView: View {
                         Image(systemName: "gear")
                             .font(.largeTitle)
                             .padding()
-                    }
+                    }  .opacity(isTutorial ? (tutorialNum == 4 ? 1.0 : 0.1) : 1.0)
                     .sheet(isPresented: $settings, content: {
                         SettingsView()
                     })
@@ -193,17 +196,18 @@ struct HomeView: View {
                 }
                 //CardView()
                 
-                ButtonGridView(days: $days)
-                    
+                ButtonGridView(days: $days, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
                 ExperimentCard(user: $user, experiment: $experiment)
-                    
+                    .opacity(isTutorial ? (tutorialNum == 5 ? 1.0 : 0.1) : 1.0)
+                   
                 WeekChartView(week: $week)
+                    .opacity(isTutorial ? (tutorialNum == 6 ? 1.0 : 0.1) : 1.0)
                    
             }
             
         }
         }
-        }
+        } 
         
     }
     func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {

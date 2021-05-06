@@ -13,6 +13,9 @@ struct ButtonGridButton: View {
     @State var open = false
     
     @Binding var days: [Day]
+    
+    @Binding var tutorialNum: Int
+    @Binding var isTutorial: Bool
     var body: some View {
         
         Button(action: {
@@ -34,8 +37,9 @@ struct ButtonGridButton: View {
             }.padding(.horizontal)
             
         } .buttonStyle(GridButtonStyle())
+        
         .sheet(isPresented: $open, content: {
-            DataView(days: $days, gridButton: gridButton)
+            DataView(days: $days, gridButton: gridButton, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
         })
         
     }

@@ -23,6 +23,9 @@ struct DataView: View {
     @State var refresh = false
     @State var min =  ChartData(values: [("", 0.0)])
     @State var max =  ChartData(values: [("", 0.0)])
+    
+    @Binding var tutorialNum: Int
+    @Binding var isTutorial: Bool
     var body: some View {
         ZStack {
             Color.clear
@@ -57,6 +60,7 @@ struct DataView: View {
                                 DatePicker("", selection: $date, displayedComponents: .date)
                                     .datePickerStyle(CompactDatePickerStyle())
                                     .padding()
+                                    .opacity(isTutorial ? (tutorialNum == 1 ? 1.0 : 0.1) : 1.0)
                                     .onChange(of: date, perform: { value in
                                         // ready = false
                                         
@@ -94,14 +98,14 @@ struct DataView: View {
                                     Text("Total Score")
                                         .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
                                     Spacer()
-                                }
+                                }  .opacity(isTutorial ? (tutorialNum == 2 ? 1.0 : 0.1) : 1.0)
                                 if !refresh {
                                 DayChartView(title: "Score", chartData: $score, refresh: refresh)
                                 Text("Overtime your score may change depending on how you are feeling, use your score with your doctor to determine what habits are working best to improve your health, generally a higher score indicates poorer health.")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
-                                
+                                    .opacity(isTutorial ? (tutorialNum == 2 ? 1.0 : 0.1) : 1.0)
                                 
                                 if max.points.last?.1 != max.points.first?.1 {
                                     DayChartView(title: "Score", chartData: $max, refresh: refresh)
