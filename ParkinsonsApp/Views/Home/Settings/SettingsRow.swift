@@ -37,7 +37,7 @@ struct SettingsRow: View {
 
         } .padding()
             .sheet(isPresented: $open, content: {
-                SettingsDetailsView()
+                SettingsDetailsView(setting: $setting)
             })
     }
 }
