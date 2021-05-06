@@ -14,6 +14,9 @@ struct ExperimentFeedView: View {
     @State var experiments = [Experiment]()
     @State var add = false
     @State var refresh = false
+    
+    @Binding var tutorialNum: Int
+    @Binding var isTutorial: Bool
     var body: some View {
         ZStack {
             Color.clear
@@ -103,7 +106,7 @@ struct ExperimentFeedView: View {
                         if !refresh {
                             ForEach(experiments.reversed().indices, id: \.self) { i in
                                 if experiments.indices.contains(i) {
-                                    ExperimentCard(user: $user, experiment: $experiments[i])
+                                    ExperimentCard(user: $user, experiment: $experiments[i], tutorialNum: $tutorialNum, isTutorial: $isTutorial)
                                 } else {
                                     EmptyView()
                                         .onAppear() {

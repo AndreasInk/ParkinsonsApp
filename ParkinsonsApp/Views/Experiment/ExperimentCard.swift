@@ -13,6 +13,9 @@ struct ExperimentCard: View {
     @Binding var experiment: Experiment
     @State var open = false
     @State var disable = false
+    
+    @Binding var tutorialNum: Int
+    @Binding var isTutorial: Bool
     var body: some View {
         ZStack {
             Color("blue")
@@ -61,7 +64,7 @@ struct ExperimentCard: View {
             } .padding()
             .clipShape(RoundedRectangle(cornerRadius: 25.0))
             .sheet(isPresented: $open) {
-                ExperimentView(experiment: $experiment, user: $user)
+                ExperimentView(experiment: $experiment, user: $user, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
             }
             
         } .padding(10)

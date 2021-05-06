@@ -170,7 +170,7 @@ struct HomeView: View {
                             .padding()
                     }  .opacity(isTutorial ? (tutorialNum == 3 ? 1.0 : 0.1) : 1.0)
                     .sheet(isPresented: $social, content: {
-                        ExperimentFeedView(user: $user)
+                        ExperimentFeedView(user: $user, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
                     })
                     
                     Button(action: {
@@ -197,7 +197,7 @@ struct HomeView: View {
                 //CardView()
                 
                 ButtonGridView(days: $days, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-                ExperimentCard(user: $user, experiment: $experiment)
+                ExperimentCard(user: $user, experiment: $experiment, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
                     .opacity(isTutorial ? (tutorialNum == 5 ? 1.0 : 0.1) : 1.0)
                    
                 WeekChartView(week: $week)

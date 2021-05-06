@@ -19,6 +19,9 @@ struct ExperimentView: View {
     @State var moreData = false
     
     @State var days = [Day]()
+    
+    @Binding var tutorialNum: Int
+    @Binding var isTutorial: Bool
     var body: some View {
         VStack {
             ScrollView {
@@ -154,7 +157,7 @@ struct ExperimentView: View {
                             }
                         }
                     } .sheet(isPresented: $moreData, content: {
-                        DataView(days: $days, gridButton: GridButton(title: "Score and Habits", image: Image("")))
+                        DataView(days: $days, gridButton: GridButton(title: "Score and Habits", image: Image("")), tutorialNum: $tutorialNum, isTutorial: $isTutorial)
                     })
                     WeekChartView(week: $week)
                     HStack {
