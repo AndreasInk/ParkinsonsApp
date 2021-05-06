@@ -38,7 +38,7 @@ struct ExperimentView: View {
                             days.append(week.fri)
                             days.append(week.sat)
                             days.append(week.sun)
-                            print(days)
+                            
                         }
                         
                     }

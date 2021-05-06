@@ -66,28 +66,51 @@
 		E10BEF522642DF7500317E38 /* ExperimentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF512642DF7500317E38 /* ExperimentCard.swift */; };
 		E10BEF542642DF8500317E38 /* ExperimentFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF532642DF8500317E38 /* ExperimentFeedView.swift */; };
 		E10BEF562642E11600317E38 /* HalfCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF552642E11600317E38 /* HalfCircleView.swift */; };
+		E13A18A826436DA700FC66B0 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1AD1EF326431E1A0086BC84 /* WidgetKit.framework */; };
+		E13A18A926436DA700FC66B0 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1AD1EF526431E1A0086BC84 /* SwiftUI.framework */; };
+		E13A18AC26436DA700FC66B0 /* ParkinsonsWidgetv2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13A18AB26436DA700FC66B0 /* ParkinsonsWidgetv2.swift */; };
+		E13A18AF26436DA800FC66B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E13A18AE26436DA800FC66B0 /* Assets.xcassets */; };
+		E13A18B126436DA800FC66B0 /* ParkinsonsWidgetv2.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E13A18AD26436DA700FC66B0 /* ParkinsonsWidgetv2.intentdefinition */; };
+		E13A18B226436DA800FC66B0 /* ParkinsonsWidgetv2.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E13A18AD26436DA700FC66B0 /* ParkinsonsWidgetv2.intentdefinition */; };
+		E13A18B526436DA800FC66B0 /* ParkinsonsWidgetv2Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E13A18A726436DA700FC66B0 /* ParkinsonsWidgetv2Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E13A18BA26436E1900FC66B0 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEF6264200C000317E38 /* Poppins-Black.ttf */; };
+		E13A18BB26436E1900FC66B0 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEF4264200C000317E38 /* Poppins-LightItalic.ttf */; };
+		E13A18BC26436E1900FC66B0 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEED264200C000317E38 /* Poppins-Medium.ttf */; };
+		E13A18BD26436E1900FC66B0 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEF2264200C000317E38 /* OFL.txt */; };
+		E13A18BE26436E1900FC66B0 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEF3264200C000317E38 /* Poppins-Regular.ttf */; };
+		E13A18BF26436E1900FC66B0 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEEB264200C000317E38 /* Poppins-BoldItalic.ttf */; };
+		E13A18C026436E1900FC66B0 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEF0264200C000317E38 /* Poppins-ExtraBold.ttf */; };
+		E13A18C126436E1900FC66B0 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEF1264200C000317E38 /* Poppins-BlackItalic.ttf */; };
+		E13A18C226436E1900FC66B0 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEF8264200C000317E38 /* Poppins-SemiBold.ttf */; };
+		E13A18C326436E1900FC66B0 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEE8264200C000317E38 /* Poppins-ExtraLight.ttf */; };
+		E13A18C426436E1900FC66B0 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEF5264200C000317E38 /* Poppins-Bold.ttf */; };
+		E13A18C526436E1900FC66B0 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEFA264200C000317E38 /* Poppins-MediumItalic.ttf */; };
+		E13A18C626436E1900FC66B0 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEF7264200C000317E38 /* Poppins-Thin.ttf */; };
+		E13A18C726436E1900FC66B0 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEE9264200C000317E38 /* Poppins-ThinItalic.ttf */; };
+		E13A18C826436E1900FC66B0 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEEA264200C000317E38 /* Poppins-ExtraLightItalic.ttf */; };
+		E13A18C926436E1900FC66B0 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEEC264200C000317E38 /* Poppins-Light.ttf */; };
+		E13A18CA26436E1900FC66B0 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEEF264200C000317E38 /* Poppins-ExtraBoldItalic.ttf */; };
+		E13A18CB26436E1900FC66B0 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEF9264200C000317E38 /* Poppins-Italic.ttf */; };
+		E13A18CC26436E1900FC66B0 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEEE264200C000317E38 /* Poppins-SemiBoldItalic.ttf */; };
 		E1AD1EE42642E3810086BC84 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EE32642E3810086BC84 /* PostView.swift */; };
 		E1AD1EE62642EE8E0086BC84 /* CreateExperimentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */; };
 		E1AD1EE926430BAD0086BC84 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E1AD1EE826430BAD0086BC84 /* FirebaseFirestore */; };
 		E1AD1EEB26430BAD0086BC84 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E1AD1EEA26430BAD0086BC84 /* FirebaseFirestoreSwift-Beta */; };
 		E1AD1EED26430C1D0086BC84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1AD1EEC26430C1D0086BC84 /* GoogleService-Info.plist */; };
-		E1AD1EF426431E1A0086BC84 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1AD1EF326431E1A0086BC84 /* WidgetKit.framework */; };
-		E1AD1EF626431E1A0086BC84 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1AD1EF526431E1A0086BC84 /* SwiftUI.framework */; };
-		E1AD1EF926431E1A0086BC84 /* ParkinsonsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EF826431E1A0086BC84 /* ParkinsonsWidget.swift */; };
-		E1AD1EFC26431E1C0086BC84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1AD1EFB26431E1C0086BC84 /* Assets.xcassets */; };
-		E1AD1EFE26431E1C0086BC84 /* ParkinsonsWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EFA26431E1A0086BC84 /* ParkinsonsWidget.intentdefinition */; };
-		E1AD1EFF26431E1C0086BC84 /* ParkinsonsWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EFA26431E1A0086BC84 /* ParkinsonsWidget.intentdefinition */; };
-		E1AD1F0226431E1C0086BC84 /* ParkinsonsWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E1AD1EF226431E1A0086BC84 /* ParkinsonsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E1AD1F0826434A620086BC84 /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0726434A620086BC84 /* AddPostView.swift */; };
+		E1AD1F0F264367650086BC84 /* ClassSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0B264367650086BC84 /* ClassSelectionView.swift */; };
+		E1AD1F10264367650086BC84 /* FontSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0C264367650086BC84 /* FontSelectionView.swift */; };
+		E1AD1F11264367650086BC84 /* WidgetPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0D264367650086BC84 /* WidgetPreview.swift */; };
+		E1AD1F12264367650086BC84 /* ConfigureWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0E264367650086BC84 /* ConfigureWidgetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E1AD1F0026431E1C0086BC84 /* PBXContainerItemProxy */ = {
+		E13A18B326436DA800FC66B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E10BEEBD2641FE0B00317E38 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E1AD1EF126431E1A0086BC84;
-			remoteInfo = ParkinsonsWidgetExtension;
+			remoteGlobalIDString = E13A18A626436DA700FC66B0;
+			remoteInfo = ParkinsonsWidgetv2Extension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -98,7 +121,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				E1AD1F0226431E1C0086BC84 /* ParkinsonsWidgetExtension.appex in Embed App Extensions */,
+				E13A18B526436DA800FC66B0 /* ParkinsonsWidgetv2Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,17 +191,22 @@
 		E10BEF512642DF7500317E38 /* ExperimentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentCard.swift; sourceTree = "<group>"; };
 		E10BEF532642DF8500317E38 /* ExperimentFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentFeedView.swift; sourceTree = "<group>"; };
 		E10BEF552642E11600317E38 /* HalfCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfCircleView.swift; sourceTree = "<group>"; };
+		E13A18A726436DA700FC66B0 /* ParkinsonsWidgetv2Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ParkinsonsWidgetv2Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E13A18AB26436DA700FC66B0 /* ParkinsonsWidgetv2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkinsonsWidgetv2.swift; sourceTree = "<group>"; };
+		E13A18AD26436DA700FC66B0 /* ParkinsonsWidgetv2.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = ParkinsonsWidgetv2.intentdefinition; sourceTree = "<group>"; };
+		E13A18AE26436DA800FC66B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E13A18B026436DA800FC66B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E13A18B926436DAD00FC66B0 /* ParkinsonsWidgetv2Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ParkinsonsWidgetv2Extension.entitlements; sourceTree = "<group>"; };
 		E1AD1EE32642E3810086BC84 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExperimentView.swift; sourceTree = "<group>"; };
 		E1AD1EEC26430C1D0086BC84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E1AD1EF226431E1A0086BC84 /* ParkinsonsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ParkinsonsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1AD1EF326431E1A0086BC84 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E1AD1EF526431E1A0086BC84 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		E1AD1EF826431E1A0086BC84 /* ParkinsonsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkinsonsWidget.swift; sourceTree = "<group>"; };
-		E1AD1EFA26431E1A0086BC84 /* ParkinsonsWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = ParkinsonsWidget.intentdefinition; sourceTree = "<group>"; };
-		E1AD1EFB26431E1C0086BC84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E1AD1EFD26431E1C0086BC84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1AD1F0726434A620086BC84 /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
+		E1AD1F0B264367650086BC84 /* ClassSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassSelectionView.swift; sourceTree = "<group>"; };
+		E1AD1F0C264367650086BC84 /* FontSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontSelectionView.swift; sourceTree = "<group>"; };
+		E1AD1F0D264367650086BC84 /* WidgetPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetPreview.swift; sourceTree = "<group>"; };
+		E1AD1F0E264367650086BC84 /* ConfigureWidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigureWidgetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,12 +220,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E1AD1EEF26431E1A0086BC84 /* Frameworks */ = {
+		E13A18A426436DA700FC66B0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1AD1EF626431E1A0086BC84 /* SwiftUI.framework in Frameworks */,
-				E1AD1EF426431E1A0086BC84 /* WidgetKit.framework in Frameworks */,
+				E13A18A926436DA700FC66B0 /* SwiftUI.framework in Frameworks */,
+				E13A18A826436DA700FC66B0 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,8 +235,9 @@
 		E10BEEBC2641FE0B00317E38 = {
 			isa = PBXGroup;
 			children = (
+				E13A18B926436DAD00FC66B0 /* ParkinsonsWidgetv2Extension.entitlements */,
 				E10BEEC72641FE0B00317E38 /* ParkinsonsApp */,
-				E1AD1EF726431E1A0086BC84 /* ParkinsonsWidget */,
+				E13A18AA26436DA700FC66B0 /* ParkinsonsWidgetv2 */,
 				E10BEEC62641FE0B00317E38 /* Products */,
 				E10BEF20264208B800317E38 /* Frameworks */,
 			);
@@ -218,7 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				E10BEEC52641FE0B00317E38 /* ParkinsonsApp.app */,
-				E1AD1EF226431E1A0086BC84 /* ParkinsonsWidgetExtension.appex */,
+				E13A18A726436DA700FC66B0 /* ParkinsonsWidgetv2Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -256,6 +285,7 @@
 				E10BEECC2641FE0B00317E38 /* ContentView.swift */,
 				E10BEF4D2642DF2600317E38 /* Home */,
 				E10BEF4E2642DF2B00317E38 /* Experiment */,
+				E1AD1F0A264367650086BC84 /* WidgetEdit */,
 				E10BEF2326420B6200317E38 /* SwiftUICharts */,
 			);
 			path = Views;
@@ -392,15 +422,26 @@
 			path = Experiment;
 			sourceTree = "<group>";
 		};
-		E1AD1EF726431E1A0086BC84 /* ParkinsonsWidget */ = {
+		E13A18AA26436DA700FC66B0 /* ParkinsonsWidgetv2 */ = {
 			isa = PBXGroup;
 			children = (
-				E1AD1EF826431E1A0086BC84 /* ParkinsonsWidget.swift */,
-				E1AD1EFA26431E1A0086BC84 /* ParkinsonsWidget.intentdefinition */,
-				E1AD1EFB26431E1C0086BC84 /* Assets.xcassets */,
-				E1AD1EFD26431E1C0086BC84 /* Info.plist */,
+				E13A18AB26436DA700FC66B0 /* ParkinsonsWidgetv2.swift */,
+				E13A18AD26436DA700FC66B0 /* ParkinsonsWidgetv2.intentdefinition */,
+				E13A18AE26436DA800FC66B0 /* Assets.xcassets */,
+				E13A18B026436DA800FC66B0 /* Info.plist */,
 			);
-			path = ParkinsonsWidget;
+			path = ParkinsonsWidgetv2;
+			sourceTree = "<group>";
+		};
+		E1AD1F0A264367650086BC84 /* WidgetEdit */ = {
+			isa = PBXGroup;
+			children = (
+				E1AD1F0B264367650086BC84 /* ClassSelectionView.swift */,
+				E1AD1F0C264367650086BC84 /* FontSelectionView.swift */,
+				E1AD1F0D264367650086BC84 /* WidgetPreview.swift */,
+				E1AD1F0E264367650086BC84 /* ConfigureWidgetView.swift */,
+			);
+			path = WidgetEdit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -418,7 +459,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				E1AD1F0126431E1C0086BC84 /* PBXTargetDependency */,
+				E13A18B426436DA800FC66B0 /* PBXTargetDependency */,
 			);
 			name = ParkinsonsApp;
 			packageProductDependencies = (
@@ -429,21 +470,21 @@
 			productReference = E10BEEC52641FE0B00317E38 /* ParkinsonsApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E1AD1EF126431E1A0086BC84 /* ParkinsonsWidgetExtension */ = {
+		E13A18A626436DA700FC66B0 /* ParkinsonsWidgetv2Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E1AD1F0326431E1C0086BC84 /* Build configuration list for PBXNativeTarget "ParkinsonsWidgetExtension" */;
+			buildConfigurationList = E13A18B626436DA800FC66B0 /* Build configuration list for PBXNativeTarget "ParkinsonsWidgetv2Extension" */;
 			buildPhases = (
-				E1AD1EEE26431E1A0086BC84 /* Sources */,
-				E1AD1EEF26431E1A0086BC84 /* Frameworks */,
-				E1AD1EF026431E1A0086BC84 /* Resources */,
+				E13A18A326436DA700FC66B0 /* Sources */,
+				E13A18A426436DA700FC66B0 /* Frameworks */,
+				E13A18A526436DA700FC66B0 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = ParkinsonsWidgetExtension;
-			productName = ParkinsonsWidgetExtension;
-			productReference = E1AD1EF226431E1A0086BC84 /* ParkinsonsWidgetExtension.appex */;
+			name = ParkinsonsWidgetv2Extension;
+			productName = ParkinsonsWidgetv2Extension;
+			productReference = E13A18A726436DA700FC66B0 /* ParkinsonsWidgetv2Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -458,7 +499,7 @@
 					E10BEEC42641FE0B00317E38 = {
 						CreatedOnToolsVersion = 12.5;
 					};
-					E1AD1EF126431E1A0086BC84 = {
+					E13A18A626436DA700FC66B0 = {
 						CreatedOnToolsVersion = 12.5;
 					};
 				};
@@ -480,7 +521,7 @@
 			projectRoot = "";
 			targets = (
 				E10BEEC42641FE0B00317E38 /* ParkinsonsApp */,
-				E1AD1EF126431E1A0086BC84 /* ParkinsonsWidgetExtension */,
+				E13A18A626436DA700FC66B0 /* ParkinsonsWidgetv2Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -516,11 +557,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E1AD1EF026431E1A0086BC84 /* Resources */ = {
+		E13A18A526436DA700FC66B0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1AD1EFC26431E1C0086BC84 /* Assets.xcassets in Resources */,
+				E13A18C826436E1900FC66B0 /* Poppins-ExtraLightItalic.ttf in Resources */,
+				E13A18C926436E1900FC66B0 /* Poppins-Light.ttf in Resources */,
+				E13A18BD26436E1900FC66B0 /* OFL.txt in Resources */,
+				E13A18C626436E1900FC66B0 /* Poppins-Thin.ttf in Resources */,
+				E13A18CB26436E1900FC66B0 /* Poppins-Italic.ttf in Resources */,
+				E13A18CC26436E1900FC66B0 /* Poppins-SemiBoldItalic.ttf in Resources */,
+				E13A18BA26436E1900FC66B0 /* Poppins-Black.ttf in Resources */,
+				E13A18C526436E1900FC66B0 /* Poppins-MediumItalic.ttf in Resources */,
+				E13A18BF26436E1900FC66B0 /* Poppins-BoldItalic.ttf in Resources */,
+				E13A18BC26436E1900FC66B0 /* Poppins-Medium.ttf in Resources */,
+				E13A18C026436E1900FC66B0 /* Poppins-ExtraBold.ttf in Resources */,
+				E13A18C226436E1900FC66B0 /* Poppins-SemiBold.ttf in Resources */,
+				E13A18BE26436E1900FC66B0 /* Poppins-Regular.ttf in Resources */,
+				E13A18C426436E1900FC66B0 /* Poppins-Bold.ttf in Resources */,
+				E13A18CA26436E1900FC66B0 /* Poppins-ExtraBoldItalic.ttf in Resources */,
+				E13A18C326436E1900FC66B0 /* Poppins-ExtraLight.ttf in Resources */,
+				E13A18BB26436E1900FC66B0 /* Poppins-LightItalic.ttf in Resources */,
+				E13A18C726436E1900FC66B0 /* Poppins-ThinItalic.ttf in Resources */,
+				E13A18C126436E1900FC66B0 /* Poppins-BlackItalic.ttf in Resources */,
+				E13A18AF26436DA800FC66B0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,7 +597,6 @@
 				E10BEF4526420B6200317E38 /* MagnifierRect.swift in Sources */,
 				E10BEF1A264205B800317E38 /* ChartView.swift in Sources */,
 				E10BEF3826420B6200317E38 /* BarChartView.swift in Sources */,
-				E1AD1EFF26431E1C0086BC84 /* ParkinsonsWidget.intentdefinition in Sources */,
 				E10BEF0F2642014300317E38 /* CardView.swift in Sources */,
 				E10BEF4026420B6200317E38 /* PieChartView.swift in Sources */,
 				E10BEF3B26420B6200317E38 /* BarChartCell.swift in Sources */,
@@ -548,7 +607,9 @@
 				E1AD1F0826434A620086BC84 /* AddPostView.swift in Sources */,
 				E10BEEC92641FE0B00317E38 /* AppDelegate.swift in Sources */,
 				E10BEF15264202C000317E38 /* DataView.swift in Sources */,
+				E1AD1F12264367650086BC84 /* ConfigureWidgetView.swift in Sources */,
 				E10BEF3A26420B6200317E38 /* LabelView.swift in Sources */,
+				E13A18B226436DA800FC66B0 /* ParkinsonsWidgetv2.intentdefinition in Sources */,
 				E10BEF4226420B6200317E38 /* LineView.swift in Sources */,
 				E10BEF4426420B6200317E38 /* LineChartView.swift in Sources */,
 				E10BEF4C2642CE8F00317E38 /* Social.swift in Sources */,
@@ -556,8 +617,10 @@
 				E10BEF4126420B6200317E38 /* IndicatorPoint.swift in Sources */,
 				E10BEF4326420B6200317E38 /* Legend.swift in Sources */,
 				E10BEECB2641FE0B00317E38 /* SceneDelegate.swift in Sources */,
+				E1AD1F0F264367650086BC84 /* ClassSelectionView.swift in Sources */,
 				E10BEF4626420B6200317E38 /* Path+QuadCurve.swift in Sources */,
 				E10BEF522642DF7500317E38 /* ExperimentCard.swift in Sources */,
+				E1AD1F10264367650086BC84 /* FontSelectionView.swift in Sources */,
 				E10BEF4826420B6200317E38 /* Line.swift in Sources */,
 				E10BEF1C264207BF00317E38 /* reg_model.mlmodel in Sources */,
 				E10BEF3F26420B6200317E38 /* PieChartCell.swift in Sources */,
@@ -569,27 +632,28 @@
 				E10BEEE12641FEC200317E38 /* HomeView.swift in Sources */,
 				E10BEF502642DF6700317E38 /* ExperimentView.swift in Sources */,
 				E10BEECD2641FE0B00317E38 /* ContentView.swift in Sources */,
+				E1AD1F11264367650086BC84 /* WidgetPreview.swift in Sources */,
 				E10BEEDD2641FE9600317E38 /* Data.swift in Sources */,
 				E10BEF562642E11600317E38 /* HalfCircleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E1AD1EEE26431E1A0086BC84 /* Sources */ = {
+		E13A18A326436DA700FC66B0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1AD1EFE26431E1C0086BC84 /* ParkinsonsWidget.intentdefinition in Sources */,
-				E1AD1EF926431E1A0086BC84 /* ParkinsonsWidget.swift in Sources */,
+				E13A18B126436DA800FC66B0 /* ParkinsonsWidgetv2.intentdefinition in Sources */,
+				E13A18AC26436DA700FC66B0 /* ParkinsonsWidgetv2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E1AD1F0126431E1C0086BC84 /* PBXTargetDependency */ = {
+		E13A18B426436DA800FC66B0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E1AD1EF126431E1A0086BC84 /* ParkinsonsWidgetExtension */;
-			targetProxy = E1AD1F0026431E1C0086BC84 /* PBXContainerItemProxy */;
+			target = E13A18A626436DA700FC66B0 /* ParkinsonsWidgetv2Extension */;
+			targetProxy = E13A18B326436DA800FC66B0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -767,21 +831,22 @@
 			};
 			name = Release;
 		};
-		E1AD1F0426431E1C0086BC84 /* Debug */ = {
+		E13A18B726436DA800FC66B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = ParkinsonsWidgetv2Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MC27HKM86M;
-				INFOPLIST_FILE = ParkinsonsWidget/Info.plist;
+				INFOPLIST_FILE = ParkinsonsWidgetv2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Ai.ParkinsonsApp2.ParkinsonsWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Ai.ParkinsonsApp2.ParkinsonsWidgetv2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -789,21 +854,22 @@
 			};
 			name = Debug;
 		};
-		E1AD1F0526431E1C0086BC84 /* Release */ = {
+		E13A18B826436DA800FC66B0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = ParkinsonsWidgetv2Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MC27HKM86M;
-				INFOPLIST_FILE = ParkinsonsWidget/Info.plist;
+				INFOPLIST_FILE = ParkinsonsWidgetv2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Ai.ParkinsonsApp2.ParkinsonsWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Ai.ParkinsonsApp2.ParkinsonsWidgetv2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -832,11 +898,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E1AD1F0326431E1C0086BC84 /* Build configuration list for PBXNativeTarget "ParkinsonsWidgetExtension" */ = {
+		E13A18B626436DA800FC66B0 /* Build configuration list for PBXNativeTarget "ParkinsonsWidgetv2Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E1AD1F0426431E1C0086BC84 /* Debug */,
-				E1AD1F0526431E1C0086BC84 /* Release */,
+				E13A18B726436DA800FC66B0 /* Debug */,
+				E13A18B826436DA800FC66B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -32,7 +32,7 @@ struct ContentView: View {
                     
                     if let encoded = try? encoder.encode(user) {
                         if let json = String(data: encoded, encoding: .utf8) {
-                            print(json)
+                          
                             do {
                                 let url = self.getDocumentsDirectory().appendingPathComponent("user.txt")
                                 try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
@@ -96,7 +96,7 @@ struct ContentView: View {
                                     
                                     
                                     days =  days.removeDuplicates()
-                                    print(days.count)
+                                   
                                     //                                if i.first!.id == "1" {
                                     //                                    notes.removeFirst()
                                     //                                }
@@ -118,14 +118,7 @@ struct ContentView: View {
                             withAnimation(.easeInOut(duration: 1.5)) {
                                 animate = true
                             }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-                                withAnimation(.easeInOut(duration: 1.5)) {
-                                    let sumArray = self.values.reduce(0, +)
-                                    let avgArrayValue = (sumArray) / Double(self.values.count)
-                                    print(avgArrayValue)
-                                    
-                                }
-                            }
+                           
                         }
                         
                         
@@ -148,7 +141,7 @@ struct ContentView: View {
                         days = days.removeDuplicates()
                         if let encoded = try? encoder.encode(days.removeDuplicates()) {
                             if let json = String(data: encoded, encoding: .utf8) {
-                                print(json)
+                                
                                 do {
                                     let url = self.getDocumentsDirectory().appendingPathComponent("data2.txt")
                                     try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
@@ -236,7 +229,7 @@ struct ContentView: View {
                     
                     
                     
-                    print("Values")
+                  
                     
                     
                     let readData = Set([
@@ -568,7 +561,7 @@ struct ContentView: View {
                     
                     if today == 1 {
                         self.week.mon.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                        print(self.week)
+                      
                     } else if today == 2 {
                         
                         self.week.tue.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
@@ -678,7 +671,7 @@ struct ContentView: View {
                         
                         
                         if today == 1 {
-                            print(self.week)
+                            
                             self.week.mon.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
                         } else if today == 2 {
                             

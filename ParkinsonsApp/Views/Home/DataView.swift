@@ -35,7 +35,7 @@ struct DataView: View {
                     let filtered2 = score.points.filter { word in
                         return word.0 != "NA"
                     }
-                    print(filtered2)
+                   
                     let average = average(numbers: filtered2.map {$0.1})
                     let minScore = filtered2.map {$0.1}.max()
                     let filtered = filtered2.filter { word in
@@ -68,7 +68,7 @@ struct DataView: View {
                                         let filtered2 = score.points.filter { word in
                                             return word.0 != "NA"
                                         }
-                                        print(filtered2)
+                                       
                                         let average = average(numbers: filtered2.map {$0.1})
                                         let minScore = filtered2.map {$0.1}.max()
                                         let filtered = filtered2.filter { word in
@@ -80,7 +80,7 @@ struct DataView: View {
                                             max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
                                             
                                             maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
-                                            print(days)
+                                            
                                         }
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                             withAnimation(.easeInOut) {
@@ -125,7 +125,7 @@ struct DataView: View {
                                         let filtered2 = balance.points.filter { word in
                                             return word.0 != "NA"
                                         }
-                                        print(filtered2)
+                                       
                                         let average = average(numbers: filtered2.map {$0.1})
                                         let minScore = filtered2.map {$0.1}.max()
                                         let filtered = filtered2.filter { word in
@@ -137,7 +137,7 @@ struct DataView: View {
                                         max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
                                         
                                         maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
-                                        print(days)
+                                        
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                             withAnimation(.easeInOut) {
                                                 refresh = false
@@ -180,7 +180,7 @@ struct DataView: View {
                                         let filtered2 = length.points.filter { word in
                                             return word.0 != "NA"
                                         }
-                                        print(filtered2)
+                                       
                                         let average = average(numbers: filtered2.map {$0.1})
                                         let minScore = filtered2.map {$0.1}.max()
                                         let filtered = filtered2.filter { word in
@@ -192,7 +192,7 @@ struct DataView: View {
                                         max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
                                         
                                         maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
-                                        print(days)
+                                        
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                             withAnimation(.easeInOut) {
                                                 refresh = false
@@ -240,7 +240,7 @@ struct DataView: View {
                                         let filtered2 = length.points.filter { word in
                                             return word.0 != "NA"
                                         }
-                                        print(filtered2)
+                                       
                                         let average = average(numbers: filtered2.map {$0.1})
                                         let minScore = filtered2.map {$0.1}.max()
                                         let filtered = filtered2.filter { word in
@@ -252,7 +252,7 @@ struct DataView: View {
                                         max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
                                         
                                         maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
-                                        print(days)
+                                        
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                             withAnimation(.easeInOut) {
                                                 refresh = false
@@ -287,8 +287,8 @@ struct DataView: View {
         tremor.points.removeAll()
         score.points.removeAll()
         habits.points.removeAll()
-        print("DATE")
-        print(date.get(.day))
+       
+       
         let filtered = days.filter { b in
             
             return b.walkingSpeed.last?.date.get(.day) ?? 0 == date.get(.day)
@@ -305,10 +305,10 @@ struct DataView: View {
         let components222 = day2.habit.last?.date.get(.day, .month, .year, .hour)
         if let today = components222?.day, let month = components222?.month, let year = components222?.year{
             if let today2 = components22.day, let month2 = components22.month, let year2 = components22.year {
-                print("day: \(day), month: \(month), year: \(year)")
+              
                 
                 if "\(today)" + "\(month)" + "\(year)" == "\(today2)" + "\(month2)" +  "\(year2)" {
-                    print(176276327627623)
+                   
                     for i in 0...23 {
                         
                         
@@ -327,12 +327,12 @@ struct DataView: View {
             }
         }
         
-        print(1)
+        
         let components = date.get(.day, .month, .year, .hour)
         let components2 = day.walkingSpeed.last?.date.get(.day, .month, .year, .hour)
         if let today = components2?.day, let month = components2?.month, let year = components2?.year {
             if let today2 = components.day, let month2 = components.month, let year2 = components.year {
-                print("day: \(day), month: \(month), year: \(year)")
+              
                 
                 if "\(today)" + "\(month)" + "\(year)" == "\(today2)" + "\(month2)" +  "\(year2)" {
                     
@@ -348,8 +348,8 @@ struct DataView: View {
                         
                         if  !average(numbers: filtered.map {$0.value}).isNaN {
                             balance.points.append((String(filtered.last!.date.get(.hour) ), average(numbers: filtered.map {$0.value})))
-                            print("HERE")
-                            print(balance.points)
+                          
+                           
                         }
                         
                         
@@ -428,7 +428,7 @@ struct DataView: View {
             for i in 0...23 {
                 
                 let filtered = day.balance.filter { b in
-                    print(b.date)
+                   
                     return b.date.get(.hour) == i
                 }
                 
