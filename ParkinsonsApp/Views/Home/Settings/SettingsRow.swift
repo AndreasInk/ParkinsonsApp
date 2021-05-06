@@ -21,6 +21,7 @@ struct SettingsRow: View {
                 }
                 HStack {
                 Text(setting.text)
+                    
                     .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
                     Spacer()
             }
