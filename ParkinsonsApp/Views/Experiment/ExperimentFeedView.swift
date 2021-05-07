@@ -21,11 +21,8 @@ struct ExperimentFeedView: View {
         ZStack {
             Color.clear
                 .onAppear() {
-                    
-                    
-                    self.loadUsersExperiments() { experiments in
-                        self.experiments = experiments
-                    }
+                    experiments = user.experiments
+                  
                 }
             VStack {
                 HStack {
@@ -157,11 +154,12 @@ struct ExperimentFeedView: View {
             performAction(userList)
         }
     }
-    func loadUsersExperiments(performAction: @escaping ([Experiment]) -> Void) {
+    
+    func loadPopularExperiments(performAction: @escaping ([Experiment]) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("experiments")
         var userList = [Experiment]()
-        let query = docRef.whereField("usersIDs", arrayContains: user.id.uuidString)
+        let query = docRef.whereField("upvotes", isGreaterThan: 3)
         query.getDocuments { (documents, error) in
             if !(documents?.isEmpty ?? true) {
                 for document in documents!.documents {
@@ -188,11 +186,11 @@ struct ExperimentFeedView: View {
             performAction(userList)
         }
     }
-    func loadPopularExperiments(performAction: @escaping ([Experiment]) -> Void) {
+    func loadUsersExperiments(performAction: @escaping ([Experiment]) -> Void) {
         let db = Firestore.firestore()
         let docRef = db.collection("experiments")
         var userList = [Experiment]()
-        let query = docRef.whereField("upvotes", isGreaterThan: 3)
+        let query = docRef.whereField("usersIDs", arrayContains: user.id.uuidString)
         query.getDocuments { (documents, error) in
             if !(documents?.isEmpty ?? true) {
                 for document in documents!.documents {

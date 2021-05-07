@@ -35,12 +35,117 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         let healthStore = HKHealthStore()
-        let readType2 = HKObjectType.quantityType(forIdentifier: .walkingStepLength)
-        healthStore.enableBackgroundDelivery(for: readType2!, frequency: .hourly) { success, error in
+        let readType2 = HKObjectType.quantityType(forIdentifier: .walkingDoubleSupportPercentage)
+        healthStore.enableBackgroundDelivery(for: readType2!, frequency: .immediate) { success, error in
             if !success {
                 print("Error enabling background delivery for type \(readType2!.identifier): \(error.debugDescription)")
             } else {
                 print("Success enabling background delivery for type \(readType2!.identifier)")
+                let calendar = NSCalendar.current
+                
+                var anchorComponents = calendar.dateComponents([.day, .month, .year, .weekday], from: NSDate() as Date)
+                
+                let offset = (7 + anchorComponents.weekday! - 2) % 7
+                
+                anchorComponents.day! -= offset
+                anchorComponents.hour = 2
+                
+                guard let anchorDate = Calendar.current.date(from: anchorComponents) else {
+                    fatalError("*** unable to create a valid date from the given components ***")
+                }
+                
+                let interval = NSDateComponents()
+                interval.minute = 30
+                
+                let endDate = Date()
+                
+                guard let startDate = calendar.date(byAdding: .day, value: -6, to: endDate) else {
+                    fatalError("*** Unable to calculate the start date ***")
+                }
+                guard let quantityType3 = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.walkingStepLength) else {
+                    fatalError("*** Unable to create a step count type ***")
+                }
+                
+                let query3 = HKStatisticsCollectionQuery(quantityType: quantityType3,
+                                                         quantitySamplePredicate: nil,
+                                                         options: .discreteAverage,
+                                                         anchorDate: anchorDate,
+                                                         intervalComponents: interval as DateComponents)
+                
+                query3.initialResultsHandler = {
+                    query, results, error in
+                    
+                    guard let statsCollection = results else {
+                        fatalError("*** An error occurred while calculating the statistics: \(String(describing: error?.localizedDescription)) ***")
+                        
+                    }
+                    
+                    statsCollection.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
+                        if let quantity = statistics.averageQuantity() {
+                            let date = statistics.startDate
+                            //for: E.g. for steps it's HKUnit.count()
+                            let value = quantity.doubleValue(for: HKUnit.inch())
+                            //  self.week.mon.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
+                            let today = date.get(.weekday)
+                            
+                            //print(value)
+                            
+                            //   if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
+                            if today == 1 {
+                                self.week.mon.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
+                            } else if today == 2 {
+                                
+                                self.week.tue.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
+                                
+                            } else if today == 3 {
+                                self.week.wed.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
+                            } else if today == 4 {
+                                self.week.thur.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
+                            }  else if today == 5 {
+                                self.week.fri.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
+                            }  else if today == 6 {
+                                self.week.sat.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
+                            } else if today == 0 {
+                                self.week.sun.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
+                                
+                            }
+                            //  }
+                            
+                            //print(date)
+                            
+                            
+                            // dates = defaults?.array(forKey: "dates") as? [Date] ?? []
+                            //                                        self.values.append(value)
+                            //                                        self.dates.append(date)
+                            //
+                            //
+                            //                                        defaults?.set(self.values, forKey: "values")
+                            //                                        defaults?.set(self.dates, forKey: "dates")
+                            //                                        defaults?.set(self.values.last ?? 0.0, forKey: "last")
+                            //
+                            //
+                            //                                        WidgetCenter.shared.reloadAllTimelines()
+                            //                        print("avg")
+                            //                        print((defaults.double(forKey: "avg") ?? 0.0) )
+                            //
+                            
+                            
+                        }
+                        
+                        
+                    }
+                    
+                    
+                    //if (self.values.last ?? 0.0) - 11 > ((defaults.double(forKey: "avg")))  {
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                }
+                healthStore.execute(query3)
                 self.getHealthData()
                 if Date().get(.day) == 0 {
                     let double = self.week.sun.balance.map({ $0.value })
@@ -206,7 +311,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        
+        print(1)
         
         let readData = Set([
             HKObjectType.quantityType(forIdentifier: .walkingSpeed)!,
@@ -727,12 +832,12 @@ func getDocumentsDirectory() -> URL {
             do {
                 let model = try reg_model(configuration: MLModelConfiguration())
                 let prediction =  try model.prediction(double_: double, speed: speed, length: length)
-                completionHandler(PredictedScore(prediction: prediction.sourceName, predicted_parkinsons: prediction.sourceName > 0.5 ? 1 : 0))
+                completionHandler(PredictedScore(prediction: prediction.sourceName, predicted_parkinsons: prediction.sourceName > 0.5 ? 1 : 0, date: Date()))
             } catch {
                 
             }
         } else {
-            completionHandler(PredictedScore(prediction: 21.0, predicted_parkinsons: 21))
+            completionHandler(PredictedScore(prediction: 21.0, predicted_parkinsons: 21, date: Date()))
         }
     }
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

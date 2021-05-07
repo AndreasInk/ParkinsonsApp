@@ -13,7 +13,7 @@ struct User: Hashable, Codable {
     var experiments: [Experiment]
     var createdExperiments: [Experiment]
     var posts: [Post]
-    var habit: [Habit]?
+    var habit: [Habit]
 }
 
 struct Experiment: Hashable, Codable {

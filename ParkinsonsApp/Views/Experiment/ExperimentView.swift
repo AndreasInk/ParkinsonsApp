@@ -41,8 +41,10 @@ struct ExperimentView: View {
                             days.append(week.fri)
                             days.append(week.sat)
                             days.append(week.sun)
-                            
+                            print(experiment.groupScore)
+                          
                         }
+                     
                         
                     }
                     
@@ -60,7 +62,7 @@ struct ExperimentView: View {
                             if experiment.users.map{$0.id}.contains(user.id) {
                                 Button(action: {
                                     experiment.habit.append(Habit(id: UUID(), title: "Run", date: Date()))
-                                    
+                                   
                                     for habit in experiment.habit {
                                         let today = habit.date.get(.weekday)
                                         

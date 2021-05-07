@@ -300,8 +300,8 @@
 		E10BEEE42641FF1F00317E38 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D6AC7526264466FA008DD701 /* Onboarding */,
 				E10BEECC2641FE0B00317E38 /* ContentView.swift */,
+				D6AC7526264466FA008DD701 /* Onboarding */,
 				E184963B2644375500A69834 /* ButtonStyles */,
 				E10BEF4D2642DF2600317E38 /* Home */,
 				E10BEF4E2642DF2B00317E38 /* Experiment */,

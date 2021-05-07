@@ -479,7 +479,7 @@ struct DataView: View {
         do {
             let model = try reg_model(configuration: MLModelConfiguration())
             let prediction =  try model.prediction(double_: double, speed: speed, length: length)
-            completionHandler(PredictedScore(prediction: prediction.sourceName, predicted_parkinsons: prediction.sourceName > 0.5 ? 1 : 0))
+            completionHandler(PredictedScore(prediction: prediction.sourceName, predicted_parkinsons: prediction.sourceName > 0.5 ? 1 : 0, date: Date()))
         } catch {
             
         }

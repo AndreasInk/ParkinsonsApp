@@ -28,8 +28,11 @@ struct SettingsDetailsView: View {
                     Text(setting.onOff ? "Disable Notifications" : "Enable Notifications")
                         .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
                 } .padding(.bottom)
-                .onChange(of: setting.onOff, perform: { value in
+                .onDisappear() {
                     if setting.onOff {
+                        let center = UNUserNotificationCenter.current()
+                        center.removeAllPendingNotificationRequests()
+                        center.removeAllDeliveredNotifications()
                         if date1 != 24 {
                         LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
                             EveryDay(forDays: 365, starting: .today)
@@ -59,7 +62,7 @@ struct SettingsDetailsView: View {
                         center.removeAllPendingNotificationRequests()
                         center.removeAllDeliveredNotifications()
                     }
-                })
+                }
                 if setting.onOff {
                     HStack {
                     Text("Pick an hours to recieve notifications")

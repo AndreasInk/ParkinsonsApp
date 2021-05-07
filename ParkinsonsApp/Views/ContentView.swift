@@ -22,7 +22,7 @@ struct ContentView: View {
     @State var week = Week(id: UUID().uuidString,  sun: Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), mon:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](),  walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), tue:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), wed:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), thur:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), fri:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0), sat:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0))
     @State var settings =  [Setting(title: "Notifications", text: "We'll send notifications to remind you to keep your phone in your pocket to gain insights and send updates on habits", onOff: true, dates: [9]), Setting(title: "Accessability", text: "Enable these features to make it easier to use the app", onOff: true), Setting(title: "Customize Your Widget", text: "You track your score on your home screen with widgets", onOff: true), Setting(title: "Share Your Experience", text: "By sharing your experience with the app, we can make it even better!  ", onOff: true), Setting(title: "Share Your Data", text: "By sharing your data, we can make scoring even better!  ", onOff: true), Setting(title: "Share With Your Doctor", text: "Export your data to your doctor to give important insights to your doctor to help you.", onOff: true)]
     @State private var useCount = UserDefaults.standard.integer(forKey: "useCount")
-    @State var user = User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]())
+    @State var user = User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]())
     @State var isOnboarding: Bool = true
     var body: some View {
         ZStack {
@@ -51,6 +51,7 @@ struct ContentView: View {
                 }
                 .onAppear() {
                     
+                   
                     let url = self.getDocumentsDirectory().appendingPathComponent("user.txt")
                     do {
                         
@@ -126,6 +127,7 @@ struct ContentView: View {
                                     let note = try decoder.decode([Day].self, from: jsonData)
                                     
                                     let filtered = note.filter { day in
+                                        #warning("double check")
                                         return Date().addingTimeInterval(-604800) > day.date
                                     }
                                     days = filtered
@@ -159,6 +161,12 @@ struct ContentView: View {
                         
                         
                     }
+                    self.loadUsersExperiments() { experiments in
+                        self.user.experiments = experiments
+                        print(experiments)
+                        #warning("Remove after testing")
+                        days.append(Day(id: UUID().uuidString, score: [Score(id: UUID().uuidString, score: 1.0, date: Date())], tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0))
+                    }
                 }
             if animate {
                 // LoadingView()
@@ -171,6 +179,9 @@ struct ContentView: View {
                 
                 HomeView(week: $week, days: $days, user: $user, settings2: $settings)
                     .transition(.opacity)
+                    .onAppear(){
+                       
+                    }
                     .onChange(of: user, perform: { value in
                         let encoder = JSONEncoder()
                         if let encoded = try? encoder.encode(user) {
@@ -189,6 +200,7 @@ struct ContentView: View {
                         }
                     })
                     .onChange(of: days, perform: { value in
+                        
                         let encoder = JSONEncoder()
                         days = days.removeDuplicates()
                         if let encoded = try? encoder.encode(days.removeDuplicates()) {
@@ -206,6 +218,7 @@ struct ContentView: View {
                             
                         }
                         for day in days {
+                            //print(day)
                             for i in user.experiments.indices {
                                 let groupScore = user.experiments[i].groupScore.last
                                 
@@ -219,21 +232,59 @@ struct ContentView: View {
                                 if let prediction = groupScore?.prediction  {
                                     let groupAverage = average(numbers: [userAverage, prediction])
                                     
-                                    if groupAverage.isNormal {
-                                        user.experiments[i].groupScore.append(PredictedScore(prediction: groupAverage, predicted_parkinsons: 0))
-                                        saveExperiment(experiment: user.experiments[i])
+                                    if !groupAverage.isNaN {
+                                        user.experiments[i].groupScore.append(PredictedScore(prediction: groupAverage, predicted_parkinsons: 0, date: Date()))
+                                
                                     } else {
-                                        user.experiments[i].groupScore.append(PredictedScore(prediction: userAverage, predicted_parkinsons: 0))
-                                        saveExperiment(experiment: user.experiments[i])
+                                        user.experiments[i].groupScore.append(PredictedScore(prediction: userAverage, predicted_parkinsons: 0, date: Date()))
+                                       
                                     }
                                     
                                 } else {
-                                    user.experiments[i].groupScore.append(PredictedScore(prediction: userAverage, predicted_parkinsons: 0))
-                                    saveExperiment(experiment: user.experiments[i])
+                                    if !userAverage.isNaN {
+                                    user.experiments[i].groupScore.append(PredictedScore(prediction: userAverage, predicted_parkinsons: 0, date: Date()))
+                                    
+                                    } else {
+                                        user.experiments[i].groupScore.append(PredictedScore(prediction: 1.0, predicted_parkinsons: 0, date: Date()))
+                                        print(6723627326762)
+                                    }
                                 }
+                                
+                                for habit in user.experiments[i].groupScore {
+                                    let today = habit.date.get(.weekday)
+                                   
+                                    //print(value)
+                                    
+                                    //   if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
+                                    if !habit.prediction.isNaN {
+                                    if user.experiments[i].week.indices.contains(user.experiments[i].week.count - 1) {
+                                        if today == 1 {
+                                            user.experiments[i].week[user.experiments[i].week.count - 1].mon.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
+                                        } else if today == 2 {
+                                            
+                                            user.experiments[i].week[user.experiments[i].week.count - 1].tue.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
+                                            
+                                        } else if today == 3 {
+                                            user.experiments[i].week[user.experiments[i].week.count - 1].wed.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
+                                        } else if today == 4 {
+                                            user.experiments[i].week[user.experiments[i].week.count - 1].thur.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
+                                        }  else if today == 5 {
+                                            user.experiments[i].week[user.experiments[i].week.count - 1].fri.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
+                                        }  else if today == 6 {
+                                            user.experiments[i].week[user.experiments[i].week.count - 1].sat.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
+                                        } else if today == 0 {
+                                            user.experiments[i].week[user.experiments[i].week.count - 1].sun.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
+                                            
+                                        }
+                                        
+                                        saveExperiment(experiment: user.experiments[i])
+                                    }
                             }
                             
                         }
+                            }
+                        }
+                        
                     })
                 
                 
@@ -245,6 +296,7 @@ struct ContentView: View {
         let db = Firestore.firestore()
         do {
             try db.collection("experiments").document(experiment.id.uuidString).setData(from: experiment)
+            print(experiment)
         } catch let error {
             print("Error writing city to Firestore: \(error)")
         }
@@ -254,12 +306,12 @@ struct ContentView: View {
             do {
                 let model = try reg_model(configuration: MLModelConfiguration())
                 let prediction =  try model.prediction(double_: double, speed: speed, length: length)
-                completionHandler(PredictedScore(prediction: prediction.sourceName, predicted_parkinsons: prediction.sourceName > 0.5 ? 1 : 0))
+                completionHandler(PredictedScore(prediction: prediction.sourceName, predicted_parkinsons: prediction.sourceName > 0.5 ? 1 : 0, date: Date()))
             } catch {
                 
             }
         } else {
-            completionHandler(PredictedScore(prediction: 21.0, predicted_parkinsons: 21))
+            completionHandler(PredictedScore(prediction: 21.0, predicted_parkinsons: 21, date: Date()))
         }
     }
     
@@ -334,7 +386,37 @@ struct ContentView: View {
         ready = true
     }
     
-    
+    func loadUsersExperiments(performAction: @escaping ([Experiment]) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("experiments")
+        var userList = [Experiment]()
+        let query = docRef.whereField("usersIDs", arrayContains: user.id.uuidString)
+        query.getDocuments { (documents, error) in
+            if !(documents?.isEmpty ?? true) {
+                for document in documents!.documents {
+                    let result = Result {
+                        try document.data(as: Experiment.self)
+                    }
+                    
+                    switch result {
+                    case .success(let user):
+                        if let user = user {
+                            userList.append(user)
+                            
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+                    
+                    
+                }
+            }
+            performAction(userList)
+        }
+    }
     func getLength() {
         let calendar = NSCalendar.current
         

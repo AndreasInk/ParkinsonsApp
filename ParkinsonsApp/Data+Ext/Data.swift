@@ -81,6 +81,7 @@ struct Day: Identifiable, Codable, Hashable {
 struct PredictedScore: Codable, Hashable {
     var prediction: Double
     var predicted_parkinsons: Int
+    var date: Date
 }
 
 

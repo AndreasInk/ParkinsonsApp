@@ -15,7 +15,7 @@ struct AddPostView: View {
     @Binding var experiment: Experiment
     
     @State var habitTitle = ""
-    @State var post = Post(id: UUID(), title: "", text: "", createdBy: User(id: UUID(), name: "", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post]())
+    @State var post = Post(id: UUID(), title: "", text: "", createdBy: User(id: UUID(), name: "", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post]())
     let columns = [
         GridItem(.adaptive(minimum: 80)),
         GridItem(.adaptive(minimum: 80)),

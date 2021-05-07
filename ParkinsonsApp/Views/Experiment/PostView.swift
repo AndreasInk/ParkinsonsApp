@@ -12,7 +12,7 @@ struct PostView: View {
     @Binding var experiment: Experiment
     @State var i: Int
     @State var addComment = false
-    @State var comment = Post(id: UUID(), title: "", text: "", createdBy: User(id: UUID(), name: "", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post]()), comments: [Post]())
+    @State var comment = Post(id: UUID(), title: "", text: "", createdBy: User(id: UUID(), name: "", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post]())
     var body: some View {
         VStack {
             HStack {
