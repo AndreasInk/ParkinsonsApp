@@ -23,7 +23,7 @@ struct ContentView: View {
     @State var settings =  [Setting(title: "Notifications", text: "We'll send notifications to remind you to keep your phone in your pocket to gain insights and send updates on habits", onOff: true, dates: [9]), Setting(title: "Accessability", text: "Enable these features to make it easier to use the app", onOff: true), Setting(title: "Customize Your Widget", text: "You track your score on your home screen with widgets", onOff: true), Setting(title: "Share Your Experience", text: "By sharing your experience with the app, we can make it even better!  ", onOff: true), Setting(title: "Share Your Data", text: "By sharing your data, we can make scoring even better!  ", onOff: true), Setting(title: "Share With Your Doctor", text: "Export your data to your doctor to give important insights to your doctor to help you.", onOff: true)]
     @State private var useCount = UserDefaults.standard.integer(forKey: "useCount")
     @State var user = User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]())
-    @State var isOnboarding: Bool = true
+    @State var isOnboarding: Bool = false
     var body: some View {
         ZStack {
             Color.white
@@ -163,9 +163,9 @@ struct ContentView: View {
                     }
                     self.loadUsersExperiments() { experiments in
                         self.user.experiments = experiments
-                        print(experiments)
-                        #warning("Remove after testing")
-                        days.append(Day(id: UUID().uuidString, score: [Score(id: UUID().uuidString, score: 1.0, date: Date())], tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()))
+                      //  print(experiments)
+                       // #warning("Remove after testing")
+                       // days.append(Day(id: UUID().uuidString, score: [Score(id: UUID().uuidString, score: 1.0, date: Date())], tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()))
                     }
                 }
             if animate {

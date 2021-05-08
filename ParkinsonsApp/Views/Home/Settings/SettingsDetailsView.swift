@@ -29,6 +29,9 @@ struct SettingsDetailsView: View {
                         .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
                 } .padding(.bottom)
                 .onDisappear() {
+                    UserDefaults().set(date1, forKey: "date1")
+                    UserDefaults().set(date2, forKey: "date2")
+                    UserDefaults().set(date3, forKey: "date3")
                     if setting.onOff {
                         let center = UNUserNotificationCenter.current()
                         center.removeAllPendingNotificationRequests()
@@ -38,6 +41,7 @@ struct SettingsDetailsView: View {
                             EveryDay(forDays: 365, starting: .today)
                                 .at(hour: date1 , minute: 0)
                                 .schedule(title: "Carry Your Phone", body: "to observe your health")
+                                .withCategory("remind")
                         }
                         
                             }
@@ -46,6 +50,7 @@ struct SettingsDetailsView: View {
                             EveryDay(forDays: 365, starting: .today)
                                 .at(hour: date2 , minute: 0)
                                 .schedule(title: "Carry Your Phone", body: "to observe your health")
+                                .withCategory("remind")
                         }
                         
                             }
@@ -54,6 +59,7 @@ struct SettingsDetailsView: View {
                             EveryDay(forDays: 365, starting: .today)
                                 .at(hour: date3 , minute: 0)
                                 .schedule(title: "Carry Your Phone", body: "to observe your health")
+                                .withCategory("remind")
                         }
                         
                             }
@@ -79,50 +85,17 @@ struct SettingsDetailsView: View {
                         .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
                        
                 } .padding(.bottom)
-                .onChange(of: date1, perform: { value in
-                    UserDefaults().set(date1, forKey: "date1")
-                    
-                    if date1 != 24 {
-                    LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-                        EveryDay(forDays: 365, starting: .today)
-                            .at(hour: date1 , minute: 0)
-                            .schedule(title: "Carry Your Phone", body: "to observe your health")
-                    }
-                    
-                        }
-                    
-                    
-                })
+               
                 Stepper(value: $date2, in: 0...24) {
                     Text("Hour " + String(date2))
                         .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
                 } .padding(.bottom)
-                .onChange(of: date2, perform: { value in
-                    UserDefaults().set(date2, forKey: "date2")
-                    if date2 != 24 {
-                    LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-                        EveryDay(forDays: 365, starting: .today)
-                            .at(hour: date2 , minute: 0)
-                            .schedule(title: "Carry Your Phone", body: "to observe your health")
-                    }
-                    
-                        }
-                })
+               
                 Stepper(value: $date3, in: 0...24) {
                     Text("Hour " + String(date3))
                         .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
                 } .padding(.bottom)
-                .onChange(of: date3, perform: { value in
-                    UserDefaults().set(date3, forKey: "date3")
-                    if date3 != 24 {
-                    LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-                        EveryDay(forDays: 365, starting: .today)
-                            .at(hour: date3 , minute: 0)
-                            .schedule(title: "Carry Your Phone", body: "to observe your health")
-                    }
-                    
-                        }
-                })
+               
                 }
                 Spacer()
             } .padding()

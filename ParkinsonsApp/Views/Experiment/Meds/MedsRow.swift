@@ -14,10 +14,16 @@ struct MedsRow: View {
     var body: some View {
         HStack {
             VStack {
+                HStack {
             Text(med.name)
                 .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                    Spacer()
+                }
+                HStack {
                 Text(String(med.amountNeeded) + " " + med.unit)
                     .font(.custom("Poppins-Bold", size: 14, relativeTo: .headline))
+                    Spacer()
+            }
             }
             Spacer()
             Button(action: {

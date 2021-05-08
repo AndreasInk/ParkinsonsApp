@@ -13,8 +13,9 @@ struct HomeView: View {
     @State var welcome = ["Welcome!", "Hello!", "Hello there!"]
     @State var social = false
     @State var settings = false
+    @State var openMeds = false
     @State var name = UserDefaults.standard.string(forKey: "name")
-    
+    @State var meds = [Med]()
     @Binding var week: Week
     @Binding var days: [Day]
     @State var experiment = Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post]())])], week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
@@ -172,6 +173,17 @@ struct HomeView: View {
                     }  .opacity(isTutorial ? (tutorialNum == 3 ? 1.0 : 0.1) : 1.0)
                     .sheet(isPresented: $social, content: {
                         ExperimentFeedView(user: $user, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                    })
+                    
+                    Button(action: {
+                        openMeds.toggle()
+                    }) {
+                        Image(systemName: "pills")
+                            .font(.largeTitle)
+                            .padding()
+                    }  .opacity(isTutorial ? (tutorialNum == 4 ? 1.0 : 0.1) : 1.0)
+                    .sheet(isPresented: $openMeds, content: {
+                        MedsView(meds: $meds, week: $week)
                     })
                     
                     Button(action: {

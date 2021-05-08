@@ -116,6 +116,8 @@ struct Med: Identifiable, Hashable, Codable {
     var amountTaken: Double
     var unit: String
     var date: Date
-    
+    var date1: Int
+    var date2: Int
+    var date3: Int
 }
 

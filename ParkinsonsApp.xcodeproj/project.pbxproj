@@ -102,6 +102,7 @@
 		E184963A2644375200A69834 /* GridButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18496392644375200A69834 /* GridButtonStyle.swift */; };
 		E184963D2644393B00A69834 /* CTAButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E184963C2644393B00A69834 /* CTAButtonStyle.swift */; };
 		E19B62052646DA3700796160 /* CreateMedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B62042646DA3700796160 /* CreateMedView.swift */; };
+		E1A994E52647297E00152BD5 /* MedsScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A994E42647297E00152BD5 /* MedsScheduleView.swift */; };
 		E1AD1EE42642E3810086BC84 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EE32642E3810086BC84 /* PostView.swift */; };
 		E1AD1EE62642EE8E0086BC84 /* CreateExperimentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */; };
 		E1AD1EE926430BAD0086BC84 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E1AD1EE826430BAD0086BC84 /* FirebaseFirestore */; };
@@ -216,6 +217,7 @@
 		E18496392644375200A69834 /* GridButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButtonStyle.swift; sourceTree = "<group>"; };
 		E184963C2644393B00A69834 /* CTAButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTAButtonStyle.swift; sourceTree = "<group>"; };
 		E19B62042646DA3700796160 /* CreateMedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CreateMedView.swift; path = ../../../../../../CreateMedView.swift; sourceTree = "<group>"; };
+		E1A994E42647297E00152BD5 /* MedsScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MedsScheduleView.swift; path = ../../../../../../MedsScheduleView.swift; sourceTree = "<group>"; };
 		E1AD1EE32642E3810086BC84 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExperimentView.swift; sourceTree = "<group>"; };
 		E1AD1EEC26430C1D0086BC84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 				E174BC2E2645F3DF00636B3D /* MedsRow.swift */,
 				E174BC2F2645F3DF00636B3D /* MedsDetailsView.swift */,
 				E174BC342645FDF700636B3D /* EditMedsView.swift */,
+				E1A994E42647297E00152BD5 /* MedsScheduleView.swift */,
 			);
 			path = Meds;
 			sourceTree = "<group>";
@@ -700,6 +703,7 @@
 				E10BEF4726420B6200317E38 /* MultiLineChartView.swift in Sources */,
 				E10BEF3D26420B6200317E38 /* PieChartRow.swift in Sources */,
 				E10BEEE12641FEC200317E38 /* HomeView.swift in Sources */,
+				E1A994E52647297E00152BD5 /* MedsScheduleView.swift in Sources */,
 				E10BEF502642DF6700317E38 /* ExperimentView.swift in Sources */,
 				E10BEECD2641FE0B00317E38 /* ContentView.swift in Sources */,
 				E184963526442D7600A69834 /* SettingsRow.swift in Sources */,
