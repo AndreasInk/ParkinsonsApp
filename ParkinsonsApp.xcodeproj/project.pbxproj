@@ -93,6 +93,10 @@
 		E13A18CB26436E1900FC66B0 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEF9264200C000317E38 /* Poppins-Italic.ttf */; };
 		E13A18CC26436E1900FC66B0 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEEE264200C000317E38 /* Poppins-SemiBoldItalic.ttf */; };
 		E13A18CF2643868D00FC66B0 /* NiceNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = E13A18CE2643868D00FC66B0 /* NiceNotifications */; };
+		E174BC312645F44400636B3D /* MedsDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E174BC2F2645F3DF00636B3D /* MedsDetailsView.swift */; };
+		E174BC322645F44400636B3D /* MedsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E174BC2E2645F3DF00636B3D /* MedsRow.swift */; };
+		E174BC332645F44400636B3D /* MedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E174BC302645F3DF00636B3D /* MedsView.swift */; };
+		E174BC352645FDF700636B3D /* EditMedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E174BC342645FDF700636B3D /* EditMedsView.swift */; };
 		E184963526442D7600A69834 /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E184963426442D7600A69834 /* SettingsRow.swift */; };
 		E18496372644355C00A69834 /* SettingsDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18496362644355C00A69834 /* SettingsDetailsView.swift */; };
 		E184963A2644375200A69834 /* GridButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18496392644375200A69834 /* GridButtonStyle.swift */; };
@@ -202,6 +206,10 @@
 		E13A18AE26436DA800FC66B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E13A18B026436DA800FC66B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E13A18B926436DAD00FC66B0 /* ParkinsonsWidgetv2Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ParkinsonsWidgetv2Extension.entitlements; sourceTree = "<group>"; };
+		E174BC2E2645F3DF00636B3D /* MedsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedsRow.swift; sourceTree = "<group>"; };
+		E174BC2F2645F3DF00636B3D /* MedsDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedsDetailsView.swift; sourceTree = "<group>"; };
+		E174BC302645F3DF00636B3D /* MedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedsView.swift; sourceTree = "<group>"; };
+		E174BC342645FDF700636B3D /* EditMedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditMedsView.swift; path = ../../../../../../EditMedsView.swift; sourceTree = "<group>"; };
 		E184963426442D7600A69834 /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
 		E18496362644355C00A69834 /* SettingsDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailsView.swift; sourceTree = "<group>"; };
 		E18496392644375200A69834 /* GridButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButtonStyle.swift; sourceTree = "<group>"; };
@@ -431,6 +439,7 @@
 		E10BEF4E2642DF2B00317E38 /* Experiment */ = {
 			isa = PBXGroup;
 			children = (
+				E174BC2D2645F3DF00636B3D /* Meds */,
 				E10BEF4F2642DF6700317E38 /* ExperimentView.swift */,
 				E1AD1F0726434A620086BC84 /* AddPostView.swift */,
 				E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */,
@@ -450,6 +459,17 @@
 				E13A18B026436DA800FC66B0 /* Info.plist */,
 			);
 			path = ParkinsonsWidgetv2;
+			sourceTree = "<group>";
+		};
+		E174BC2D2645F3DF00636B3D /* Meds */ = {
+			isa = PBXGroup;
+			children = (
+				E174BC302645F3DF00636B3D /* MedsView.swift */,
+				E174BC2E2645F3DF00636B3D /* MedsRow.swift */,
+				E174BC2F2645F3DF00636B3D /* MedsDetailsView.swift */,
+				E174BC342645FDF700636B3D /* EditMedsView.swift */,
+			);
+			path = Meds;
 			sourceTree = "<group>";
 		};
 		E18496382644356000A69834 /* Settings */ = {
@@ -642,9 +662,11 @@
 				E10BEF3B26420B6200317E38 /* BarChartCell.swift in Sources */,
 				E1AD1EE42642E3810086BC84 /* PostView.swift in Sources */,
 				E10BEF112642017B00317E38 /* ButtonGridView.swift in Sources */,
+				E174BC352645FDF700636B3D /* EditMedsView.swift in Sources */,
 				E10BEF132642018500317E38 /* ButtonGridButton.swift in Sources */,
 				E10BEEE62641FF3800317E38 /* SettingsView.swift in Sources */,
 				E1AD1F0826434A620086BC84 /* AddPostView.swift in Sources */,
+				E174BC332645F44400636B3D /* MedsView.swift in Sources */,
 				E18496372644355C00A69834 /* SettingsDetailsView.swift in Sources */,
 				E10BEEC92641FE0B00317E38 /* AppDelegate.swift in Sources */,
 				E10BEF15264202C000317E38 /* DataView.swift in Sources */,
@@ -662,6 +684,7 @@
 				E184963A2644375200A69834 /* GridButtonStyle.swift in Sources */,
 				E1AD1F0F264367650086BC84 /* ClassSelectionView.swift in Sources */,
 				E10BEF4626420B6200317E38 /* Path+QuadCurve.swift in Sources */,
+				E174BC312645F44400636B3D /* MedsDetailsView.swift in Sources */,
 				E10BEF522642DF7500317E38 /* ExperimentCard.swift in Sources */,
 				E1AD1F10264367650086BC84 /* FontSelectionView.swift in Sources */,
 				E10BEF4826420B6200317E38 /* Line.swift in Sources */,
@@ -679,6 +702,7 @@
 				D6AC752826446717008DD701 /* OnboardingView.swift in Sources */,
 				E1AD1F11264367650086BC84 /* WidgetPreview.swift in Sources */,
 				E10BEEDD2641FE9600317E38 /* Data.swift in Sources */,
+				E174BC322645F44400636B3D /* MedsRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

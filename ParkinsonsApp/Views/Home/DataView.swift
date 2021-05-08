@@ -314,8 +314,8 @@ struct DataView: View {
             return b.habit.last?.date.get(.day) ?? 0 == date.get(.day)
         }
         
-        let day = filtered.last ?? Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0)
-        let day2 = filtered2.last ?? Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0)
+        let day = filtered.last ?? Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]())
+        let day2 = filtered2.last ?? Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]())
         let components22 = date.get(.day, .month, .year, .hour)
         let components222 = day2.habit.last?.date.get(.day, .month, .year, .hour)
         if let today = components222?.day, let month = components222?.month, let year = components222?.year{

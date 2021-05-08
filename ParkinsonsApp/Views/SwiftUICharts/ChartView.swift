@@ -22,6 +22,70 @@ struct WeekChartView: View {
         }
     }
 }
+struct MedsWeekChartView: View {
+    
+    @Binding var week: Week
+    @State var chartData = ChartData(values: [("", 0.0)])
+    @Binding var med: Med
+    @State var refresh = false
+    var body: some View {
+        ZStack {
+            Color.clear
+                .onChange(of: med, perform: { value in
+                    organize()
+                    print(week)
+                })
+                .onAppear() {
+                    organize()
+                }
+            if !refresh {
+            BarChartView(data: $chartData, title: "Score", legend: "", refresh: $refresh)
+            }
+        }
+    }
+    func organize() {
+        refresh = true
+        let filtered = week.mon.meds.filter { day in
+         
+            return day.name == med.name
+        }
+        let filtered2 = week.tue.meds.filter { day in
+           
+            return day.name == med.name
+        }
+        let filtered3 = week.wed.meds.filter { day in
+           
+            return day.name == med.name
+        }
+        let filtered4 = week.thur.meds.filter { day in
+           
+            return day.name == med.name
+        }
+        let filtered5 = week.fri.meds.filter { day in
+           
+            return day.name == med.name
+        }
+        let filtered6 = week.sat.meds.filter { day in
+            print(day.name)
+             print(med.name)
+            return day.name == med.name
+        }
+        print(filtered6)
+        let filtered7 = week.sun.meds.filter { day in
+           
+            return day.name == med.name
+        }
+        chartData = ChartData(values: [( "Monday", Double(filtered.last?.amountTaken ?? 0.0)), ("Tuesday", Double(filtered2.last?.amountTaken ?? 0.0)), ( "Wednesday", Double(filtered3.last?.amountTaken ?? 0.0)) ])
+        chartData.points.append(( "Thursday", Double(filtered4.last?.amountTaken ?? 0.0)))
+        chartData.points.append( ( "Friday", Double(filtered5.last?.amountTaken ?? 0.0)))
+        chartData.points.append(( "Saturday", Double(filtered6.last?.amountTaken ?? 0.0)))
+        chartData.points.append(( "Sunday", Double(filtered7.last?.amountTaken ?? 0.0)))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        refresh = false
+        }
+        
+    }
+}
 struct HabitWeekChartView: View {
     
     @Binding var week: Week

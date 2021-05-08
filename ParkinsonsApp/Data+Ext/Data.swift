@@ -75,6 +75,7 @@ struct Day: Identifiable, Codable, Hashable {
     var habit: [Habit]
     var date: Date
     var totalScore: Double
+    var meds: [Med]
     
 }
 
@@ -106,3 +107,15 @@ struct Onboarding: Identifiable, Hashable {
     var title: String
     var description: String
 }
+
+struct Med: Identifiable, Hashable, Codable {
+    var id: UUID
+    var name: String
+    var notes: String
+    var amountNeeded: Double
+    var amountTaken: Double
+    var unit: String
+    var date: Date
+    
+}
+
