@@ -258,21 +258,21 @@ struct ContentView: View {
                                     //   if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
                                     if !habit.prediction.isNaN {
                                     if user.experiments[i].week.indices.contains(user.experiments[i].week.count - 1) {
-                                        if today == 1 {
+                                        if today == 2 {
                                             user.experiments[i].week[user.experiments[i].week.count - 1].mon.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
-                                        } else if today == 2 {
+                                        } else if today == 3 {
                                             
                                             user.experiments[i].week[user.experiments[i].week.count - 1].tue.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
                                             
-                                        } else if today == 3 {
-                                            user.experiments[i].week[user.experiments[i].week.count - 1].wed.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
                                         } else if today == 4 {
+                                            user.experiments[i].week[user.experiments[i].week.count - 1].wed.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
+                                        } else if today == 5 {
                                             user.experiments[i].week[user.experiments[i].week.count - 1].thur.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
-                                        }  else if today == 5 {
-                                            user.experiments[i].week[user.experiments[i].week.count - 1].fri.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
                                         }  else if today == 6 {
+                                            user.experiments[i].week[user.experiments[i].week.count - 1].fri.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
+                                        }  else if today == 7 {
                                             user.experiments[i].week[user.experiments[i].week.count - 1].sat.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
-                                        } else if today == 0 {
+                                        } else if today == 1 {
                                             user.experiments[i].week[user.experiments[i].week.count - 1].sun.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
                                             
                                         }

@@ -24,7 +24,7 @@ struct MedsDetailsView: View {
                 }
             }
             .sheet(isPresented: $edit, content: {
-                EditMedsView(med: $med, edit: $edit)
+                EditMedsView(med: $med, add: $edit)
             })
             Image(systemName: "pills")
                 .font(.largeTitle)

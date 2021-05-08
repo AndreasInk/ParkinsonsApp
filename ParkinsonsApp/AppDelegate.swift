@@ -90,21 +90,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             //print(value)
                             
                             //   if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
-                            if today == 1 {
+                            if today == 2 {
                                 self.week.mon.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                            } else if today == 2 {
+                            } else if today == 3 {
                                 
                                 self.week.tue.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
                                 
-                            } else if today == 3 {
-                                self.week.wed.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
                             } else if today == 4 {
+                                self.week.wed.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
+                            } else if today == 5 {
                                 self.week.thur.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                            }  else if today == 5 {
-                                self.week.fri.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
                             }  else if today == 6 {
+                                self.week.fri.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
+                            }  else if today == 7 {
                                 self.week.sat.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                            } else if today == 0 {
+                            } else if today == 1 {
                                 self.week.sun.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
                                 
                             }

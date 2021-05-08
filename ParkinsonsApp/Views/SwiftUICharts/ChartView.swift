@@ -80,7 +80,7 @@ struct MedsWeekChartView: View {
         chartData.points.append( ( "Friday", Double(filtered5.last?.amountTaken ?? 0.0)))
         chartData.points.append(( "Saturday", Double(filtered6.last?.amountTaken ?? 0.0)))
         chartData.points.append(( "Sunday", Double(filtered7.last?.amountTaken ?? 0.0)))
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
         refresh = false
         }
         
