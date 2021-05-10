@@ -102,11 +102,29 @@ struct MedsView: View {
                
                 
             }
-            
+            if meds.isEmpty {
+                Image("water")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                Button(action: {
+                add = true
+                }) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 25.0)
+                            .foregroundColor(Color("teal"))
+                            .frame(height: 75)
+                            .padding()
+                        Text("Add a Med")
+                            .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                            .foregroundColor(.white)
+                    }
+                } .buttonStyle(CTAButtonStyle())
+            } else {
         ForEach(meds.indices, id: \.self) { i in
             MedsRow(med: $meds[i], week: $week, days: $days)
                 
-               
+        }
         }
             Spacer()
                 .onChange(of: meds, perform: { value in

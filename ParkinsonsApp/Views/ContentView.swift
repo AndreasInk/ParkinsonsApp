@@ -29,7 +29,7 @@ struct ContentView: View {
     @State var isOnboarding2: Bool =  false
     var body: some View {
         ZStack {
-            Color.white
+            Color.clear
                 .onAppear() {
                    
                     if useCount == 0 {
@@ -197,7 +197,7 @@ struct ContentView: View {
                     .transition(.opacity)
             }
             if animate2 {
-                Color.white
+                Color.clear
                     .ignoresSafeArea()
                 
                 HomeView(week: $week, days: $days, user: $user, isTutorial: $isOnboarding, settings2: $settings)

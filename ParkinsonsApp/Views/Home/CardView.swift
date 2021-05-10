@@ -26,13 +26,18 @@ struct CardView: View {
     private let healthStore = HKHealthStore()
     @State var loading = false
     @State var loaded =  false
+    @State var progress = 0.0
+    @State var premissionI = 0
+    @State var q = false
+    @State var canUse = false
+    @State var hasParkinsons = false
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25)
-                .foregroundColor(Color(.lightText))
+                .foregroundColor(Color(.clear))
                 .opacity(0.4)
             VStack {
-               
+                
                 Spacer()
                 HStack {
                     Image(image)
@@ -51,75 +56,25 @@ struct CardView: View {
                         .multilineTextAlignment(.center)
                         .font(.custom("Poppins-Bold", size: 16, relativeTo: .title))
                         .padding()
+                    ProgressView(value: progress)
                 }
                 if cta != ""  {
                     Spacer()
                     HStack {
                         Button(action: {
-                             if cta != "Export Data" && cta != "Share" {
-                            open = true
-                             }
+                            if cta != "Export Data" && cta != "Share" {
+                                open = true
+                            }
                             
-                            if cta == "Export Data" || cta == "Share" {
+                            if  cta == "Share" {
+                                q = true
                                 loading = true
-                                loadAllData() { (score) in
-                                    if score {
-                                        if cta == "Share" {
-                                            let storage = Storage.storage()
-
-                                           
-                                            let storageRef = storage.reference()
-                                            
-                                            let riversRef = storageRef.child("data/\(UUID()).csv")
-
-                                            let encoder = JSONEncoder()
-                                            let url = getDocumentsDirectory().appendingPathComponent("test.csv")
-                                            do {
-                                                
-                                                let input = try String(contentsOf: url)
-                                                
-                                                
-                                                let jsonData = Data(input.utf8)
-                                                do {
-                                                    let decoder = JSONDecoder()
-                                                    
-                                                    do {
-                                                                          }
-                                                    
-                                                      let uploadTask = riversRef.putData(jsonData, metadata: nil) { (metadata, error) in
-                                                        guard let metadata = metadata else {
-                                                          // Uh-oh, an error occurred!
-                                                          return
-                                                        }
-                                                          
-                                                          presentationMode.wrappedValue.dismiss()
-                                                         
-                                                  
-                                                  }
-                                                        
-                                                    } catch {
-                                                        print(error.localizedDescription)
-                                                    }
-                                                
-                                            } catch {
-                                                
-                                            }
-                                            
-                                           
-                                            
-                                           
-                                            
-                                            }
-                                            // Upload the file to the path "images/rivers.jpg"
-                                          
-                               
-                                    }
-                                }
-                            
-        
-                                    
-                                    
                                 
+                            } else if cta == "Export Data" {
+                                loading = true
+                                self.loadAllData() { experiments in
+                                    
+                                }
                             }
                             
                         }) {
@@ -132,17 +87,231 @@ struct CardView: View {
                                 .padding(.horizontal, 92)
                                 .background(RoundedRectangle(cornerRadius: 25.0).foregroundColor(Color("blue")))
                         } .buttonStyle(CTAButtonStyle())
+                        .sheet(isPresented: $q, content: {
+                            TabView(selection: $premissionI) {
+                                VStack {
+                                    Text("Can We Include Your Data In The Model?")
+                                        .font(.custom("Poppins-Bold", size: 18, relativeTo: .title))
+                                    
+                                    
+                                    Button(action: {
+                                        
+                                        premissionI += 1
+                                        print(premissionI)
+                                        canUse = true
+                                    }) {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 25.0)
+                                                .foregroundColor(Color("teal"))
+                                                .frame(height: 75)
+                                                .padding()
+                                            Text("Yes")
+                                                .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                                                .foregroundColor(.white)
+                                        }
+                                    } .buttonStyle(CTAButtonStyle())
+                                    Button(action: {
+                                        presentationMode.wrappedValue.dismiss()
+                                        
+                                    }) {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 25.0)
+                                                .foregroundColor(Color(.lightGray))
+                                                .frame(height: 75)
+                                                .padding()
+                                            Text("Yes")
+                                                .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                                                .foregroundColor(.white)
+                                        }
+                                    } .buttonStyle(CTAButtonStyle())
+                                } .tag(0)
+                                VStack {
+                                    Text("Do You Have Parkinson's?")
+                                        .font(.custom("Poppins-Bold", size: 18, relativeTo: .title))
+                                    
+                                    Button(action: {
+                                        presentationMode.wrappedValue.dismiss()
+                                        hasParkinsons = true
+                                        if canUse {
+                                            hasParkinsons = false
+                                            loading = true
+                                            loadAllData() { (score) in
+                                                if score {
+                                                    if cta == "Share" {
+                                                        let storage = Storage.storage()
+                                                        
+                                                        
+                                                        let storageRef = storage.reference()
+                                                        
+                                                        let riversRef = storageRef.child("data/\(UUID()).csv")
+                                                        
+                                                        let encoder = JSONEncoder()
+                                                        let url = getDocumentsDirectory().appendingPathComponent("test.csv")
+                                                        do {
+                                                            
+                                                            let input = try String(contentsOf: url)
+                                                            
+                                                            
+                                                            let jsonData = Data(input.utf8)
+                                                            do {
+                                                                let decoder = JSONDecoder()
+                                                                
+                                                                do {
+                                                                }
+                                                                
+                                                                let uploadTask = riversRef.putData(jsonData, metadata: nil) { (metadata, error) in
+                                                                    guard let metadata = metadata else {
+                                                                        // Uh-oh, an error occurred!
+                                                                        return
+                                                                    }
+                                                                    
+                                                                    presentationMode.wrappedValue.dismiss()
+                                                                    
+                                                                    
+                                                                }
+                                                                
+                                                            } catch {
+                                                                print(error.localizedDescription)
+                                                            }
+                                                            
+                                                        } catch {
+                                                            
+                                                        }
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                    }
+                                                    // Upload the file to the path "images/rivers.jpg"
+                                                    
+                                                    
+                                                }
+                                            }
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        }
+                                    
+                                    }) {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 25.0)
+                                                .foregroundColor(Color("teal"))
+                                                .frame(height: 75)
+                                                .padding()
+                                            Text("Yes")
+                                                .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                                                .foregroundColor(.white)
+                                        }
+                                    } .buttonStyle(CTAButtonStyle())
+                                    Button(action: {
+                                        
+                                        presentationMode.wrappedValue.dismiss()
+                                        if canUse {
+                                            hasParkinsons = false
+                                            loading = true
+                                            loadAllData() { (score) in
+                                                if score {
+                                                    if cta == "Share" {
+                                                        let storage = Storage.storage()
+                                                        
+                                                        
+                                                        let storageRef = storage.reference()
+                                                        
+                                                        let riversRef = storageRef.child("data/\(UUID()).csv")
+                                                        
+                                                        let encoder = JSONEncoder()
+                                                        let url = getDocumentsDirectory().appendingPathComponent("test.csv")
+                                                        do {
+                                                            
+                                                            let input = try String(contentsOf: url)
+                                                            
+                                                            
+                                                            let jsonData = Data(input.utf8)
+                                                            do {
+                                                                let decoder = JSONDecoder()
+                                                                
+                                                                do {
+                                                                }
+                                                                
+                                                                let uploadTask = riversRef.putData(jsonData, metadata: nil) { (metadata, error) in
+                                                                    guard let metadata = metadata else {
+                                                                        // Uh-oh, an error occurred!
+                                                                        return
+                                                                    }
+                                                                    
+                                                                    presentationMode.wrappedValue.dismiss()
+                                                                    
+                                                                    
+                                                                }
+                                                                
+                                                            } catch {
+                                                                print(error.localizedDescription)
+                                                            }
+                                                            
+                                                        } catch {
+                                                            
+                                                        }
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                    }
+                                                    // Upload the file to the path "images/rivers.jpg"
+                                                    
+                                                    
+                                                }
+                                            }
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        }
+                                    
+                                    }) {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 25.0)
+                                                .foregroundColor(Color(.lightGray))
+                                                .frame(height: 75)
+                                                .padding()
+                                            Text("No")
+                                                .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                                                .foregroundColor(.white)
+                                        }
+                                    } .buttonStyle(CTAButtonStyle())
+                                } .tag(1)
+                            } .tabViewStyle(PageTabViewStyle())
+                        })
                         .sheet(isPresented: $open) {
                             if cta == "Export Data" {
                                 ShareSheet(activityItems: [getDocumentsDirectory().appendingPathComponent("test.csv")])
+                                    .onAppear() {
+                                        progress = 1
+                                    }
                             } else if cta == "Join" {
                                 ShareSheet(activityItems: ["Hello World"])
                                 
                             } else {
-                                EmptyView()
-                                    .onAppear() {
+                                ZStack {
+                                VStack {
+                                    DismissSheetBtn()
+                                    Spacer()
+                                Text("Thank You!")
+                                    .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
+                                    .onDisappear() {
                                         presentationMode.wrappedValue.dismiss()
                                     }
+                                    Spacer()
+                                }
+                                    ForEach(0 ..< 20) { number in
+                                                        ConfettiView()
+                                                        }
+                                }
+                                    
                             }
                         }
                         
@@ -152,31 +321,34 @@ struct CardView: View {
             } .padding(.horizontal)
         }
     }
-  
+    
     func loadAllData(completionHandler: @escaping (Bool) -> Void) {
         getHealthData() { (score) in
-       
-         //print(days)
+            progress += 0.1
+            //print(days)
             if score {
-        completionHandler(true)
+                completionHandler(true)
             }
-    }
-    }
-    func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {
-        if double.isNormal {
-            do {
-                let model = try reg_model(configuration: MLModelConfiguration())
-                let prediction =  try model.prediction(double_: double, speed: speed, length: length)
-                completionHandler(PredictedScore(prediction: prediction.sourceName, predicted_parkinsons: prediction.sourceName > 0.5 ? 1 : 0, date: Date()))
-            } catch {
-                
-            }
-        } else {
-            completionHandler(PredictedScore(prediction: 21.0, predicted_parkinsons: 21, date: Date()))
         }
     }
+    func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {
+        
+            if double.isNormal {
+                do {
+                    let model = try reg_model(configuration: MLModelConfiguration())
+                    let prediction =  try model.prediction(double_: double, speed: speed, length: length)
+                    completionHandler(PredictedScore(prediction: prediction.sourceName, predicted_parkinsons: prediction.sourceName > 0.5 ? 1 : 0, date: Date()))
+                    
+                } catch {
+                    
+                }
+            } else {
+                completionHandler(PredictedScore(prediction: 21.0, predicted_parkinsons: 21, date: Date()))
+            }
+        
+    }
     
-   
+    
     func getHealthData(completionHandler: @escaping (Bool) -> Void) {
         
         
@@ -195,7 +367,7 @@ struct CardView: View {
                     
                     
                     
-                  
+                    
                     
                     
                     let readData = Set([
@@ -211,32 +383,32 @@ struct CardView: View {
                             
                             
                             getDouble() { (score) in
-                          
-                               
+                                progress += 0.1
+                                
                                 getSpeed() { (score) in
-                                   
+                                    progress += 0.1
                                     getLength() { (score) in
-                                      
-                            days = days.removeDuplicates()
+                                        progress += 0.3
+                                        days = days.removeDuplicates()
+                                        
+                                        load() { (score) in
+                                            print("Loading")
                                             
-                                                load() { (score) in
-                                                print("Loading")
-                                                 
-                                                     
-                                                completionHandler(true)
-                                                      //  print(days)
-                                                    
-                                                
-                                           
+                                            
+                                            completionHandler(true)
+                                            //  print(days)
+                                            
+                                            
+                                            
+                                        }
                                     }
-                                }
                                 }
                                 
                             }
-                        
+                            
                         } else {
                             print("Authorization failed")
-                           
+                            
                         }
                         
                         //  completionHandler()
@@ -257,9 +429,9 @@ struct CardView: View {
                 //WidgetCenter.shared.reloadAllTimelines()
             }
         }
-    
         
-       
+        
+        
     }
     
     
@@ -408,7 +580,7 @@ struct CardView: View {
                     // print(statsCollection)
                     
                     speed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                   
+                    
                     // print(quantity)
                     
                     
@@ -442,7 +614,7 @@ struct CardView: View {
             
         }
         healthStore.execute(query)
-       
+        
     }
     
     
@@ -494,7 +666,7 @@ struct CardView: View {
                     let date = statistics.startDate
                     //for: E.g. for steps it's HKUnit.count()
                     let value = quantity.doubleValue(for: HKUnit.percent())
-                   print(1)
+                    print(1)
                     balance.append(Balance(id: UUID().uuidString, value: value, date: date))
                     // print(quantity)
                     // self.week.mon.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
@@ -509,7 +681,7 @@ struct CardView: View {
                     //  print(value)
                     
                     
-                  
+                    
                     //print(date)
                     
                     
@@ -538,7 +710,7 @@ struct CardView: View {
             //if (self.values.last ?? 0.0) - 11 > ((defaults.double(forKey: "avg")))  {
         }
         healthStore.execute(query2)
-       
+        
     }
     
     func getAsym() {
@@ -676,27 +848,27 @@ struct CardView: View {
             for i2 in 0...31 {
                 for i3 in 0...24 {
                     let filtered = balance.filter { day in
-                      
-                        return day.date.get(.month) == i && day.date.get(.day) == i2 && (day.date.get(.hour) == i3)
-                    }
-                
-                    if !filtered.isEmpty {
-                    rawBalance.append(Balance(id: UUID().uuidString, value: average(numbers: filtered.map{$0.value}), date: filtered.last?.date ?? Date()))
-                    
-                    let filtered2 = speed.filter { day in
-                      
-                        return day.date.get(.month) == i && day.date.get(.day) == i2 && (day.date.get(.hour) == i3)
-                    }
-                    rawSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: average(numbers: filtered2.map{$0.speed}), date: filtered2.last?.date ?? Date()))
-                    
-                    let filtered3 = length.filter { day in
-                      
-                        return day.date.get(.month) == i && day.date.get(.day) == i2 && (day.date.get(.hour) == i3)
-                    }
-                    rawLength.append(Stride(id: UUID().uuidString, length: average(numbers: filtered3.map{$0.length}), date: filtered3.last?.date ?? Date()))
                         
-                    days.append(Day(id: UUID().uuidString, score: [Score](), tremor: [Tremor](), balance: filtered, walkingSpeed: filtered2, strideLength: filtered3, aysm: [Asymmetry](), habit: [Habit](), date: filtered2.last?.date ?? Date(), totalScore: 0.0, meds: [Med]()))
-                }
+                        return day.date.get(.month) == i && day.date.get(.day) == i2 && (day.date.get(.hour) == i3)
+                    }
+                    
+                    if !filtered.isEmpty {
+                        rawBalance.append(Balance(id: UUID().uuidString, value: average(numbers: filtered.map{$0.value}), date: filtered.last?.date ?? Date()))
+                        
+                        let filtered2 = speed.filter { day in
+                            
+                            return day.date.get(.month) == i && day.date.get(.day) == i2 && (day.date.get(.hour) == i3)
+                        }
+                        rawSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: average(numbers: filtered2.map{$0.speed}), date: filtered2.last?.date ?? Date()))
+                        
+                        let filtered3 = length.filter { day in
+                            
+                            return day.date.get(.month) == i && day.date.get(.day) == i2 && (day.date.get(.hour) == i3)
+                        }
+                        rawLength.append(Stride(id: UUID().uuidString, length: average(numbers: filtered3.map{$0.length}), date: filtered3.last?.date ?? Date()))
+                        
+                        days.append(Day(id: UUID().uuidString, score: [Score](), tremor: [Tremor](), balance: filtered, walkingSpeed: filtered2, strideLength: filtered3, aysm: [Asymmetry](), habit: [Habit](), date: filtered2.last?.date ?? Date(), totalScore: 0.0, meds: [Med]()))
+                    }
                     rawLength.removeAll()
                     rawSpeed.removeAll()
                     rawBalance.removeAll()
@@ -704,22 +876,23 @@ struct CardView: View {
             }
             
         }
+        progress += 0.1
         for i in days.indices {
-        do {
-            let double = days[i].balance.map({ $0.value })
-            
-            let speed = days[i].walkingSpeed.map({ $0.speed })
-            let length = days[i].strideLength.map({ $0.length })
-            
-            
-            
-            getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                days[i].totalScore = score.prediction
-                days[i].score.append(Score(id: UUID().uuidString, score: score.prediction, date: days[i].date))
+            do {
+                let double = days[i].balance.map({ $0.value })
+                
+                let speed = days[i].walkingSpeed.map({ $0.speed })
+                let length = days[i].strideLength.map({ $0.length })
+                
+                
+                
+                getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
+                    days[i].totalScore = score.prediction
+                    days[i].score.append(Score(id: UUID().uuidString, score: score.prediction, date: days[i].date))
+                }
+                
             }
             
-        }
-     
         }
         let encoder = JSONEncoder()
         days = days.removeDuplicates()
@@ -737,9 +910,10 @@ struct CardView: View {
         }
         do {
             
-           
-            print(738468738)
             
+            
+            print(738468738)
+            progress += 0.1
             createCSV(from: days)
             open = true
         } catch {
@@ -750,9 +924,9 @@ struct CardView: View {
     }
     func createCSV(from recArray:[Day]) {
         var input =
-        "ID, Date, Double Support Time, Meds, Step Length, Walking Speed, Score"
+            "ID, Date, Double Support Time, Meds, Step Length, Walking Speed, Score, hasParkinsons"
         
-       
+        progress += 0.1
         for day in recArray {
             print(day)
             input.append("\n")
@@ -763,7 +937,7 @@ struct CardView: View {
                 input.append(String(day.balance.first?.id ?? "NA"))
                 input.append(",")
             }
-          
+            
             if day.balance.isEmpty {
                 input.append(String("NA"))
                 input.append(",")
@@ -771,8 +945,8 @@ struct CardView: View {
                 input.append("\(day.balance.first?.date ?? Date())")
                 input.append(",")
             }
-          
-         
+            
+            
             if day.balance.isEmpty {
                 input.append(String("NA"))
                 input.append(",")
@@ -780,11 +954,11 @@ struct CardView: View {
                 input.append("\(day.balance.first?.value ?? 0.0)")
                 input.append(",")
             }
-           
-//            for double in day.aysm {
-//                input.append(String(double.asym))
-//                input.append(",")
-//            }
+            
+            //            for double in day.aysm {
+            //                input.append(String(double.asym))
+            //                input.append(",")
+            //            }
             if day.meds.isEmpty {
                 input.append(String("NA"))
                 input.append(",")
@@ -800,7 +974,7 @@ struct CardView: View {
                 input.append("\(day.strideLength.first?.length ?? 0.0)")
                 input.append(",")
             }
-           
+            
             if day.walkingSpeed.isEmpty {
                 input.append(String("NA"))
                 input.append(",")
@@ -808,35 +982,83 @@ struct CardView: View {
                 input.append("\(day.walkingSpeed.first?.speed ?? 0.0)")
                 input.append(",")
             }
-           
-           
+            
+            
+            
             
             if day.totalScore == 0.0 {
-                input.append(String("NA"))
-                input.append(",")
-            } else {
-            input.append(String(day.totalScore))
-            input.append(",")
-           
-            }
+                input.append(String(0.0))
+                            input.append(",")
+                        } else {
+                        input.append(String(day.totalScore))
+                        input.append(",")
+                       
+                        }
+            
+            input.append(String(hasParkinsons))
+            
             //print(input)
         }
-           
-            
-               
-
-            let fileManager = FileManager.default
-            do {
-                let path = try fileManager.url(for: .documentDirectory, in: .allDomainsMask, appropriateFor: nil, create: false)
-                let fileURL = getDocumentsDirectory().appendingPathComponent("test.csv")
-                try input.write(to: fileURL, atomically: true, encoding: .utf8)
-                open = true
-            } catch {
-                print("error creating file")
-            }
-
+        
+        
+        
+        
+        let fileManager = FileManager.default
+        do {
+            let path = try fileManager.url(for: .documentDirectory, in: .allDomainsMask, appropriateFor: nil, create: false)
+            let fileURL = getDocumentsDirectory().appendingPathComponent("test.csv")
+            try input.write(to: fileURL, atomically: true, encoding: .utf8)
+            if cta != "Share" {
+            open = true
+            } 
+        } catch {
+            print("error creating file")
         }
-
+        if cta == "Share" {
+            let storage = Storage.storage()
+            
+            
+            let storageRef = storage.reference()
+            
+            let riversRef = storageRef.child("data/\(UUID()).csv")
+            
+            let encoder = JSONEncoder()
+            let url = getDocumentsDirectory().appendingPathComponent("test.csv")
+            do {
+                
+                let input = try String(contentsOf: url)
+                
+                
+                let jsonData = Data(input.utf8)
+                do {
+                    let decoder = JSONDecoder()
+                    
+                    do {
+                    }
+                    
+                    let uploadTask = riversRef.putData(jsonData, metadata: nil) { (metadata, error) in
+                        guard let metadata = metadata else {
+                            // Uh-oh, an error occurred!
+                            return
+                        }
+                        
+                        presentationMode.wrappedValue.dismiss()
+                        
+                        
+                    }
+                    
+                } catch {
+                    print(error.localizedDescription)
+                }
+                
+            } catch {
+                
+            }
+            
+            presentationMode.wrappedValue.dismiss()
+    }
+    }
+    
 }
 
 

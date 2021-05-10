@@ -28,7 +28,7 @@ struct SettingsDetailsView: View {
         case "Notifications":
             VStack {
                 Toggle(isOn: $setting.onOff) {
-                    Text(setting.onOff ? "Disable Notifications" : "Enable Notifications")
+                    Text(setting.onOff ? "Notifications" : "Notifications")
                         .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
                 } .padding(.bottom)
                 .onDisappear() {
@@ -74,7 +74,7 @@ struct SettingsDetailsView: View {
                 }
                 if setting.onOff {
                     HStack {
-                    Text("Pick an hours to recieve notifications")
+                    Text("Pick an hour to recieve notifications")
                         .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
                         Spacer()
                     }

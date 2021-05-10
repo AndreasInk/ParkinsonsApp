@@ -14,7 +14,7 @@ struct ExperimentFeedView: View {
     @State var experiments = [Experiment]()
     @State var experiments2 = [Experiment]()
     @State var add = false
-    @State var refresh = false
+    @State var refresh = true
     
     @Binding var tutorialNum: Int
     @Binding var isTutorial: Bool
@@ -30,15 +30,15 @@ struct ExperimentFeedView: View {
                     //experiments = user.experiments
                     self.loadUsersExperiments() { experiments in
                         self.experiments = experiments
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//                            refresh = false
-//                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            refresh = false
+                        }
                     }
                     self.loadRecentExperiments() { experiments in
                         self.experiments2 = experiments
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//                            refresh = false
-//                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            refresh = false
+                        }
                     }
                 }
             
@@ -146,7 +146,28 @@ struct ExperimentFeedView: View {
                 ScrollView {
                     ScrollViewReader { value in
                     VStack {
+                        
+                      
                         if !refresh {
+                            if i == 2 ? experiments2.isEmpty : experiments.isEmpty {
+                                Image("data5")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding()
+                                Button(action: {
+                                add = true
+                                }) {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 25.0)
+                                            .foregroundColor(Color("teal"))
+                                            .frame(height: 75)
+                                            .padding()
+                                        Text("Add an Experiment")
+                                            .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                                            .foregroundColor(.white)
+                                    }
+                                } .buttonStyle(CTAButtonStyle())
+                            } else {
                             ForEach(i == 2 ? experiments2.reversed().indices : experiments.reversed().indices, id: \.self) { i in
                                 if experiments.indices.contains(i) {
                                     ExperimentCard(user: $user, experiment: $experiments[i], tutorialNum: $tutorialNum, isTutorial: $isTutorial)
@@ -163,6 +184,7 @@ struct ExperimentFeedView: View {
                                         }
                                 }
                             }
+                        }
                         }
                     } .onChange(of: scrollI) { newValue in
                         value.scrollTo(newValue)
