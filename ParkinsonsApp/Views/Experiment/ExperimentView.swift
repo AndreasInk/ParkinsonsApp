@@ -22,10 +22,14 @@ struct ExperimentView: View {
     
     @Binding var tutorialNum: Int
     @Binding var isTutorial: Bool
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         VStack {
             ScrollView {
                 VStack {
+                    
+                    DismissSheetBtn()
+                    
                     HStack {
                         Text(experiment.title)
                             .font(.custom("Poppins-Bold", size: 24, relativeTo: .title))

@@ -39,7 +39,7 @@ struct MedsWeekChartView: View {
                     organize()
                 }
             if !refresh {
-            BarChartView(data: $chartData, title: "Score", legend: "", refresh: $refresh)
+            BarChartView(data: $chartData, title: "Meds", legend: "", refresh: $refresh)
             }
         }
     }

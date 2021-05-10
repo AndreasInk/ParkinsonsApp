@@ -18,17 +18,36 @@ struct ContentView: View {
     @State var days = [Day]()
     
     @State var values = [Double]()
-    
+   
     @State var week = Week(id: UUID().uuidString,  sun: Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), mon:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), tue:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), wed:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), thur:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), fri:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), sat:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()))
-    @State var settings =  [Setting(title: "Notifications", text: "We'll send notifications to remind you to keep your phone in your pocket to gain insights and send updates on habits", onOff: true, dates: [9]), Setting(title: "Accessability", text: "Enable these features to make it easier to use the app", onOff: true), Setting(title: "Customize Your Widget", text: "You track your score on your home screen with widgets", onOff: true), Setting(title: "Share Your Experience", text: "By sharing your experience with the app, we can make it even better!  ", onOff: true), Setting(title: "Share Your Data", text: "By sharing your data, we can make scoring even better!  ", onOff: true), Setting(title: "Share With Your Doctor", text: "Export your data to your doctor to give important insights to your doctor to help you.", onOff: true)]
+    @State var settings =  [Setting(title: "Notifications", text: "We'll send notifications to remind you to keep your phone in your pocket to gain insights and send updates on habits", onOff: true, dates: [9]), Setting(title: "Accessability", text: "Enable these features to make it easier to use the app", onOff: true), Setting(title: "Customize Your Widget", text: "You track your score on your home screen with widgets", onOff: true)]
+    // Setting(title: "Share Your Experience", text: "By sharing your experience with the app, we can make it even better!  ", onOff: true), Setting(title: "Share Your Data", text: "By sharing your data, we can make scoring even better!  ", onOff: true), Setting(title: "Share With Your Doctor", text: "Export your data to your doctor to give important insights to your doctor to help you.", onOff: true)
     @State private var useCount = UserDefaults.standard.integer(forKey: "useCount")
     @State var user = User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]())
-    @State var isOnboarding: Bool = false
+    
+    @State var isOnboarding: Bool =  false
+    @State var isOnboarding2: Bool =  false
     var body: some View {
         ZStack {
             Color.white
-                .fullScreenCover(isPresented: $isOnboarding, content: {
-                    OnboardingView(isOnboarding: $isOnboarding)
+                .onAppear() {
+                   
+                    if useCount == 0 {
+                        isOnboarding = true
+                        isOnboarding2 = true
+                    } else {
+                      
+                        UserDefaults.standard.setValue(useCount + 1, forKey: "useCount")
+                    }
+                
+           
+        }
+                .fullScreenCover(isPresented: $isOnboarding2, content: {
+                    OnboardingView(isOnboarding: $isOnboarding, isOnboarding2: $isOnboarding2, setting: $settings[0])
+                        .onDisappear() {
+                            ready = true
+                        }
+                        
                 })
                 .ignoresSafeArea()
                 .onDisappear() {
@@ -110,8 +129,12 @@ struct ContentView: View {
                         
                     }
                     
-                    
+                    if !isOnboarding {
                     getHealthData()
+                    } else {
+                        ready = true
+                        animate2 = true
+                    }
                     if ready {
                         let url = self.getDocumentsDirectory().appendingPathComponent("data2.txt")
                         do {
@@ -177,7 +200,7 @@ struct ContentView: View {
                 Color.white
                     .ignoresSafeArea()
                 
-                HomeView(week: $week, days: $days, user: $user, settings2: $settings)
+                HomeView(week: $week, days: $days, user: $user, isTutorial: $isOnboarding, settings2: $settings)
                     .transition(.opacity)
                     .onAppear(){
                        
@@ -289,7 +312,16 @@ struct ContentView: View {
                 
                 
             }
-        }
+        } .onChange(of: isOnboarding, perform: { value in
+            
+            if !isOnboarding {
+                animate2 = false
+            getHealthData()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                animate2 = true
+                }
+            }
+        })
         
     }
     func saveExperiment(experiment: Experiment) {

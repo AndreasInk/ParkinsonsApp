@@ -12,21 +12,64 @@ struct ExperimentFeedView: View {
     @Binding var user: User
     @State var i = 0
     @State var experiments = [Experiment]()
+    @State var experiments2 = [Experiment]()
     @State var add = false
     @State var refresh = false
     
     @Binding var tutorialNum: Int
     @Binding var isTutorial: Bool
+    
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ZStack {
             Color.clear
                 .onAppear() {
-                    experiments = user.experiments
-                  
+                    //experiments = user.experiments
+                    self.loadUsersExperiments() { experiments in
+                        self.experiments = experiments
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//                            refresh = false
+//                        }
+                    }
+                    self.loadRecentExperiments() { experiments in
+                        self.experiments2 = experiments
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//                            refresh = false
+//                        }
+                    }
                 }
             VStack {
+                if isTutorial {
+                    VStack {
+                       
+                        Text("Tap recents at the top to select experiments to join, an experiemnt is a group looking to make friends and help eachother improve by changing their habits, after the tutorial, you can press recent and join to join an experiment")
+                        .fixedSize(horizontal: false, vertical: true)
+                        .multilineTextAlignment(.center)
+                        .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                            .padding()
+                        
+                        Button(action: {
+                        tutorialNum += 1
+                        presentationMode.wrappedValue.dismiss()
+                        }) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 25.0)
+                                    .foregroundColor(Color(.lightGray))
+                                    .frame(height: 75)
+                                    .padding()
+                                Text("Next")
+                                    .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                                    .foregroundColor(.white)
+                            }
+                        } .buttonStyle(CTAButtonStyle())
+                }
+                }
+                
                 HStack {
-                    
+                    if !isTutorial {
+                        DismissSheetBtn()
+                    }
+                    Spacer()
                     Button(action: {
                         add = true
                     }) {
@@ -34,31 +77,28 @@ struct ExperimentFeedView: View {
                             .padding()
                             .font(.title)
                             .foregroundColor(Color("blue"))
-                    }
+                    }  .disabled(isTutorial ? true : false)
                     .sheet(isPresented: $add, content: {
                         CreateExperimentView(user: $user, add: $add)
                     })
-                    Spacer()
+                   
                 }
                 HStack {
                     Spacer()
                     Button(action: {
+                        i = 0
                         if !refresh {
-                            i = 0
+                           
                             refresh = true
                             
-                            self.loadUsersExperiments() { experiments in
-                                self.experiments = experiments
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    refresh = false
-                                }
-                            }
+                           
                         }
                     }) {
                         Text("Your Habits")
                             .font(.custom("Poppins-Bold", size: 16, relativeTo: .subheadline))
                             .foregroundColor(i == 0 ? Color("teal") : Color(.gray).opacity(0.4))
                     } .frame(width: 100)
+                    .disabled(isTutorial ? true : false)
                     Spacer()
 //                    Button(action: {
 //                        if !refresh {
@@ -79,29 +119,26 @@ struct ExperimentFeedView: View {
 //                    } .frame(width: 100)
                     Spacer()
                     Button(action: {
+                        i = 2
                         if !refresh {
-                            i = 2
+                           
                             refresh = true
                             
                             
-                            self.loadRecentExperiments() { experiments in
-                                self.experiments = experiments
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    refresh = false
-                                }
-                            }
+                           
                         }
                     }) {
                         Text("Recent")
                             .font(.custom("Poppins-Bold", size: 16, relativeTo: .subheadline))
                             .foregroundColor(i == 2 ? Color("teal") : Color(.gray).opacity(0.4))
                     } .frame(width: 100)
+                    .disabled(isTutorial ? true : false)
                     Spacer()
                 } .padding(.top)
                 ScrollView {
                     VStack {
                         if !refresh {
-                            ForEach(experiments.reversed().indices, id: \.self) { i in
+                            ForEach(i == 2 ? experiments2.reversed().indices : experiments.reversed().indices, id: \.self) { i in
                                 if experiments.indices.contains(i) {
                                     ExperimentCard(user: $user, experiment: $experiments[i], tutorialNum: $tutorialNum, isTutorial: $isTutorial)
                                 } else {

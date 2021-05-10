@@ -24,36 +24,13 @@ struct CreateExperimentView: View {
     @Binding var user: User
     
     @Binding var add: Bool
+    
+   
     var body: some View {
         ScrollView {
             VStack {
-                HStack {
-                    Text("Experiment Title")
-                        .font(.custom("Poppins-Bold", size: 16, relativeTo: .title))
-                        .foregroundColor(Color("blue"))
-                    Spacer()
-                }
-                TextField("Experiment Title", text: $experiment.title)
-                    
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                HStack {
-                    Text("Experiment Description")
-                        .foregroundColor(Color("blue"))
-                        .font(.custom("Poppins-Bold", size: 16, relativeTo: .title))
-                    Spacer()
-                }
-                TextEditor(text: $experiment.description)
-                    .frame(height: 150)
-                    
-                    
-                    
-                    .padding()
-                    
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.gray.opacity(0.5), lineWidth: 0.5)
-                    )
+                DismissSheetBtn()
+                ExperimentTextEditor(experiment: $experiment)
                 
                 HStack {
                     Text("Habit Name")

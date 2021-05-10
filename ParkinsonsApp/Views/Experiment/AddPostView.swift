@@ -25,9 +25,11 @@ struct AddPostView: View {
     
     @Binding var user: User
     @Binding var addPost: Bool
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ScrollView {
             VStack {
+                DismissSheetBtn()
                 HStack {
                     Text("Post Title")
                         .font(.custom("Poppins-Bold", size: 16, relativeTo: .title))

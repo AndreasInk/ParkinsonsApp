@@ -11,6 +11,7 @@ struct MedsRow: View {
     @Binding var med: Med
     @State var open: Bool = false
     @Binding var week: Week
+    @Binding var days: [Day]
     var body: some View {
         HStack {
             VStack {
@@ -34,7 +35,7 @@ struct MedsRow: View {
             }
         } .padding()
         .sheet(isPresented: $open, content: {
-            MedsDetailsView(med: $med, week: $week)
+            MedsDetailsView(med: $med, week: $week, days: $days)
         })
     }
 }

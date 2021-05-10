@@ -15,23 +15,23 @@ import NiceNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var week = Week(id: UUID().uuidString,  sun: Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), mon:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), tue:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), wed:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), thur:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), fri:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), sat:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()))
     
-  
+    private var useCount = UserDefaults.standard.integer(forKey: "useCount")
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
      
        
-       
+        if useCount > 0 {
         
-        let readData = Set([
-            HKObjectType.quantityType(forIdentifier: .walkingSpeed)!,
-            HKObjectType.quantityType(forIdentifier: .walkingStepLength)!,
-            HKObjectType.quantityType(forIdentifier: .walkingDoubleSupportPercentage)!,
-            HKObjectType.quantityType(forIdentifier: .walkingAsymmetryPercentage)!
-        ])
-        
-        self.healthStore.requestAuthorization(toShare: [], read: readData) { (success, error) in
+            let readData = Set([
+                HKObjectType.quantityType(forIdentifier: .walkingSpeed)!,
+                HKObjectType.quantityType(forIdentifier: .walkingStepLength)!,
+                HKObjectType.quantityType(forIdentifier: .walkingDoubleSupportPercentage)!,
+                HKObjectType.quantityType(forIdentifier: .walkingAsymmetryPercentage)!
+            ])
             
-        }
+            self.healthStore.requestAuthorization(toShare: [], read: readData) { (success, error) in
+                
+                if success {
         
         let healthStore = HKHealthStore()
         let readType2 = HKObjectType.quantityType(forIdentifier: .walkingDoubleSupportPercentage)
@@ -303,12 +303,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
             }
         }
+                }
+            }
+        }
+            
         return true
     }
     let healthStore = HKHealthStore()
     func getHealthData() {
         
-        
+        if useCount > 0 {
         
         print(1)
         
@@ -372,7 +376,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //WidgetCenter.shared.reloadAllTimelines()
             }
         }
-        
+        }
         
     }
     

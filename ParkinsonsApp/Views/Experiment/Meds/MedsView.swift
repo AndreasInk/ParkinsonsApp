@@ -13,8 +13,12 @@ struct MedsView: View {
    
     @State var add = false
    
+    @Binding var days: [Day]
     
+    @Binding var tutorialNum: Int
+    @Binding var isTutorial: Bool
     
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ZStack {
             Color.clear
@@ -54,8 +58,36 @@ struct MedsView: View {
                     
                 }
         VStack {
+            if isTutorial {
+                VStack {
+                   
+                    Text("Tap the add symbol after the tutorial to add medications and set medication notifications.")
+                    .fixedSize(horizontal: false, vertical: true)
+                    .multilineTextAlignment(.center)
+                    .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                        .padding()
+                    
+                    Button(action: {
+                    tutorialNum += 1
+                    presentationMode.wrappedValue.dismiss()
+                    }) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 25.0)
+                                .foregroundColor(Color(.lightGray))
+                                .frame(height: 75)
+                                .padding()
+                            Text("Next")
+                                .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                                .foregroundColor(.white)
+                        }
+                    } .buttonStyle(CTAButtonStyle())
+            }
+            }
             HStack {
-                
+                if !isTutorial {
+                    DismissSheetBtn()
+                }
+                Spacer()
                 Button(action: {
                     add = true
                 }) {
@@ -67,10 +99,11 @@ struct MedsView: View {
                 .sheet(isPresented: $add, content: {
                     CreateMedView(meds: $meds, add: $add)
                 })
-                Spacer()
+               
+                
             }
         ForEach(meds.indices, id: \.self) { i in
-            MedsRow(med: $meds[i], week: $week)
+            MedsRow(med: $meds[i], week: $week, days: $days)
                 
                
         }

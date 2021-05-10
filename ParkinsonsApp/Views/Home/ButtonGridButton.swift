@@ -20,6 +20,9 @@ struct ButtonGridButton: View {
         
         Button(action: {
             open.toggle()
+            if isTutorial {
+                tutorialNum += 1
+            }
         }) {
             VStack {
                 ZStack {

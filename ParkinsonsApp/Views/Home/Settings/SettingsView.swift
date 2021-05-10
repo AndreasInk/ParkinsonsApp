@@ -9,12 +9,51 @@ import SwiftUI
 
 struct SettingsView: View {
     @Binding var settings: [Setting]
-
+    @Binding var tutorialNum: Int
+    @Binding var isTutorial: Bool
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ScrollView {
         VStack {
+            if isTutorial {
+                VStack {
+                   
+                    Text("Tap the arrow to the right of each setting to learn more about them and set the settings to your desired setting.")
+                    .fixedSize(horizontal: false, vertical: true)
+                    .multilineTextAlignment(.center)
+                    .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                        .padding()
+                    HStack {
+                    Button(action: {
+                    tutorialNum += 1
+                    presentationMode.wrappedValue.dismiss()
+                        settings.append( Setting(title: "Share With Your Doctor", text: "Export your data to your doctor to give important insights to your doctor to help you.", onOff: true))
+                    }) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 25.0)
+                                .foregroundColor(Color(.lightGray))
+                                .frame(height: 75)
+                                .padding()
+                            Text("Next")
+                                .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                                .foregroundColor(.white)
+                        }
+                    } .buttonStyle(CTAButtonStyle())
+                        Spacer()
+                    }
+            }
+            }
+            if !isTutorial {
+                DismissSheetBtn()
+                    .onAppear() {
+                        if !settings.map({$0.title}).contains("Share With Your Doctor") {
+                        settings.append( Setting(title: "Share With Your Doctor", text: "Export your data to your doctor to give important insights to your doctor to help you.", onOff: true))
+                    }
+                    }
+            }
             ForEach(settings.indices, id: \.self) { i in
                 SettingsRow(setting: $settings[i])
+                    .disabled(isTutorial ? true : false)
                 Divider()
             }
             .onChange(of: settings, perform: { value in

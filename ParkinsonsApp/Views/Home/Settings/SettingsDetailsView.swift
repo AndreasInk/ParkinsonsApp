@@ -21,6 +21,9 @@ struct SettingsDetailsView: View {
     @State var tapSens = UserDefaults.standard.double(forKey: "tapSens")
     
     var body: some View {
+        VStack {
+            DismissSheetBtn()
+        
         switch setting.title {
         case "Notifications":
             VStack {
@@ -38,7 +41,7 @@ struct SettingsDetailsView: View {
                         center.removeAllDeliveredNotifications()
                         if date1 != 24 {
                         LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-                            EveryDay(forDays: 365, starting: .today)
+                            EveryDay(forDays: 7, starting: .today)
                                 .at(hour: date1 , minute: 0)
                                 .schedule(title: "Carry Your Phone", body: "to observe your health")
                                 .withCategory("remind")
@@ -47,7 +50,7 @@ struct SettingsDetailsView: View {
                             }
                         if date2 != 24 {
                         LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-                            EveryDay(forDays: 365, starting: .today)
+                            EveryDay(forDays: 7, starting: .today)
                                 .at(hour: date2 , minute: 0)
                                 .schedule(title: "Carry Your Phone", body: "to observe your health")
                                 .withCategory("remind")
@@ -56,7 +59,7 @@ struct SettingsDetailsView: View {
                             }
                         if date3 != 24 {
                         LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-                            EveryDay(forDays: 365, starting: .today)
+                            EveryDay(forDays: 7, starting: .today)
                                 .at(hour: date3 , minute: 0)
                                 .schedule(title: "Carry Your Phone", body: "to observe your health")
                                 .withCategory("remind")
@@ -101,61 +104,62 @@ struct SettingsDetailsView: View {
             } .padding()
         case "Accessability":
             VStack {
-               
-                Toggle(isOn: $setting.onOff) {
-                    Text(setting.onOff ? "Disable Accessability" : "Enable Accessability")
-                        .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
-                } .padding(.bottom)
-                if setting.onOff {
-                    
-                Toggle(isOn: $keyboard) {
-                    Text(keyboard ? "Disable Keyboard" : "Enable Keyboard")
-                        .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
-                } .padding(.bottom)
-                .onChange(of: keyboard, perform: { value in
-                    UserDefaults().set(keyboard, forKey: "keyboard")
-                })
-                    if keyboard {
-                    Button(action: {
-                       openKeyboardSettings = true
-                    }) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 25.0)
-                                .foregroundColor(Color("teal"))
-                                .frame(height: 75)
-                                .padding()
-                            Text("Keyboard Calibration")
-                                .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
-                                .foregroundColor(.white)
-                        }
-                    }
-                    }
-                    Toggle(isOn: $autoScroll) {
-                        Text(autoScroll ? "Disable Auto Scroll" : "Enable Auto Scroll")
-                            .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
-                    } .padding(.bottom)
-                    .onChange(of: autoScroll, perform: { value in
-                        UserDefaults().set(autoScroll, forKey: "autoScroll")
-                    })
-                    Toggle(isOn: $buttonScroll) {
-                        Text(buttonScroll ? "Disable Button Scroll" : "Enable Button Scroll")
-                            .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
-                    } .padding(.bottom)
-                    .onChange(of: buttonScroll, perform: { value in
-                        UserDefaults().set(buttonScroll, forKey: "buttonScroll")
-                    })
-                    HStack {
-                    Text("Button Sensitivity")
-                        .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
-                        Spacer()
-                        
-                    }
-                    }
-                    
-                    Slider(value: $tapSens, in: -1...1)
-                        .onChange(of: tapSens, perform: { value in
-                            UserDefaults().set(tapSens, forKey: "tapSens")
-                        })
+                Text("Tap to scroll, a customized keyboard, and button sensitivity is coming soon!")
+                .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
+//                Toggle(isOn: $setting.onOff) {
+//                    Text(setting.onOff ? "Disable Accessability" : "Enable Accessability")
+//                        .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
+//                } .padding(.bottom)
+//                if setting.onOff {
+//
+//                Toggle(isOn: $keyboard) {
+//                    Text(keyboard ? "Disable Keyboard" : "Enable Keyboard")
+//                        .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
+//                } .padding(.bottom)
+//                .onChange(of: keyboard, perform: { value in
+//                    UserDefaults().set(keyboard, forKey: "keyboard")
+//                })
+//                    if keyboard {
+//                    Button(action: {
+//                       openKeyboardSettings = true
+//                    }) {
+//                        ZStack {
+//                            RoundedRectangle(cornerRadius: 25.0)
+//                                .foregroundColor(Color("teal"))
+//                                .frame(height: 75)
+//                                .padding()
+//                            Text("Keyboard Calibration")
+//                                .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+//                                .foregroundColor(.white)
+//                        }
+//                    }
+//                    }
+//                    Toggle(isOn: $autoScroll) {
+//                        Text(autoScroll ? "Disable Auto Scroll" : "Enable Auto Scroll")
+//                            .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
+//                    } .padding(.bottom)
+//                    .onChange(of: autoScroll, perform: { value in
+//                        UserDefaults().set(autoScroll, forKey: "autoScroll")
+//                    })
+//                    Toggle(isOn: $buttonScroll) {
+//                        Text(buttonScroll ? "Disable Button Scroll" : "Enable Button Scroll")
+//                            .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
+//                    } .padding(.bottom)
+//                    .onChange(of: buttonScroll, perform: { value in
+//                        UserDefaults().set(buttonScroll, forKey: "buttonScroll")
+//                    })
+//                    HStack {
+//                    Text("Button Sensitivity")
+//                        .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
+//                        Spacer()
+//
+//                    }
+//                    }
+//
+//                    Slider(value: $tapSens, in: -1...1)
+//                        .onChange(of: tapSens, perform: { value in
+//                            UserDefaults().set(tapSens, forKey: "tapSens")
+//                        })
                 Spacer()
             } .padding()
         case "Customize Your Widget":
@@ -169,7 +173,7 @@ struct SettingsDetailsView: View {
         default:
             EmptyView()
         }
-        
+        }
     }
 }
 
