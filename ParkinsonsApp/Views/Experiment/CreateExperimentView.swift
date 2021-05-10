@@ -25,8 +25,13 @@ struct CreateExperimentView: View {
     
     @Binding var add: Bool
     
-   
+    @Binding var experiments: [Experiment]
+    
+    @State var created = false
+    
+    @Binding var refresh: Bool
     var body: some View {
+        
         ScrollView {
             VStack {
                 DismissSheetBtn()
@@ -72,7 +77,16 @@ struct CreateExperimentView: View {
                     experiment.users.append(user)
                     experiment.usersIDs.append(user.id.uuidString)
                     saveExperiment()
-                    add = false
+                    created = true
+                    
+                    refresh = true
+                    self.loadUsersExperiments() { experiments in
+                        self.experiments.removeAll()
+                        self.experiments = experiments
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            refresh = false
+                        }
+                    }
                 }) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 25.0)
@@ -85,6 +99,23 @@ struct CreateExperimentView: View {
                     }
                 }
             }
+            .sheet(isPresented: $created, content: {
+                ZStack {
+                VStack {
+                    DismissSheetBtn()
+                    Spacer()
+                Text("Created Your Experiment!")
+                    .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
+                    .onDisappear() {
+                        add = false
+                    }
+                    Spacer()
+                }
+                    ForEach(0 ..< 20) { number in
+                                        ConfettiView()
+                                        }
+                }
+            })
             .padding()
             .onTapGesture {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -97,6 +128,37 @@ struct CreateExperimentView: View {
             try db.collection("experiments").document(experiment.id.uuidString).setData(from: experiment)
         } catch let error {
             print("Error writing city to Firestore: \(error)")
+        }
+    }
+    func loadUsersExperiments(performAction: @escaping ([Experiment]) -> Void) {
+        let db = Firestore.firestore()
+        let docRef = db.collection("experiments")
+        var userList = [Experiment]()
+        let query = docRef.whereField("usersIDs", arrayContains: user.id.uuidString)
+        query.getDocuments { (documents, error) in
+            if !(documents?.isEmpty ?? true) {
+                for document in documents!.documents {
+                    let result = Result {
+                        try document.data(as: Experiment.self)
+                    }
+                    
+                    switch result {
+                    case .success(let user):
+                        if let user = user {
+                            userList.append(user)
+                            
+                        } else {
+                            
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        print("Error decoding user: \(error)")
+                    }
+                    
+                    
+                }
+            }
+            performAction(userList)
         }
     }
 }

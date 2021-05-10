@@ -167,7 +167,7 @@ struct SettingsDetailsView: View {
         case "Share Your Experience":
             CardView(image: "share2", text: "You can help other people with Parkinson's build better habits and track their health by sharing your experience to improve the app.", cta: "Share")
         case "Share Your Data":
-            CardView(image: "share", text: "You can help other people with Parkinson's build better habits and track their health by sharing your data to improve our scoring feature.", cta: "Share")
+            CardView(image: "share", text: "You can help other people with Parkinson's build better habits and track their health by sharing your data to improve our scoring feature. THis will store your mobility metrics from the past 3 months off-device.  No personally identifible data is collected.  We only collect this everytime you select this button.", cta: "Share")
         case "Share With Your Doctor":
             CardView()
         default:

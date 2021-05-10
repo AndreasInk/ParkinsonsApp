@@ -11,7 +11,7 @@ import HealthKit
 
 struct OnboardingView: View {
     let healthStore = HKHealthStore()
-    @State var onboardingViews = [Onboarding(id: UUID(), image: "park", title: "Park", description: "Empowering Parkinson’s Patients with Mobility Metrics."), Onboarding(id: UUID(), image: "data1", title: "Learn From Your Data", description: "Data shows us what is working and what's not.  You can observe your score to track your condition and adapt accordingly."), Onboarding(id: UUID(), image: "chat2", title: "Learn From Others and Make Friends", description: "Meet new people and share ideas to improve your health."), Onboarding(id: UUID(), image: "running", title: "Create Experiments", description: "Start a new habit with others to motivate yourself and see what works in an experiment."), Onboarding(id: UUID(), image: "health", title: "Can we Access Your Mobility Metrics?", description: "We use this data to empower you to evaluate and track your condition, we do not save your raw data outside of your device, however if you join an experiment, the group's score will be saved off-device"), Onboarding(id: UUID(), image: "noti", title: "Can We Send You Notifications?", description: "We send notifications to remind you to place your phone in your pocket to observe your health and send social notifications.  You can turn notiifcations off in the settings of this app"), Onboarding(id: UUID(), image: "app", title: "Ready To See The App?", description: "")]
+    @State var onboardingViews = [Onboarding(id: UUID(), image: "park", title: "Park", description: "Empowering Parkinson’s Patients with Mobility Metrics."), Onboarding(id: UUID(), image: "data1", title: "Learn From Your Data", description: "Data shows us what is working and what's not.  You can observe your score to track your condition and adapt accordingly."), Onboarding(id: UUID(), image: "chat2", title: "Learn From Others and Make Friends", description: "Meet new people and share ideas to improve your health."), Onboarding(id: UUID(), image: "running", title: "Create Experiments", description: "Start a new habit with others to motivate yourself and see what works in an experiment."), Onboarding(id: UUID(), image: "health", title: "Can we Access Your Mobility Metrics?", description: "We use this data to empower you to evaluate and track your condition, we do not save your raw data outside of your device, however if you join an experiment, the group's score will be saved off-device, or if you choose to share your data it will be stored off-device."), Onboarding(id: UUID(), image: "noti", title: "Can We Send You Notifications?", description: "We send notifications to remind you to place your phone in your pocket to observe your health and send social notifications.  You can turn notiifcations off in the settings of this app"), Onboarding(id: UUID(), image: "share2", title: "What's your name?", description: ""), Onboarding(id: UUID(), image: "app", title: "Ready To See The App?", description: "")]
     @State var slideNum = 0
     @Binding var isOnboarding: Bool
     @Binding var isOnboarding2: Bool
@@ -94,17 +94,44 @@ struct OnboardingView: View {
 
 struct OnboardingDetail: View {
     @State var onboarding: Onboarding
+    @State var user = User(id: UUID(), name: "", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]())
     var body: some View {
         VStack {
             Text(onboarding.title)
                 .font(.custom("Poppins-Bold", size: 24, relativeTo: .title))
                 .multilineTextAlignment(.center)
                 .padding(.bottom)
+                .fixedSize(horizontal: false, vertical: true)
             Text(onboarding.description)
                 .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
                 .multilineTextAlignment(.center)
                 .padding(.bottom)
-           
+                .fixedSize(horizontal: false, vertical: true)
+            if onboarding.title == "What's your name?" {
+                
+                TextField("Name", text: $user.name)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                    .onDisappear() {
+                        let encoder = JSONEncoder()
+                        
+                        if let encoded = try? encoder.encode(user) {
+                            if let json = String(data: encoded, encoding: .utf8) {
+                              
+                                do {
+                                    let url = self.getDocumentsDirectory().appendingPathComponent("user.txt")
+                                    try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
+                                    
+                                } catch {
+                                    print("erorr")
+                                }
+                            }
+                            
+                            
+                        }
+                    }
+            }
+            
             Image(onboarding.image)
                 .resizable()
                 .scaledToFit()
@@ -113,6 +140,13 @@ struct OnboardingDetail: View {
                 .shadow(color: Color(.lightGray).opacity(0.4), radius: 40)
         }
         .padding()
+    }
+    func getDocumentsDirectory() -> URL {
+        // find all possible documents directories for this user
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        
+        // just send back the first one, which ought to be the only one
+        return paths[0]
     }
 }
 

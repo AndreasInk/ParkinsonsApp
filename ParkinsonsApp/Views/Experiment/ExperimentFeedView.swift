@@ -83,7 +83,7 @@ struct ExperimentFeedView: View {
                             .foregroundColor(Color("blue"))
                     }  .disabled(isTutorial ? true : false)
                     .sheet(isPresented: $add, content: {
-                        CreateExperimentView(user: $user, add: $add)
+                        CreateExperimentView(user: $user, add: $add, experiments: $experiments, refresh: $refresh)
                     })
                    
                 }
@@ -95,7 +95,9 @@ struct ExperimentFeedView: View {
                            
                             refresh = true
                             
-                           
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                refresh = false
+                            }
                         }
                     }) {
                         Text("Your Habits")
@@ -129,7 +131,9 @@ struct ExperimentFeedView: View {
                             refresh = true
                             
                             
-                           
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                refresh = false
+                            }
                         }
                     }) {
                         Text("Recent")

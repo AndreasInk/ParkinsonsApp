@@ -14,6 +14,7 @@ struct HomeView: View {
     @State var social = false
     @State var settings = false
     @State var openMeds = false
+    @State var animateBanner = false
     @State var meds = [Med]()
     @Binding var week: Week
     @Binding var days: [Day]
@@ -23,6 +24,7 @@ struct HomeView: View {
     @Binding var isTutorial: Bool
     @State var tutorialNum = 0
     @Binding var settings2: [Setting]
+    @State private var useCount = UserDefaults.standard.integer(forKey: "useCount")
     var body: some View {
         ZStack {
             
@@ -115,8 +117,18 @@ struct HomeView: View {
                 
                
                 //CardView()
-                
+                if animateBanner {
+                ShareDataBanner()
+                    .transition(.move(edge: .top))
+                }
                 ButtonGridView(days: $days, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                    .onAppear() {
+                        if useCount > 3 && useCount < 8 {
+                        withAnimation(.easeInOut) {
+                        animateBanner = true
+                        }
+                        }
+                    }
                 ExperimentCard(user: $user, experiment: $experiment, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
                     .opacity(isTutorial ? (tutorialNum == -1 ? 1.0 : 0.1) : 1.0)
                    

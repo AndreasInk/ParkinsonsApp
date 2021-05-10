@@ -9,11 +9,13 @@ import SwiftUI
 import CodableCSV
 import HealthKit
 import CoreML
+import FirebaseStorage
+
 struct CardView: View {
     @State var image = "doc"
     @State var text = "Share your data with your doctor"
     @State var cta = "Export Data"
-    
+    @Environment(\.presentationMode) var presentationMode
     @State var open = false
     @State private var days = [Day]()
     @State private var week = Week(id: UUID().uuidString,  sun: Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), mon:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), tue:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), wed:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), thur:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), fri:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), sat:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()))
@@ -30,6 +32,7 @@ struct CardView: View {
                 .foregroundColor(Color(.lightText))
                 .opacity(0.4)
             VStack {
+               
                 Spacer()
                 HStack {
                     Image(image)
@@ -53,21 +56,72 @@ struct CardView: View {
                     Spacer()
                     HStack {
                         Button(action: {
-                             if cta != "Export Data" {
+                             if cta != "Export Data" && cta != "Share" {
                             open = true
                              }
                             
-                            if cta == "Export Data" {
+                            if cta == "Export Data" || cta == "Share" {
                                 loading = true
                                 loadAllData() { (score) in
                                     if score {
-                                    
+                                        if cta == "Share" {
+                                            let storage = Storage.storage()
+
+                                           
+                                            let storageRef = storage.reference()
+                                            
+                                            let riversRef = storageRef.child("data/\(UUID()).csv")
+
+                                            let encoder = JSONEncoder()
+                                            let url = getDocumentsDirectory().appendingPathComponent("test.csv")
+                                            do {
+                                                
+                                                let input = try String(contentsOf: url)
+                                                
+                                                
+                                                let jsonData = Data(input.utf8)
+                                                do {
+                                                    let decoder = JSONDecoder()
+                                                    
+                                                    do {
+                                                                          }
+                                                    
+                                                      let uploadTask = riversRef.putData(jsonData, metadata: nil) { (metadata, error) in
+                                                        guard let metadata = metadata else {
+                                                          // Uh-oh, an error occurred!
+                                                          return
+                                                        }
+                                                          
+                                                          presentationMode.wrappedValue.dismiss()
+                                                         
+                                                  
+                                                  }
+                                                        
+                                                    } catch {
+                                                        print(error.localizedDescription)
+                                                    }
+                                                
+                                            } catch {
+                                                
+                                            }
+                                            
+                                           
+                                            
+                                           
+                                            
+                                            }
+                                            // Upload the file to the path "images/rivers.jpg"
+                                          
                                
-                            }
                                     }
+                                }
+                            
+        
+                                    
+                                    
                                 
-                        
                             }
+                            
                         }) {
                             Text(cta)
                                 
@@ -84,6 +138,11 @@ struct CardView: View {
                             } else if cta == "Join" {
                                 ShareSheet(activityItems: ["Hello World"])
                                 
+                            } else {
+                                EmptyView()
+                                    .onAppear() {
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
                             }
                         }
                         

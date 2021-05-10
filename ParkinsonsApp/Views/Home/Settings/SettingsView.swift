@@ -49,6 +49,9 @@ struct SettingsView: View {
                         if !settings.map({$0.title}).contains("Share With Your Doctor") {
                         settings.append( Setting(title: "Share With Your Doctor", text: "Export your data to your doctor to give important insights to your doctor to help you.", onOff: true))
                     }
+                        if !settings.map({$0.title}).contains("Share Your Data") {
+                        settings.append(Setting(title: "Share Your Data", text: "By sharing your data, we can make scoring even better!  ", onOff: true))
+                    }
                     }
             }
             ForEach(settings.indices, id: \.self) { i in

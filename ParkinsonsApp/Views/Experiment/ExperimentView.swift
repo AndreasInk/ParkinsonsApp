@@ -22,6 +22,8 @@ struct ExperimentView: View {
     
     @Binding var tutorialNum: Int
     @Binding var isTutorial: Bool
+    
+   
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         VStack {
