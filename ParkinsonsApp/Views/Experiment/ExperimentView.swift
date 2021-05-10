@@ -205,7 +205,7 @@ struct ExperimentView: View {
                     }
                     //            HalvedCircularBar(progress: CGFloat(experiment.groupScore.last?.prediction ?? 0.0), min: 0, max: 0)
                     ForEach(experiment.posts.indices, id: \.self) { i in
-                        PostView(experiment: $experiment, i: i)
+                        PostView(experiment: $experiment, i: i, user: $user)
                     }
                     
                     //                    .onChange(of: experiment, perform: { value in

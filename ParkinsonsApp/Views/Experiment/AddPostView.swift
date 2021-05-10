@@ -30,6 +30,7 @@ struct AddPostView: View {
         ScrollView {
             VStack {
                 DismissSheetBtn()
+                
                 HStack {
                     Text("Post Title")
                         .font(.custom("Poppins-Bold", size: 16, relativeTo: .title))
@@ -61,6 +62,7 @@ struct AddPostView: View {
                 
                 Spacer()
                 Button(action: {
+                    post.createdBy = user
                     experiment.posts.append(post)
                     saveExperiment()
                     addPost = false

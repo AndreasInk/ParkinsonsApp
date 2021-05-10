@@ -13,6 +13,7 @@ struct PostView: View {
     @State var i: Int
     @State var addComment = false
     @State var comment = Post(id: UUID(), title: "", text: "", createdBy: User(id: UUID(), name: "", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post]())
+    @Binding var user: User
     var body: some View {
         VStack {
             HStack {
@@ -24,12 +25,14 @@ struct PostView: View {
             HStack {
                 Text(experiment.posts[i].title)
                     .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                    .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }
             
             HStack {
                 Text(experiment.posts[i].text)
                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .subheadline))
+                    .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }
             .padding(.bottom)
@@ -65,6 +68,7 @@ struct PostView: View {
                                 .stroke(Color.gray.opacity(0.5), lineWidth: 0.5)
                         )
                     Button(action: {
+                        comment.createdBy = user
                         experiment.posts[i].comments.append(comment)
                         saveExperiment()
                         addComment.toggle()
