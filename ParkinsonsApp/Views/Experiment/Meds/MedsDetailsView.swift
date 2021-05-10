@@ -18,8 +18,10 @@ struct MedsDetailsView: View {
     @State var isTutorial = false
     @State var tutorialNum = 0
     var body: some View {
+        ScrollView {
         VStack {
             HStack {
+                DismissSheetBtn()
                 Spacer()
                 Button(action: {
                     edit.toggle()
@@ -71,7 +73,7 @@ struct MedsDetailsView: View {
           
         } .padding()
        
-        
+        }
     }
 }
 

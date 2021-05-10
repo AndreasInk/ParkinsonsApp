@@ -20,6 +20,9 @@ struct ExperimentFeedView: View {
     @Binding var isTutorial: Bool
     
     @Environment(\.presentationMode) var presentationMode
+    
+    @State var buttonScroll = UserDefaults.standard.bool(forKey: "buttonScroll2")
+    @State var scrollI = 0
     var body: some View {
         ZStack {
             Color.clear
@@ -38,6 +41,7 @@ struct ExperimentFeedView: View {
 //                        }
                     }
                 }
+            
             VStack {
                 if isTutorial {
                     VStack {
@@ -136,6 +140,7 @@ struct ExperimentFeedView: View {
                     Spacer()
                 } .padding(.top)
                 ScrollView {
+                    ScrollViewReader { value in
                     VStack {
                         if !refresh {
                             ForEach(i == 2 ? experiments2.reversed().indices : experiments.reversed().indices, id: \.self) { i in
@@ -155,7 +160,18 @@ struct ExperimentFeedView: View {
                                 }
                             }
                         }
+                    } .onChange(of: scrollI) { newValue in
+                        value.scrollTo(newValue)
                     }
+                    }
+                }
+               
+            }
+            if buttonScroll {
+                VStack {
+                    ScrollUpBtn(i: $scrollI)
+                    Spacer()
+                    ScrollDownBtn(i: $scrollI)
                 }
             }
         }

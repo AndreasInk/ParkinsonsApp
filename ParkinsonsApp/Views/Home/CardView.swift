@@ -80,7 +80,7 @@ struct CardView: View {
                         } .buttonStyle(CTAButtonStyle())
                         .sheet(isPresented: $open) {
                             if cta == "Export Data" {
-                                ShareSheet(activityItems: [getDocumentsDirectory()])
+                                ShareSheet(activityItems: [getDocumentsDirectory().appendingPathComponent("test.csv")])
                             } else if cta == "Join" {
                                 ShareSheet(activityItems: ["Hello World"])
                                 
@@ -602,7 +602,7 @@ struct CardView: View {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         
         // just send back the first one, which ought to be the only one
-        return paths[0].appendingPathComponent("test.csv")
+        return paths[0]
     }
     func average(numbers: [Double]) -> Double {
         // print(numbers)
@@ -656,11 +656,25 @@ struct CardView: View {
             
             getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
                 days[i].totalScore = score.prediction
-               
+                days[i].score.append(Score(id: UUID().uuidString, score: score.prediction, date: days[i].date))
             }
             
         }
      
+        }
+        let encoder = JSONEncoder()
+        days = days.removeDuplicates()
+        if let encoded = try? encoder.encode(days.removeDuplicates()) {
+            if let json = String(data: encoded, encoding: .utf8) {
+                
+                do {
+                    let url = self.getDocumentsDirectory().appendingPathComponent("data2.txt")
+                    try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
+                    
+                } catch {
+                    print("erorr")
+                }
+            }
         }
         do {
             
@@ -755,7 +769,7 @@ struct CardView: View {
             let fileManager = FileManager.default
             do {
                 let path = try fileManager.url(for: .documentDirectory, in: .allDomainsMask, appropriateFor: nil, create: false)
-                let fileURL = getDocumentsDirectory()
+                let fileURL = getDocumentsDirectory().appendingPathComponent("test.csv")
                 try input.write(to: fileURL, atomically: true, encoding: .utf8)
                 open = true
             } catch {

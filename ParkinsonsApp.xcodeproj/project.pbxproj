@@ -116,6 +116,7 @@
 		E1AD1F10264367650086BC84 /* FontSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0C264367650086BC84 /* FontSelectionView.swift */; };
 		E1AD1F11264367650086BC84 /* WidgetPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0D264367650086BC84 /* WidgetPreview.swift */; };
 		E1AD1F12264367650086BC84 /* ConfigureWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0E264367650086BC84 /* ConfigureWidgetView.swift */; };
+		E1DE28A7264978F2001C3D9B /* ScrollBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DE28A6264978F2001C3D9B /* ScrollBtn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -233,6 +234,7 @@
 		E1AD1F0C264367650086BC84 /* FontSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontSelectionView.swift; sourceTree = "<group>"; };
 		E1AD1F0D264367650086BC84 /* WidgetPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetPreview.swift; sourceTree = "<group>"; };
 		E1AD1F0E264367650086BC84 /* ConfigureWidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigureWidgetView.swift; sourceTree = "<group>"; };
+		E1DE28A6264978F2001C3D9B /* ScrollBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollBtn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -498,6 +500,7 @@
 		E184963B2644375500A69834 /* ButtonStyles */ = {
 			isa = PBXGroup;
 			children = (
+				E1DE28A6264978F2001C3D9B /* ScrollBtn.swift */,
 				E18496392644375200A69834 /* GridButtonStyle.swift */,
 				E1583A9F264897FC002F9DB3 /* DismissSheetBtn.swift */,
 				E184963C2644393B00A69834 /* CTAButtonStyle.swift */,
@@ -685,6 +688,7 @@
 				E174BC332645F44400636B3D /* MedsView.swift in Sources */,
 				E18496372644355C00A69834 /* SettingsDetailsView.swift in Sources */,
 				E10BEEC92641FE0B00317E38 /* AppDelegate.swift in Sources */,
+				E1DE28A7264978F2001C3D9B /* ScrollBtn.swift in Sources */,
 				E10BEF15264202C000317E38 /* DataView.swift in Sources */,
 				E1AD1F12264367650086BC84 /* ConfigureWidgetView.swift in Sources */,
 				E10BEF3A26420B6200317E38 /* LabelView.swift in Sources */,

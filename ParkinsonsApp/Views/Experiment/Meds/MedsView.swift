@@ -102,6 +102,7 @@ struct MedsView: View {
                
                 
             }
+            
         ForEach(meds.indices, id: \.self) { i in
             MedsRow(med: $meds[i], week: $week, days: $days)
                 

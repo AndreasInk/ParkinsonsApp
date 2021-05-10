@@ -17,7 +17,7 @@ struct SettingsDetailsView: View {
     @State var keyboard = UserDefaults.standard.bool(forKey: "keyboard")
     @State var openKeyboardSettings = UserDefaults.standard.bool(forKey: "openKeyboardSettings")
     @State var autoScroll = UserDefaults.standard.bool(forKey: "autoScroll")
-    @State var buttonScroll = UserDefaults.standard.bool(forKey: "buttonScroll")
+    @State var buttonScroll = UserDefaults.standard.bool(forKey: "buttonScroll2")
     @State var tapSens = UserDefaults.standard.double(forKey: "tapSens")
     
     var body: some View {
