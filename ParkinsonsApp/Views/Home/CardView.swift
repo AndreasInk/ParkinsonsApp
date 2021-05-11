@@ -903,15 +903,19 @@ struct CardView: View {
                             
                             return day.date.get(.month) == i && day.date.get(.day) == i2 && (day.date.get(.hour) == i3)
                         }
+                        if !filtered2.isEmpty {
                         rawSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: average(numbers: filtered2.map{$0.speed}), date: filtered2.last?.date ?? Date()))
                         
                         let filtered3 = length.filter { day in
                             
                             return day.date.get(.month) == i && day.date.get(.day) == i2 && (day.date.get(.hour) == i3)
                         }
+                            if !filtered3.isEmpty {
                         rawLength.append(Stride(id: UUID().uuidString, length: average(numbers: filtered3.map{$0.length}), date: filtered3.last?.date ?? Date()))
                         
                         days.append(Day(id: UUID().uuidString, score: [Score](), tremor: [Tremor](), balance: filtered, walkingSpeed: filtered2, strideLength: filtered3, aysm: [Asymmetry](), habit: [Habit](), date: filtered2.last?.date ?? Date(), totalScore: 0.0, meds: [Med]()))
+                    }
+                    }
                     }
                     rawLength.removeAll()
                     rawSpeed.removeAll()
@@ -924,13 +928,20 @@ struct CardView: View {
         for i in days.indices {
             do {
                 let double = days[i].balance.map({ $0.value })
-                
+                let fDouble = double.filter { word in
+                    return !word.isNaN
+                }
                 let speed = days[i].walkingSpeed.map({ $0.speed })
+                let fSpeed = speed.filter { word in
+                    return !word.isNaN
+                }
                 let length = days[i].strideLength.map({ $0.length })
+                let fLength = length.filter { word in
+                    return !word.isNaN
+                }
                 
                 
-                
-                getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
+                getLocalScore(double: average(numbers: fDouble), speed: average(numbers: fSpeed), length: average(numbers: fLength)) { (score) in
                     days[i].totalScore = score.prediction
                     days[i].score.append(Score(id: UUID().uuidString, score: score.prediction, date: days[i].date))
                 }

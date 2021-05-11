@@ -242,6 +242,7 @@ struct ContentView: View {
                         }
                         for day in days {
                             //print(day)
+                            if day.date.get(.weekOfYear) == Date().get(.weekOfYear) {
                             for i in user.experiments.indices {
                                 let groupScore = user.experiments[i].groupScore.last
                                 
@@ -303,6 +304,7 @@ struct ContentView: View {
                                         saveExperiment(experiment: user.experiments[i])
                                     }
                             }
+                                }
                             
                         }
                             }
