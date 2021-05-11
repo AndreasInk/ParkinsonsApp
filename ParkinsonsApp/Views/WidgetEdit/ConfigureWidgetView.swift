@@ -24,6 +24,7 @@ struct ConfigureWidgetView: View {
                 }
             ScrollView(showsIndicators: false) {
         VStack {
+            DismissSheetBtn()
             WidgetPreview(color1: $color1, color2: $color2, textColor: $textColor, course: $course, font: $font)
                 .clipShape(RoundedRectangle(cornerRadius: 25.0))
                 .frame(width: 200, height: 200, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)

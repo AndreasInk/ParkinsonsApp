@@ -31,14 +31,29 @@ struct CardView: View {
     @State var q = false
     @State var canUse = false
     @State var hasParkinsons = false
+    @State var done = false
+    @Binding var openCard: Bool
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25)
                 .foregroundColor(Color(.clear))
                 .opacity(0.4)
             VStack {
+                HStack {
+                Button(action: {
+                   
+                        openCard = false
+                    
+                }) {
+                   Image(systemName: "xmark")
+                    .font(.title)
+                } .buttonStyle(CTAButtonStyle())
+                    Spacer()
+                } .padding()
                 
                 Spacer()
+                
+                if !done {
                 HStack {
                     Image(image)
                         .resizable()
@@ -50,14 +65,24 @@ struct CardView: View {
                     Text(text)
                         .font(.custom("Poppins-Bold", size: 16, relativeTo: .title))
                         .foregroundColor(Color("blue"))
+                        .multilineTextAlignment(.center)
+                }
                 }
                 if loading {
-                    Text("This'll take a while, please wait")
+                    Text(done ? "Thank You!" : "This'll take a while, please wait")
                         .multilineTextAlignment(.center)
                         .font(.custom("Poppins-Bold", size: 16, relativeTo: .title))
                         .padding()
+                    if !done {
                     ProgressView(value: progress)
+                    }
                 }
+                if done {
+                Spacer()
+                }
+                if !loading {
+                if !canUse {
+                if !done {
                 if cta != ""  {
                     Spacer()
                     HStack {
@@ -73,7 +98,7 @@ struct CardView: View {
                             } else if cta == "Export Data" {
                                 loading = true
                                 self.loadAllData() { experiments in
-                                    
+                                    open = true
                                 }
                             }
                             
@@ -87,239 +112,258 @@ struct CardView: View {
                                 .padding(.horizontal, 92)
                                 .background(RoundedRectangle(cornerRadius: 25.0).foregroundColor(Color("blue")))
                         } .buttonStyle(CTAButtonStyle())
-                        .sheet(isPresented: $q, content: {
-                            TabView(selection: $premissionI) {
-                                VStack {
-                                    Text("Can We Include Your Data In The Model?")
-                                        .font(.custom("Poppins-Bold", size: 18, relativeTo: .title))
-                                    
-                                    
-                                    Button(action: {
-                                        
-                                        premissionI += 1
-                                        print(premissionI)
-                                        canUse = true
-                                    }) {
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 25.0)
-                                                .foregroundColor(Color("teal"))
-                                                .frame(height: 75)
-                                                .padding()
-                                            Text("Yes")
-                                                .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
-                                                .foregroundColor(.white)
-                                        }
-                                    } .buttonStyle(CTAButtonStyle())
-                                    Button(action: {
-                                        presentationMode.wrappedValue.dismiss()
-                                        
-                                    }) {
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 25.0)
-                                                .foregroundColor(Color(.lightGray))
-                                                .frame(height: 75)
-                                                .padding()
-                                            Text("Yes")
-                                                .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
-                                                .foregroundColor(.white)
-                                        }
-                                    } .buttonStyle(CTAButtonStyle())
-                                } .tag(0)
-                                VStack {
-                                    Text("Do You Have Parkinson's?")
-                                        .font(.custom("Poppins-Bold", size: 18, relativeTo: .title))
-                                    
-                                    Button(action: {
-                                        presentationMode.wrappedValue.dismiss()
-                                        hasParkinsons = true
-                                        if canUse {
-                                            hasParkinsons = false
-                                            loading = true
-                                            loadAllData() { (score) in
-                                                if score {
-                                                    if cta == "Share" {
-                                                        let storage = Storage.storage()
-                                                        
-                                                        
-                                                        let storageRef = storage.reference()
-                                                        
-                                                        let riversRef = storageRef.child("data/\(UUID()).csv")
-                                                        
-                                                        let encoder = JSONEncoder()
-                                                        let url = getDocumentsDirectory().appendingPathComponent("test.csv")
-                                                        do {
-                                                            
-                                                            let input = try String(contentsOf: url)
-                                                            
-                                                            
-                                                            let jsonData = Data(input.utf8)
-                                                            do {
-                                                                let decoder = JSONDecoder()
-                                                                
-                                                                do {
-                                                                }
-                                                                
-                                                                let uploadTask = riversRef.putData(jsonData, metadata: nil) { (metadata, error) in
-                                                                    guard let metadata = metadata else {
-                                                                        // Uh-oh, an error occurred!
-                                                                        return
-                                                                    }
-                                                                    
-                                                                    presentationMode.wrappedValue.dismiss()
-                                                                    
-                                                                    
-                                                                }
-                                                                
-                                                            } catch {
-                                                                print(error.localizedDescription)
-                                                            }
-                                                            
-                                                        } catch {
-                                                            
-                                                        }
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
-                                                    }
-                                                    // Upload the file to the path "images/rivers.jpg"
-                                                    
-                                                    
-                                                }
-                                            }
-                                            
-                                            
-                                            
-                                            
-                                            
-                                        }
-                                    
-                                    }) {
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 25.0)
-                                                .foregroundColor(Color("teal"))
-                                                .frame(height: 75)
-                                                .padding()
-                                            Text("Yes")
-                                                .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
-                                                .foregroundColor(.white)
-                                        }
-                                    } .buttonStyle(CTAButtonStyle())
-                                    Button(action: {
-                                        
-                                        presentationMode.wrappedValue.dismiss()
-                                        if canUse {
-                                            hasParkinsons = false
-                                            loading = true
-                                            loadAllData() { (score) in
-                                                if score {
-                                                    if cta == "Share" {
-                                                        let storage = Storage.storage()
-                                                        
-                                                        
-                                                        let storageRef = storage.reference()
-                                                        
-                                                        let riversRef = storageRef.child("data/\(UUID()).csv")
-                                                        
-                                                        let encoder = JSONEncoder()
-                                                        let url = getDocumentsDirectory().appendingPathComponent("test.csv")
-                                                        do {
-                                                            
-                                                            let input = try String(contentsOf: url)
-                                                            
-                                                            
-                                                            let jsonData = Data(input.utf8)
-                                                            do {
-                                                                let decoder = JSONDecoder()
-                                                                
-                                                                do {
-                                                                }
-                                                                
-                                                                let uploadTask = riversRef.putData(jsonData, metadata: nil) { (metadata, error) in
-                                                                    guard let metadata = metadata else {
-                                                                        // Uh-oh, an error occurred!
-                                                                        return
-                                                                    }
-                                                                    
-                                                                    presentationMode.wrappedValue.dismiss()
-                                                                    
-                                                                    
-                                                                }
-                                                                
-                                                            } catch {
-                                                                print(error.localizedDescription)
-                                                            }
-                                                            
-                                                        } catch {
-                                                            
-                                                        }
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
-                                                    }
-                                                    // Upload the file to the path "images/rivers.jpg"
-                                                    
-                                                    
-                                                }
-                                            }
-                                            
-                                            
-                                            
-                                            
-                                            
-                                        }
-                                    
-                                    }) {
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 25.0)
-                                                .foregroundColor(Color(.lightGray))
-                                                .frame(height: 75)
-                                                .padding()
-                                            Text("No")
-                                                .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
-                                                .foregroundColor(.white)
-                                        }
-                                    } .buttonStyle(CTAButtonStyle())
-                                } .tag(1)
-                            } .tabViewStyle(PageTabViewStyle())
-                        })
-                        .sheet(isPresented: $open) {
-                            if cta == "Export Data" {
-                                ShareSheet(activityItems: [getDocumentsDirectory().appendingPathComponent("test.csv")])
-                                    .onAppear() {
-                                        progress = 1
-                                    }
-                            } else if cta == "Join" {
-                                ShareSheet(activityItems: ["Hello World"])
-                                
-                            } else {
-                                ZStack {
-                                VStack {
-                                    DismissSheetBtn()
-                                    Spacer()
-                                Text("Thank You!")
-                                    .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
-                                    .onDisappear() {
-                                        presentationMode.wrappedValue.dismiss()
-                                    }
-                                    Spacer()
-                                }
-                                    ForEach(0 ..< 20) { number in
-                                                        ConfettiView()
-                                                        }
-                                }
-                                    
-                            }
-                        }
-                        
-                        
+                       
                     }
+                    
+                        
                 }
+                        
+                }
+                }
+            } else {
+                Spacer()
+            }
+            }
+            .sheet(isPresented: $open) {
+                if cta == "Export Data" {
+                    ShareSheet(activityItems: [getDocumentsDirectory().appendingPathComponent("test.csv")])
+                        .onAppear() {
+                            progress = 1
+                        }
+                } else if cta == "Join" {
+                    ShareSheet(activityItems: ["Hello World"])
+                    
+                } else {
+                    ZStack {
+                    VStack {
+                        DismissSheetBtn()
+                        Spacer()
+                    Text("Thank You!")
+                        .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
+                        .onDisappear() {
+                           openCard = false
+                        }
+                        Spacer()
+                    }
+                        ForEach(0 ..< 20) { number in
+                                            ConfettiView()
+                                            }
+                    }
+                        
+                }
+            }
+                
+                if q {
+                    Color(.systemBackground)
+                        .ignoresSafeArea()
+                TabView(selection: $premissionI) {
+                    VStack {
+                        Text("Can We Include Your Data In The Model?")
+                            .font(.custom("Poppins-Bold", size: 18, relativeTo: .title))
+                            .multilineTextAlignment(.center)
+                        
+                        Button(action: {
+                            
+                            premissionI += 1
+                            print(premissionI)
+                            canUse = true
+                        }) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 25.0)
+                                    .foregroundColor(Color("teal"))
+                                    .frame(height: 75)
+                                    .padding()
+                                Text("Yes")
+                                    .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                                    .foregroundColor(.white)
+                            }
+                        } .buttonStyle(CTAButtonStyle())
+                        Button(action: {
+                            canUse = false
+                            q = false
+                        }) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 25.0)
+                                    .foregroundColor(Color(.lightGray))
+                                    .frame(height: 75)
+                                    .padding()
+                                Text("No")
+                                    .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                                    .foregroundColor(.white)
+                            }
+                        } .buttonStyle(CTAButtonStyle())
+                    } .tag(0)
+                    VStack {
+                        Text("Do You Have Parkinson's?")
+                            .font(.custom("Poppins-Bold", size: 18, relativeTo: .title))
+                        
+                        Button(action: {
+                           
+                            hasParkinsons = true
+                            if canUse {
+                                hasParkinsons = false
+                                loading = true
+                               
+                                loadAllData() { (score) in
+                                    if score {
+                                        if cta == "Share" {
+                                            let storage = Storage.storage()
+                                            
+                                            
+                                            let storageRef = storage.reference()
+                                            
+                                            let riversRef = storageRef.child("data/\(UUID()).csv")
+                                            
+                                            let encoder = JSONEncoder()
+                                            let url = getDocumentsDirectory().appendingPathComponent("test.csv")
+                                            do {
+                                                
+                                                let input = try String(contentsOf: url)
+                                                
+                                                
+                                                let jsonData = Data(input.utf8)
+                                                do {
+                                                    let decoder = JSONDecoder()
+                                                    
+                                                    do {
+                                                    }
+                                                    
+                                                    let uploadTask = riversRef.putData(jsonData, metadata: nil) { (metadata, error) in
+                                                        guard let metadata = metadata else {
+                                                            // Uh-oh, an error occurred!
+                                                            return
+                                                        }
+                                                        
+                                                      //  presentationMode.wrappedValue.dismiss()
+                                                        
+                                                        
+                                                    }
+                                                    
+                                                } catch {
+                                                    print(error.localizedDescription)
+                                                }
+                                                
+                                            } catch {
+                                                
+                                            }
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        }
+                                        // Upload the file to the path "images/rivers.jpg"
+                                        
+                                        
+                                    }
+                                }
+                                q = false
+                                
+                                
+                                
+                                
+                            }
+                        
+                        }) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 25.0)
+                                    .foregroundColor(Color("teal"))
+                                    .frame(height: 75)
+                                    .padding()
+                                Text("Yes")
+                                    .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                                    .foregroundColor(.white)
+                            }
+                        } .buttonStyle(CTAButtonStyle())
+                        Button(action: {
+                            
+                           
+                            if canUse {
+                                hasParkinsons = false
+                                loading = true
+                                loadAllData() { (score) in
+                                    if score {
+                                        if cta == "Share" {
+                                            let storage = Storage.storage()
+                                            
+                                            
+                                            let storageRef = storage.reference()
+                                            
+                                            let riversRef = storageRef.child("data/\(UUID()).csv")
+                                            
+                                            let encoder = JSONEncoder()
+                                            let url = getDocumentsDirectory().appendingPathComponent("test.csv")
+                                            do {
+                                                
+                                                let input = try String(contentsOf: url)
+                                                
+                                                
+                                                let jsonData = Data(input.utf8)
+                                                do {
+                                                    let decoder = JSONDecoder()
+                                                    
+                                                    do {
+                                                    }
+                                                    
+                                                    let uploadTask = riversRef.putData(jsonData, metadata: nil) { (metadata, error) in
+                                                        guard let metadata = metadata else {
+                                                            // Uh-oh, an error occurred!
+                                                            return
+                                                        }
+                                                        
+                                                       // presentationMode.wrappedValue.dismiss()
+                                                        
+                                                        
+                                                    }
+                                                    
+                                                } catch {
+                                                    print(error.localizedDescription)
+                                                }
+                                                
+                                            } catch {
+                                                
+                                            }
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        }
+                                        // Upload the file to the path "images/rivers.jpg"
+                                        
+                                        
+                                    }
+                                }
+                                
+                                
+                                q = false
+                                
+                                
+                            }
+                        
+                        }) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 25.0)
+                                    .foregroundColor(Color(.lightGray))
+                                    .frame(height: 75)
+                                    .padding()
+                                Text("No")
+                                    .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                                    .foregroundColor(.white)
+                            }
+                        } .buttonStyle(CTAButtonStyle())
+                    } .tag(1)
+                } .tabViewStyle(PageTabViewStyle())
+                }
+                if done {
+                    ForEach(0 ..< 20) { number in
+                                        ConfettiView()
+                                        }
+                
+                }
+                
             } .padding(.horizontal)
-        }
+        
     }
     
     func loadAllData(completionHandler: @escaping (Bool) -> Void) {
@@ -915,7 +959,11 @@ struct CardView: View {
             print(738468738)
             progress += 0.1
             createCSV(from: days)
+            if cta != "Share" {
             open = true
+            } else {
+                done = true
+            }
         } catch {
             print("error")
         }
@@ -1010,7 +1058,9 @@ struct CardView: View {
             try input.write(to: fileURL, atomically: true, encoding: .utf8)
             if cta != "Share" {
             open = true
-            } 
+            }  else {
+                done = true
+            }
         } catch {
             print("error creating file")
         }
@@ -1042,7 +1092,7 @@ struct CardView: View {
                             return
                         }
                         
-                        presentationMode.wrappedValue.dismiss()
+                        //presentationMode.wrappedValue.dismiss()
                         
                         
                     }
@@ -1055,7 +1105,7 @@ struct CardView: View {
                 
             }
             
-            presentationMode.wrappedValue.dismiss()
+            //presentationMode.wrappedValue.dismiss()
     }
     }
     

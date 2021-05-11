@@ -20,13 +20,15 @@ struct SettingsDetailsView: View {
     @State var buttonScroll = UserDefaults.standard.bool(forKey: "buttonScroll2")
     @State var tapSens = UserDefaults.standard.double(forKey: "tapSens")
     
+    @Binding var openCard: Bool
     var body: some View {
         VStack {
-            DismissSheetBtn()
+            
         
         switch setting.title {
         case "Notifications":
             VStack {
+                DismissSheetBtn()
                 Toggle(isOn: $setting.onOff) {
                     Text(setting.onOff ? "Notifications" : "Notifications")
                         .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
@@ -104,6 +106,7 @@ struct SettingsDetailsView: View {
             } .padding()
         case "Accessability":
             VStack {
+                DismissSheetBtn()
                 Text("Tap to scroll, a customized keyboard, and button sensitivity is coming soon!")
                 .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
 //                Toggle(isOn: $setting.onOff) {
@@ -165,11 +168,11 @@ struct SettingsDetailsView: View {
         case "Customize Your Widget":
             ConfigureWidgetView()
         case "Share Your Experience":
-            CardView(image: "share2", text: "You can help other people with Parkinson's build better habits and track their health by sharing your experience to improve the app.", cta: "Share")
+            CardView(image: "share2", text: "You can help other people with Parkinson's build better habits and track their health by sharing your experience to improve the app.", cta: "Share", openCard:  $openCard)
         case "Share Your Data":
-            CardView(image: "share", text: "You can help other people with Parkinson's build better habits and track their health by sharing your data to improve our scoring feature. THis will store your mobility metrics from the past 3 months off-device.  No personally identifible data is collected.  We only collect this everytime you select this button.", cta: "Share")
+            CardView(image: "share", text: "You can help other people with Parkinson's build better habits and track their health by sharing your data to improve our scoring feature. This will store your mobility metrics from the past 3 months off-device.  No personally identifible data is collected.  We only collect this everytime you select this button.", cta: "Share", openCard:  $openCard)
         case "Share With Your Doctor":
-            CardView()
+            CardView(openCard:  $openCard)
         default:
             EmptyView()
         }
