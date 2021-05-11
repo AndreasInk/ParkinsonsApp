@@ -93,7 +93,6 @@
 		E13A18CF2643868D00FC66B0 /* NiceNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = E13A18CE2643868D00FC66B0 /* NiceNotifications */; };
 		E1583AA0264897FC002F9DB3 /* DismissSheetBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1583A9F264897FC002F9DB3 /* DismissSheetBtn.swift */; };
 		E1583AA22648988B002F9DB3 /* ExperimentTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1583AA12648988B002F9DB3 /* ExperimentTextEditor.swift */; };
-		E1583AA42648A2E3002F9DB3 /* ParkinsonsWidgetv2.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E1583AA32648A2E3002F9DB3 /* ParkinsonsWidgetv2.intentdefinition */; };
 		E1583AAA2648B05E002F9DB3 /* CodableCSV in Frameworks */ = {isa = PBXBuildFile; productRef = E1583AA92648B05E002F9DB3 /* CodableCSV */; };
 		E1583AAB2648B09C002F9DB3 /* ParkinsonsWidgetv2.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E1583AA32648A2E3002F9DB3 /* ParkinsonsWidgetv2.intentdefinition */; };
 		E174BC312645F44400636B3D /* MedsDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E174BC2F2645F3DF00636B3D /* MedsDetailsView.swift */; };
@@ -708,7 +707,6 @@
 				E1DE28B22649822B001C3D9B /* ShareDataBanner.swift in Sources */,
 				E184963D2644393B00A69834 /* CTAButtonStyle.swift in Sources */,
 				E10BEF4426420B6200317E38 /* LineChartView.swift in Sources */,
-				E1583AA42648A2E3002F9DB3 /* ParkinsonsWidgetv2.intentdefinition in Sources */,
 				E19B62052646DA3700796160 /* CreateMedView.swift in Sources */,
 				E10BEF4C2642CE8F00317E38 /* Social.swift in Sources */,
 				E10BEF3E26420B6200317E38 /* PieChartHelpers.swift in Sources */,
@@ -899,7 +897,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ParkinsonsApp/ParkinsonsApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"ParkinsonsApp/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;
 				ENABLE_PREVIEWS = YES;
@@ -923,7 +921,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ParkinsonsApp/ParkinsonsApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"ParkinsonsApp/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;
 				ENABLE_PREVIEWS = YES;
@@ -946,7 +944,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = ParkinsonsWidgetv2Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = MC27HKM86M;
 				INFOPLIST_FILE = ParkinsonsWidgetv2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -970,7 +968,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = ParkinsonsWidgetv2Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = MC27HKM86M;
 				INFOPLIST_FILE = ParkinsonsWidgetv2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;

@@ -11,6 +11,9 @@ struct SettingsRow: View {
     @Binding var setting: Setting
     @State var open = false
     var body: some View {
+        Button(action: {
+            open = true
+        }) {
         HStack {
             VStack {
                 HStack {
@@ -23,14 +26,13 @@ struct SettingsRow: View {
                 Text(setting.text)
                     
                     .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
+                    
                     Spacer()
             }
             }
             Spacer()
            
-            Button(action: {
-                open = true
-            }) {
+           
                 Image(systemName: "arrow.right")
                     .font(.title)
             }

@@ -150,6 +150,7 @@ struct ExperimentFeedView: View {
                       
                         if !refresh {
                             if i == 2 ? experiments2.isEmpty : experiments.isEmpty {
+                                Spacer()
                                 Image("data5")
                                     .resizable()
                                     .scaledToFit()

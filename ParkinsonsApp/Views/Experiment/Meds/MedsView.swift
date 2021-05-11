@@ -103,6 +103,7 @@ struct MedsView: View {
                 
             }
             if meds.isEmpty {
+                Spacer()
                 Image("water")
                     .resizable()
                     .scaledToFit()
