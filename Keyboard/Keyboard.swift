@@ -184,6 +184,8 @@ struct Keyboard: View {
                         row2 = [Key(id: UUID(), key: "a", sens: 8), Key(id: UUID(), key: "s", sens: 8), Key(id: UUID(), key: "d", sens: 8),Key(id: UUID(), key: "f", sens: 8), Key(id: UUID(), key: "g", sens: 8), Key(id: UUID(), key: "h", sens: 8), Key(id: UUID(), key: "j", sens: 8), Key(id: UUID(), key: "k", sens: 8), Key(id: UUID(), key: "l", sens: 8)]
                         
                         row3 = [Key(id: UUID(), key: "z", sens: 8), Key(id: UUID(), key: "x", sens: 8), Key(id: UUID(), key: "c", sens: 8),Key(id: UUID(), key: "v", sens: 8), Key(id: UUID(), key: "b", sens: 8), Key(id: UUID(), key: "n", sens: 8), Key(id: UUID(), key: "m", sens: 8)]
+                        
+                        
                     }
                 })
             Button(action: {
@@ -303,10 +305,10 @@ struct Keyboard: View {
                     .onTapGesture {
                         zoom = false
                     }
-                ZoomView(zoom: $zoom, zoomSection: zoomSection, pressedKey: $pressedKey, predictedKey: $predictedKey)
+                ZoomView(zoom: $zoom, zoomSection: $zoomSection, pressedKey: $pressedKey, predictedKey: $predictedKey)
             }
             if numKeys {
-                Color(.lightGray)
+                Color(.white)
                     .ignoresSafeArea()
                 NumKeyboard(viewController: viewController, numKeys: $numKeys)
             }

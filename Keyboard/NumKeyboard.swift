@@ -17,10 +17,10 @@ struct NumKeyboard: View {
     
     @State var row3 = [Key(id: UUID(), key: ".", sens: 8), Key(id: UUID(), key: ",", sens: 8), Key(id: UUID(), key: "?", sens: 8),Key(id: UUID(), key: "!", sens: 8), Key(id: UUID(), key: "\'", sens: 8)]
     
-    @State var section1 = ["q", "w", "e", "a", "s", "d", "z", "x"]
-    @State var section2 = ["d", "x", "r", "t", "y", "u", "f", "g", "h", "c", "v", "b"]
-    @State var section3 = ["i", "o", "p", "j", "k", "l", "n", "m"]
-    @State var section4 = ["j", "n", "p", "k", "l", "m"]
+    @State var section1 = ["1", "2", "3", "4", "-", "/", ":", ";", "."]
+    @State var section2 = ["4", "5", "6", "7", ";", "(", ")", "$", ".", ",", "?", "!"]
+    @State var section3 = ["7", "8", "9", "0", "$", "&", "@", "\"", "\'"]
+    @State var section4 = [".", ",", "?", "!", "\'"]
     @State var pressedKey = ""
     @State var zoom = false
     @State var uppercase = false
@@ -172,25 +172,7 @@ struct NumKeyboard: View {
                 
             } .padding(5)
                 
-                } .onChange(of: numKeys, perform: { value in
-                    if numKeys {
-                        section1 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-                        section2 = ["-", "/", ":", ";", "(", ")", "$", "&", "@", "\""]
-                        section3 = [".", ",", "?", "!", "'"]
-                       section4 = []
-                        row1 = [Key(id: UUID(), key: "1", sens: 8), Key(id: UUID(), key: "2", sens: 8), Key(id: UUID(), key: "3", sens: 8),Key(id: UUID(), key: "4", sens: 8), Key(id: UUID(), key: "5", sens: 8), Key(id: UUID(), key: "6", sens: 8), Key(id: UUID(), key: "7", sens: 8), Key(id: UUID(), key: "8", sens: 8), Key(id: UUID(), key: "9", sens: 8), Key(id: UUID(), key: "0", sens: 8),]
-                        
-                        row2 = [Key(id: UUID(), key: "-", sens: 8), Key(id: UUID(), key: "/", sens: 8), Key(id: UUID(), key: ":", sens: 8),Key(id: UUID(), key: ";", sens: 8), Key(id: UUID(), key: "(", sens: 8), Key(id: UUID(), key: ")", sens: 8), Key(id: UUID(), key: "$", sens: 8), Key(id: UUID(), key: "&", sens: 8), Key(id: UUID(), key: "@", sens: 8), Key(id: UUID(), key: "\"", sens: 8)]
-                        
-                        row3 = [Key(id: UUID(), key: ".", sens: 8), Key(id: UUID(), key: ",", sens: 8), Key(id: UUID(), key: "?", sens: 8),Key(id: UUID(), key: "!", sens: 8), Key(id: UUID(), key: "\'", sens: 8)]
-                    } else {
-                        row1 = [Key(id: UUID(), key: "q", sens: 8), Key(id: UUID(), key: "w", sens: 8), Key(id: UUID(), key: "e", sens: 8),Key(id: UUID(), key: "r", sens: 8), Key(id: UUID(), key: "t", sens: 8), Key(id: UUID(), key: "y", sens: 8), Key(id: UUID(), key: "u", sens: 8), Key(id: UUID(), key: "i", sens: 8), Key(id: UUID(), key: "o", sens: 8), Key(id: UUID(), key: "p", sens: 8),]
-                        
-                        row2 = [Key(id: UUID(), key: "a", sens: 8), Key(id: UUID(), key: "s", sens: 8), Key(id: UUID(), key: "d", sens: 8),Key(id: UUID(), key: "f", sens: 8), Key(id: UUID(), key: "g", sens: 8), Key(id: UUID(), key: "h", sens: 8), Key(id: UUID(), key: "j", sens: 8), Key(id: UUID(), key: "k", sens: 8), Key(id: UUID(), key: "l", sens: 8)]
-                        
-                        row3 = [Key(id: UUID(), key: "z", sens: 8), Key(id: UUID(), key: "x", sens: 8), Key(id: UUID(), key: "c", sens: 8),Key(id: UUID(), key: "v", sens: 8), Key(id: UUID(), key: "b", sens: 8), Key(id: UUID(), key: "n", sens: 8), Key(id: UUID(), key: "m", sens: 8)]
-                    }
-                })
+                } 
             Button(action: {
                 pressedKey = " "
                 text = ""
@@ -308,10 +290,10 @@ struct NumKeyboard: View {
                     .onTapGesture {
                         zoom = false
                     }
-                ZoomView(zoom: $zoom, zoomSection: zoomSection, pressedKey: $pressedKey, predictedKey: $predictedKey)
+                ZoomView(zoom: $zoom, zoomSection: $zoomSection, pressedKey: $pressedKey, predictedKey: $predictedKey)
             }
             if symbolKeys {
-                Color(.lightGray)
+                Color(.white)
                     .ignoresSafeArea()
                 SymbolKeyboard(viewController: viewController, symbolKeys: $symbolKeys)
             }

@@ -16,7 +16,7 @@ struct ZoomView: View {
         GridItem(.adaptive(minimum: 80))
         ]
     @Binding var zoom: Bool
-@State var zoomSection = [String]()
+    @Binding var zoomSection: [String]
     @Binding var pressedKey: String
     @Binding var predictedKey: String
     var body: some View {

@@ -17,10 +17,10 @@ struct SymbolKeyboard: View {
     
     @State var row3 = [Key(id: UUID(), key: "?", sens: 8), Key(id: UUID(), key: "!", sens: 8), Key(id: UUID(), key: "\''", sens: 8)]
     
-    @State var section1 = ["q", "w", "e", "a", "s", "d", "z", "x"]
-    @State var section2 = ["d", "x", "r", "t", "y", "u", "f", "g", "h", "c", "v", "b"]
-    @State var section3 = ["i", "o", "p", "j", "k", "l", "n", "m"]
-    @State var section4 = ["j", "n", "p", "k", "l", "m"]
+    @State var section1 = ["[", "]", "{", "}", "_", "\\", "|"]
+    @State var section2 = ["}", "#", "%", "^", "|", "~", "<", ">", "?", "!", "\""]
+    @State var section3 = ["*", "+", "=", ">", ".", ","]
+    @State var section4 = []
     @State var pressedKey = ""
     @State var zoom = false
     @State var uppercase = false
@@ -260,7 +260,7 @@ struct SymbolKeyboard: View {
                     .onTapGesture {
                         zoom = false
                     }
-                ZoomView(zoom: $zoom, zoomSection: zoomSection, pressedKey: $pressedKey, predictedKey: $predictedKey)
+                ZoomView(zoom: $zoom, zoomSection: $zoomSection, pressedKey: $pressedKey, predictedKey: $predictedKey)
             }
         }
     

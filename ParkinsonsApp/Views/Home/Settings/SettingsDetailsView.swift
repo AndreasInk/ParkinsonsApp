@@ -21,6 +21,12 @@ struct SettingsDetailsView: View {
     @State var tapSens = UserDefaults.standard.double(forKey: "tapSens")
     
     @Binding var openCard: Bool
+    
+    @State var explainKeyboard = true
+    
+    @State var slideNum = 0
+    
+    @State var onboardingViews = [Onboarding(id: UUID(), image: "Keyboard", title: "Accessibility Keyboard", description: "-Corrects mistaps by zooming in on the section tapped of the keyboard\n\n-Customizable sensitivity for each key coming soon")]
     var body: some View {
         VStack {
             
@@ -107,8 +113,50 @@ struct SettingsDetailsView: View {
         case "Accessability":
             VStack {
                 DismissSheetBtn()
-                Text("Tap to scroll, a customized keyboard, and button sensitivity is coming soon!")
-                .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
+                Spacer()
+                Text("Accessability Keyboard")
+                    .font(.custom("Poppins-Bold", size: 22, relativeTo: .subheadline))
+                    .multilineTextAlignment(.center)
+                    .padding(.top)
+                Text("-Tap the button below to open settings to turn on the keyboard\n\n  -In settings, tap keyboards then toggle Keyboard on\n\n  -Once your keyboard appears in an app, long press the globe sign and select Keyboard - Park")
+                    .font(.custom("Poppins-Bold", size: 18, relativeTo: .subheadline))
+                    .multilineTextAlignment(.center)
+                    .padding(.top)
+                Button(action: {
+                    guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                                return
+                            }
+
+                            if UIApplication.shared.canOpenURL(settingsUrl) {
+                                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                                    print("Settings opened: \(success)") // Prints true
+                                })
+                            }
+                }) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 25.0)
+                            .foregroundColor(Color("teal"))
+                            .frame(height: 75)
+                            .padding()
+                        Text("Open Settings")
+                            .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
+                            .foregroundColor(.white)
+                    }
+                } .buttonStyle(CTAButtonStyle())
+                .sheet(isPresented: $explainKeyboard, content: {
+                    TabView(selection: $slideNum) {
+                        ForEach(onboardingViews.indices, id: \.self) { i in
+                            VStack {
+                                DismissSheetBtn()
+                                Spacer()
+                            OnboardingDetail(onboarding: onboardingViews[i])
+                                .tag(i)
+                                Spacer()
+                            }
+                        }
+                    }
+                    .tabViewStyle(PageTabViewStyle())
+                })
 //                Toggle(isOn: $setting.onOff) {
 //                    Text(setting.onOff ? "Disable Accessability" : "Enable Accessability")
 //                        .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
@@ -163,7 +211,8 @@ struct SettingsDetailsView: View {
 //                        .onChange(of: tapSens, perform: { value in
 //                            UserDefaults().set(tapSens, forKey: "tapSens")
 //                        })
-                Spacer()
+               Spacer()
+                
             } .padding()
         case "Customize Your Widget":
             ConfigureWidgetView()
