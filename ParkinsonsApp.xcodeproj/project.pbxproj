@@ -127,6 +127,8 @@
 		E1EAC68E26652850008BC0D7 /* KeyboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC68926652850008BC0D7 /* KeyboardRow.swift */; };
 		E1EAC68F26652850008BC0D7 /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC68A26652850008BC0D7 /* KeyView.swift */; };
 		E1EAC69026652850008BC0D7 /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC68B26652850008BC0D7 /* ZoomView.swift */; };
+		E1EAC69226652FB6008BC0D7 /* NumKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC69126652FB6008BC0D7 /* NumKeyboard.swift */; };
+		E1EAC69426653117008BC0D7 /* SymbolKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC69326653117008BC0D7 /* SymbolKeyboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +265,8 @@
 		E1EAC68926652850008BC0D7 /* KeyboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardRow.swift; sourceTree = "<group>"; };
 		E1EAC68A26652850008BC0D7 /* KeyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
 		E1EAC68B26652850008BC0D7 /* ZoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
+		E1EAC69126652FB6008BC0D7 /* NumKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumKeyboard.swift; sourceTree = "<group>"; };
+		E1EAC69326653117008BC0D7 /* SymbolKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolKeyboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -566,6 +570,8 @@
 				E1EAC67E26652829008BC0D7 /* KeyboardViewController.swift */,
 				E1EAC68726652850008BC0D7 /* Key.swift */,
 				E1EAC68826652850008BC0D7 /* Keyboard.swift */,
+				E1EAC69126652FB6008BC0D7 /* NumKeyboard.swift */,
+				E1EAC69326653117008BC0D7 /* SymbolKeyboard.swift */,
 				E1EAC68926652850008BC0D7 /* KeyboardRow.swift */,
 				E1EAC68A26652850008BC0D7 /* KeyView.swift */,
 				E1EAC68B26652850008BC0D7 /* ZoomView.swift */,
@@ -832,9 +838,11 @@
 			files = (
 				E1EAC67F26652829008BC0D7 /* KeyboardViewController.swift in Sources */,
 				E1EAC69026652850008BC0D7 /* ZoomView.swift in Sources */,
+				E1EAC69226652FB6008BC0D7 /* NumKeyboard.swift in Sources */,
 				E1EAC68E26652850008BC0D7 /* KeyboardRow.swift in Sources */,
 				E1EAC68F26652850008BC0D7 /* KeyView.swift in Sources */,
 				E1EAC68D26652850008BC0D7 /* Keyboard.swift in Sources */,
+				E1EAC69426653117008BC0D7 /* SymbolKeyboard.swift in Sources */,
 				E1EAC68C26652850008BC0D7 /* Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

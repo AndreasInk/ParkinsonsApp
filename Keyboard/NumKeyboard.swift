@@ -1,21 +1,21 @@
 //
-//  Keyboard.swift
+//  NumKeyboard.swift
 //  Keyboard
 //
-//  Created by Andreas on 4/23/21.
+//  Created by Andreas on 5/31/21.
 //
 
 import SwiftUI
 
-struct Keyboard: View {
+struct NumKeyboard: View {
    
     var viewController: KeyboardViewController
     
-    @State var row1 = [Key(id: UUID(), key: "q", sens: 8), Key(id: UUID(), key: "w", sens: 8), Key(id: UUID(), key: "e", sens: 8),Key(id: UUID(), key: "r", sens: 8), Key(id: UUID(), key: "t", sens: 8), Key(id: UUID(), key: "y", sens: 8), Key(id: UUID(), key: "u", sens: 8), Key(id: UUID(), key: "i", sens: 8), Key(id: UUID(), key: "o", sens: 8), Key(id: UUID(), key: "p", sens: 8),]
+   @State var row1 = [Key(id: UUID(), key: "1", sens: 8), Key(id: UUID(), key: "2", sens: 8), Key(id: UUID(), key: "3", sens: 8),Key(id: UUID(), key: "4", sens: 8), Key(id: UUID(), key: "5", sens: 8), Key(id: UUID(), key: "6", sens: 8), Key(id: UUID(), key: "7", sens: 8), Key(id: UUID(), key: "8", sens: 8), Key(id: UUID(), key: "9", sens: 8), Key(id: UUID(), key: "0", sens: 8),]
     
-    @State var row2 = [Key(id: UUID(), key: "a", sens: 8), Key(id: UUID(), key: "s", sens: 8), Key(id: UUID(), key: "d", sens: 8),Key(id: UUID(), key: "f", sens: 8), Key(id: UUID(), key: "g", sens: 8), Key(id: UUID(), key: "h", sens: 8), Key(id: UUID(), key: "j", sens: 8), Key(id: UUID(), key: "k", sens: 8), Key(id: UUID(), key: "l", sens: 8)]
+    @State var row2 = [Key(id: UUID(), key: "-", sens: 8), Key(id: UUID(), key: "/", sens: 8), Key(id: UUID(), key: ":", sens: 8),Key(id: UUID(), key: ";", sens: 8), Key(id: UUID(), key: "(", sens: 8), Key(id: UUID(), key: ")", sens: 8), Key(id: UUID(), key: "$", sens: 8), Key(id: UUID(), key: "&", sens: 8), Key(id: UUID(), key: "@", sens: 8), Key(id: UUID(), key: "\"", sens: 8)]
     
-    @State var row3 = [Key(id: UUID(), key: "z", sens: 8), Key(id: UUID(), key: "x", sens: 8), Key(id: UUID(), key: "c", sens: 8),Key(id: UUID(), key: "v", sens: 8), Key(id: UUID(), key: "b", sens: 8), Key(id: UUID(), key: "n", sens: 8), Key(id: UUID(), key: "m", sens: 8)]
+    @State var row3 = [Key(id: UUID(), key: ".", sens: 8), Key(id: UUID(), key: ",", sens: 8), Key(id: UUID(), key: "?", sens: 8),Key(id: UUID(), key: "!", sens: 8), Key(id: UUID(), key: "\'", sens: 8)]
     
     @State var section1 = ["q", "w", "e", "a", "s", "d", "z", "x"]
     @State var section2 = ["d", "x", "r", "t", "y", "u", "f", "g", "h", "c", "v", "b"]
@@ -33,8 +33,9 @@ struct Keyboard: View {
     
     @State var sensedKeys = [String]()
     
-    @State var numKeys = false
+    @Binding var numKeys: Bool
     
+    @State var symbolKeys = false
     var body: some View {
         GeometryReader { geo in
         ZStack {
@@ -109,10 +110,10 @@ struct Keyboard: View {
                 
                
                 Button(action: {
-                    uppercase.toggle()
+                    symbolKeys = true
                 }) {
                    
-                   Image(systemName: "arrow.up")
+                   Text("#+=")
                         .font(.headline)
                         .foregroundColor(.black)
                     .padding(8)
@@ -154,7 +155,7 @@ struct Keyboard: View {
                     )
                 }
                 
-            } 
+            }
             HStack(spacing: 4) {
                 Button(action: {
                     numKeys.toggle()
@@ -177,7 +178,11 @@ struct Keyboard: View {
                         section2 = ["-", "/", ":", ";", "(", ")", "$", "&", "@", "\""]
                         section3 = [".", ",", "?", "!", "'"]
                        section4 = []
+                        row1 = [Key(id: UUID(), key: "1", sens: 8), Key(id: UUID(), key: "2", sens: 8), Key(id: UUID(), key: "3", sens: 8),Key(id: UUID(), key: "4", sens: 8), Key(id: UUID(), key: "5", sens: 8), Key(id: UUID(), key: "6", sens: 8), Key(id: UUID(), key: "7", sens: 8), Key(id: UUID(), key: "8", sens: 8), Key(id: UUID(), key: "9", sens: 8), Key(id: UUID(), key: "0", sens: 8),]
                         
+                        row2 = [Key(id: UUID(), key: "-", sens: 8), Key(id: UUID(), key: "/", sens: 8), Key(id: UUID(), key: ":", sens: 8),Key(id: UUID(), key: ";", sens: 8), Key(id: UUID(), key: "(", sens: 8), Key(id: UUID(), key: ")", sens: 8), Key(id: UUID(), key: "$", sens: 8), Key(id: UUID(), key: "&", sens: 8), Key(id: UUID(), key: "@", sens: 8), Key(id: UUID(), key: "\"", sens: 8)]
+                        
+                        row3 = [Key(id: UUID(), key: ".", sens: 8), Key(id: UUID(), key: ",", sens: 8), Key(id: UUID(), key: "?", sens: 8),Key(id: UUID(), key: "!", sens: 8), Key(id: UUID(), key: "\'", sens: 8)]
                     } else {
                         row1 = [Key(id: UUID(), key: "q", sens: 8), Key(id: UUID(), key: "w", sens: 8), Key(id: UUID(), key: "e", sens: 8),Key(id: UUID(), key: "r", sens: 8), Key(id: UUID(), key: "t", sens: 8), Key(id: UUID(), key: "y", sens: 8), Key(id: UUID(), key: "u", sens: 8), Key(id: UUID(), key: "i", sens: 8), Key(id: UUID(), key: "o", sens: 8), Key(id: UUID(), key: "p", sens: 8),]
                         
@@ -305,10 +310,10 @@ struct Keyboard: View {
                     }
                 ZoomView(zoom: $zoom, zoomSection: zoomSection, pressedKey: $pressedKey, predictedKey: $predictedKey)
             }
-            if numKeys {
+            if symbolKeys {
                 Color(.lightGray)
                     .ignoresSafeArea()
-                NumKeyboard(viewController: viewController, numKeys: $numKeys)
+                SymbolKeyboard(viewController: viewController, symbolKeys: $symbolKeys)
             }
         }
     }
@@ -322,44 +327,4 @@ struct Keyboard: View {
 
         return completions
        }
-}
-extension String {
-    func split(by length: Int) -> [String] {
-        var startIndex = self.startIndex
-        var results = [Substring]()
-
-        while startIndex < self.endIndex {
-            let endIndex = self.index(startIndex, offsetBy: length, limitedBy: self.endIndex) ?? self.endIndex
-            results.append(self[startIndex..<endIndex])
-            startIndex = endIndex
-        }
-
-        return results.map { String($0) }
-    }
-}
-extension String {
-
-    var length: Int {
-        return count
-    }
-
-    subscript (i: Int) -> String {
-        return self[i ..< i + 1]
-    }
-
-    func substring(fromIndex: Int) -> String {
-        return self[min(fromIndex, length) ..< length]
-    }
-
-    func substring(toIndex: Int) -> String {
-        return self[0 ..< max(0, toIndex)]
-    }
-
-    subscript (r: Range<Int>) -> String {
-        let range = Range(uncheckedBounds: (lower: max(0, min(length, r.lowerBound)),
-                                            upper: min(length, max(0, r.upperBound))))
-        let start = index(startIndex, offsetBy: range.lowerBound)
-        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
-        return String(self[start ..< end])
-    }
 }
