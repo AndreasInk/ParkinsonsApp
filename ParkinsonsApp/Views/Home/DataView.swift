@@ -484,7 +484,7 @@ struct DataView: View {
                             return b.date.get(.hour) == i
                         }
                         
-                        meds.points.append((String(filteredM.last!.date.get(.hour) ), average(numbers: filteredM.map {$0.amountTaken})))
+                        meds.points.append((String(filteredM.last?.date.get(.hour) ?? 0), average(numbers: filteredM.map {$0.amountTaken})))
                         // if !balance.points.isEmpty {
                         let filtered = day.strideLength.filter { b in
                             return b.date.get(.hour) == i
