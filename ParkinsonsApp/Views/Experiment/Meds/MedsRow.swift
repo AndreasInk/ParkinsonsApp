@@ -12,6 +12,7 @@ struct MedsRow: View {
     @State var open: Bool = false
     @Binding var week: Week
     @Binding var days: [Day]
+    @State var created = false
     var body: some View {
         HStack {
             VStack {
@@ -26,6 +27,17 @@ struct MedsRow: View {
                     Spacer()
             }
             }
+            Button(action: {
+                med.amountTaken += med.amountNeeded
+                created = true
+            }) {
+                Image(systemName: "plus")
+                    .font(.largeTitle)
+                    .foregroundColor(.white)
+                    .padding()
+                    .padding()
+                    .background(Circle().foregroundColor(Color("teal")).padding())
+            }
             Spacer()
             Button(action: {
                 open = true
@@ -36,6 +48,21 @@ struct MedsRow: View {
         } .padding()
         .sheet(isPresented: $open, content: {
             MedsDetailsView(med: $med, week: $week, days: $days)
+        })
+        .sheet(isPresented: $created, content: {
+            ZStack {
+            VStack {
+                DismissSheetBtn()
+                Spacer()
+                Text("Added \(med.amountNeeded.removeZerosFromEnd()) \(med.unit) of \(med.name)")
+                .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
+                
+                Spacer()
+            }
+                ForEach(0 ..< 20) { number in
+                                    ConfettiView()
+                                    }
+            }
         })
     }
 }
