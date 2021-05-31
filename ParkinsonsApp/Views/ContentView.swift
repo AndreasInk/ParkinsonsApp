@@ -301,13 +301,16 @@ struct ContentView: View {
                                             
                                         }
                                         
-                                        saveExperiment(experiment: user.experiments[i])
+                                        
                                     }
                             }
                                 }
-                            
+                                print(i)
+                                saveExperiment(experiment: user.experiments[i])
                         }
+                                
                             }
+                           
                         }
                         
                     })
@@ -330,7 +333,7 @@ struct ContentView: View {
         let db = Firestore.firestore()
         do {
             try db.collection("experiments").document(experiment.id.uuidString).setData(from: experiment)
-            print(experiment)
+            //print(experiment)
         } catch let error {
             print("Error writing city to Firestore: \(error)")
         }

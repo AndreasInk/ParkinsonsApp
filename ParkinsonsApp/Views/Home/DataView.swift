@@ -11,6 +11,7 @@ import CoreML
 struct DataView: View {
     @Binding var days: [Day]
     @State var balance = ChartData(values: [("", 0.0)])
+    @State var meds = ChartData(values: [("", 0.0)])
     @State var aysm = ChartData(values: [("", 0.0)])
     @State var length = ChartData(values: [("", 0.0)])
     @State var tremor = ChartData(values: [("", 0.0)])
@@ -134,7 +135,7 @@ struct DataView: View {
                                 if !refresh {
                                     
                                 DayChartView(title: "Score", chartData: $score, refresh: refresh)
-                                Text("Overtime your score may change depending on how you are feeling, use your score with your doctor to determine what habits are working best to improve your health, generally a higher score indicates poorer health.")
+                                Text("1 indicates poorer health while a 0 indicates a healthier condition")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
@@ -197,7 +198,7 @@ struct DataView: View {
                                 }
                                 if !refresh {
                                 DayChartView(title: "Balance", chartData: $balance, refresh: refresh)
-                                Text("Overtime your balance may change depending on how you are feeling, use your score with your doctor to determine what habits are working best to improve your health, generally a higher balance value indicates poorer health.")
+                                Text("A higher balance value indicates poorer health.")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
@@ -254,7 +255,7 @@ struct DataView: View {
                                 }
                                 if !refresh {
                                 DayChartView(title: "Step Length", chartData: $length, refresh: refresh)
-                                Text("Overtime your balance may change depending on how you are feeling, use your score with your doctor to determine what habits are working best to improve your health, generally a higher balance value indicates poorer health.")
+                                Text("A higher step length indicates poorer health.")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
@@ -322,6 +323,54 @@ struct DataView: View {
                                 
                             } .padding()
                             .transition(.opacity)
+                        case "Score and Meds":
+                            VStack {
+                                DatePicker("", selection: $date, displayedComponents: .date)
+                                    .datePickerStyle(CompactDatePickerStyle())
+                                    .padding()
+                                    .onChange(of: date, perform: { value in
+                                        // ready = false
+                                        refresh = true
+                                        loadData  { (score) in
+                                            
+                                            
+                                        }
+                                        max.points.removeAll()
+                                        let filtered2 = meds.points.filter { word in
+                                            return word.0 != "NA"
+                                        }
+                                       
+                                        let average2 = average(numbers: filtered2.map {$0.1})
+                                        let minScore = filtered2.map {$0.1}.max()
+                                        let filtered = filtered2.filter { word in
+                                            return word.1 == minScore
+                                        }
+                                        
+                                        
+                                        max.points.append((String("Average"), average2))
+                                        max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
+                                        
+                                        maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                            withAnimation(.easeInOut) {
+                                                refresh = false
+                                            }
+                                        }
+                                    })
+                                HStack {
+                                    Text("Score and Meds")
+                                        .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
+                                    Spacer()
+                                }
+                                DayChartView(title: "Score", chartData: $score, refresh: refresh)
+                                
+                                
+                                DayChartView(title: "Meds", chartData: $meds, refresh: refresh)
+                                
+                                
+                            } .padding()
+                            .transition(.opacity)
                         default:
                             DayChartView(title: "Score", chartData: $score, refresh: refresh)
                         }
@@ -337,7 +386,7 @@ struct DataView: View {
         tremor.points.removeAll()
         score.points.removeAll()
         habits.points.removeAll()
-       
+        meds.points.removeAll()
        
         let filtered = days.filter { b in
             
@@ -431,7 +480,11 @@ struct DataView: View {
                     
                     for i in 0...23 {
                         
+                        let filteredM = day.meds.filter { b in
+                            return b.date.get(.hour) == i
+                        }
                         
+                        meds.points.append((String(filteredM.last!.date.get(.hour) ), average(numbers: filteredM.map {$0.amountTaken})))
                         // if !balance.points.isEmpty {
                         let filtered = day.strideLength.filter { b in
                             return b.date.get(.hour) == i
@@ -444,6 +497,14 @@ struct DataView: View {
                         if  !average(numbers: filtered.map {$0.length}).isNaN {
                             length.points.append((String(filtered.last!.date.get(.hour) ), average(numbers: filtered.map {$0.length})))
                         }
+                        
+                        // print(filtered)
+                        
+                        
+                        
+                        // print(value)
+                        
+                            
                         
                         
                         
@@ -501,6 +562,7 @@ struct DataView: View {
                 }
                 
             }
+            
         }
         refresh = true
         ready = true

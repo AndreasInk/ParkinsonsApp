@@ -45,21 +45,21 @@ struct MedsDetailsView: View {
             Spacer()
             HStack {
                 Spacer()
-            Button(action: {
-                
-                moreData = true
-            }) {
-                HStack {
-                    Image(systemName: "chart.bar")
-                        .padding()
-                        .font(.headline)
-                        .foregroundColor(Color("blue"))
-                    Text("More Data")
-                        .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
-                }
-            }
+//            Button(action: {
+//                
+//                moreData = true
+//            }) {
+//                HStack {
+//                    Image(systemName: "chart.bar")
+//                        .padding()
+//                        .font(.headline)
+//                        .foregroundColor(Color("blue"))
+//                    Text("More Data")
+//                        .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+//                }
+//            }
         } .sheet(isPresented: $moreData, content: {
-            DataView(days: $days, gridButton: GridButton(title: "Score and Habits", image: Image("")), tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+            DataView(days: $days, gridButton: GridButton(title: "Score and Meds", image: Image("")), tutorialNum: $tutorialNum, isTutorial: $isTutorial)
         })
             
         

@@ -10,9 +10,9 @@ import NiceNotifications
 
 struct SettingsDetailsView: View {
     @Binding var setting: Setting
-    @State var date1 = UserDefaults.standard.integer(forKey: "date1")
-    @State var date2 = UserDefaults.standard.integer(forKey: "date2")
-    @State var date3 = UserDefaults.standard.integer(forKey: "date3")
+    @State var date1 = UserDefaults.standard.integer(forKey: "date1") ?? 24
+    @State var date2 = UserDefaults.standard.integer(forKey: "date2") ?? 24
+    @State var date3 = UserDefaults.standard.integer(forKey: "date3") ?? 24
     
     @State var keyboard = UserDefaults.standard.bool(forKey: "keyboard")
     @State var openKeyboardSettings = UserDefaults.standard.bool(forKey: "openKeyboardSettings")

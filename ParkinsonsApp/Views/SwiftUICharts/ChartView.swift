@@ -15,7 +15,11 @@ struct WeekChartView: View {
         ZStack {
             Color.clear
                 .onAppear() {
+                    refresh = true
                     chartData = ChartData(values: [(week.mon.totalScore == 21.0 ? "NA" : "Monday", (week.mon.totalScore ) == 21.0 ? 0.0 : week.mon.totalScore ), (week.tue.totalScore == 21.0 ? "NA" : "Tuesday", (week.tue.totalScore ) == 21.0 ? 0.0 : week.tue.totalScore ), (week.wed.totalScore == 21.0 ? "NA" : "Wednesday", (week.wed.totalScore ) == 21.0 ? 0.0 : week.wed.totalScore ), (week.thur.totalScore == 21.0 ? "NA" : "Thursday", (week.thur.totalScore ) == 21.0 ? 0.0 : week.thur.totalScore ), (week.fri.totalScore == 21.0 ? "NA" : "Friday", (week.fri.totalScore ) == 21.0 ? 0.0 : week.fri.totalScore ), (week.sat.totalScore == 21.0 ? "NA" : "Saturday", (week.sat.totalScore ) == 21.0 ? 0.0 : week.sat.totalScore ), (week.sun.totalScore == 21.0 ? "NA" : "Sunday", (week.sun.totalScore ) == 21.0 ? 0.0 : week.sun.totalScore )])
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        refresh = false
+                    }
                 }
             BarChartView(data: $chartData, title: "Score", legend: "", refresh: $refresh)
             

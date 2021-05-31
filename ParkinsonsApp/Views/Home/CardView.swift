@@ -363,7 +363,7 @@ struct CardView: View {
                 }
                 
             } .padding(.horizontal)
-        
+        .padding(.bottom)
     }
     
     func loadAllData(completionHandler: @escaping (Bool) -> Void) {

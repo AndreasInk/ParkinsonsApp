@@ -49,7 +49,7 @@ struct HomeView: View {
                 if isTutorial {
                     VStack {
                         Spacer()
-                        Text( tutorialNum == 0 ? "Tap this button to access your score." :  tutorialNum == 1 ? "Tap this button to access your balance data." : tutorialNum == 2 ? "Tap this button to access your stride data." : tutorialNum == 3 ? "Tap this button to find habit experiments and connect with others." : tutorialNum == 4 ? "Tap this button to keep track of your medications." : tutorialNum == 5 ? "Tap this button to change your settings." : tutorialNum == 6 ? "This is your score that you can slide through to see each day of the week, a 0 may indicate that you are healthy while a 1 may indicate you are showing more intense symptoms." : "")
+                        Text( tutorialNum == 0 ? "Tap this button to access your score." :  tutorialNum == 1 ? "Tap this button to access your balance data." : tutorialNum == 2 ? "Tap this button to access your stride data." : tutorialNum == 3 ? "Tap this button to find habit experiments and connect with others." : tutorialNum == 4 ? "Tap this button to keep track of your medications." : tutorialNum == 5 ? "Tap this button to change your settings." : tutorialNum == 6 ? "Below is your score that you can slide through to see each day of the week, a 0 may indicate that you are healthy while a 1 may indicate you are showing more intense symptoms." : "")
                         .fixedSize(horizontal: false, vertical: true)
                         .multilineTextAlignment(.center)
                         .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
@@ -137,7 +137,7 @@ struct HomeView: View {
                    
                 WeekChartView(week: $week)
                     .opacity(isTutorial ? (tutorialNum == 6 ? 1.0 : 0.1) : 1.0)
-                   
+                    .padding(.bottom)
             }
             
         }

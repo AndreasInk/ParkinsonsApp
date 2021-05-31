@@ -22,6 +22,7 @@ public struct BarChartCell : View {
     @State var scaleValue: Double = 0
     @Binding var touchLocation: CGFloat
     public var body: some View {
+        if value.isNormal {
         ZStack {
             RoundedRectangle(cornerRadius: 4)
                 .fill(LinearGradient(gradient: gradient?.getGradient() ?? GradientColor(start: accentColor, end: accentColor).getGradient(), startPoint: .bottom, endPoint: .top))
@@ -32,9 +33,20 @@ public struct BarChartCell : View {
                 self.scaleValue = self.value
             }
         .animation(Animation.spring().delay(self.touchLocation < 0 ?  Double(self.index) * 0.04 : 0))
-    }
+        } else {
+            ZStack {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(LinearGradient(gradient: gradient?.getGradient() ?? GradientColor(start: accentColor, end: accentColor).getGradient(), startPoint: .bottom, endPoint: .top))
+                }
+                .frame(width: CGFloat(self.cellWidth))
+                .scaleEffect(CGSize(width: 1, height: 0), anchor: .bottom)
+                .onAppear(){
+                    self.scaleValue = self.value
+                }
+            .animation(Animation.spring().delay(self.touchLocation < 0 ?  Double(self.index) * 0.04 : 0))
+        }
 }
-
+}
 #if DEBUG
 struct ChartCell_Previews : PreviewProvider {
     static var previews: some View {

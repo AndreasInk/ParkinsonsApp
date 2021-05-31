@@ -169,9 +169,19 @@ struct MedsView: View {
                         }
                         
                     }
+                        if days.indices.contains(6) {
+                        days.removeLast(6)
+                        }
+                        days.append(week.mon)
+                        days.append(week.tue)
+                        days.append(week.wed)
+                        days.append(week.thur)
+                        days.append(week.fri)
+                        days.append(week.sat)
+                        days.append(week.sun)
                     }
                 })
-              
+                
         }
         }
         

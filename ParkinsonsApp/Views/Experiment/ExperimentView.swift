@@ -31,7 +31,7 @@ struct ExperimentView: View {
                 VStack {
                     
                     DismissSheetBtn()
-                    
+                    VStack {
                     HStack {
                         Text(experiment.title)
                             .font(.custom("Poppins-Bold", size: 24, relativeTo: .title))
@@ -166,7 +166,9 @@ struct ExperimentView: View {
                         }
                     } .sheet(isPresented: $moreData, content: {
                         DataView(days: $days, gridButton: GridButton(title: "Score and Habits", image: Image("")), tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-                    })
+                    }).onAppear() {
+                        
+                    }
                     WeekChartView(week: $week)
                     HStack {
                         Text("Habit Progress")
@@ -212,7 +214,7 @@ struct ExperimentView: View {
                     //                        saveExperiment()
                     //                    })
                 }
-            }
+            } .padding()
             Spacer()
                 .onDisappear() {
                     saveExperiment()
@@ -236,9 +238,9 @@ struct ExperimentView: View {
                 }
                 
             }
+            }
             
-            
-        } .padding()
+        }
     }
     func saveExperiment() {
         let db = Firestore.firestore()
