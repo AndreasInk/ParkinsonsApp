@@ -120,6 +120,13 @@
 		E1DE28AE26497E46001C3D9B /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E1DE28AD26497E46001C3D9B /* FirebaseStorageSwift-Beta */; };
 		E1DE28B026497E46001C3D9B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E1DE28AF26497E46001C3D9B /* FirebaseFirestore */; };
 		E1DE28B22649822B001C3D9B /* ShareDataBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DE28B12649822A001C3D9B /* ShareDataBanner.swift */; };
+		E1EAC67F26652829008BC0D7 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC67E26652829008BC0D7 /* KeyboardViewController.swift */; };
+		E1EAC68326652829008BC0D7 /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E1EAC67C26652828008BC0D7 /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E1EAC68C26652850008BC0D7 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC68726652850008BC0D7 /* Key.swift */; };
+		E1EAC68D26652850008BC0D7 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC68826652850008BC0D7 /* Keyboard.swift */; };
+		E1EAC68E26652850008BC0D7 /* KeyboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC68926652850008BC0D7 /* KeyboardRow.swift */; };
+		E1EAC68F26652850008BC0D7 /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC68A26652850008BC0D7 /* KeyView.swift */; };
+		E1EAC69026652850008BC0D7 /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC68B26652850008BC0D7 /* ZoomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +136,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = E13A18A626436DA700FC66B0;
 			remoteInfo = ParkinsonsWidgetv2Extension;
+		};
+		E1EAC68126652829008BC0D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E10BEEBD2641FE0B00317E38 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1EAC67B26652828008BC0D7;
+			remoteInfo = Keyboard;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -140,6 +154,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				E13A18B526436DA800FC66B0 /* ParkinsonsWidgetv2Extension.appex in Embed App Extensions */,
+				E1EAC68326652829008BC0D7 /* Keyboard.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,6 +255,14 @@
 		E1D792082649AA5600932D42 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConfettiView.swift; path = ../../../../../ConfettiView.swift; sourceTree = "<group>"; };
 		E1DE28A6264978F2001C3D9B /* ScrollBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollBtn.swift; sourceTree = "<group>"; };
 		E1DE28B12649822A001C3D9B /* ShareDataBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShareDataBanner.swift; path = ../../../../../ShareDataBanner.swift; sourceTree = "<group>"; };
+		E1EAC67C26652828008BC0D7 /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1EAC67E26652829008BC0D7 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		E1EAC68026652829008BC0D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1EAC68726652850008BC0D7 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		E1EAC68826652850008BC0D7 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
+		E1EAC68926652850008BC0D7 /* KeyboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardRow.swift; sourceTree = "<group>"; };
+		E1EAC68A26652850008BC0D7 /* KeyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
+		E1EAC68B26652850008BC0D7 /* ZoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +289,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E1EAC67926652828008BC0D7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -283,6 +313,7 @@
 				E13A18B926436DAD00FC66B0 /* ParkinsonsWidgetv2Extension.entitlements */,
 				E10BEEC72641FE0B00317E38 /* ParkinsonsApp */,
 				E13A18AA26436DA700FC66B0 /* ParkinsonsWidgetv2 */,
+				E1EAC67D26652829008BC0D7 /* Keyboard */,
 				E10BEEC62641FE0B00317E38 /* Products */,
 				E10BEF20264208B800317E38 /* Frameworks */,
 			);
@@ -293,6 +324,7 @@
 			children = (
 				E10BEEC52641FE0B00317E38 /* ParkinsonsApp.app */,
 				E13A18A726436DA700FC66B0 /* ParkinsonsWidgetv2Extension.appex */,
+				E1EAC67C26652828008BC0D7 /* Keyboard.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -528,6 +560,20 @@
 			path = WidgetEdit;
 			sourceTree = "<group>";
 		};
+		E1EAC67D26652829008BC0D7 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				E1EAC67E26652829008BC0D7 /* KeyboardViewController.swift */,
+				E1EAC68726652850008BC0D7 /* Key.swift */,
+				E1EAC68826652850008BC0D7 /* Keyboard.swift */,
+				E1EAC68926652850008BC0D7 /* KeyboardRow.swift */,
+				E1EAC68A26652850008BC0D7 /* KeyView.swift */,
+				E1EAC68B26652850008BC0D7 /* ZoomView.swift */,
+				E1EAC68026652829008BC0D7 /* Info.plist */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -544,6 +590,7 @@
 			);
 			dependencies = (
 				E13A18B426436DA800FC66B0 /* PBXTargetDependency */,
+				E1EAC68226652829008BC0D7 /* PBXTargetDependency */,
 			);
 			name = ParkinsonsApp;
 			packageProductDependencies = (
@@ -575,6 +622,23 @@
 			productReference = E13A18A726436DA700FC66B0 /* ParkinsonsWidgetv2Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		E1EAC67B26652828008BC0D7 /* Keyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1EAC68426652829008BC0D7 /* Build configuration list for PBXNativeTarget "Keyboard" */;
+			buildPhases = (
+				E1EAC67826652828008BC0D7 /* Sources */,
+				E1EAC67926652828008BC0D7 /* Frameworks */,
+				E1EAC67A26652828008BC0D7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Keyboard;
+			productName = Keyboard;
+			productReference = E1EAC67C26652828008BC0D7 /* Keyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -588,6 +652,9 @@
 						CreatedOnToolsVersion = 12.5;
 					};
 					E13A18A626436DA700FC66B0 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+					E1EAC67B26652828008BC0D7 = {
 						CreatedOnToolsVersion = 12.5;
 					};
 				};
@@ -612,6 +679,7 @@
 			targets = (
 				E10BEEC42641FE0B00317E38 /* ParkinsonsApp */,
 				E13A18A626436DA700FC66B0 /* ParkinsonsWidgetv2Extension */,
+				E1EAC67B26652828008BC0D7 /* Keyboard */,
 			);
 		};
 /* End PBXProject section */
@@ -671,6 +739,13 @@
 				E13A18C726436E1900FC66B0 /* Poppins-ThinItalic.ttf in Resources */,
 				E13A18C126436E1900FC66B0 /* Poppins-BlackItalic.ttf in Resources */,
 				E13A18AF26436DA800FC66B0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1EAC67A26652828008BC0D7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -751,6 +826,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E1EAC67826652828008BC0D7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1EAC67F26652829008BC0D7 /* KeyboardViewController.swift in Sources */,
+				E1EAC69026652850008BC0D7 /* ZoomView.swift in Sources */,
+				E1EAC68E26652850008BC0D7 /* KeyboardRow.swift in Sources */,
+				E1EAC68F26652850008BC0D7 /* KeyView.swift in Sources */,
+				E1EAC68D26652850008BC0D7 /* Keyboard.swift in Sources */,
+				E1EAC68C26652850008BC0D7 /* Key.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -758,6 +846,11 @@
 			isa = PBXTargetDependency;
 			target = E13A18A626436DA700FC66B0 /* ParkinsonsWidgetv2Extension */;
 			targetProxy = E13A18B326436DA800FC66B0 /* PBXContainerItemProxy */;
+		};
+		E1EAC68226652829008BC0D7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1EAC67B26652828008BC0D7 /* Keyboard */;
+			targetProxy = E1EAC68126652829008BC0D7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -897,7 +990,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ParkinsonsApp/ParkinsonsApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"ParkinsonsApp/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;
 				ENABLE_PREVIEWS = YES;
@@ -921,7 +1014,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ParkinsonsApp/ParkinsonsApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"ParkinsonsApp/Preview Content\"";
 				DEVELOPMENT_TEAM = MC27HKM86M;
 				ENABLE_PREVIEWS = YES;
@@ -944,7 +1037,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = ParkinsonsWidgetv2Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = MC27HKM86M;
 				INFOPLIST_FILE = ParkinsonsWidgetv2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -968,7 +1061,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = ParkinsonsWidgetv2Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = MC27HKM86M;
 				INFOPLIST_FILE = ParkinsonsWidgetv2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -982,6 +1075,46 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		E1EAC68526652829008BC0D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MC27HKM86M;
+				INFOPLIST_FILE = Keyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.2020.pd-social.Keyboard";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E1EAC68626652829008BC0D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MC27HKM86M;
+				INFOPLIST_FILE = Keyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.2020.pd-social.Keyboard";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1011,6 +1144,15 @@
 			buildConfigurations = (
 				E13A18B726436DA800FC66B0 /* Debug */,
 				E13A18B826436DA800FC66B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1EAC68426652829008BC0D7 /* Build configuration list for PBXNativeTarget "Keyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1EAC68526652829008BC0D7 /* Debug */,
+				E1EAC68626652829008BC0D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
