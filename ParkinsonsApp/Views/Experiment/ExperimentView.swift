@@ -165,7 +165,7 @@ struct ExperimentView: View {
                             }
                         }
                     } .sheet(isPresented: $moreData, content: {
-                        DataView(days: $days, gridButton: GridButton(title: "Score and Habits", image: Image("")), tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                        DataView(days: $days, gridButton: GridButton(title: "Score and Habits", image: Image("")), tutorialNum: $tutorialNum, isTutorial: $isTutorial, experiment: $experiment)
                     }).onAppear() {
                         
                     }

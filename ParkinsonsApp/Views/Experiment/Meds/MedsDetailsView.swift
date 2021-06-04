@@ -19,6 +19,8 @@ struct MedsDetailsView: View {
     @State var tutorialNum = 0
     
     @State var created = false
+    
+    @State var experiment = Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post](), week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
     var body: some View {
         ScrollView {
         VStack {
@@ -77,7 +79,7 @@ struct MedsDetailsView: View {
 //                }
 //            }
         } .sheet(isPresented: $moreData, content: {
-            DataView(days: $days, gridButton: GridButton(title: "Score and Meds", image: Image("")), tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+            DataView(days: $days, gridButton: GridButton(title: "Score and Meds", image: Image("")), tutorialNum: $tutorialNum, isTutorial: $isTutorial, experiment: $experiment)
         })
             
             .sheet(isPresented: $created, content: {

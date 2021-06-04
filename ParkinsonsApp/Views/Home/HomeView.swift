@@ -25,6 +25,7 @@ struct HomeView: View {
     @State var tutorialNum = 0
     @Binding var settings2: [Setting]
     @State private var useCount = UserDefaults.standard.integer(forKey: "useCount")
+    @State var experiments = [Experiment]()
     var body: some View {
         ZStack {
             
@@ -36,10 +37,38 @@ struct HomeView: View {
                 })
                 .onAppear() {
                     load()
-                    self.loadPopularExperiments() { experiments in
-                        experiment = experiments.first ?? Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post]())])], week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
-                        
-                    }
+//                    self.loadPopularExperiments() { experiments in
+//                        experiment = experiments.first ?? Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post]())])], week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
+//
+//                    }
+                    
+                    
+                     let url = self.getDocumentsDirectory().appendingPathComponent("experiments.txt")
+                     do {
+                         
+                         let input = try String(contentsOf: url)
+                         
+                         
+                         let jsonData = Data(input.utf8)
+                         do {
+                             let decoder = JSONDecoder()
+                             
+                             do {
+                                 let note = try decoder.decode([Experiment].self, from: jsonData)
+                                 
+                                 experiments = note
+                                 //                                if i.first!.id == "1" {
+                                 //                                    notes.removeFirst()
+                                 //                                }
+                                 
+                                 
+                             } catch {
+                                 print(error.localizedDescription)
+                             }
+                         }
+                     } catch {
+                         
+                     }
                 }
                 
                 
@@ -84,16 +113,16 @@ struct HomeView: View {
 //                        .opacity(isTutorial ? (tutorialNum == -1 ? 1.0 : 0.1) : 1.0)
                     Spacer()
                         
-                    Button(action: {
-                        social.toggle()
-                    }) {
-                        Image(systemName: "person.3")
-                            .font(.largeTitle)
-                            .padding()
-                    }  .opacity(isTutorial ? (tutorialNum == 3 ? 1.0 : 0.1) : 1.0)
-                    .sheet(isPresented: $social, content: {
-                        ExperimentFeedView(user: $user, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-                    })
+//                    Button(action: {
+//                        social.toggle()
+//                    }) {
+//                        Image(systemName: "person.3")
+//                            .font(.largeTitle)
+//                            .padding()
+//                    }  .opacity(isTutorial ? (tutorialNum == 3 ? 1.0 : 0.1) : 1.0)
+//                    .sheet(isPresented: $social, content: {
+//                        ExperimentFeedView(user: $user, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+//                    })
                     
                     Button(action: {
                         openMeds.toggle()
@@ -132,9 +161,27 @@ struct HomeView: View {
                         }
                         }
                     }
-                ExperimentCard(user: $user, experiment: $experiment, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+//                ExperimentCard(user: $user, experiment: $experiment, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                HabitsCard(experiments: $experiments, days: $days, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
                     .opacity(isTutorial ? (tutorialNum == -1 ? 1.0 : 0.1) : 1.0)
-                   
+                    .onChange(of: experiments, perform: { value in
+                        let encoder = JSONEncoder()
+                        
+                        if let encoded = try? encoder.encode(experiments) {
+                            if let json = String(data: encoded, encoding: .utf8) {
+                              
+                                do {
+                                    let url = self.getDocumentsDirectory().appendingPathComponent("experiments.txt")
+                                    try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
+                                    
+                                } catch {
+                                    print("erorr")
+                                }
+                            }
+                            
+                            
+                        }
+                    })
                 WeekChartView(week: $week)
                     .opacity(isTutorial ? (tutorialNum == 6 ? 1.0 : 0.1) : 1.0)
                     .padding(.bottom)
@@ -329,6 +376,13 @@ struct HomeView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             ready = true
         }
+    }
+    func getDocumentsDirectory() -> URL {
+        // find all possible documents directories for this user
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        
+        // just send back the first one, which ought to be the only one
+        return paths[0]
     }
 }
 

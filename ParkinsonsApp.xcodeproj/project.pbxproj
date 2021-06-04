@@ -129,6 +129,10 @@
 		E1EAC69026652850008BC0D7 /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC68B26652850008BC0D7 /* ZoomView.swift */; };
 		E1EAC69226652FB6008BC0D7 /* NumKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC69126652FB6008BC0D7 /* NumKeyboard.swift */; };
 		E1EAC69426653117008BC0D7 /* SymbolKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC69326653117008BC0D7 /* SymbolKeyboard.swift */; };
+		E1EFEBA8266AB53E00854790 /* HabitsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EFEBA7266AB53E00854790 /* HabitsCard.swift */; };
+		E1EFEBAA266AB5B900854790 /* HabitsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EFEBA9266AB5B900854790 /* HabitsCell.swift */; };
+		E1EFEBAC266AB7D200854790 /* ProgressViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EFEBAB266AB7D200854790 /* ProgressViewStyle.swift */; };
+		E1EFEBAE266ACD0E00854790 /* EditExperimentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EFEBAD266ACD0E00854790 /* EditExperimentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -267,6 +271,10 @@
 		E1EAC68B26652850008BC0D7 /* ZoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
 		E1EAC69126652FB6008BC0D7 /* NumKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumKeyboard.swift; sourceTree = "<group>"; };
 		E1EAC69326653117008BC0D7 /* SymbolKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolKeyboard.swift; sourceTree = "<group>"; };
+		E1EFEBA7266AB53E00854790 /* HabitsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsCard.swift; sourceTree = SOURCE_ROOT; };
+		E1EFEBA9266AB5B900854790 /* HabitsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsCell.swift; sourceTree = "<group>"; };
+		E1EFEBAB266AB7D200854790 /* ProgressViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewStyle.swift; sourceTree = SOURCE_ROOT; };
+		E1EFEBAD266ACD0E00854790 /* EditExperimentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExperimentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -486,6 +494,8 @@
 				E10BEF122642018500317E38 /* ButtonGridButton.swift */,
 				E10BEF14264202C000317E38 /* DataView.swift */,
 				E10BEF0E2642014300317E38 /* CardView.swift */,
+				E1EFEBA7266AB53E00854790 /* HabitsCard.swift */,
+				E1EFEBA9266AB5B900854790 /* HabitsCell.swift */,
 				E18496382644356000A69834 /* Settings */,
 				E10BEEE22641FF1B00317E38 /* ShareView.swift */,
 			);
@@ -503,6 +513,7 @@
 				E1583AA12648988B002F9DB3 /* ExperimentTextEditor.swift */,
 				E1AD1EE32642E3810086BC84 /* PostView.swift */,
 				E10BEF532642DF8500317E38 /* ExperimentFeedView.swift */,
+				E1EFEBAD266ACD0E00854790 /* EditExperimentView.swift */,
 				E10BEF512642DF7500317E38 /* ExperimentCard.swift */,
 			);
 			path = Experiment;
@@ -546,6 +557,7 @@
 			isa = PBXGroup;
 			children = (
 				E1DE28A6264978F2001C3D9B /* ScrollBtn.swift */,
+				E1EFEBAB266AB7D200854790 /* ProgressViewStyle.swift */,
 				E18496392644375200A69834 /* GridButtonStyle.swift */,
 				E1583A9F264897FC002F9DB3 /* DismissSheetBtn.swift */,
 				E184963C2644393B00A69834 /* CTAButtonStyle.swift */,
@@ -765,11 +777,14 @@
 				E10BEEDF2641FEB900317E38 /* Extensions.swift in Sources */,
 				E10BEF3C26420B6200317E38 /* Helpers.swift in Sources */,
 				E10BEF542642DF8500317E38 /* ExperimentFeedView.swift in Sources */,
+				E1EFEBAE266ACD0E00854790 /* EditExperimentView.swift in Sources */,
 				E10BEF4526420B6200317E38 /* MagnifierRect.swift in Sources */,
+				E1EFEBAC266AB7D200854790 /* ProgressViewStyle.swift in Sources */,
 				E10BEF1A264205B800317E38 /* ChartView.swift in Sources */,
 				E10BEF3826420B6200317E38 /* BarChartView.swift in Sources */,
 				E10BEF0F2642014300317E38 /* CardView.swift in Sources */,
 				E10BEF4026420B6200317E38 /* PieChartView.swift in Sources */,
+				E1EFEBA8266AB53E00854790 /* HabitsCard.swift in Sources */,
 				E10BEF3B26420B6200317E38 /* BarChartCell.swift in Sources */,
 				E1AD1EE42642E3810086BC84 /* PostView.swift in Sources */,
 				E10BEF112642017B00317E38 /* ButtonGridView.swift in Sources */,
@@ -795,6 +810,7 @@
 				E10BEF4326420B6200317E38 /* Legend.swift in Sources */,
 				E10BEECB2641FE0B00317E38 /* SceneDelegate.swift in Sources */,
 				E184963A2644375200A69834 /* GridButtonStyle.swift in Sources */,
+				E1EFEBAA266AB5B900854790 /* HabitsCell.swift in Sources */,
 				E1AD1F0F264367650086BC84 /* ClassSelectionView.swift in Sources */,
 				E10BEF4626420B6200317E38 /* Path+QuadCurve.swift in Sources */,
 				E1583AA22648988B002F9DB3 /* ExperimentTextEditor.swift in Sources */,

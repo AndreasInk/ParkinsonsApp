@@ -29,6 +29,8 @@ struct Experiment: Hashable, Codable {
     var habit: [Habit]
     var imageName: String
     var upvotes: Int
+    var goalPerDay: Int?
+    var habitToday: [Habit]?
 }
 
 struct Post: Hashable, Codable {

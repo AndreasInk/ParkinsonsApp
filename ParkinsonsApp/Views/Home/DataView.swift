@@ -27,8 +27,11 @@ struct DataView: View {
     
     @Binding var tutorialNum: Int
     @Binding var isTutorial: Bool
+    @State var edit = false
     
     @Environment(\.presentationMode) var presentationMode
+    
+    @Binding var experiment: Experiment
     var body: some View {
         ZStack {
             Color.clear
@@ -255,7 +258,7 @@ struct DataView: View {
                                 }
                                 if !refresh {
                                 DayChartView(title: "Step Length", chartData: $length, refresh: refresh)
-                                Text("A higher step length indicates poorer health.")
+                                Text("A lower step length indicates poorer health.")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
@@ -277,9 +280,23 @@ struct DataView: View {
                             
                         case "Score and Habits":
                             VStack {
+                                HStack {
+                                    
+                                    Button(action: {
+                                        edit = true
+                                    }) {
+                                        Text("Edit")
+                                            .font(.custom("Poppins-Bold", size: 18, relativeTo: .title))
+                                            .multilineTextAlignment(.leading)
+                                    }
+                                    .sheet(isPresented: $edit, content: {
+                                       EditExperimentView(experiment: $experiment, add: $edit, refresh: $refresh)
+                                    })
                                 DatePicker("", selection: $date, displayedComponents: .date)
                                     .datePickerStyle(CompactDatePickerStyle())
                                     .padding()
+                                    
+                                } 
                                     .onChange(of: date, perform: { value in
                                         // ready = false
                                         refresh = true
