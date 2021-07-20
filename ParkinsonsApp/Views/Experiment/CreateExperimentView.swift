@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 struct CreateExperimentView: View {
     
-    @State var experiment  = Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post](), week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
+    //@State var experiment  = Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post](), week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
     @State var images = ["meal", "cook", "plate", "workout", "running", "nature", "hiking", "yoga", "mediation", "reading", "newspaper", "water", "call", "chat", "art", "edu", "data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8", "data9", "data10"]
     @State var habitTitle = ""
     
@@ -21,11 +21,11 @@ struct CreateExperimentView: View {
     ]
     @State var showImages = false
     
-    @Binding var user: User
+    //@Binding var user: User
     
     @Binding var add: Bool
     
-    @Binding var experiments: [Experiment]
+   // @Binding var experiments: [Experiment]
     
     @State var created = false
     

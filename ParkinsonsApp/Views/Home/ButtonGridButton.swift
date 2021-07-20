@@ -12,12 +12,12 @@ struct ButtonGridButton: View {
     @State var gridButton: GridButton
     @State var open = false
     
-    @Binding var days: [Day]
+    
     
     @Binding var tutorialNum: Int
     @Binding var isTutorial: Bool
     
-    @State var experiment = Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post](), week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
+    @Binding var userData: [UserData]
     var body: some View {
         
         Button(action: {
@@ -44,7 +44,7 @@ struct ButtonGridButton: View {
         } .buttonStyle(GridButtonStyle())
         
         .sheet(isPresented: $open, content: {
-            DataView(days: $days, gridButton: gridButton, tutorialNum: $tutorialNum, isTutorial: $isTutorial, experiment:$experiment)
+            DataView(userData: $userData, gridButton: gridButton, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
         })
         
     }

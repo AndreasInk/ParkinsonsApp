@@ -56,7 +56,7 @@ struct OnboardingView: View {
                         }
                     }
                     
-                } else if onboardingViews[slideNum].title.contains("Can we Access Your Mobility") {
+                } else if onboardingViews[slideNum].title.contains("Can we Access Your Mobility Metrics?") {
                     let readData = Set([
                         HKObjectType.quantityType(forIdentifier: .walkingSpeed)!,
                         HKObjectType.quantityType(forIdentifier: .walkingStepLength)!,
@@ -94,7 +94,7 @@ struct OnboardingView: View {
 
 struct OnboardingDetail: View {
     @State var onboarding: Onboarding
-    @State var user = User(id: UUID(), name: "", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]())
+    //@State var user = User(id: UUID(), name: "", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]())
     var body: some View {
         VStack {
             Text(onboarding.title)
@@ -107,30 +107,30 @@ struct OnboardingDetail: View {
                 .multilineTextAlignment(.center)
                 .padding(.bottom)
                 .fixedSize(horizontal: false, vertical: true)
-            if onboarding.title == "What's your name?" {
-                
-                TextField("Name", text: $user.name)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                    .onDisappear() {
-                        let encoder = JSONEncoder()
-                        
-                        if let encoded = try? encoder.encode(user) {
-                            if let json = String(data: encoded, encoding: .utf8) {
-                              
-                                do {
-                                    let url = self.getDocumentsDirectory().appendingPathComponent("user.txt")
-                                    try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
-                                    
-                                } catch {
-                                    print("erorr")
-                                }
-                            }
-                            
-                            
-                        }
-                    }
-            }
+//            if onboarding.title == "What's your name?" {
+//                
+//                TextField("Name", text: $user.name)
+//                    .textFieldStyle(RoundedBorderTextFieldStyle())
+//                    .padding()
+//                    .onDisappear() {
+//                        let encoder = JSONEncoder()
+//                        
+//                        if let encoded = try? encoder.encode(user) {
+//                            if let json = String(data: encoded, encoding: .utf8) {
+//                              
+//                                do {
+//                                    let url = self.getDocumentsDirectory().appendingPathComponent("user.txt")
+//                                    try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
+//                                    
+//                                } catch {
+//                                    print("erorr")
+//                                }
+//                            }
+//                            
+//                            
+//                        }
+//                    }
+//            }
             
             Image(onboarding.image)
                 .resizable()

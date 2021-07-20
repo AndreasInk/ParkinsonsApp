@@ -64,7 +64,7 @@ struct ExperimentView: View {
                         Text("Group Progress")
                             .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
                         Spacer()
-                        if showAddHabit {
+                        //if showAddHabit {
                             if experiment.users.map{$0.id}.contains(user.id) {
                                 Button(action: {
                                     experiment.habit.append(Habit(id: UUID(), title: "Run", date: Date()))
@@ -126,6 +126,7 @@ struct ExperimentView: View {
                                     }
                                     saveExperiment()
                                     showAddHabit = false
+                                  
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 180.0) {
                                         showAddHabit = true
                                     }
@@ -142,7 +143,7 @@ struct ExperimentView: View {
                                     }
                                 }
                             }
-                        }
+                       // }
                     }
                     .padding(.bottom)
                     

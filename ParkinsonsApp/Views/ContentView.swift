@@ -15,16 +15,17 @@ struct ContentView: View {
     @State var animate = true
     @State var animate2 = false
     @State var ready = false
-    @State var days = [Day]()
+    //@State var days = [Day]()
     
     @State var values = [Double]()
-   
-    @State var week = Week(id: UUID().uuidString,  sun: Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), mon:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), tue:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), wed:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), thur:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), fri:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), sat:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()))
+   @State var isTutorial = false
+        //@State var week = Week(id: UUID().uuidString,  sun: Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), mon:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), tue:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), wed:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), thur:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), fri:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), sat:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()))
     @State var settings =  [Setting(title: "Notifications", text: "We'll send notifications to remind you to keep your phone in your pocket to gain insights and send updates on habits", onOff: true, dates: [9]), Setting(title: "Accessability", text: "Enable these features to make it easier to use the app", onOff: true), Setting(title: "Customize Your Widget", text: "You track your score on your home screen with widgets", onOff: true)]
     // Setting(title: "Share Your Experience", text: "By sharing your experience with the app, we can make it even better!  ", onOff: true), Setting(title: "Share Your Data", text: "By sharing your data, we can make scoring even better!  ", onOff: true), Setting(title: "Share With Your Doctor", text: "Export your data to your doctor to give important insights to your doctor to help you.", onOff: true)
     @State private var useCount = UserDefaults.standard.integer(forKey: "useCount")
-    @State var user = User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]())
+   // @State var user = User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]())
     
+    @State var userData = [UserData(id: UUID().uuidString, type: .Habit, date: Date(), data: 0.0)]
     @State var isOnboarding: Bool =  false
     @State var isOnboarding2: Bool =  false
     var body: some View {
@@ -53,11 +54,11 @@ struct ContentView: View {
                 .onDisappear() {
                     let encoder = JSONEncoder()
                     
-                    if let encoded = try? encoder.encode(user) {
+                    if let encoded = try? encoder.encode(userData) {
                         if let json = String(data: encoded, encoding: .utf8) {
                           
                             do {
-                                let url = self.getDocumentsDirectory().appendingPathComponent("user.txt")
+                                let url = self.getDocumentsDirectory().appendingPathComponent("userData.txt")
                                 try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
                                 
                             } catch {
@@ -82,9 +83,9 @@ struct ContentView: View {
                             let decoder = JSONDecoder()
                             
                             do {
-                                let note = try decoder.decode(User.self, from: jsonData)
+                                let note = try decoder.decode([UserData].self, from: jsonData)
                                 
-                                user = note
+                                userData = note
                                 //                                if i.first!.id == "1" {
                                 //                                    notes.removeFirst()
                                 //                                }
@@ -128,68 +129,68 @@ struct ContentView: View {
                         print(error.localizedDescription)
                         
                     }
-                    
-                    if !isOnboarding {
                     getHealthData()
+                    if !isOnboarding {
+                   
                     } else {
                         ready = true
                         animate2 = true
                     }
-                    if ready {
-                        let url = self.getDocumentsDirectory().appendingPathComponent("data2.txt")
-                        do {
-                            
-                            let input = try String(contentsOf: url)
-                            
-                            
-                            let jsonData = Data(input.utf8)
-                            do {
-                                let decoder = JSONDecoder()
-                                
-                                do {
-                                    let note = try decoder.decode([Day].self, from: jsonData)
-                                    
-                                    let filtered = note.filter { day in
-                                        #warning("double check")
-                                        return Date().addingTimeInterval(-604800) > day.date
-                                    }
-                                    days = filtered
-                                    
-                                    
-                                    days =  days.removeDuplicates()
-                                   
-                                    //                                if i.first!.id == "1" {
-                                    //                                    notes.removeFirst()
-                                    //                                }
-                                    
-                                    
-                                } catch {
-                                    print(error.localizedDescription)
-                                }
-                            }
-                        } catch {
-                            print(error.localizedDescription)
-                            
-                        }
-                        
-                        
-                        
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            withAnimation(.easeInOut(duration: 1.5)) {
-                                animate = true
-                            }
-                           
-                        }
-                        
-                        
-                    }
-                    self.loadUsersExperiments() { experiments in
-                        self.user.experiments = experiments
+//                    if ready {
+//                        let url = self.getDocumentsDirectory().appendingPathComponent("data2.txt")
+//                        do {
+//
+//                            let input = try String(contentsOf: url)
+//
+//
+//                            let jsonData = Data(input.utf8)
+//                            do {
+//                                let decoder = JSONDecoder()
+//
+//                                do {
+//                                    let note = try decoder.decode([Day].self, from: jsonData)
+//
+//                                    let filtered = note.filter { day in
+//                                        #warning("double check")
+//                                        return Date().addingTimeInterval(-604800) > day.date
+//                                    }
+//                                    days = filtered
+//
+//
+//                                    days =  days.removeDuplicates()
+//
+//                                    //                                if i.first!.id == "1" {
+//                                    //                                    notes.removeFirst()
+//                                    //                                }
+//
+//
+//                                } catch {
+//                                    print(error.localizedDescription)
+//                                }
+//                            }
+//                        } catch {
+//                            print(error.localizedDescription)
+//
+//                        }
+//
+//
+//
+//
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                            withAnimation(.easeInOut(duration: 1.5)) {
+//                                animate = true
+//                            }
+//
+//                        }
+//
+//
+//                    }
+//                    self.loadUsersExperiments() { experiments in
+//                        self.user.experiments = experiments
                       //  print(experiments)
                        // #warning("Remove after testing")
                        // days.append(Day(id: UUID().uuidString, score: [Score(id: UUID().uuidString, score: 1.0, date: Date())], tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()))
-                    }
+                    //}
                 }
             if animate {
                 // LoadingView()
@@ -200,18 +201,18 @@ struct ContentView: View {
                 Color.clear
                     .ignoresSafeArea()
                 
-                HomeView(week: $week, days: $days, user: $user, isTutorial: $isOnboarding, settings2: $settings)
+                HomeView(userData: $userData, isTutorial: $isTutorial, settings2: $settings)
                     .transition(.opacity)
                     .onAppear(){
                        
                     }
-                    .onChange(of: user, perform: { value in
+                    .onChange(of: userData, perform: { value in
                         let encoder = JSONEncoder()
-                        if let encoded = try? encoder.encode(user) {
+                        if let encoded = try? encoder.encode(userData) {
                             if let json = String(data: encoded, encoding: .utf8) {
                               
                                 do {
-                                    let url = self.getDocumentsDirectory().appendingPathComponent("user.txt")
+                                    let url = self.getDocumentsDirectory().appendingPathComponent("userData.txt")
                                     try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
                                     
                                 } catch {
@@ -222,98 +223,7 @@ struct ContentView: View {
                             
                         }
                     })
-                    .onChange(of: days, perform: { value in
-                        
-                        let encoder = JSONEncoder()
-                        days = days.removeDuplicates()
-                        if let encoded = try? encoder.encode(days.removeDuplicates()) {
-                            if let json = String(data: encoded, encoding: .utf8) {
-                                
-                                do {
-                                    let url = self.getDocumentsDirectory().appendingPathComponent("data2.txt")
-                                    try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
-                                    
-                                } catch {
-                                    print("erorr")
-                                }
-                            }
-                            
-                            
-                        }
-                        for day in days {
-                            //print(day)
-                            if day.date.get(.weekOfYear) == Date().get(.weekOfYear) {
-                            for i in user.experiments.indices {
-                                let groupScore = user.experiments[i].groupScore.last
-                                
-                                let filtered2 = day.score.filter { word in
-                                    return word.date.get(.day) == Date().get(.day)
-                                }
-                                let filtered = filtered2.filter { word in
-                                    return word.date.get(.month) == Date().get(.month)
-                                }
-                                let userAverage = average(numbers: filtered.map {$0.score})
-                                if let prediction = groupScore?.prediction  {
-                                    let groupAverage = average(numbers: [userAverage, prediction])
-                                    
-                                    if !groupAverage.isNaN {
-                                        user.experiments[i].groupScore.append(PredictedScore(prediction: groupAverage, predicted_parkinsons: 0, date: Date()))
-                                
-                                    } else {
-                                        user.experiments[i].groupScore.append(PredictedScore(prediction: userAverage, predicted_parkinsons: 0, date: Date()))
-                                       
-                                    }
-                                    
-                                } else {
-                                    if !userAverage.isNaN {
-                                    user.experiments[i].groupScore.append(PredictedScore(prediction: userAverage, predicted_parkinsons: 0, date: Date()))
-                                    
-                                    } else {
-                                        user.experiments[i].groupScore.append(PredictedScore(prediction: 1.0, predicted_parkinsons: 0, date: Date()))
-                                        print(6723627326762)
-                                    }
-                                }
-                                
-                                for habit in user.experiments[i].groupScore {
-                                    let today = habit.date.get(.weekday)
-                                   
-                                    //print(value)
-                                    
-                                    //   if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
-                                    if !habit.prediction.isNaN {
-                                    if user.experiments[i].week.indices.contains(user.experiments[i].week.count - 1) {
-                                        if today == 2 {
-                                            user.experiments[i].week[user.experiments[i].week.count - 1].mon.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
-                                        } else if today == 3 {
-                                            
-                                            user.experiments[i].week[user.experiments[i].week.count - 1].tue.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
-                                            
-                                        } else if today == 4 {
-                                            user.experiments[i].week[user.experiments[i].week.count - 1].wed.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
-                                        } else if today == 5 {
-                                            user.experiments[i].week[user.experiments[i].week.count - 1].thur.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
-                                        }  else if today == 6 {
-                                            user.experiments[i].week[user.experiments[i].week.count - 1].fri.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
-                                        }  else if today == 7 {
-                                            user.experiments[i].week[user.experiments[i].week.count - 1].sat.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
-                                        } else if today == 1 {
-                                            user.experiments[i].week[user.experiments[i].week.count - 1].sun.score.append(Score(id: UUID().uuidString, score: habit.prediction, date: Date()))
-                                            
-                                        }
-                                        
-                                        
-                                    }
-                            }
-                                }
-                                print(i)
-                                saveExperiment(experiment: user.experiments[i])
-                        }
-                                
-                            }
-                           
-                        }
-                        
-                    })
+                 
                 
                 
             }
@@ -393,7 +303,7 @@ struct ContentView: View {
                             
                             getLength()
                             
-                            days = days.removeDuplicates()
+                            //days = days.removeDuplicates()
                             
                             
                         } else {
@@ -423,37 +333,37 @@ struct ContentView: View {
         ready = true
     }
     
-    func loadUsersExperiments(performAction: @escaping ([Experiment]) -> Void) {
-        let db = Firestore.firestore()
-        let docRef = db.collection("experiments")
-        var userList = [Experiment]()
-        let query = docRef.whereField("usersIDs", arrayContains: user.id.uuidString)
-        query.getDocuments { (documents, error) in
-            if !(documents?.isEmpty ?? true) {
-                for document in documents!.documents {
-                    let result = Result {
-                        try document.data(as: Experiment.self)
-                    }
-                    
-                    switch result {
-                    case .success(let user):
-                        if let user = user {
-                            userList.append(user)
-                            
-                        } else {
-                            
-                            print("Document does not exist")
-                        }
-                    case .failure(let error):
-                        print("Error decoding user: \(error)")
-                    }
-                    
-                    
-                }
-            }
-            performAction(userList)
-        }
-    }
+//    func loadUsersExperiments(performAction: @escaping ([Experiment]) -> Void) {
+//        let db = Firestore.firestore()
+//        let docRef = db.collection("experiments")
+//        var userList = [Experiment]()
+//        let query = docRef.whereField("usersIDs", arrayContains: user.id.uuidString)
+//        query.getDocuments { (documents, error) in
+//            if !(documents?.isEmpty ?? true) {
+//                for document in documents!.documents {
+//                    let result = Result {
+//                        try document.data(as: Experiment.self)
+//                    }
+//
+//                    switch result {
+//                    case .success(let user):
+//                        if let user = user {
+//                            userList.append(user)
+//
+//                        } else {
+//
+//                            print("Document does not exist")
+//                        }
+//                    case .failure(let error):
+//                        print("Error decoding user: \(error)")
+//                    }
+//
+//
+//                }
+//            }
+//            performAction(userList)
+//        }
+//    }
     func getLength() {
         let calendar = NSCalendar.current
         
@@ -502,47 +412,7 @@ struct ContentView: View {
                     //  self.week.mon.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
                     let today = date.get(.weekday)
                     
-                    //print(value)
-                    
-                    //   if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
-                    if today == 1 {
-                        self.week.mon.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    } else if today == 2 {
-                        
-                        self.week.tue.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                        
-                    } else if today == 3 {
-                        self.week.wed.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    } else if today == 4 {
-                        self.week.thur.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    }  else if today == 5 {
-                        self.week.fri.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    }  else if today == 6 {
-                        self.week.sat.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    } else if today == 0 {
-                        self.week.sun.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                        
-                    }
-                    //  }
-                    
-                    //print(date)
-                    
-                    
-                    // dates = defaults?.array(forKey: "dates") as? [Date] ?? []
-                    //                                        self.values.append(value)
-                    //                                        self.dates.append(date)
-                    //
-                    //
-                    //                                        defaults?.set(self.values, forKey: "values")
-                    //                                        defaults?.set(self.dates, forKey: "dates")
-                    //                                        defaults?.set(self.values.last ?? 0.0, forKey: "last")
-                    //
-                    //
-                    //                                        WidgetCenter.shared.reloadAllTimelines()
-                    //                        print("avg")
-                    //                        print((defaults.double(forKey: "avg") ?? 0.0) )
-                    //
-                    
+                    userData.append(UserData(id: UUID().uuidString, type: .Stride, date: date, data: value))
                     
                 }
                 
@@ -613,45 +483,7 @@ struct ContentView: View {
                     // print("Value")
                     // print(statsCollection)
                     
-                    
-                    if today == 1 {
-                        self.week.mon.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    } else if today == 2 {
-                        
-                        self.week.tue.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                        
-                    } else if today == 3 {
-                        self.week.wed.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    } else if today == 4 {
-                        self.week.thur.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    }  else if today == 5 {
-                        self.week.fri.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    }  else if today == 6 {
-                        self.week.sat.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    } else if today == 0 {
-                        self.week.sun.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                        
-                    }
-                    // print(quantity)
-                    
-                    
-                    //print(date)
-                    
-                    
-                    // dates = defaults?.array(forKey: "dates") as? [Date] ?? []
-                    //                                        self.values.append(value)
-                    //                                        self.dates.append(date)
-                    //
-                    //
-                    //                                        defaults?.set(self.values, forKey: "values")
-                    //                                        defaults?.set(self.dates, forKey: "dates")
-                    //                                        defaults?.set(self.values.last ?? 0.0, forKey: "last")
-                    //
-                    //
-                    //                                        WidgetCenter.shared.reloadAllTimelines()
-                    //  print("avg")
-                    
-                    
+                    userData.append(UserData(id: UUID().uuidString, type: .WalkingSpeed, date: date, data: value))
                     
                     
                 }
@@ -726,50 +558,7 @@ struct ContentView: View {
                     
                     
                     
-                    
-                    //if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
-                    //  print(value)
-                    
-                    
-                    if today == 1 {
-                        self.week.mon.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                      
-                    } else if today == 2 {
-                        
-                        self.week.tue.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                        
-                    } else if today == 3 {
-                        self.week.wed.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                    } else if today == 4 {
-                        self.week.thur.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                    }  else if today == 5 {
-                        self.week.fri.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                    }  else if today == 6 {
-                        self.week.sat.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                    } else if today == 0 {
-                        self.week.sun.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                        
-                        // }
-                    }
-                    //print(date)
-                    
-                    
-                    // dates = defaults?.array(forKey: "dates") as? [Date] ?? []
-                    //                                        self.values.append(value)
-                    //                                        self.dates.append(date)
-                    //
-                    //
-                    //                                        defaults?.set(self.values, forKey: "values")
-                    //                                        defaults?.set(self.dates, forKey: "dates")
-                    //                                        defaults?.set(self.values.last ?? 0.0, forKey: "last")
-                    //
-                    //
-                    //                                        WidgetCenter.shared.reloadAllTimelines()
-                    //                    print("avg")
-                    //                    print((defaults.double(forKey: "avg") ?? 0.0) )
-                    //
-                    
-                    
+                    userData.append(UserData(id: UUID().uuidString, type: .Balance, date: date, data: value))
                 }
                 
                 
@@ -832,54 +621,9 @@ struct ContentView: View {
                     // self.week.mon.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
                     
                     let components2 = date.get(.weekday, .month, .year)
-                    if let today = components2.weekday{
-                        
-                        
-                        //print(value)
-                        
-                        //    if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
-                        
-                        //  print(value)
-                        
-                        
-                        if today == 1 {
-                            
-                            self.week.mon.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        } else if today == 2 {
-                            
-                            self.week.tue.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                            
-                        } else if today == 3 {
-                            self.week.wed.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        } else if today == 4 {
-                            self.week.thur.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        }  else if today == 5 {
-                            self.week.fri.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        }  else if today == 6 {
-                            self.week.sat.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        } else if today == 0 {
-                            self.week.sun.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        }
-                        
-                        //  }
-                    }
-                    //print(date)
-                    
-                    
-                    // dates = defaults?.array(forKey: "dates") as? [Date] ?? []
-                    //                                        self.values.append(value)
-                    //                                        self.dates.append(date)
-                    //
-                    //
-                    //                                        defaults?.set(self.values, forKey: "values")
-                    //                                        defaults?.set(self.dates, forKey: "dates")
-                    //                                        defaults?.set(self.values.last ?? 0.0, forKey: "last")
-                    //
-                    //
-                    //                                        WidgetCenter.shared.reloadAllTimelines()
-                    //                    print("avg")
-                    //                    print((defaults.double(forKey: "avg") ?? 0.0) )
-                    
+                    if let today = components2.weekday {
+                
+                        userData.append(UserData(id: UUID().uuidString, type: .Balance, date: date, data: value))
                     
                     
                 }
@@ -894,6 +638,7 @@ struct ContentView: View {
             
         }
         healthStore.execute(query4)
+    }
     }
     
     func getDocumentsDirectory() -> URL {

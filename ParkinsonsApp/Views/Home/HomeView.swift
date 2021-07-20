@@ -16,16 +16,17 @@ struct HomeView: View {
     @State var openMeds = false
     @State var animateBanner = false
     @State var meds = [Med]()
-    @Binding var week: Week
-    @Binding var days: [Day]
-    @State var experiment = Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post]())])], week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
-    @Binding var user: User
+//    @Binding var week: Week
+//    @Binding var days: [Day]
+//    @State var experiment = Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post]())])], week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
+    @Binding var userData: [UserData]
     @State var ready = false
     @Binding var isTutorial: Bool
     @State var tutorialNum = 0
     @Binding var settings2: [Setting]
     @State private var useCount = UserDefaults.standard.integer(forKey: "useCount")
-    @State var experiments = [Experiment]()
+   // @State var experiments = [Experiment]()
+    
     var body: some View {
         ZStack {
             
@@ -36,39 +37,41 @@ struct HomeView: View {
                     }
                 })
                 .onAppear() {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
                     load()
+                    }
 //                    self.loadPopularExperiments() { experiments in
 //                        experiment = experiments.first ?? Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post]())])], week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
 //
 //                    }
                     
                     
-                     let url = self.getDocumentsDirectory().appendingPathComponent("experiments.txt")
-                     do {
-                         
-                         let input = try String(contentsOf: url)
-                         
-                         
-                         let jsonData = Data(input.utf8)
-                         do {
-                             let decoder = JSONDecoder()
-                             
-                             do {
-                                 let note = try decoder.decode([Experiment].self, from: jsonData)
-                                 
-                                 experiments = note
-                                 //                                if i.first!.id == "1" {
-                                 //                                    notes.removeFirst()
-                                 //                                }
-                                 
-                                 
-                             } catch {
-                                 print(error.localizedDescription)
-                             }
-                         }
-                     } catch {
-                         
-                     }
+//                     let url = self.getDocumentsDirectory().appendingPathComponent("experiments.txt")
+//                     do {
+//                         
+//                         let input = try String(contentsOf: url)
+//                         
+//                         
+//                         let jsonData = Data(input.utf8)
+//                         do {
+//                             let decoder = JSONDecoder()
+//                             
+//                             do {
+//                                 let note = try decoder.decode([Experiment].self, from: jsonData)
+//                                 
+//                                 experiments = note
+//                                 //                                if i.first!.id == "1" {
+//                                 //                                    notes.removeFirst()
+//                                 //                                }
+//                                 
+//                                 
+//                             } catch {
+//                                 print(error.localizedDescription)
+//                             }
+//                         }
+//                     } catch {
+//                         
+//                     }
                 }
                 
                 
@@ -113,16 +116,16 @@ struct HomeView: View {
 //                        .opacity(isTutorial ? (tutorialNum == -1 ? 1.0 : 0.1) : 1.0)
                     Spacer()
                         
-//                    Button(action: {
-//                        social.toggle()
-//                    }) {
-//                        Image(systemName: "person.3")
-//                            .font(.largeTitle)
-//                            .padding()
-//                    }  .opacity(isTutorial ? (tutorialNum == 3 ? 1.0 : 0.1) : 1.0)
-//                    .sheet(isPresented: $social, content: {
-//                        ExperimentFeedView(user: $user, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-//                    })
+                    Button(action: {
+                        social.toggle()
+                    }) {
+                        Image(systemName: "person.3")
+                            .font(.largeTitle)
+                            .padding()
+                    }  .opacity(isTutorial ? (tutorialNum == 3 ? 1.0 : 0.1) : 1.0)
+                    .sheet(isPresented: $social, content: {
+                      //  ExperimentFeedView(user: $user, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                    })
                     
                     Button(action: {
                         openMeds.toggle()
@@ -132,7 +135,7 @@ struct HomeView: View {
                             .padding()
                     }  .opacity(isTutorial ? (tutorialNum == 4 ? 1.0 : 0.1) : 1.0)
                     .sheet(isPresented: $openMeds, content: {
-                        MedsView(meds: $meds, week: $week, days: $days, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                       // MedsView(meds: $meds, week: $week, days: $days, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
                     })
                     
                     Button(action: {
@@ -153,7 +156,7 @@ struct HomeView: View {
                 ShareDataBanner()
                     .transition(.move(edge: .top))
                 }
-                ButtonGridView(days: $days, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                ButtonGridView(userData: $userData, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
                     .onAppear() {
                         if useCount > 3 && useCount < 8 {
                         withAnimation(.easeInOut) {
@@ -161,28 +164,28 @@ struct HomeView: View {
                         }
                         }
                     }
-//                ExperimentCard(user: $user, experiment: $experiment, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-                HabitsCard(experiments: $experiments, days: $days, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-                    .opacity(isTutorial ? (tutorialNum == -1 ? 1.0 : 0.1) : 1.0)
-                    .onChange(of: experiments, perform: { value in
-                        let encoder = JSONEncoder()
-                        
-                        if let encoded = try? encoder.encode(experiments) {
-                            if let json = String(data: encoded, encoding: .utf8) {
-                              
-                                do {
-                                    let url = self.getDocumentsDirectory().appendingPathComponent("experiments.txt")
-                                    try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
-                                    
-                                } catch {
-                                    print("erorr")
-                                }
-                            }
-                            
-                            
-                        }
-                    })
-                WeekChartView(week: $week)
+               // ExperimentCard(user: $user, experiment: $experiment, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+//                HabitsCard(experiments: $experiments, days: $days, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+//                    .opacity(isTutorial ? (tutorialNum == -1 ? 1.0 : 0.1) : 1.0)
+//                    .onChange(of: experiments, perform: { value in
+//                        let encoder = JSONEncoder()
+//
+//                        if let encoded = try? encoder.encode(experiments) {
+//                            if let json = String(data: encoded, encoding: .utf8) {
+//
+//                                do {
+//                                    let url = self.getDocumentsDirectory().appendingPathComponent("experiments.txt")
+//                                    try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
+//
+//                                } catch {
+//                                    print("erorr")
+//                                }
+//                            }
+//
+//
+//                        }
+//                    })
+                WeekChartView(userData: $userData)
                     .opacity(isTutorial ? (tutorialNum == 6 ? 1.0 : 0.1) : 1.0)
                     .padding(.bottom)
             }
@@ -246,118 +249,40 @@ struct HomeView: View {
         ready = false
         
         do {
-            let double = week.mon.balance.map({ $0.value })
-            
-            let speed = week.mon.walkingSpeed.map({ $0.speed })
-            let length = week.mon.strideLength.map({ $0.length })
-            
-            
-            
-            getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                week.mon.totalScore = score.prediction
-                if week.mon.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                    // progressValue = score.prediction
+            let filtered = userData.filter { data in
+                return data.date.get(.weekOfYear) == Date().get(.weekOfYear)
+            }
+            for data in filtered {
+                let filteredDay = userData.filter { data2 in
+                    return data2.date.get(.weekday) == data.date.get(.weekday)
                 }
+                
+                let double = filteredDay.filter { data in
+                    return  data.type == .Balance
+                }
+            
+                let speed = filteredDay.filter { data in
+                    return  data.type == .WalkingSpeed
+                }
+                let length = filteredDay.filter { data in
+                    return  data.type == .Stride
+                }
+            
+            
+            
+                getLocalScore(double: average(numbers: double.map{$0.data}), speed: average(numbers: speed.map{$0.data}), length: average(numbers: length.map{$0.data})) { (score) in
+               // week.mon.totalScore = score.prediction
+                    userData.append(UserData(id: UUID().uuidString, type: .Score, date: double.last?.date ?? Date(), data: score.prediction))
+//                if week.mon.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
+//                    // progressValue = score.prediction
+//                }
             }
             
         }
-        do {
-            let double = week.tue.balance.map({ $0.value })
-            let speed = week.tue.walkingSpeed.map({ $0.speed })
-            let length = week.tue.strideLength.map({ $0.length })
-            
-            
-            
-            getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                week.tue.totalScore = score.prediction
-                if week.tue.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                    // progressValue = score.prediction
-                }
-            }
-            
-            
         }
-        do {
-            let double = week.wed.balance.map({ $0.value })
-            let speed = week.wed.walkingSpeed.map({ $0.speed })
-            let length = week.wed.strideLength.map({ $0.length })
-            
-            
-            
-            
-            getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                week.wed.totalScore = score.prediction
-                if week.wed.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                    //progressValue = score.prediction
-                }
-            }
-            
-            
-            
-        }
-        do {
-            let double = week.thur.balance.map({ $0.value })
-            let speed = week.thur.walkingSpeed.map({ $0.speed })
-            let length = week.thur.strideLength.map({ $0.length })
-            
-            
-            
-            getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                week.thur.totalScore = score.prediction
-                if week.thur.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                    // progressValue = score.prediction
-                }
-            }
-            
-        }
-        do {
-            let double = week.fri.balance.map({ $0.value })
-            let speed = week.fri.walkingSpeed.map({ $0.speed })
-            let length = week.fri.strideLength.map({ $0.length })
-            
-            
-            
-            getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                week.fri.totalScore = score.prediction
-                if week.fri.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                    // progressValue = score.prediction
-                }
-            }
-            
-        }
-        do {
-            let double = week.sat.balance.map({ $0.value })
-            let speed = week.sat.walkingSpeed.map({ $0.speed })
-            let length = week.sat.strideLength.map({ $0.length })
-            
-            
-            
-            getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                week.sat.totalScore = score.prediction
-                if week.sat.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                    //  progressValue = score.prediction
-                }
-            }
-            
-            
-        }
-        do {
-            let double = week.sun.balance.map({ $0.value })
-            let speed = week.sun.walkingSpeed.map({ $0.speed })
-            let length = week.sun.strideLength.map({ $0.length })
-            
-            
-            
-            
-            getLocalScore(double: average(numbers: double), speed: average(numbers: speed), length: average(numbers: length)) { (score) in
-                week.sun.totalScore = score.prediction
-                if week.sun.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-                    // progressValue = score.prediction
-                }
-            }
-            
+       
            
-        }
+        
         
         if isTutorial {
             ready = true
@@ -366,13 +291,7 @@ struct HomeView: View {
            
             
         }
-        days.append(week.mon)
-        days.append(week.tue)
-        days.append(week.wed)
-        days.append(week.thur)
-        days.append(week.fri)
-        days.append(week.sat)
-        days.append(week.sun)
+     
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             ready = true
         }

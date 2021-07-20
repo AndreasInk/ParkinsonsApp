@@ -8,76 +8,87 @@
 import SwiftUI
 
 
-struct Score: Identifiable, Codable, Hashable{
+struct UserData: Identifiable, Codable, Hashable {
     var id: String
-    var score: Double
+    var type: DataType
+    var title: String?
     var date: Date
+    var data: Double
     
     
+}
+enum DataType: String, Codable {
+    case Tremor = "Tremor"
+    case Balance = "Balance"
+    case WalkingSpeed = "WalkingSpeed"
+    case Stride = "Stride"
+    case Asymmetry = "Asymmetry"
+    case Habit = "Habit"
+    case Score = "Score"
 }
 
-struct Tremor: Identifiable, Codable, Hashable{
-    var id: String
-    var severity: Double
-    var date: Date
-    
-    
-}
-struct Balance: Identifiable, Codable, Hashable{
-    var id: String
-    var value: Double
-    var date: Date
-    
-    
-}
-struct WalkingSpeed: Identifiable, Codable, Hashable{
-    var id: String
-    var speed: Double
-    var date: Date
-    
-    
-}
+//struct Tremor: Identifiable, Codable, Hashable{
+//    var id: String
+//    var severity: Double
+//    var date: Date
+//
+//
+//}
+//struct Balance: Identifiable, Codable, Hashable{
+//    var id: String
+//    var value: Double
+//    var date: Date
+//
+//
+//}
+//struct WalkingSpeed: Identifiable, Codable, Hashable{
+//    var id: String
+//    var speed: Double
+//    var date: Date
+//
+//
+//}
+//
+//struct Stride: Identifiable, Codable, Hashable{
+//    var id: String
+//    var length: Double
+//    var date: Date
+//
+//
+//}
+//
+//struct Asymmetry: Identifiable, Codable, Hashable{
+//    var id: String
+//    var asym: Double
+//    var date: Date
+//
+//
+//}
+//struct Week: Identifiable, Codable, Hashable {
+//    var id: String
+//    var sun: Day
+//    var mon: Day
+//    var tue: Day
+//    var wed: Day
+//    var thur: Day
+//    var fri: Day
+//    var sat: Day
+//}
 
-struct Stride: Identifiable, Codable, Hashable{
-    var id: String
-    var length: Double
-    var date: Date
-    
-    
-}
-
-struct Asymmetry: Identifiable, Codable, Hashable{
-    var id: String
-    var asym: Double
-    var date: Date
-    
-    
-}
-struct Week: Identifiable, Codable, Hashable {
-    var id: String
-    var sun: Day
-    var mon: Day
-    var tue: Day
-    var wed: Day
-    var thur: Day
-    var fri: Day
-    var sat: Day
-}
-
-struct Day: Identifiable, Codable, Hashable {
-    var id: String
-    var score: [Score]
-    var tremor: [Tremor]
-    var balance: [Balance]
-    var walkingSpeed: [WalkingSpeed]
-    var strideLength: [Stride]
-    var aysm: [Asymmetry]
-    var habit: [Habit]
-    var date: Date
-    var totalScore: Double
-    var meds: [Med]
-    
-}
+//struct Day: Identifiable, Codable, Hashable {
+//    var id: String
+//    var score: [Score]
+//    var tremor: [Tremor]
+//    var balance: [Balance]
+//    var walkingSpeed: [WalkingSpeed]
+//    var strideLength: [Stride]
+//    var aysm: [Asymmetry]
+//    var habit: [Habit]
+//    var date: Date
+//    var totalScore: Double
+//    var meds: [Med]
+//
+//}
 
 struct PredictedScore: Codable, Hashable {
     var prediction: Double

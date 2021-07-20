@@ -9,7 +9,7 @@ import SwiftUI
 import CoreML
 
 struct DataView: View {
-    @Binding var days: [Day]
+    @Binding var userData: [UserData]
     @State var balance = ChartData(values: [("", 0.0)])
     @State var meds = ChartData(values: [("", 0.0)])
     @State var aysm = ChartData(values: [("", 0.0)])
@@ -31,7 +31,7 @@ struct DataView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @Binding var experiment: Experiment
+    //@Binding var experiment: Experiment
     var body: some View {
         ZStack {
             Color.clear
@@ -290,7 +290,7 @@ struct DataView: View {
                                             .multilineTextAlignment(.leading)
                                     }
                                     .sheet(isPresented: $edit, content: {
-                                       EditExperimentView(experiment: $experiment, add: $edit, refresh: $refresh)
+                                      // EditExperimentView(experiment: $experiment, add: $edit, refresh: $refresh)
                                     })
                                 DatePicker("", selection: $date, displayedComponents: .date)
                                     .datePickerStyle(CompactDatePickerStyle())
@@ -397,198 +397,42 @@ struct DataView: View {
         }
     }
     func loadData( completionHandler: @escaping (String) -> Void) {
-        balance.points.removeAll()
-        aysm.points.removeAll()
-        length.points.removeAll()
-        tremor.points.removeAll()
-        score.points.removeAll()
-        habits.points.removeAll()
-        meds.points.removeAll()
        
-        let filtered = days.filter { b in
-            
-            return b.walkingSpeed.last?.date.get(.day) ?? 0 == date.get(.day)
+       
+        let filtered = userData.filter { data in
+            return data.date.get(.weekOfYear) == Date().get(.weekOfYear) && date.get(.weekday) == data.date.get(.weekday)
         }
-        let filtered2 = days.filter { b in
+        for hour in 0...23 {
             
-            
-            return b.habit.last?.date.get(.day) ?? 0 == date.get(.day)
-        }
-        
-        let day = filtered.last ?? Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]())
-        let day2 = filtered2.last ?? Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]())
-        let components22 = date.get(.day, .month, .year, .hour)
-        let components222 = day2.habit.last?.date.get(.day, .month, .year, .hour)
-        if let today = components222?.day, let month = components222?.month, let year = components222?.year{
-            if let today2 = components22.day, let month2 = components22.month, let year2 = components22.year {
-              
-                
-                if "\(today)" + "\(month)" + "\(year)" == "\(today2)" + "\(month2)" +  "\(year2)" {
-                   
-                    for i in 0...23 {
-                        
-                        
-                        // if !balance.points.isEmpty {
-                        let filtered = day2.habit.filter { b in
-                            return b.date.get(.hour) == i
-                        }
-                        
-                        
-                        habits.points.append((String(filtered.last?.date.get(.hour) ?? 0 ), Double(filtered.count)))
-                        
-                        
-                        
-                    }
-                }
+       
+            let filteredHour = filtered.filter { data in
+                return data.date.get(.hour) == hour
             }
-        }
-        
-        
-        let components = date.get(.day, .month, .year, .hour)
-        let components2 = day.walkingSpeed.last?.date.get(.day, .month, .year, .hour)
-        if let today = components2?.day, let month = components2?.month, let year = components2?.year {
-            if let today2 = components.day, let month2 = components.month, let year2 = components.year {
-              
-                
-                if "\(today)" + "\(month)" + "\(year)" == "\(today2)" + "\(month2)" +  "\(year2)" {
-                    
-                    
-                    
-                    for i in 0...23 {
-                        
-                        
-                        // if !balance.points.isEmpty {
-                        let filtered = day.balance.filter { b in
-                            return b.date.get(.hour) == i
-                        }
-                        
-                        if  !average(numbers: filtered.map {$0.value}).isNaN {
-                            balance.points.append((String(filtered.last!.date.get(.hour) ), average(numbers: filtered.map {$0.value})))
-                          
-                           
-                        }
-                        
-                        
-                        
-                    }
-                    
-                    
-                    
-                    
-                    for i in 0...23 {
-                        
-                        
-                        // if !balance.points.isEmpty {
-                        let filtered = day.aysm.filter { b in
-                            return b.date.get(.hour) == i
-                        }
-                        // print(filtered)
-                        
-                        
-                        
-                        // print(value)
-                        if  !average(numbers: filtered.map {$0.asym}).isNaN {
-                            aysm.points.append((String(filtered.last!.date.get(.hour) ), average(numbers: filtered.map {$0.asym})))
-                        }
-                        
-                        
-                        
-                    }
-                    
-                    for i in 0...23 {
-                        
-                        let filteredM = day.meds.filter { b in
-                            return b.date.get(.hour) == i
-                        }
-                        
-                        meds.points.append((String(filteredM.last?.date.get(.hour) ?? 0), average(numbers: filteredM.map {$0.amountTaken})))
-                        // if !balance.points.isEmpty {
-                        let filtered = day.strideLength.filter { b in
-                            return b.date.get(.hour) == i
-                        }
-                        // print(filtered)
-                        
-                        
-                        
-                        // print(value)
-                        if  !average(numbers: filtered.map {$0.length}).isNaN {
-                            length.points.append((String(filtered.last!.date.get(.hour) ), average(numbers: filtered.map {$0.length})))
-                        }
-                        
-                        // print(filtered)
-                        
-                        
-                        
-                        // print(value)
-                        
-                            
-                        
-                        
-                        
-                    }
-                    
-                    
-                    //                var dates4 = day.score.map { $0.date }
-                    //                var previousHour4 = -1
-                    //                for i in 0...23 {
-                    //
-                    //
-                    //                   // if !balance.points.isEmpty {
-                    //                        let filtered = day.score.filter { b in
-                    //                            return b.date.get(.hour) == i
-                    //                        }
-                    //                       // print(filtered)
-                    //                    let hours = score.points.map {$0.0}.sorted()
-                    //                        let nums = filtered.map {$0.score}
-                    //                        let value = average(numbers: nums)
-                    //                           // print(value)
-                    //                        if  !average(numbers: filtered.map {$0.score}).isNaN {
-                    //                            score.points.append((String(filtered.last!.date.get(.hour) ), average(numbers: filtered.map {$0.score})))
-                    //                        }
-                    //
-                    //                        previousHour = hour
-                    //
-                    //                }
-                    
-                }
-                
+            let double = filteredHour.filter { data in
+                return  data.type == .Balance
             }
-            for i in 0...23 {
-                
-                let filtered = day.balance.filter { b in
-                   
-                    return b.date.get(.hour) == i
-                }
-                
-                let filtered2 = day.strideLength.filter { b in
-                    return b.date.get(.hour) == i
-                }
-                
-                let filtered3 = day.walkingSpeed.filter { b in
-                    return b.date.get(.hour) == i
-                }
-                
-                if filtered.count > 0 {
-                    getLocalScore(double: average(numbers: filtered.map {$0.value}), speed: average(numbers: filtered3.map {$0.speed}), length:  average(numbers: filtered2.map {$0.length})) { (score) in
-                        self.score.points.append((String(i), score.prediction))
-                    }
-                } else {
-                    getLocalScore(double: average(numbers: filtered.map {$0.value}), speed: average(numbers: filtered3.map {$0.speed}), length:  average(numbers: filtered2.map {$0.length})) { (score) in
-                        self.score.points.append((String("NA"), 0.0))
-                    }
-                }
-                
+        
+            let asymmetry = filteredHour.filter { data in
+                return  data.type == .Asymmetry
             }
+            let stepLength = filteredHour.filter { data in
+                return  data.type == .Stride
+            }
+                balance.points.append((String(hour), average(numbers: double.map{$0.data})))
+                aysm.points.append((String(hour), average(numbers: asymmetry.map{$0.data})))
+                length.points.append((String(hour), average(numbers: stepLength.map{$0.data})))
             
-        }
+        
         refresh = true
         ready = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             refresh = false
-        }
         
-    }
+        }
+    
+        }
+        }
     func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {
         do {
             let model = try reg_model(configuration: MLModelConfiguration())

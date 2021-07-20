@@ -20,11 +20,12 @@ struct SettingsRow: View {
             Text(setting.title)
                 .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
                 .padding(.vertical)
+                .multilineTextAlignment(.leading)
                   Spacer()
                 }
                 HStack {
                 Text(setting.text)
-                    
+                        .multilineTextAlignment(.leading)
                     .font(.custom("Poppins-Bold", size: 14, relativeTo: .subheadline))
                     
                     Spacer()

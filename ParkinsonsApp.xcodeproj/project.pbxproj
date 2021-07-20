@@ -63,9 +63,6 @@
 		E10BEF4726420B6200317E38 /* MultiLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF3626420B6200317E38 /* MultiLineChartView.swift */; };
 		E10BEF4826420B6200317E38 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF3726420B6200317E38 /* Line.swift */; };
 		E10BEF4C2642CE8F00317E38 /* Social.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF4B2642CE8F00317E38 /* Social.swift */; };
-		E10BEF502642DF6700317E38 /* ExperimentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF4F2642DF6700317E38 /* ExperimentView.swift */; };
-		E10BEF522642DF7500317E38 /* ExperimentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF512642DF7500317E38 /* ExperimentCard.swift */; };
-		E10BEF542642DF8500317E38 /* ExperimentFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BEF532642DF8500317E38 /* ExperimentFeedView.swift */; };
 		E13A18A826436DA700FC66B0 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1AD1EF326431E1A0086BC84 /* WidgetKit.framework */; };
 		E13A18A926436DA700FC66B0 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1AD1EF526431E1A0086BC84 /* SwiftUI.framework */; };
 		E13A18AC26436DA700FC66B0 /* ParkinsonsWidgetv2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13A18AB26436DA700FC66B0 /* ParkinsonsWidgetv2.swift */; };
@@ -92,7 +89,6 @@
 		E13A18CC26436E1900FC66B0 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E10BEEEE264200C000317E38 /* Poppins-SemiBoldItalic.ttf */; };
 		E13A18CF2643868D00FC66B0 /* NiceNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = E13A18CE2643868D00FC66B0 /* NiceNotifications */; };
 		E1583AA0264897FC002F9DB3 /* DismissSheetBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1583A9F264897FC002F9DB3 /* DismissSheetBtn.swift */; };
-		E1583AA22648988B002F9DB3 /* ExperimentTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1583AA12648988B002F9DB3 /* ExperimentTextEditor.swift */; };
 		E1583AAA2648B05E002F9DB3 /* CodableCSV in Frameworks */ = {isa = PBXBuildFile; productRef = E1583AA92648B05E002F9DB3 /* CodableCSV */; };
 		E1583AAB2648B09C002F9DB3 /* ParkinsonsWidgetv2.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E1583AA32648A2E3002F9DB3 /* ParkinsonsWidgetv2.intentdefinition */; };
 		E174BC312645F44400636B3D /* MedsDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E174BC2F2645F3DF00636B3D /* MedsDetailsView.swift */; };
@@ -103,22 +99,19 @@
 		E18496372644355C00A69834 /* SettingsDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18496362644355C00A69834 /* SettingsDetailsView.swift */; };
 		E184963A2644375200A69834 /* GridButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18496392644375200A69834 /* GridButtonStyle.swift */; };
 		E184963D2644393B00A69834 /* CTAButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E184963C2644393B00A69834 /* CTAButtonStyle.swift */; };
+		E193F41126A223510050BA0E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E193F41026A223510050BA0E /* FirebaseFirestore */; };
+		E193F41326A223510050BA0E /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E193F41226A223510050BA0E /* FirebaseFirestoreSwift-Beta */; };
+		E193F41526A223510050BA0E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E193F41426A223510050BA0E /* FirebaseStorage */; };
+		E193F41726A223510050BA0E /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E193F41626A223510050BA0E /* FirebaseStorageSwift-Beta */; };
+		E193F41926A226840050BA0E /* Experiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193F41826A226830050BA0E /* Experiment.swift */; };
 		E19B62052646DA3700796160 /* CreateMedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B62042646DA3700796160 /* CreateMedView.swift */; };
 		E1A994E52647297E00152BD5 /* MedsScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A994E42647297E00152BD5 /* MedsScheduleView.swift */; };
-		E1AD1EE42642E3810086BC84 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EE32642E3810086BC84 /* PostView.swift */; };
-		E1AD1EE62642EE8E0086BC84 /* CreateExperimentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */; };
 		E1AD1EED26430C1D0086BC84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1AD1EEC26430C1D0086BC84 /* GoogleService-Info.plist */; };
-		E1AD1F0826434A620086BC84 /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0726434A620086BC84 /* AddPostView.swift */; };
 		E1AD1F0F264367650086BC84 /* ClassSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0B264367650086BC84 /* ClassSelectionView.swift */; };
 		E1AD1F10264367650086BC84 /* FontSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0C264367650086BC84 /* FontSelectionView.swift */; };
 		E1AD1F11264367650086BC84 /* WidgetPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0D264367650086BC84 /* WidgetPreview.swift */; };
 		E1AD1F12264367650086BC84 /* ConfigureWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0E264367650086BC84 /* ConfigureWidgetView.swift */; };
-		E1D792092649AA5600932D42 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D792082649AA5600932D42 /* ConfettiView.swift */; };
 		E1DE28A7264978F2001C3D9B /* ScrollBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DE28A6264978F2001C3D9B /* ScrollBtn.swift */; };
-		E1DE28AA26497E46001C3D9B /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E1DE28A926497E46001C3D9B /* FirebaseFirestoreSwift-Beta */; };
-		E1DE28AC26497E46001C3D9B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E1DE28AB26497E46001C3D9B /* FirebaseStorage */; };
-		E1DE28AE26497E46001C3D9B /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E1DE28AD26497E46001C3D9B /* FirebaseStorageSwift-Beta */; };
-		E1DE28B026497E46001C3D9B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E1DE28AF26497E46001C3D9B /* FirebaseFirestore */; };
 		E1DE28B22649822B001C3D9B /* ShareDataBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DE28B12649822A001C3D9B /* ShareDataBanner.swift */; };
 		E1EAC67F26652829008BC0D7 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAC67E26652829008BC0D7 /* KeyboardViewController.swift */; };
 		E1EAC68326652829008BC0D7 /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E1EAC67C26652828008BC0D7 /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -132,7 +125,6 @@
 		E1EFEBA8266AB53E00854790 /* HabitsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EFEBA7266AB53E00854790 /* HabitsCard.swift */; };
 		E1EFEBAA266AB5B900854790 /* HabitsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EFEBA9266AB5B900854790 /* HabitsCell.swift */; };
 		E1EFEBAC266AB7D200854790 /* ProgressViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EFEBAB266AB7D200854790 /* ProgressViewStyle.swift */; };
-		E1EFEBAE266ACD0E00854790 /* EditExperimentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EFEBAD266ACD0E00854790 /* EditExperimentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,16 +219,12 @@
 		E10BEF3626420B6200317E38 /* MultiLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiLineChartView.swift; sourceTree = "<group>"; };
 		E10BEF3726420B6200317E38 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		E10BEF4B2642CE8F00317E38 /* Social.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.swift; sourceTree = "<group>"; };
-		E10BEF4F2642DF6700317E38 /* ExperimentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentView.swift; sourceTree = "<group>"; };
-		E10BEF512642DF7500317E38 /* ExperimentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentCard.swift; sourceTree = "<group>"; };
-		E10BEF532642DF8500317E38 /* ExperimentFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentFeedView.swift; sourceTree = "<group>"; };
 		E13A18A726436DA700FC66B0 /* ParkinsonsWidgetv2Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ParkinsonsWidgetv2Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E13A18AB26436DA700FC66B0 /* ParkinsonsWidgetv2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkinsonsWidgetv2.swift; sourceTree = "<group>"; };
 		E13A18AE26436DA800FC66B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E13A18B026436DA800FC66B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E13A18B926436DAD00FC66B0 /* ParkinsonsWidgetv2Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ParkinsonsWidgetv2Extension.entitlements; sourceTree = "<group>"; };
 		E1583A9F264897FC002F9DB3 /* DismissSheetBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DismissSheetBtn.swift; path = ../../../../../DismissSheetBtn.swift; sourceTree = "<group>"; };
-		E1583AA12648988B002F9DB3 /* ExperimentTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExperimentTextEditor.swift; path = ../../../../../ExperimentTextEditor.swift; sourceTree = "<group>"; };
 		E1583AA32648A2E3002F9DB3 /* ParkinsonsWidgetv2.intentdefinition */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.intentdefinition; path = ParkinsonsWidgetv2.intentdefinition; sourceTree = "<group>"; };
 		E174BC2E2645F3DF00636B3D /* MedsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedsRow.swift; sourceTree = "<group>"; };
 		E174BC2F2645F3DF00636B3D /* MedsDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedsDetailsView.swift; sourceTree = "<group>"; };
@@ -246,19 +234,16 @@
 		E18496362644355C00A69834 /* SettingsDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailsView.swift; sourceTree = "<group>"; };
 		E18496392644375200A69834 /* GridButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButtonStyle.swift; sourceTree = "<group>"; };
 		E184963C2644393B00A69834 /* CTAButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTAButtonStyle.swift; sourceTree = "<group>"; };
+		E193F41826A226830050BA0E /* Experiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experiment.swift; sourceTree = "<group>"; };
 		E19B62042646DA3700796160 /* CreateMedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CreateMedView.swift; path = ../../../../../../CreateMedView.swift; sourceTree = "<group>"; };
 		E1A994E42647297E00152BD5 /* MedsScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MedsScheduleView.swift; path = ../../../../../../MedsScheduleView.swift; sourceTree = "<group>"; };
-		E1AD1EE32642E3810086BC84 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
-		E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExperimentView.swift; sourceTree = "<group>"; };
 		E1AD1EEC26430C1D0086BC84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1AD1EF326431E1A0086BC84 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E1AD1EF526431E1A0086BC84 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		E1AD1F0726434A620086BC84 /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 		E1AD1F0B264367650086BC84 /* ClassSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassSelectionView.swift; sourceTree = "<group>"; };
 		E1AD1F0C264367650086BC84 /* FontSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontSelectionView.swift; sourceTree = "<group>"; };
 		E1AD1F0D264367650086BC84 /* WidgetPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetPreview.swift; sourceTree = "<group>"; };
 		E1AD1F0E264367650086BC84 /* ConfigureWidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigureWidgetView.swift; sourceTree = "<group>"; };
-		E1D792082649AA5600932D42 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConfettiView.swift; path = ../../../../../ConfettiView.swift; sourceTree = "<group>"; };
 		E1DE28A6264978F2001C3D9B /* ScrollBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollBtn.swift; sourceTree = "<group>"; };
 		E1DE28B12649822A001C3D9B /* ShareDataBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShareDataBanner.swift; path = ../../../../../ShareDataBanner.swift; sourceTree = "<group>"; };
 		E1EAC67C26652828008BC0D7 /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,7 +259,6 @@
 		E1EFEBA7266AB53E00854790 /* HabitsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsCard.swift; sourceTree = SOURCE_ROOT; };
 		E1EFEBA9266AB5B900854790 /* HabitsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsCell.swift; sourceTree = "<group>"; };
 		E1EFEBAB266AB7D200854790 /* ProgressViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewStyle.swift; sourceTree = SOURCE_ROOT; };
-		E1EFEBAD266ACD0E00854790 /* EditExperimentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExperimentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,12 +267,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E10BEF22264208B800317E38 /* HealthKit.framework in Frameworks */,
-				E1DE28AA26497E46001C3D9B /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				E193F41126A223510050BA0E /* FirebaseFirestore in Frameworks */,
+				E193F41326A223510050BA0E /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				E13A18CF2643868D00FC66B0 /* NiceNotifications in Frameworks */,
-				E1DE28AC26497E46001C3D9B /* FirebaseStorage in Frameworks */,
 				E1583AAA2648B05E002F9DB3 /* CodableCSV in Frameworks */,
-				E1DE28AE26497E46001C3D9B /* FirebaseStorageSwift-Beta in Frameworks */,
-				E1DE28B026497E46001C3D9B /* FirebaseFirestore in Frameworks */,
+				E193F41726A223510050BA0E /* FirebaseStorageSwift-Beta in Frameworks */,
+				E193F41526A223510050BA0E /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,7 +359,6 @@
 				D6AC7526264466FA008DD701 /* Onboarding */,
 				E184963B2644375500A69834 /* ButtonStyles */,
 				E10BEF4D2642DF2600317E38 /* Home */,
-				E10BEF4E2642DF2B00317E38 /* Experiment */,
 				E1AD1F0A264367650086BC84 /* WidgetEdit */,
 				E10BEF2326420B6200317E38 /* SwiftUICharts */,
 			);
@@ -420,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				E10BEEDC2641FE9600317E38 /* Data.swift */,
+				E193F41826A226830050BA0E /* Experiment.swift */,
 				E10BEF4B2642CE8F00317E38 /* Social.swift */,
 				E10BEEDE2641FEB900317E38 /* Extensions.swift */,
 			);
@@ -498,25 +482,9 @@
 				E1EFEBA9266AB5B900854790 /* HabitsCell.swift */,
 				E18496382644356000A69834 /* Settings */,
 				E10BEEE22641FF1B00317E38 /* ShareView.swift */,
+				E174BC2D2645F3DF00636B3D /* Meds */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		E10BEF4E2642DF2B00317E38 /* Experiment */ = {
-			isa = PBXGroup;
-			children = (
-				E174BC2D2645F3DF00636B3D /* Meds */,
-				E10BEF4F2642DF6700317E38 /* ExperimentView.swift */,
-				E1AD1F0726434A620086BC84 /* AddPostView.swift */,
-				E1AD1EE52642EE8E0086BC84 /* CreateExperimentView.swift */,
-				E1D792082649AA5600932D42 /* ConfettiView.swift */,
-				E1583AA12648988B002F9DB3 /* ExperimentTextEditor.swift */,
-				E1AD1EE32642E3810086BC84 /* PostView.swift */,
-				E10BEF532642DF8500317E38 /* ExperimentFeedView.swift */,
-				E1EFEBAD266ACD0E00854790 /* EditExperimentView.swift */,
-				E10BEF512642DF7500317E38 /* ExperimentCard.swift */,
-			);
-			path = Experiment;
 			sourceTree = "<group>";
 		};
 		E13A18AA26436DA700FC66B0 /* ParkinsonsWidgetv2 */ = {
@@ -614,10 +582,10 @@
 			packageProductDependencies = (
 				E13A18CE2643868D00FC66B0 /* NiceNotifications */,
 				E1583AA92648B05E002F9DB3 /* CodableCSV */,
-				E1DE28A926497E46001C3D9B /* FirebaseFirestoreSwift-Beta */,
-				E1DE28AB26497E46001C3D9B /* FirebaseStorage */,
-				E1DE28AD26497E46001C3D9B /* FirebaseStorageSwift-Beta */,
-				E1DE28AF26497E46001C3D9B /* FirebaseFirestore */,
+				E193F41026A223510050BA0E /* FirebaseFirestore */,
+				E193F41226A223510050BA0E /* FirebaseFirestoreSwift-Beta */,
+				E193F41426A223510050BA0E /* FirebaseStorage */,
+				E193F41626A223510050BA0E /* FirebaseStorageSwift-Beta */,
 			);
 			productName = ParkinsonsApp;
 			productReference = E10BEEC52641FE0B00317E38 /* ParkinsonsApp.app */;
@@ -689,7 +657,7 @@
 			packageReferences = (
 				E13A18CD2643868D00FC66B0 /* XCRemoteSwiftPackageReference "NiceNotifications" */,
 				E1583AA82648B05D002F9DB3 /* XCRemoteSwiftPackageReference "CodableCSV" */,
-				E1DE28A826497E46001C3D9B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				E193F40F26A223510050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = E10BEEC62641FE0B00317E38 /* Products */;
 			projectDirPath = "";
@@ -776,8 +744,6 @@
 			files = (
 				E10BEEDF2641FEB900317E38 /* Extensions.swift in Sources */,
 				E10BEF3C26420B6200317E38 /* Helpers.swift in Sources */,
-				E10BEF542642DF8500317E38 /* ExperimentFeedView.swift in Sources */,
-				E1EFEBAE266ACD0E00854790 /* EditExperimentView.swift in Sources */,
 				E10BEF4526420B6200317E38 /* MagnifierRect.swift in Sources */,
 				E1EFEBAC266AB7D200854790 /* ProgressViewStyle.swift in Sources */,
 				E10BEF1A264205B800317E38 /* ChartView.swift in Sources */,
@@ -786,12 +752,11 @@
 				E10BEF4026420B6200317E38 /* PieChartView.swift in Sources */,
 				E1EFEBA8266AB53E00854790 /* HabitsCard.swift in Sources */,
 				E10BEF3B26420B6200317E38 /* BarChartCell.swift in Sources */,
-				E1AD1EE42642E3810086BC84 /* PostView.swift in Sources */,
+				E193F41926A226840050BA0E /* Experiment.swift in Sources */,
 				E10BEF112642017B00317E38 /* ButtonGridView.swift in Sources */,
 				E174BC352645FDF700636B3D /* EditMedsView.swift in Sources */,
 				E10BEF132642018500317E38 /* ButtonGridButton.swift in Sources */,
 				E10BEEE62641FF3800317E38 /* SettingsView.swift in Sources */,
-				E1AD1F0826434A620086BC84 /* AddPostView.swift in Sources */,
 				E174BC332645F44400636B3D /* MedsView.swift in Sources */,
 				E18496372644355C00A69834 /* SettingsDetailsView.swift in Sources */,
 				E10BEEC92641FE0B00317E38 /* AppDelegate.swift in Sources */,
@@ -813,23 +778,18 @@
 				E1EFEBAA266AB5B900854790 /* HabitsCell.swift in Sources */,
 				E1AD1F0F264367650086BC84 /* ClassSelectionView.swift in Sources */,
 				E10BEF4626420B6200317E38 /* Path+QuadCurve.swift in Sources */,
-				E1583AA22648988B002F9DB3 /* ExperimentTextEditor.swift in Sources */,
 				E174BC312645F44400636B3D /* MedsDetailsView.swift in Sources */,
-				E10BEF522642DF7500317E38 /* ExperimentCard.swift in Sources */,
 				E1AD1F10264367650086BC84 /* FontSelectionView.swift in Sources */,
 				E10BEF4826420B6200317E38 /* Line.swift in Sources */,
 				E10BEF1C264207BF00317E38 /* reg_model.mlmodel in Sources */,
-				E1D792092649AA5600932D42 /* ConfettiView.swift in Sources */,
 				E10BEF3F26420B6200317E38 /* PieChartCell.swift in Sources */,
 				E10BEF3926420B6200317E38 /* BarChartRow.swift in Sources */,
-				E1AD1EE62642EE8E0086BC84 /* CreateExperimentView.swift in Sources */,
 				E1583AA0264897FC002F9DB3 /* DismissSheetBtn.swift in Sources */,
 				E10BEEE32641FF1B00317E38 /* ShareView.swift in Sources */,
 				E10BEF4726420B6200317E38 /* MultiLineChartView.swift in Sources */,
 				E10BEF3D26420B6200317E38 /* PieChartRow.swift in Sources */,
 				E10BEEE12641FEC200317E38 /* HomeView.swift in Sources */,
 				E1A994E52647297E00152BD5 /* MedsScheduleView.swift in Sources */,
-				E10BEF502642DF6700317E38 /* ExperimentView.swift in Sources */,
 				E10BEECD2641FE0B00317E38 /* ContentView.swift in Sources */,
 				E184963526442D7600A69834 /* SettingsRow.swift in Sources */,
 				D6AC752826446717008DD701 /* OnboardingView.swift in Sources */,
@@ -1202,12 +1162,12 @@
 				minimumVersion = 0.6.6;
 			};
 		};
-		E1DE28A826497E46001C3D9B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		E193F40F26A223510050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 7.11.1;
+				minimumVersion = 7.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1223,25 +1183,25 @@
 			package = E1583AA82648B05D002F9DB3 /* XCRemoteSwiftPackageReference "CodableCSV" */;
 			productName = CodableCSV;
 		};
-		E1DE28A926497E46001C3D9B /* FirebaseFirestoreSwift-Beta */ = {
+		E193F41026A223510050BA0E /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E1DE28A826497E46001C3D9B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = E193F40F26A223510050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		E193F41226A223510050BA0E /* FirebaseFirestoreSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E193F40F26A223510050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFirestoreSwift-Beta";
 		};
-		E1DE28AB26497E46001C3D9B /* FirebaseStorage */ = {
+		E193F41426A223510050BA0E /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E1DE28A826497E46001C3D9B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = E193F40F26A223510050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
-		E1DE28AD26497E46001C3D9B /* FirebaseStorageSwift-Beta */ = {
+		E193F41626A223510050BA0E /* FirebaseStorageSwift-Beta */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E1DE28A826497E46001C3D9B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = E193F40F26A223510050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageSwift-Beta";
-		};
-		E1DE28AF26497E46001C3D9B /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E1DE28A826497E46001C3D9B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

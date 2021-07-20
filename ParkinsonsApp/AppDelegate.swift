@@ -13,7 +13,7 @@ import CoreML
 import NiceNotifications
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var week = Week(id: UUID().uuidString,  sun: Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), mon:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), tue:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), wed:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), thur:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), fri:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), sat:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()))
+    var userData = [UserData(id: UUID().uuidString, type: .Habit, date: Date(), data: 0.0)]
     
     private var useCount = UserDefaults.standard.integer(forKey: "useCount")
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -90,24 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             //print(value)
                             
                             //   if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
-                            if today == 2 {
-                                self.week.mon.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                            } else if today == 3 {
-                                
-                                self.week.tue.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                                
-                            } else if today == 4 {
-                                self.week.wed.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                            } else if today == 5 {
-                                self.week.thur.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                            }  else if today == 6 {
-                                self.week.fri.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                            }  else if today == 7 {
-                                self.week.sat.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                            } else if today == 1 {
-                                self.week.sun.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                                
-                            }
+                            self.getHealthData()
                             //  }
                             
                             //print(date)
@@ -146,160 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 healthStore.execute(query3)
                 self.getHealthData()
-                if Date().get(.day) == 0 {
-                    let double = self.week.sun.balance.map({ $0.value })
-                    let speed = self.week.sun.walkingSpeed.map({ $0.speed })
-                    let length = self.week.sun.strideLength.map({ $0.length })
-                    self.getLocalScore(double: self.average(numbers: double), speed: self.average(numbers: speed), length: self.average(numbers: length)) { (score) in
-                        
-                        if score.prediction != 21.0 {
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
-                            let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
-                            if score.prediction == 1.0 {
-                             
-                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-                                    EveryDay(forDays: 1, starting: .today)
-                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
-                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
-                                }
-                            }
-                            WidgetCenter.shared.reloadAllTimelines()
-                        }
-                    }
-                }
-                if Date().get(.day) == 1 {
-                    let double = self.week.mon.balance.map({ $0.value })
-                    let speed = self.week.mon.walkingSpeed.map({ $0.speed })
-                    let length = self.week.mon.strideLength.map({ $0.length })
-                    self.getLocalScore(double: self.average(numbers: double), speed: self.average(numbers: speed), length: self.average(numbers: length)) { (score) in
-                        if score.prediction != 21.0 {
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
-                            let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
-                            
-                            if score.prediction == 1.0 {
-                             
-                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-                                    EveryDay(forDays: 1, starting: .today)
-                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
-                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
-                                }
-                            }
-                            WidgetCenter.shared.reloadAllTimelines()
-                        }
-                    }
-                }
-                
-                if Date().get(.day) == 2 {
-                    let double = self.week.tue.balance.map({ $0.value })
-                    let speed = self.week.tue.walkingSpeed.map({ $0.speed })
-                    let length = self.week.tue.strideLength.map({ $0.length })
-                    self.getLocalScore(double: self.average(numbers: double), speed: self.average(numbers: speed), length: self.average(numbers: length)) { (score) in
-                        if score.prediction != 21.0 {
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
-                            let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
-                            if score.prediction == 1.0 {
-                             
-                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-                                    EveryDay(forDays: 1, starting: .today)
-                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
-                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
-                                }
-                            }
-                            WidgetCenter.shared.reloadAllTimelines()
-                        }
-                    }
-                }
-                
-                if Date().get(.day) == 3 {
-                    let double = self.week.wed.balance.map({ $0.value })
-                    let speed = self.week.wed.walkingSpeed.map({ $0.speed })
-                    let length = self.week.wed.strideLength.map({ $0.length })
-                    self.getLocalScore(double: self.average(numbers: double), speed: self.average(numbers: speed), length: self.average(numbers: length)) { (score) in
-                        if score.prediction != 21.0 {
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
-                            let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
-                            if score.prediction == 1.0 {
-                             
-                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-                                    EveryDay(forDays: 1, starting: .today)
-                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
-                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
-                                }
-                            }
-                            WidgetCenter.shared.reloadAllTimelines()
-                        }
-                    }
-                }
-                
-                if Date().get(.day) == 4 {
-                    let double = self.week.thur.balance.map({ $0.value })
-                    let speed = self.week.thur.walkingSpeed.map({ $0.speed })
-                    let length = self.week.thur.strideLength.map({ $0.length })
-                    self.getLocalScore(double: self.average(numbers: double), speed: self.average(numbers: speed), length: self.average(numbers: length)) { (score) in
-                        if score.prediction != 21.0 {
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
-                            let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
-                            if score.prediction == 1.0 {
-                             
-                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-                                    EveryDay(forDays: 1, starting: .today)
-                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
-                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
-                                }
-                            }
-                            WidgetCenter.shared.reloadAllTimelines()
-                        }
-                    }
-                }
-                
-                if Date().get(.day) == 5 {
-                    let double = self.week.fri.balance.map({ $0.value })
-                    let speed = self.week.fri.walkingSpeed.map({ $0.speed })
-                    let length = self.week.fri.strideLength.map({ $0.length })
-                    self.getLocalScore(double: self.average(numbers: double), speed: self.average(numbers: speed), length: self.average(numbers: length)) { (score) in
-                        if score.prediction != 21.0 {
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
-                            let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
-                            if score.prediction == 1.0 {
-                             
-                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-                                    EveryDay(forDays: 1, starting: .today)
-                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
-                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
-                                }
-                            }
-                            WidgetCenter.shared.reloadAllTimelines()
-                        }
-                    }
-                }
-                if Date().get(.day) == 6 {
-                    let double = self.week.sat.balance.map({ $0.value })
-                    let speed = self.week.sat.walkingSpeed.map({ $0.speed })
-                    let length = self.week.sat.strideLength.map({ $0.length })
-                    self.getLocalScore(double: self.average(numbers: double), speed: self.average(numbers: speed), length: self.average(numbers: length)) { (score) in
-                        if score.prediction != 21.0 {
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(score.prediction, forKey: "lastScore")
-                            let avg = UserDefaults(suiteName: "group.parkinsonsappv2.app")?.double(forKey: "averageScore") ?? 0.0
-                            UserDefaults(suiteName: "group.parkinsonsappv2.app")?.setValue(self.average(numbers: [avg, score.prediction]), forKey: "averageScore")
-                            if score.prediction == 1.0 {
-                             
-                                LocalNotifications.schedule(permissionStrategy: .askSystemPermissionIfNeeded) {
-                                    EveryDay(forDays: 1, starting: .today)
-                                        .at(hour: Date().get(.hour), minute: Date().get(.minute) + 1)
-                                        .schedule(title: "Score Alert", body: "Your score is abnormally high")
-                                }
-                            }
-                            WidgetCenter.shared.reloadAllTimelines()
-                        }
-                    }
-                }
-                
+             
                 
             }
         }
@@ -312,9 +142,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let healthStore = HKHealthStore()
     func getHealthData() {
         
-        if useCount > 0 {
         
-        print(1)
+        
+        
         
         let readData = Set([
             HKObjectType.quantityType(forIdentifier: .walkingSpeed)!,
@@ -322,13 +152,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             HKObjectType.quantityType(forIdentifier: .walkingDoubleSupportPercentage)!
         ])
         
-        self.healthStore.requestAuthorization(toShare: [], read: readData) { (success, error) in
+        healthStore.requestAuthorization(toShare: [], read: readData) { (success, error) in
             if success {
                 if HKHealthStore.isHealthDataAvailable() {
                     
                     
                     
-                   
+                  
                     
                     
                     let readData = Set([
@@ -350,7 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
                             self.getLength()
                             
-                            
+                            //days = days.removeDuplicates()
                             
                             
                         } else {
@@ -376,10 +206,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //WidgetCenter.shared.reloadAllTimelines()
             }
         }
-        }
         
+       
     }
     
+//    func loadUsersExperiments(performAction: @escaping ([Experiment]) -> Void) {
+//        let db = Firestore.firestore()
+//        let docRef = db.collection("experiments")
+//        var userList = [Experiment]()
+//        let query = docRef.whereField("usersIDs", arrayContains: user.id.uuidString)
+//        query.getDocuments { (documents, error) in
+//            if !(documents?.isEmpty ?? true) {
+//                for document in documents!.documents {
+//                    let result = Result {
+//                        try document.data(as: Experiment.self)
+//                    }
+//
+//                    switch result {
+//                    case .success(let user):
+//                        if let user = user {
+//                            userList.append(user)
+//
+//                        } else {
+//
+//                            print("Document does not exist")
+//                        }
+//                    case .failure(let error):
+//                        print("Error decoding user: \(error)")
+//                    }
+//
+//
+//                }
+//            }
+//            performAction(userList)
+//        }
+//    }
     func getLength() {
         let calendar = NSCalendar.current
         
@@ -428,47 +289,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     //  self.week.mon.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
                     let today = date.get(.weekday)
                     
-                    //print(value)
-                    
-                    //   if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
-                    if today == 1 {
-                        self.week.mon.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    } else if today == 2 {
-                        
-                        self.week.tue.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                        
-                    } else if today == 3 {
-                        self.week.wed.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    } else if today == 4 {
-                        self.week.thur.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    }  else if today == 5 {
-                        self.week.fri.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    }  else if today == 6 {
-                        self.week.sat.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    } else if today == 0 {
-                        self.week.sun.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                        
-                    }
-                    //  }
-                    
-                    //print(date)
-                    
-                    
-                    // dates = defaults?.array(forKey: "dates") as? [Date] ?? []
-                    //                                        self.values.append(value)
-                    //                                        self.dates.append(date)
-                    //
-                    //
-                    //                                        defaults?.set(self.values, forKey: "values")
-                    //                                        defaults?.set(self.dates, forKey: "dates")
-                    //                                        defaults?.set(self.values.last ?? 0.0, forKey: "last")
-                    //
-                    //
-                    //                                        WidgetCenter.shared.reloadAllTimelines()
-                    //                        print("avg")
-                    //                        print((defaults.double(forKey: "avg") ?? 0.0) )
-                    //
-                    
+                    self.userData.append(UserData(id: UUID().uuidString, type: .Stride, date: date, data: value))
                     
                 }
                 
@@ -539,45 +360,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     // print("Value")
                     // print(statsCollection)
                     
-                    
-                    if today == 1 {
-                        self.week.mon.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    } else if today == 2 {
-                        
-                        self.week.tue.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                        
-                    } else if today == 3 {
-                        self.week.wed.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    } else if today == 4 {
-                        self.week.thur.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    }  else if today == 5 {
-                        self.week.fri.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    }  else if today == 6 {
-                        self.week.sat.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    } else if today == 0 {
-                        self.week.sun.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                        
-                    }
-                    // print(quantity)
-                    
-                    
-                    //print(date)
-                    
-                    
-                    // dates = defaults?.array(forKey: "dates") as? [Date] ?? []
-                    //                                        self.values.append(value)
-                    //                                        self.dates.append(date)
-                    //
-                    //
-                    //                                        defaults?.set(self.values, forKey: "values")
-                    //                                        defaults?.set(self.dates, forKey: "dates")
-                    //                                        defaults?.set(self.values.last ?? 0.0, forKey: "last")
-                    //
-                    //
-                    //                                        WidgetCenter.shared.reloadAllTimelines()
-                    //  print("avg")
-                    
-                    
+                    self.userData.append(UserData(id: UUID().uuidString, type: .WalkingSpeed, date: date, data: value))
                     
                     
                 }
@@ -642,7 +425,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let date = statistics.startDate
                     //for: E.g. for steps it's HKUnit.count()
                     let value = quantity.doubleValue(for: HKUnit.percent())
-                    
+                   
                     // self.week.mon.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
                     // print(quantity)
                     // self.week.mon.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
@@ -652,50 +435,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     
                     
-                    
-                    //if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
-                    //  print(value)
-                    
-                    
-                    if today == 1 {
-                        self.week.mon.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                       
-                    } else if today == 2 {
-                        
-                        self.week.tue.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                        
-                    } else if today == 3 {
-                        self.week.wed.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                    } else if today == 4 {
-                        self.week.thur.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                    }  else if today == 5 {
-                        self.week.fri.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                    }  else if today == 6 {
-                        self.week.sat.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                    } else if today == 0 {
-                        self.week.sun.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                        
-                        // }
-                    }
-                    //print(date)
-                    
-                    
-                    // dates = defaults?.array(forKey: "dates") as? [Date] ?? []
-                    //                                        self.values.append(value)
-                    //                                        self.dates.append(date)
-                    //
-                    //
-                    //                                        defaults?.set(self.values, forKey: "values")
-                    //                                        defaults?.set(self.dates, forKey: "dates")
-                    //                                        defaults?.set(self.values.last ?? 0.0, forKey: "last")
-                    //
-                    //
-                    //                                        WidgetCenter.shared.reloadAllTimelines()
-                    //                    print("avg")
-                    //                    print((defaults.double(forKey: "avg") ?? 0.0) )
-                    //
-                    
-                    
+                    self.userData.append(UserData(id: UUID().uuidString, type: .Balance, date: date, data: value))
                 }
                 
                 
@@ -753,59 +493,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let date = statistics.startDate
                     //for: E.g. for steps it's HKUnit.count()
                     let value = quantity.doubleValue(for: HKUnit.percent())
-                    
+                   
                     // print(quantity)
                     // self.week.mon.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
                     
                     let components2 = date.get(.weekday, .month, .year)
-                    if let today = components2.weekday{
-                        
-                        
-                        //print(value)
-                        
-                        //    if "\(today)" + "\(month)" + "\(year)" == "\(today)" + "\(month2)" + "\(year2)" {
-                        
-                        //  print(value)
-                        
-                        
-                        if today == 1 {
-                           
-                            self.week.mon.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        } else if today == 2 {
-                            
-                            self.week.tue.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                            
-                        } else if today == 3 {
-                            self.week.wed.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        } else if today == 4 {
-                            self.week.thur.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        }  else if today == 5 {
-                            self.week.fri.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        }  else if today == 6 {
-                            self.week.sat.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        } else if today == 0 {
-                            self.week.sun.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                        }
-                        
-                        //  }
-                    }
-                    //print(date)
-                    
-                    
-                    // dates = defaults?.array(forKey: "dates") as? [Date] ?? []
-                    //                                        self.values.append(value)
-                    //                                        self.dates.append(date)
-                    //
-                    //
-                    //                                        defaults?.set(self.values, forKey: "values")
-                    //                                        defaults?.set(self.dates, forKey: "dates")
-                    //                                        defaults?.set(self.values.last ?? 0.0, forKey: "last")
-                    //
-                    //
-                    //                                        WidgetCenter.shared.reloadAllTimelines()
-                    //                    print("avg")
-                    //                    print((defaults.double(forKey: "avg") ?? 0.0) )
-                    
+                    if let today = components2.weekday {
+                
+                        self.userData.append(UserData(id: UUID().uuidString, type: .Balance, date: date, data: value))
                     
                     
                 }
@@ -819,7 +514,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             
         }
-        healthStore.execute(query4)
+            self.healthStore.execute(query4)
+    }
     }
 func getDocumentsDirectory() -> URL {
     // find all possible documents directories for this user
