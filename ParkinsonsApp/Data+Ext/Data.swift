@@ -11,9 +11,10 @@ import SwiftUI
 struct UserData: Identifiable, Codable, Hashable {
     var id: String
     var type: DataType
-    var title: String?
+    var title: String
     var date: Date
     var data: Double
+    var goal: Double
     
     
 }

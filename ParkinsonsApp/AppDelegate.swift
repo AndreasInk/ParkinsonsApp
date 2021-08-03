@@ -13,7 +13,7 @@ import CoreML
 import NiceNotifications
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var userData = [UserData(id: UUID().uuidString, type: .Habit, date: Date(), data: 0.0)]
+    var userData = [UserData(id: UUID().uuidString, type: .Habit, title: "", date: Date(), data: 0.0, goal: 0.0)]
     
     private var useCount = UserDefaults.standard.integer(forKey: "useCount")
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -289,7 +289,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     //  self.week.mon.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
                     let today = date.get(.weekday)
                     
-                    self.userData.append(UserData(id: UUID().uuidString, type: .Stride, date: date, data: value))
+                    self.userData.append(UserData(id: UUID().uuidString, type: .Stride, title: "", date: date, data: value, goal: 0.0))
                     
                 }
                 
@@ -360,7 +360,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     // print("Value")
                     // print(statsCollection)
                     
-                    self.userData.append(UserData(id: UUID().uuidString, type: .WalkingSpeed, date: date, data: value))
+                    self.userData.append(UserData(id: UUID().uuidString, type: .WalkingSpeed, title: "", date: date, data: value, goal: 0.0))
                     
                     
                 }
@@ -435,7 +435,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     
                     
-                    self.userData.append(UserData(id: UUID().uuidString, type: .Balance, date: date, data: value))
+                    self.userData.append(UserData(id: UUID().uuidString, type: .Balance, title: "", date: date, data: value, goal: 0.0))
                 }
                 
                 
@@ -500,7 +500,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let components2 = date.get(.weekday, .month, .year)
                     if let today = components2.weekday {
                 
-                        self.userData.append(UserData(id: UUID().uuidString, type: .Balance, date: date, data: value))
+                        self.userData.append(UserData(id: UUID().uuidString, type: .Asymmetry, title: "", date: date, data: value, goal: 0.0))
                     
                     
                 }

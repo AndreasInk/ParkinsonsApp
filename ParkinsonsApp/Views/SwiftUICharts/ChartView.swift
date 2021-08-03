@@ -156,9 +156,13 @@ struct WeekChartView: View {
 struct DayChartView: View {
     @State var title: String
     @Binding var chartData: ChartData
-    @State var refresh: Bool = false
+    @Binding var refresh: Bool 
     var body: some View {
-        return  BarChartView(data: $chartData , title: title, legend: "", refresh: $refresh)
+        ZStack {
+            if !refresh {
+            BarChartView(data: $chartData , title: title, legend: "", refresh: $refresh)
+        }
     }
+}
 }
 

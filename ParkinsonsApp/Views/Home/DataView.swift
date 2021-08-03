@@ -96,16 +96,9 @@ struct DataView: View {
                                 DatePicker("", selection: $date, displayedComponents: .date)
                                     .datePickerStyle(CompactDatePickerStyle())
                                     .padding()
-                                    //.opacity(isTutorial ? (tutorialNum == 1 ? 1.0 : 0.1) : 1.0)
-                                    .onChange(of: date, perform: { value in
-                                        // ready = false
-                                        
-                                        refresh = true
-                                        loadData  { (score) in
-                                            
-                                            
-                                        }
-                                        max.points.removeAll()
+                                    .onAppear() {
+                                       
+                                        let maximum =  ChartData(values: [("", 0.0)])
                                         let filtered2 = score.points.filter { word in
                                             return word.0 != "NA"
                                         }
@@ -117,9 +110,9 @@ struct DataView: View {
                                         }
                                         
                                         if average2.isNormal {
-                                            max.points.append((String("Average"), average2))
-                                            max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
-                                            
+                                            maximum.points.append((String("Average"), average2))
+                                            maximum.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
+                                            max = maximum
                                             maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
                                             
                                         }
@@ -129,6 +122,35 @@ struct DataView: View {
                                             }
                                             
                                         }
+                                    }
+                                    //.opacity(isTutorial ? (tutorialNum == 1 ? 1.0 : 0.1) : 1.0)
+                                    .onChange(of: date, perform: { value in
+                                        
+                                        
+                                        loadData  { (score) in
+                                            
+                                            
+                                        }
+                                        let maximum =  ChartData(values: [("", 0.0)])
+                                       
+                                        let filtered2 = score.points.filter { word in
+                                            return word.0 != "NA"
+                                        }
+                                       
+                                        let average2 = average(numbers: filtered2.map {$0.1})
+                                        let minScore = filtered2.map {$0.1}.max()
+                                        let filtered = filtered2.filter { word in
+                                            return word.1 == minScore
+                                        }
+                                        
+                                        if average2.isNormal {
+                                            maximum.points.append((String("Average"), average2))
+                                            maximum.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
+                                            max = maximum
+                                            maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
+                                            
+                                        }
+                                       
                                     })
                                 HStack {
                                     Text("Total Score")
@@ -137,7 +159,7 @@ struct DataView: View {
                                 }  //.opacity(isTutorial ? (tutorialNum == 2 ? 1.0 : 0.1) : 1.0)
                                 if !refresh {
                                     
-                                DayChartView(title: "Score", chartData: $score, refresh: refresh)
+                                DayChartView(title: "Score", chartData: $score, refresh: $refresh)
                                 Text("1 indicates poorer health while a 0 indicates a healthier condition")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
@@ -145,7 +167,7 @@ struct DataView: View {
                                     //.opacity(isTutorial ? (tutorialNum == 2 ? 1.0 : 0.1) : 1.0)
                                 
                                 if max.points.last?.1 != max.points.first?.1 {
-                                    DayChartView(title: "Score", chartData: $max, refresh: refresh)
+                                    DayChartView(title: "Score", chartData: $max, refresh: $refresh)
                                     Text(maxText)
                                         .multilineTextAlignment(.leading)
                                         .fixedSize(horizontal: false, vertical: true)
@@ -171,8 +193,9 @@ struct DataView: View {
                                             
                                             
                                         }
-                                        max.points.removeAll()
-                                        let filtered2 = balance.points.filter { word in
+                                        let maximum =  ChartData(values: [("", 0.0)])
+                                       
+                                        let filtered2 = length.points.filter { word in
                                             return word.0 != "NA"
                                         }
                                        
@@ -183,12 +206,12 @@ struct DataView: View {
                                         }
                                         
                                         
-                                        max.points.append((String("Average"), average2))
-                                        max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
-                                        
+                                        maximum.points.append((String("Average"), average2))
+                                        maximum.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
+                                        max = maximum
                                         maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
                                         
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                             withAnimation(.easeInOut) {
                                                 refresh = false
                                             }
@@ -200,13 +223,13 @@ struct DataView: View {
                                     Spacer()
                                 }
                                 if !refresh {
-                                DayChartView(title: "Balance", chartData: $balance, refresh: refresh)
+                                    DayChartView(title: "Balance", chartData: $balance, refresh: $refresh)
                                 Text("A higher balance value indicates poorer health.")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
                                 if max.points.last?.1 != max.points.first?.1 {
-                                    DayChartView(title: "Balance", chartData: $max, refresh: refresh)
+                                    DayChartView(title: "Balance", chartData: $max, refresh: $refresh)
                                     Text(maxText)
                                         .multilineTextAlignment(.leading)
                                         .fixedSize(horizontal: false, vertical: true)
@@ -223,12 +246,13 @@ struct DataView: View {
                                     .padding()
                                     .onChange(of: date, perform: { value in
                                         // ready = false
-                                        refresh = true
+                                        
                                         loadData  { (score) in
                                             
                                             
                                         }
-                                        max.points.removeAll()
+                                        let maximum =  ChartData(values: [("", 0.0)])
+                                       
                                         let filtered2 = length.points.filter { word in
                                             return word.0 != "NA"
                                         }
@@ -240,10 +264,10 @@ struct DataView: View {
                                         }
                                         
                                         
-                                        max.points.append((String("Average"), average2))
-                                        max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
-                                        
-                                        maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
+                                        maximum.points.append((String("Average"), average2))
+                                        maximum.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
+                                        max = maximum
+                                        maxText = "At \(max.points.last?.0 ?? "") your step length was higher than any other hour today."
                                         
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                             withAnimation(.easeInOut) {
@@ -257,13 +281,13 @@ struct DataView: View {
                                     Spacer()
                                 }
                                 if !refresh {
-                                DayChartView(title: "Step Length", chartData: $length, refresh: refresh)
+                                    DayChartView(title: "Step Length", chartData: $length, refresh: $refresh)
                                 Text("A lower step length indicates poorer health.")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
                                 if max.points.last?.1 != max.points.first?.1 {
-                                    DayChartView(title: "Step Length", chartData: $max, refresh: refresh)
+                                    DayChartView(title: "Step Length", chartData: $max, refresh: $refresh)
                                     Text(maxText)
                                         .multilineTextAlignment(.leading)
                                         .fixedSize(horizontal: false, vertical: true)
@@ -274,9 +298,9 @@ struct DataView: View {
                             .transition(.opacity)
                             
                         case "Speed":
-                            DayChartView(title: "Walking Speed", chartData: $score, refresh: refresh)
+                            DayChartView(title: "Walking Speed", chartData: $score, refresh: $refresh)
                         case "Steps":
-                            DayChartView(title: "Steps", chartData: $score, refresh: refresh)
+                            DayChartView(title: "Steps", chartData: $score, refresh: $refresh)
                             
                         case "Score and Habits":
                             VStack {
@@ -304,7 +328,7 @@ struct DataView: View {
                                             
                                             
                                         }
-                                        max.points.removeAll()
+                                        let maximum =  ChartData(values: [("", 0.0)])
                                         let filtered2 = length.points.filter { word in
                                             return word.0 != "NA"
                                         }
@@ -316,8 +340,9 @@ struct DataView: View {
                                         }
                                         
                                         
-                                        max.points.append((String("Average"), average2))
-                                        max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
+                                        maximum.points.append((String("Average"), average2))
+                                        maximum.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
+                                        max = maximum
                                         
                                         maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
                                         
@@ -332,10 +357,10 @@ struct DataView: View {
                                         .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
                                     Spacer()
                                 }
-                                DayChartView(title: "Score", chartData: $score, refresh: refresh)
+                                DayChartView(title: "Score", chartData: $score, refresh: $refresh)
                                 
                                 
-                                DayChartView(title: "Habits", chartData: $habits, refresh: refresh)
+                                DayChartView(title: "Habits", chartData: $habits, refresh: $refresh)
                                 
                                 
                             } .padding()
@@ -348,6 +373,10 @@ struct DataView: View {
                                     .onChange(of: date, perform: { value in
                                         // ready = false
                                         refresh = true
+                                        balance.points.removeAll()
+                                        aysm.points.removeAll()
+                                        length.points.removeAll()
+                                        score.points.removeAll()
                                         loadData  { (score) in
                                             
                                             
@@ -363,9 +392,10 @@ struct DataView: View {
                                             return word.1 == minScore
                                         }
                                         
-                                        
-                                        max.points.append((String("Average"), average2))
-                                        max.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
+                                        let maximum =  ChartData(values: [("", 0.0)])
+                                        maximum.points.append((String("Average"), average2))
+                                        maximum.points.append((String(filtered.last?.0 ?? "") , filtered.last?.1 ?? 0.0))
+                                        max = maximum
                                         
                                         maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
                                         
@@ -380,16 +410,16 @@ struct DataView: View {
                                         .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
                                     Spacer()
                                 }
-                                DayChartView(title: "Score", chartData: $score, refresh: refresh)
+                                DayChartView(title: "Score", chartData: $score, refresh: $refresh)
                                 
                                 
-                                DayChartView(title: "Meds", chartData: $meds, refresh: refresh)
+                                DayChartView(title: "Meds", chartData: $meds, refresh: $refresh)
                                 
                                 
                             } .padding()
                             .transition(.opacity)
                         default:
-                            DayChartView(title: "Score", chartData: $score, refresh: refresh)
+                            DayChartView(title: "Score", chartData: $score, refresh: $refresh)
                         }
                     }
                
@@ -398,10 +428,18 @@ struct DataView: View {
     }
     func loadData( completionHandler: @escaping (String) -> Void) {
        
-       
+        score = ChartData(values: [("", 0.0)])
+        length = ChartData(values: [("", 0.0)])
+        balance = ChartData(values: [("", 0.0)])
+        
+        
         let filtered = userData.filter { data in
             return data.date.get(.weekOfYear) == Date().get(.weekOfYear) && date.get(.weekday) == data.date.get(.weekday)
         }
+        let balancePoints = ChartData(values: [("", 0.0)])
+        let scorePoints = ChartData(values: [("", 0.0)])
+        let lengthPoints = ChartData(values: [("", 0.0)])
+        let asymPoints = ChartData(values: [("", 0.0)])
         for hour in 0...23 {
             
        
@@ -418,20 +456,33 @@ struct DataView: View {
             let stepLength = filteredHour.filter { data in
                 return  data.type == .Stride
             }
-                balance.points.append((String(hour), average(numbers: double.map{$0.data})))
-                aysm.points.append((String(hour), average(numbers: asymmetry.map{$0.data})))
-                length.points.append((String(hour), average(numbers: stepLength.map{$0.data})))
             
+            let scoreValues = filteredHour.filter { data in
+                return  data.type == .Score
+            }
+            let scoreValuesWithoutNan = scoreValues.filter { data in
+                return  data.data.isNormal && data.data != 21
+            }
+            balancePoints.points.append((String(hour), average(numbers: double.map{$0.data})))
+            asymPoints.points.append((String(hour), average(numbers: asymmetry.map{$0.data})))
+            lengthPoints.points.append((String(hour), average(numbers: stepLength.map{$0.data})))
+            let averageScore = average(numbers: scoreValuesWithoutNan.map{$0.data})
+          //  if averageScore != 21 {
+            scorePoints.points.append((String(hour), averageScore))
+           // }
         
-        refresh = true
-        ready = true
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            refresh = false
-        
-        }
+//        refresh = true
+//            ready = false
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+//            refresh = false
+//            ready = true
+//        }
     
         }
+        score = scorePoints
+        length = lengthPoints
+        balance = balancePoints
         }
     func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {
         do {

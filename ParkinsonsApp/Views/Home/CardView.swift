@@ -23,7 +23,7 @@ struct CardView: View {
 //    @State private var length = [Stride]()
 //    @State private var speed = [WalkingSpeed]()
 //    @State private var score = [WalkingSpeed]()
-    @State var userData = [UserData(id: UUID().uuidString, type: .Habit, date: Date(), data: 0.0)]
+    @State var userData = [UserData(id: UUID().uuidString, type: .Habit, title: "", date: Date(), data: 0.0, goal: 0.0)]
     private let healthStore = HKHealthStore()
     @State var loading = false
     @State var loaded =  false

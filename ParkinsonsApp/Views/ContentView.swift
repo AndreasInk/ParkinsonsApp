@@ -12,11 +12,11 @@ import FirebaseFirestoreSwift
 import FirebaseFirestore
 import CoreML
 struct ContentView: View {
-    @State var animate = true
+    @State var animate = false
     @State var animate2 = false
-    @State var ready = false
+    @State var ready = true
     //@State var days = [Day]()
-    
+    @State var habitsUserData = [UserData(id: UUID().uuidString, type: .Habit, title: "", date: Date(), data: 0.0, goal: 0.0)]
     @State var values = [Double]()
    @State var isTutorial = false
         //@State var week = Week(id: UUID().uuidString,  sun: Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), mon:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), tue:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), wed:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), thur:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), fri:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), sat:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()))
@@ -25,7 +25,7 @@ struct ContentView: View {
     @State private var useCount = UserDefaults.standard.integer(forKey: "useCount")
    // @State var user = User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]())
     
-    @State var userData = [UserData(id: UUID().uuidString, type: .Habit, date: Date(), data: 0.0)]
+    @State var userData = [ UserData(id: UUID().uuidString, type: .Habit, title: "", date: Date(), data: 0.0, goal: 0.0)]
     @State var isOnboarding: Bool =  false
     @State var isOnboarding2: Bool =  false
     var body: some View {
@@ -34,8 +34,9 @@ struct ContentView: View {
                 .onAppear() {
                    
                     if useCount == 0 {
-                        isOnboarding = true
-                        isOnboarding2 = true
+                        #warning("disabled")
+//                        isOnboarding = true
+//                        isOnboarding2 = true
                     } else {
                       
                         UserDefaults.standard.setValue(useCount + 1, forKey: "useCount")
@@ -72,7 +73,7 @@ struct ContentView: View {
                 .onAppear() {
                     
                    
-                    let url = self.getDocumentsDirectory().appendingPathComponent("user.txt")
+                    let url = self.getDocumentsDirectory().appendingPathComponent("userData.txt")
                     do {
                         
                         let input = try String(contentsOf: url)
@@ -127,6 +128,32 @@ struct ContentView: View {
                         }
                     } catch {
                         print(error.localizedDescription)
+                        
+                    }
+                    let url3 = self.getDocumentsDirectory().appendingPathComponent("habitsUserData.txt")
+                    do {
+                        
+                        let input = try String(contentsOf: url3)
+                        
+                        
+                        let jsonData = Data(input.utf8)
+                        do {
+                            let decoder = JSONDecoder()
+                            
+                            do {
+                                let note = try decoder.decode([UserData].self, from: jsonData)
+                                
+                                habitsUserData = note
+                                //                                if i.first!.id == "1" {
+                                //                                    notes.removeFirst()
+                                //                                }
+                                
+                                
+                            } catch {
+                                print(error.localizedDescription)
+                            }
+                        }
+                    } catch {
                         
                     }
                     getHealthData()
@@ -201,12 +228,13 @@ struct ContentView: View {
                 Color.clear
                     .ignoresSafeArea()
                 
-                HomeView(userData: $userData, isTutorial: $isTutorial, settings2: $settings)
+                HomeView(userData: $userData, isTutorial: $isTutorial, settings2: $settings, habitsUserData: $habitsUserData)
                     .transition(.opacity)
                     .onAppear(){
                        
                     }
                     .onChange(of: userData, perform: { value in
+                        
                         let encoder = JSONEncoder()
                         if let encoded = try? encoder.encode(userData) {
                             if let json = String(data: encoded, encoding: .utf8) {
@@ -223,7 +251,25 @@ struct ContentView: View {
                             
                         }
                     })
-                 
+                
+                    .onChange(of: habitsUserData, perform: { value in
+                        
+                        let encoder = JSONEncoder()
+                        if let encoded = try? encoder.encode(habitsUserData) {
+                            if let json = String(data: encoded, encoding: .utf8) {
+                              
+                                do {
+                                    let url = self.getDocumentsDirectory().appendingPathComponent("habitsUserData.txt")
+                                    try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
+                                    
+                                } catch {
+                                    print("erorr")
+                                }
+                            }
+                            
+                            
+                        }
+                    })
                 
                 
             }
@@ -412,8 +458,8 @@ struct ContentView: View {
                     //  self.week.mon.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
                     let today = date.get(.weekday)
                     
-                    userData.append(UserData(id: UUID().uuidString, type: .Stride, date: date, data: value))
-                    
+                    userData.append(UserData(id: UUID().uuidString, type: .Stride,  title: "", date: date, data: value, goal: 0.0))
+                   
                 }
                 
                 
@@ -483,7 +529,7 @@ struct ContentView: View {
                     // print("Value")
                     // print(statsCollection)
                     
-                    userData.append(UserData(id: UUID().uuidString, type: .WalkingSpeed, date: date, data: value))
+                    userData.append(UserData(id: UUID().uuidString, type: .WalkingSpeed, title: "", date: date, data: value, goal: 0.0))
                     
                     
                 }
@@ -558,7 +604,7 @@ struct ContentView: View {
                     
                     
                     
-                    userData.append(UserData(id: UUID().uuidString, type: .Balance, date: date, data: value))
+                    userData.append(UserData(id: UUID().uuidString, type: .Balance, title: "", date: date, data: value, goal: 0.0))
                 }
                 
                 
@@ -623,7 +669,7 @@ struct ContentView: View {
                     let components2 = date.get(.weekday, .month, .year)
                     if let today = components2.weekday {
                 
-                        userData.append(UserData(id: UUID().uuidString, type: .Balance, date: date, data: value))
+                        userData.append(UserData(id: UUID().uuidString, type: .Balance, title: "", date: date, data: value, goal: 0.0))
                     
                     
                 }

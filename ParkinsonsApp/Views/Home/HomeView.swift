@@ -26,7 +26,7 @@ struct HomeView: View {
     @Binding var settings2: [Setting]
     @State private var useCount = UserDefaults.standard.integer(forKey: "useCount")
    // @State var experiments = [Experiment]()
-    
+    @Binding var habitsUserData: [UserData]
     var body: some View {
         ZStack {
             
@@ -37,9 +37,7 @@ struct HomeView: View {
                     }
                 })
                 .onAppear() {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-                    load()
-                    }
+                   
 //                    self.loadPopularExperiments() { experiments in
 //                        experiment = experiments.first ?? Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post]())])], week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
 //
@@ -116,28 +114,28 @@ struct HomeView: View {
 //                        .opacity(isTutorial ? (tutorialNum == -1 ? 1.0 : 0.1) : 1.0)
                     Spacer()
                         
-                    Button(action: {
-                        social.toggle()
-                    }) {
-                        Image(systemName: "person.3")
-                            .font(.largeTitle)
-                            .padding()
-                    }  .opacity(isTutorial ? (tutorialNum == 3 ? 1.0 : 0.1) : 1.0)
-                    .sheet(isPresented: $social, content: {
-                      //  ExperimentFeedView(user: $user, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-                    })
-                    
-                    Button(action: {
-                        openMeds.toggle()
-                    }) {
-                        Image(systemName: "pills")
-                            .font(.largeTitle)
-                            .padding()
-                    }  .opacity(isTutorial ? (tutorialNum == 4 ? 1.0 : 0.1) : 1.0)
-                    .sheet(isPresented: $openMeds, content: {
-                       // MedsView(meds: $meds, week: $week, days: $days, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-                    })
-                    
+//                    Button(action: {
+//                        social.toggle()
+//                    }) {
+//                        Image(systemName: "person.3")
+//                            .font(.largeTitle)
+//                            .padding()
+//                    }  .opacity(isTutorial ? (tutorialNum == 3 ? 1.0 : 0.1) : 1.0)
+//                    .sheet(isPresented: $social, content: {
+//                      //  ExperimentFeedView(user: $user, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+//                    })
+//
+//                    Button(action: {
+//                        openMeds.toggle()
+//                    }) {
+//                        Image(systemName: "pills")
+//                            .font(.largeTitle)
+//                            .padding()
+//                    }  .opacity(isTutorial ? (tutorialNum == 4 ? 1.0 : 0.1) : 1.0)
+//                    .sheet(isPresented: $openMeds, content: {
+//                       // MedsView(meds: $meds, week: $week, days: $days, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+//                    })
+//
                     Button(action: {
                         settings.toggle()
                     }) {
@@ -164,8 +162,9 @@ struct HomeView: View {
                         }
                         }
                     }
+                
                // ExperimentCard(user: $user, experiment: $experiment, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-//                HabitsCard(experiments: $experiments, days: $days, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                HabitsCard(habitsUserData: $habitsUserData, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
 //                    .opacity(isTutorial ? (tutorialNum == -1 ? 1.0 : 0.1) : 1.0)
 //                    .onChange(of: experiments, perform: { value in
 //                        let encoder = JSONEncoder()
@@ -192,6 +191,9 @@ struct HomeView: View {
             
         }
         }
+        .onAppear() {
+            load()
+        }
         } 
         
     }
@@ -201,7 +203,7 @@ struct HomeView: View {
             do {
                 let model = try reg_model(configuration: MLModelConfiguration())
                 let prediction =  try model.prediction(double_: double, speed: speed, length: length)
-                completionHandler(PredictedScore(prediction: prediction.sourceName, predicted_parkinsons: prediction.sourceName > 0.5 ? 1 : 0, date: Date()))
+                completionHandler(PredictedScore(prediction: prediction.sourceName ?? 0.0, predicted_parkinsons: (prediction.sourceName ?? 0.0) > 0.5 ? 1 : 0, date: Date()))
             } catch {
                 
             }
@@ -248,13 +250,13 @@ struct HomeView: View {
     func load() {
         ready = false
         
-        do {
+        
             let filtered = userData.filter { data in
                 return data.date.get(.weekOfYear) == Date().get(.weekOfYear)
             }
-            for data in filtered {
+        for day in 0...7 {
                 let filteredDay = userData.filter { data2 in
-                    return data2.date.get(.weekday) == data.date.get(.weekday)
+                    return data2.date.get(.weekday) == day
                 }
                 
                 let double = filteredDay.filter { data in
@@ -270,16 +272,16 @@ struct HomeView: View {
             
             
             
-                getLocalScore(double: average(numbers: double.map{$0.data}), speed: average(numbers: speed.map{$0.data}), length: average(numbers: length.map{$0.data})) { (score) in
+                let score = getLocalScore(double: average(numbers: double.map{$0.data}), speed: average(numbers: speed.map{$0.data}), length: average(numbers: length.map{$0.data})) { (score) in
                // week.mon.totalScore = score.prediction
-                    userData.append(UserData(id: UUID().uuidString, type: .Score, date: double.last?.date ?? Date(), data: score.prediction))
+                    userData.append(UserData(id: UUID().uuidString, type: .Score, title: "", date: length.last?.date ?? Date(), data: score.prediction, goal: 0.0))
 //                if week.mon.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
 //                    // progressValue = score.prediction
 //                }
-            }
             
+                }
         }
-        }
+        
        
            
         
@@ -292,6 +294,12 @@ struct HomeView: View {
             
         }
      
+        
+        let filteredhabits = userData.filter { data in
+            return data.type == .Habit
+        }
+        habitsUserData = filteredhabits
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             ready = true
         }

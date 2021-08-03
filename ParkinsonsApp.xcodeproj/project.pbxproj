@@ -91,6 +91,7 @@
 		E1583AA0264897FC002F9DB3 /* DismissSheetBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1583A9F264897FC002F9DB3 /* DismissSheetBtn.swift */; };
 		E1583AAA2648B05E002F9DB3 /* CodableCSV in Frameworks */ = {isa = PBXBuildFile; productRef = E1583AA92648B05E002F9DB3 /* CodableCSV */; };
 		E1583AAB2648B09C002F9DB3 /* ParkinsonsWidgetv2.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E1583AA32648A2E3002F9DB3 /* ParkinsonsWidgetv2.intentdefinition */; };
+		E15BDD5826A6742B00E747C5 /* CreateHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15BDD5726A6742B00E747C5 /* CreateHabitView.swift */; };
 		E174BC312645F44400636B3D /* MedsDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E174BC2F2645F3DF00636B3D /* MedsDetailsView.swift */; };
 		E174BC322645F44400636B3D /* MedsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E174BC2E2645F3DF00636B3D /* MedsRow.swift */; };
 		E174BC332645F44400636B3D /* MedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E174BC302645F3DF00636B3D /* MedsView.swift */; };
@@ -226,6 +227,7 @@
 		E13A18B926436DAD00FC66B0 /* ParkinsonsWidgetv2Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ParkinsonsWidgetv2Extension.entitlements; sourceTree = "<group>"; };
 		E1583A9F264897FC002F9DB3 /* DismissSheetBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DismissSheetBtn.swift; path = ../../../../../DismissSheetBtn.swift; sourceTree = "<group>"; };
 		E1583AA32648A2E3002F9DB3 /* ParkinsonsWidgetv2.intentdefinition */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.intentdefinition; path = ParkinsonsWidgetv2.intentdefinition; sourceTree = "<group>"; };
+		E15BDD5726A6742B00E747C5 /* CreateHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitView.swift; sourceTree = "<group>"; };
 		E174BC2E2645F3DF00636B3D /* MedsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedsRow.swift; sourceTree = "<group>"; };
 		E174BC2F2645F3DF00636B3D /* MedsDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedsDetailsView.swift; sourceTree = "<group>"; };
 		E174BC302645F3DF00636B3D /* MedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedsView.swift; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 				E10BEF0E2642014300317E38 /* CardView.swift */,
 				E1EFEBA7266AB53E00854790 /* HabitsCard.swift */,
 				E1EFEBA9266AB5B900854790 /* HabitsCell.swift */,
+				E15BDD5726A6742B00E747C5 /* CreateHabitView.swift */,
 				E18496382644356000A69834 /* Settings */,
 				E10BEEE22641FF1B00317E38 /* ShareView.swift */,
 				E174BC2D2645F3DF00636B3D /* Meds */,
@@ -755,6 +758,7 @@
 				E193F41926A226840050BA0E /* Experiment.swift in Sources */,
 				E10BEF112642017B00317E38 /* ButtonGridView.swift in Sources */,
 				E174BC352645FDF700636B3D /* EditMedsView.swift in Sources */,
+				E15BDD5826A6742B00E747C5 /* CreateHabitView.swift in Sources */,
 				E10BEF132642018500317E38 /* ButtonGridButton.swift in Sources */,
 				E10BEEE62641FF3800317E38 /* SettingsView.swift in Sources */,
 				E174BC332645F44400636B3D /* MedsView.swift in Sources */,
