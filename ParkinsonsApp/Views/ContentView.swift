@@ -144,6 +144,7 @@ struct ContentView: View {
                                 let note = try decoder.decode([UserData].self, from: jsonData)
                                 
                                 habitsUserData = note
+                                print(note)
                                 //                                if i.first!.id == "1" {
                                 //                                    notes.removeFirst()
                                 //                                }

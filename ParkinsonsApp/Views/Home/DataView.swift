@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import CreateML
+import TabularData
 import CoreML
 
+@available(iOS 15, *)
 struct DataView: View {
     @Binding var userData: [UserData]
+    @Binding var habitUserData: UserData
     @State var balance = ChartData(values: [("", 0.0)])
     @State var meds = ChartData(values: [("", 0.0)])
     @State var aysm = ChartData(values: [("", 0.0)])
@@ -36,10 +40,13 @@ struct DataView: View {
         ZStack {
             Color.clear
                 .onAppear() {
-                    loadData  { (score) in
-                        
-                        
+                    trainOnDevice(userData: userData, target: .Score) { (score) in
+                        print(score)
                     }
+//                    loadData  { (score) in
+//
+//
+//                    }
                     
                     let filtered2 = score.points.filter { word in
                         return word.0 != "NA"
@@ -323,7 +330,7 @@ struct DataView: View {
                                 } 
                                     .onChange(of: date, perform: { value in
                                         // ready = false
-                                        refresh = true
+                                        
                                         loadData  { (score) in
                                             
                                             
@@ -346,11 +353,7 @@ struct DataView: View {
                                         
                                         maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
                                         
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                            withAnimation(.easeInOut) {
-                                                refresh = false
-                                            }
-                                        }
+                                       
                                     })
                                 HStack {
                                     Text("Score and Habits")
@@ -431,7 +434,7 @@ struct DataView: View {
         score = ChartData(values: [("", 0.0)])
         length = ChartData(values: [("", 0.0)])
         balance = ChartData(values: [("", 0.0)])
-        
+        habits = ChartData(values: [("", 0.0)])
         
         let filtered = userData.filter { data in
             return data.date.get(.weekOfYear) == Date().get(.weekOfYear) && date.get(.weekday) == data.date.get(.weekday)
@@ -440,6 +443,7 @@ struct DataView: View {
         let scorePoints = ChartData(values: [("", 0.0)])
         let lengthPoints = ChartData(values: [("", 0.0)])
         let asymPoints = ChartData(values: [("", 0.0)])
+        let habitPoints = ChartData(values: [("", 0.0)])
         for hour in 0...23 {
             
        
@@ -456,7 +460,12 @@ struct DataView: View {
             let stepLength = filteredHour.filter { data in
                 return  data.type == .Stride
             }
-            
+            let habits = filteredHour.filter { data in
+                return  data.type == .Habit
+            }
+            let habitsTypeFiltered = habits.filter { data in
+                return  data.id == habitUserData.id
+            }
             let scoreValues = filteredHour.filter { data in
                 return  data.type == .Score
             }
@@ -466,6 +475,7 @@ struct DataView: View {
             balancePoints.points.append((String(hour), average(numbers: double.map{$0.data})))
             asymPoints.points.append((String(hour), average(numbers: asymmetry.map{$0.data})))
             lengthPoints.points.append((String(hour), average(numbers: stepLength.map{$0.data})))
+            habitPoints.points.append((String(hour), average(numbers: habitsTypeFiltered.map{$0.data})))
             let averageScore = average(numbers: scoreValuesWithoutNan.map{$0.data})
           //  if averageScore != 21 {
             scorePoints.points.append((String(hour), averageScore))
@@ -483,7 +493,115 @@ struct DataView: View {
         score = scorePoints
         length = lengthPoints
         balance = balancePoints
+        habits = habitPoints
+        
         }
+    func trainOnDevice(userData: [UserData], target: DataType, completionHandler: @escaping (PredictedScore) -> Void) {
+        var trainingData = DataFrame()
+        let filteredToRemoveNan = userData.filter { data in
+            return data.data.isNormal
+        }
+        let filteredToBalance = filteredToRemoveNan.filter { data in
+            return data.type == .Balance
+        }
+        for type in DataType.allCases {
+            print(type)
+           
+            var filteredToType = filteredToRemoveNan.filter { data in
+                return data.type == type
+            }
+            
+          
+            if !filteredToType.isEmpty {
+                if filteredToType.count > 1000 {
+                    filteredToType.removeFirst(filteredToType.count - 1000)
+                } else if 1000 < filteredToType.count {
+                    let average =   average(numbers: filteredToType.map{$0.data})
+                    for i in 0...1000 - filteredToType.count {
+                        filteredToType.append(UserData(id: UUID().uuidString, type: type, title: "", date: Date(), data: average, goal: 0.0))
+                          
+                }
+                }
+               // print(trainingData.summary())
+                let dataArray = filteredToType.map{Double($0.data)}
+                print(average(numbers: dataArray))
+            trainingData.append(column: Column(name: type.rawValue, contents: dataArray))
+                                }
+        }
+
+        let randomSplit = trainingData.randomSplit(by: 0.5)
+        print(randomSplit)
+        let testingData = DataFrame(randomSplit.0)
+        trainingData = DataFrame(randomSplit.1)
+        do {
+            let model = try MLRandomForestRegressor(trainingData: trainingData, targetColumn:  target.rawValue)
+           
+           // try model.write(to: getDocumentsDirectory().appendingPathComponent(DataType.HappinessScore.rawValue + ".mlmodel"))
+            print(model.trainingMetrics)
+            print(model.validationMetrics)
+            let predictions = try model.predictions(from: testingData)
+            print(average(numbers: predictions.map{($0.unsafelyUnwrapped) as! Double}))
+        } catch {
+            print(error)
+
+        }
+
+    }
+//    func predictWithOnDeviceModel(userData: [UserData], target: DataType, completionHandler: @escaping (PredictedScore) -> Void) {
+//
+//        do {
+//            var inputData = DataFrame()
+//            for type in DataType.allCases {
+//                let filteredToType = userData.filter { data in
+//                    return data.type == type
+//                }
+//                inputData.append(column: Column(name: type.rawValue, contents: filteredToType))
+//                                    }
+//
+//            let model = try  MLModel(contentsOf: getDocumentsDirectory().appendingPathComponent(DataType.HappinessScore.rawValue + ".mlmodel"))
+//
+//
+//            return predictions
+//        } catch {
+//
+//        }
+//        return
+//    }
+    
+//    func featuresFromData(happinessScore: Double, data: [UserData]) -> [Double: [UserData]] {
+//
+//        var filtered = data.filter { data in
+//            return data.date.get(.weekOfYear) == Date().get(.weekOfYear) && date.get(.weekday) == data.date.get(.weekday)
+//        }
+//        let double = filtered.filter { data in
+//            return  data.type == .Balance
+//        }
+//
+//        let asymmetry = filtered.filter { data in
+//            return  data.type == .Asymmetry
+//        }
+//        let stepLength = filtered.filter { data in
+//            return  data.type == .Stride
+//        }
+//        let score = filtered.filter { data in
+//            return  data.type == .Score
+//        }
+//        let habits = filtered.filter { data in
+//            return  data.type == .Habit
+//        }
+//        let habitsTypeFiltered = habits.filter { data in
+//            return  data.id == habitUserData.id
+//        }
+//
+//        let averageScore = average(numbers: score.map{$0.data})
+//        let averageDouble = average(numbers: double.map{$0.data})
+//        let averageAsymmetry = average(numbers: asymmetry.map{$0.data})
+//        let averageLength = average(numbers: stepLength.map{$0.data})
+//
+//        let dataDict = [DataType.Balance.rawValue: averageDouble, DataType.Asymmetry.rawValue: averageAsymmetry ]
+//        let featureNames = filtered + filtered.map { happinessScore: $0 }
+//        return featureNames
+//    }
     func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {
         do {
             let model = try reg_model(configuration: MLModelConfiguration())
@@ -492,6 +610,13 @@ struct DataView: View {
         } catch {
             
         }
+    }
+    func getDocumentsDirectory() -> URL {
+        // find all possible documents directories for this user
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        
+        // just send back the first one, which ought to be the only one
+        return paths[0]
     }
     func average(numbers: [Double]) -> Double {
         // print(numbers)

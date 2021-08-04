@@ -10,6 +10,7 @@ import SwiftUI
 struct HabitsCard: View {
    
     @Binding var habitsUserData: [UserData]
+    @Binding var userData: [UserData]
     @Binding var tutorialNum: Int
     @Binding var isTutorial: Bool
     @State var add = false
@@ -17,10 +18,12 @@ struct HabitsCard: View {
     @State var refresh = false
     var columns = [GridItem(.flexible(minimum: 80)), GridItem(.flexible(minimum: 80)), GridItem(.flexible(minimum: 80))]
     var body: some View {
-        LazyVGrid(columns: columns) {
-        ForEach(habitsUserData.indices, id: \.self) { i in
-            HabitsCell(userData: $habitsUserData[i], tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-
+        HStack {
+        ForEach($habitsUserData, id: \.self) { $data in
+            HabitsCell(habitsUserData: $data, userData: $userData, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                .onAppear() {
+                    print(data)
+                }
         }
         if !habitsUserData.indices.contains(3) {
             Button(action: {

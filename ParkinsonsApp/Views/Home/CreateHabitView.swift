@@ -36,6 +36,8 @@ struct CreateHabitView: View {
         }
         .onDisappear() {
             habitsUserData.append(habit)
+            
+            
         }
         }
     }

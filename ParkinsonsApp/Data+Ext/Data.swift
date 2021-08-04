@@ -18,7 +18,7 @@ struct UserData: Identifiable, Codable, Hashable {
     
     
 }
-enum DataType: String, Codable {
+enum DataType: String, Codable, CaseIterable {
     case Tremor = "Tremor"
     case Balance = "Balance"
     case WalkingSpeed = "WalkingSpeed"
@@ -26,6 +26,16 @@ enum DataType: String, Codable {
     case Asymmetry = "Asymmetry"
     case Habit = "Habit"
     case Score = "Score"
+    case HappinessScore = "HappinessScore"
+    
+//    case TremorPredicted = "TremorPredicted"
+//    case BalancePredicted = "BalancePredicted"
+//    case WalkingSpeedPredicted = "WalkingSpeedPredicted"
+//    case StridePredicted = "StridePredicted"
+//    case AsymmetryPredicted = "AsymmetryPredicted"
+//    case HabitPredicted = "HabitPredicted"
+//    case ScorePredicted = "ScorePredicted"
+//    case HappinessScorePredicted = "HappinessScorePredicted"
 }
 
 //struct Tremor: Identifiable, Codable, Hashable{

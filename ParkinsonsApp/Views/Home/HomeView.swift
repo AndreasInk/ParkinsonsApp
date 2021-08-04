@@ -164,7 +164,7 @@ struct HomeView: View {
                     }
                 
                // ExperimentCard(user: $user, experiment: $experiment, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-                HabitsCard(habitsUserData: $habitsUserData, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                HabitsCard(habitsUserData: $habitsUserData, userData: $userData, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
 //                    .opacity(isTutorial ? (tutorialNum == -1 ? 1.0 : 0.1) : 1.0)
 //                    .onChange(of: experiments, perform: { value in
 //                        let encoder = JSONEncoder()
