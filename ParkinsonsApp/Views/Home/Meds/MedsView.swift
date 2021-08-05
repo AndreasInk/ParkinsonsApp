@@ -4,58 +4,24 @@
 //
 //  Created by Andreas on 5/7/21.
 //
-
+//
 //import SwiftUI
 //
 //struct MedsView: View {
-//    @Binding var meds: [Med]
-//    @Binding var week: Week
-//   
-//    @State var add = false
-//   
-//    @Binding var days: [Day]
-//    
+//    @Binding var userData: [UserData]
+//    @State var meds = [UserData]()
 //    @Binding var tutorialNum: Int
 //    @Binding var isTutorial: Bool
-//    
+//    @State var add = false
 //    @Environment(\.presentationMode) var presentationMode
 //    var body: some View {
 //        ZStack {
 //            Color.clear
 //                .onAppear() {
-//                    let url = self.getDocumentsDirectory().appendingPathComponent("meds.txt")
-//                    do {
-//                        
-//                        let input = try String(contentsOf: url)
-//                        
-//                        
-//                        let jsonData = Data(input.utf8)
-//                        do {
-//                            let decoder = JSONDecoder()
-//                            
-//                            do {
-//                                let note = try decoder.decode([Med].self, from: jsonData)
-//                                
-//                                
-//                                meds = note
-//                                
-//                                
-//                                meds =  meds.removeDuplicates()
-//                               
-//                                //                                if i.first!.id == "1" {
-//                                //                                    notes.removeFirst()
-//                                //                                }
-//                                
-//                                
-//                            } catch {
-//                                print(error.localizedDescription)
-//                            }
-//                        }
-//                    } catch {
-//                        print(error.localizedDescription)
-//                        
+//                    var medications = userData.filter { data in
+//                        return  data.type == .Meds
 //                    }
-//                    
+//                   
 //                }
 //        VStack {
 //            if isTutorial {
@@ -97,7 +63,7 @@
 //                        .foregroundColor(Color("blue"))
 //                }
 //                .sheet(isPresented: $add, content: {
-//                    CreateMedView(meds: $meds, add: $add)
+//                   // CreateMedView(meds: $meds, add: $add)
 //                })
 //               
 //                
@@ -123,7 +89,7 @@
 //                } .buttonStyle(CTAButtonStyle())
 //            } else {
 //        ForEach(meds.indices, id: \.self) { i in
-//            MedsRow(med: $meds[i], week: $week, days: $days)
+//            //MedsRow(med: $meds[i], userData: $userData)
 //                
 //        }
 //        }

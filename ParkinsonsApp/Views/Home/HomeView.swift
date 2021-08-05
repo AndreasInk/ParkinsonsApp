@@ -37,7 +37,7 @@ struct HomeView: View {
                     }
                 })
                 .onAppear() {
-                   
+                    load()
 //                    self.loadPopularExperiments() { experiments in
 //                        experiment = experiments.first ?? Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post]())])], week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
 //
@@ -125,16 +125,16 @@ struct HomeView: View {
 //                      //  ExperimentFeedView(user: $user, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
 //                    })
 //
-//                    Button(action: {
-//                        openMeds.toggle()
-//                    }) {
-//                        Image(systemName: "pills")
-//                            .font(.largeTitle)
-//                            .padding()
-//                    }  .opacity(isTutorial ? (tutorialNum == 4 ? 1.0 : 0.1) : 1.0)
-//                    .sheet(isPresented: $openMeds, content: {
-//                       // MedsView(meds: $meds, week: $week, days: $days, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-//                    })
+                    Button(action: {
+                        openMeds.toggle()
+                    }) {
+                        Image(systemName: "pills")
+                            .font(.largeTitle)
+                            .padding()
+                    }  .opacity(isTutorial ? (tutorialNum == 4 ? 1.0 : 0.1) : 1.0)
+                    .sheet(isPresented: $openMeds, content: {
+                       // MedsView(userData: $userData, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                    })
 //
                     Button(action: {
                         settings.toggle()
@@ -164,7 +164,7 @@ struct HomeView: View {
                     }
                 
                // ExperimentCard(user: $user, experiment: $experiment, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-                HabitsCard(habitsUserData: $habitsUserData, userData: $userData, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                HabitsCard(habitsUserData: habitsUserData, userData: $userData, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
 //                    .opacity(isTutorial ? (tutorialNum == -1 ? 1.0 : 0.1) : 1.0)
 //                    .onChange(of: experiments, perform: { value in
 //                        let encoder = JSONEncoder()
@@ -272,7 +272,7 @@ struct HomeView: View {
             
             
             
-                let score = getLocalScore(double: average(numbers: double.map{$0.data}), speed: average(numbers: speed.map{$0.data}), length: average(numbers: length.map{$0.data})) { (score) in
+               getLocalScore(double: average(numbers: double.map{$0.data}), speed: average(numbers: speed.map{$0.data}), length: average(numbers: length.map{$0.data})) { (score) in
                // week.mon.totalScore = score.prediction
                     userData.append(UserData(id: UUID().uuidString, type: .Score, title: "", date: length.last?.date ?? Date(), data: score.prediction, goal: 0.0))
 //                if week.mon.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {

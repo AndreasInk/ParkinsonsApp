@@ -20,6 +20,7 @@ struct DataView: View {
     @State var length = ChartData(values: [("", 0.0)])
     @State var tremor = ChartData(values: [("", 0.0)])
     @State var score = ChartData(values: [("", 0.0)])
+    @State var scorePredicted = ChartData(values: [("", 0.0)])
     @State var habits = ChartData(values: [("", 0.0)])
     @State var gridButton: GridButton
     @State private var date = Date()
@@ -35,19 +36,26 @@ struct DataView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
+    @State var habitName = ""
+    @State var habitTitles = [String]()
     //@Binding var experiment: Experiment
+    
+    @State var average = 0.0
     var body: some View {
         ZStack {
             Color.clear
                 .onAppear() {
-                    trainOnDevice(userData: userData, target: .Score) { (score) in
-                        print(score)
-                    }
+//                    trainOnDevice(userData: userData, target: .Score) { (score) in
+//                        print(score)
+//                    }
 //                    loadData  { (score) in
 //
 //
 //                    }
-                    
+                    let habits = userData.filter { data in
+                        return data.type == .Habit
+                    }
+                    habitTitles = habits.map{$0.title}.removeDuplicates()
                     let filtered2 = score.points.filter { word in
                         return word.0 != "NA"
                     }
@@ -99,12 +107,21 @@ struct DataView: View {
                         case "Score":
                             ZStack {
                             VStack {
-                                
+                                HStack {
+                                    Text("Average: " + String(average))
+                                        .fixedSize(horizontal: false, vertical: true)
+                                        .multilineTextAlignment(.leading)
+                                        .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
                                 DatePicker("", selection: $date, displayedComponents: .date)
                                     .datePickerStyle(CompactDatePickerStyle())
                                     .padding()
                                     .onAppear() {
-                                       
+                                        loadData  { (score) in
+                                            average = average(numbers: userData.filter { data in
+                                                return data.type == .Score && data.data != 21
+                                            }.map{$0.data})
+                                            
+                                        }
                                         let maximum =  ChartData(values: [("", 0.0)])
                                         let filtered2 = score.points.filter { word in
                                             return word.0 != "NA"
@@ -130,12 +147,18 @@ struct DataView: View {
                                             
                                         }
                                     }
+                                
+                                }
                                     //.opacity(isTutorial ? (tutorialNum == 1 ? 1.0 : 0.1) : 1.0)
                                     .onChange(of: date, perform: { value in
                                         
                                         
                                         loadData  { (score) in
-                                            
+                                            let numbers = userData.filter { data in
+                                                return data.type == .Score && data.data != 21
+                                            }.map{$0.data}
+                                            print(numbers)
+                                            average = average(numbers: numbers)
                                             
                                         }
                                         let maximum =  ChartData(values: [("", 0.0)])
@@ -335,6 +358,15 @@ struct DataView: View {
                                             
                                             
                                         }
+                                        
+                                        trainHabitCompareOnDevice(userData: userData, target: .Score, target2: habitName) { (score) in
+                                            for i in score.predicted.indices {
+                                                self.score.points = [((String(i), score.actual[i]))]
+                                            
+                                                self.scorePredicted.points = [((String(i), score.predicted[i]))]
+                                                
+                                        }
+                                        }
                                         let maximum =  ChartData(values: [("", 0.0)])
                                         let filtered2 = length.points.filter { word in
                                             return word.0 != "NA"
@@ -355,15 +387,26 @@ struct DataView: View {
                                         
                                        
                                     })
+                                
                                 HStack {
                                     Text("Score and Habits")
                                         .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
                                     Spacer()
+                                    ForEach(habitTitles, id: \.self) { title in
+                                       
+                                        Button(action: {
+                                            habitName = title
+                                        }) {
+                                            Text(title)
+                                        }
+                                    }
                                 }
-                                DayChartView(title: "Score", chartData: $score, refresh: $refresh)
                                 
-                                
-                                DayChartView(title: "Habits", chartData: $habits, refresh: $refresh)
+                                MultiLineChartView(data: [(self.score.onlyPoints(), GradientColor.init(start: Color(.red), end: Color(.purple))), (self.scorePredicted.onlyPoints(), GradientColor.init(start: Color(.green), end: Color(.systemTeal))), (self.meds.onlyPoints(), GradientColor.init(start: Color(.blue), end: Color(.systemTeal)))], title: "")
+//                                DayChartView(title: "Score", chartData: $score, refresh: $refresh)
+//
+//
+//                                DayChartView(title: "Habits", chartData: $habits, refresh: $refresh)
                                 
                                 
                             } .padding()
@@ -383,6 +426,13 @@ struct DataView: View {
                                         loadData  { (score) in
                                             
                                             
+                                        }
+                                        trainCompareOnDevice(userData: userData, target: .Score, target2: .Meds) { (score) in
+                                            for i in score.predicted.indices {
+                                                self.score.points = [((String(i), score.actual[i]))]
+                                            
+                                                self.scorePredicted.points = [((String(i), score.predicted[i]))]
+                                        }
                                         }
                                         max.points.removeAll()
                                         let filtered2 = meds.points.filter { word in
@@ -413,10 +463,10 @@ struct DataView: View {
                                         .font(.custom("Poppins-Bold", size: 24, relativeTo: .headline))
                                     Spacer()
                                 }
-                                DayChartView(title: "Score", chartData: $score, refresh: $refresh)
                                 
+                                MultiLineChartView(data: [(self.score.onlyPoints(), GradientColor.init(start: Color(.red), end: Color(.purple))), (self.scorePredicted.onlyPoints(), GradientColor.init(start: Color(.green), end: Color(.systemTeal))), (self.meds.onlyPoints(), GradientColor.init(start: Color(.blue), end: Color(.systemTeal)))], title: "")
                                 
-                                DayChartView(title: "Meds", chartData: $meds, refresh: $refresh)
+                               // DayChartView(title: "Meds", chartData: $meds, refresh: $refresh)
                                 
                                 
                             } .padding()
@@ -437,7 +487,7 @@ struct DataView: View {
         habits = ChartData(values: [("", 0.0)])
         
         let filtered = userData.filter { data in
-            return data.date.get(.weekOfYear) == Date().get(.weekOfYear) && date.get(.weekday) == data.date.get(.weekday)
+            return data.date.get(.weekOfYear) == date.get(.weekOfYear) && date.get(.weekday) == data.date.get(.weekday) && date.get(.year) == data.date.get(.year)
         }
         let balancePoints = ChartData(values: [("", 0.0)])
         let scorePoints = ChartData(values: [("", 0.0)])
@@ -460,25 +510,39 @@ struct DataView: View {
             let stepLength = filteredHour.filter { data in
                 return  data.type == .Stride
             }
+            let speed = filteredHour.filter { data in
+                return  data.type == .WalkingSpeed
+            }
             let habits = filteredHour.filter { data in
                 return  data.type == .Habit
             }
             let habitsTypeFiltered = habits.filter { data in
                 return  data.id == habitUserData.id
             }
-            let scoreValues = filteredHour.filter { data in
-                return  data.type == .Score
+//            let scoreValues = filteredHour.filter { data in
+//                return  data.type == .Score
+//            }
+//            let scoreValuesWithoutNan = scoreValues.filter { data in
+//                return  data.data.isNormal && data.data != 21
+           // }
+            var scores = [Double]()
+            for i in double.indices {
+                if double.indices.contains(i) && speed.indices.contains(i) && stepLength.indices.contains(i) {
+                getLocalScore(double: double[i].data, speed: speed[i].data, length: stepLength[i].data) { (score) in
+                    scores.append(score.prediction)
+                }
+                }
             }
-            let scoreValuesWithoutNan = scoreValues.filter { data in
-                return  data.data.isNormal && data.data != 21
-            }
+            let averageScore = average(numbers: scores)
+        
+            scorePoints.points.append((String(hour), averageScore))
+            
+            
             balancePoints.points.append((String(hour), average(numbers: double.map{$0.data})))
             asymPoints.points.append((String(hour), average(numbers: asymmetry.map{$0.data})))
             lengthPoints.points.append((String(hour), average(numbers: stepLength.map{$0.data})))
             habitPoints.points.append((String(hour), average(numbers: habitsTypeFiltered.map{$0.data})))
-            let averageScore = average(numbers: scoreValuesWithoutNan.map{$0.data})
-          //  if averageScore != 21 {
-            scorePoints.points.append((String(hour), averageScore))
+           
            // }
         
 //        refresh = true
@@ -496,38 +560,57 @@ struct DataView: View {
         habits = habitPoints
         
         }
-    func trainOnDevice(userData: [UserData], target: DataType, completionHandler: @escaping (PredictedScore) -> Void) {
+    func trainHabitCompareOnDevice(userData: [UserData], target: DataType, target2: String, completionHandler: @escaping (ModelResponse) -> Void) {
         var trainingData = DataFrame()
         let filteredToRemoveNan = userData.filter { data in
-            return data.data.isNormal
+            return data.data.isNormal && !data.data.isNaN
         }
-        let filteredToBalance = filteredToRemoveNan.filter { data in
-            return data.type == .Balance
+        let filteredToTarget = filteredToRemoveNan.filter { data in
+            return data.type == target
         }
-        for type in DataType.allCases {
-            print(type)
+        
+        var filteredToTarget2 = filteredToRemoveNan.filter { data in
+            return data.type == .Habit
+        }
+        var filteredToHabitTitle = filteredToRemoveNan.filter { data in
+            return data.title == target2
+        }
            
-            var filteredToType = filteredToRemoveNan.filter { data in
-                return data.type == type
-            }
+           
             
           
-            if !filteredToType.isEmpty {
-                if filteredToType.count > 1000 {
-                    filteredToType.removeFirst(filteredToType.count - 1000)
-                } else if 1000 < filteredToType.count {
-                    let average =   average(numbers: filteredToType.map{$0.data})
-                    for i in 0...1000 - filteredToType.count {
-                        filteredToType.append(UserData(id: UUID().uuidString, type: type, title: "", date: Date(), data: average, goal: 0.0))
-                          
+            if !filteredToHabitTitle.isEmpty {
+              
+                if filteredToHabitTitle.count > filteredToTarget.count {
+                    for i in 0...filteredToTarget2.count - filteredToTarget.count {
+                        filteredToHabitTitle.removeFirst()
+                    }
+                    
+                } else if filteredToTarget.count < filteredToHabitTitle.count {
+                    let average =   average(numbers: filteredToHabitTitle.map{$0.data})
+                    for i in 0...filteredToTarget.count - filteredToTarget2.count {
+                        filteredToHabitTitle.append(UserData(id: UUID().uuidString, type: .Habit, title: "", date: Date(), data: average, goal: 0.0))
+                         
+                      
                 }
+                } else {
                 }
+                
+                
                // print(trainingData.summary())
-                let dataArray = filteredToType.map{Double($0.data)}
+                let dataArray = filteredToTarget.map{Double($0.data)}
+                let dataArray2 = filteredToTarget2.map{Double($0.data)}
                 print(average(numbers: dataArray))
-            trainingData.append(column: Column(name: type.rawValue, contents: dataArray))
+                trainingData.append(column: Column(name: target.rawValue, contents: dataArray))
+               
+                trainingData.append(column: Column(name: target2, contents: dataArray2))
+                    
                                 }
-        }
+        
+//        var dataArray = [Double]()
+//
+//
+//        trainingData.append(column: Column(name: DataType.Score.rawValue, contents: dataArray))
 
         let randomSplit = trainingData.randomSplit(by: 0.5)
         print(randomSplit)
@@ -541,12 +624,159 @@ struct DataView: View {
             print(model.validationMetrics)
             let predictions = try model.predictions(from: testingData)
             print(average(numbers: predictions.map{($0.unsafelyUnwrapped) as! Double}))
+            completionHandler(ModelResponse(id: UUID().uuidString, predicted: predictions.map{($0.unsafelyUnwrapped) as! Double}, actual: filteredToTarget.map{Double($0.data)}))
         } catch {
             print(error)
 
         }
 
     }
+    func trainCompareOnDevice(userData: [UserData], target: DataType, target2: DataType, completionHandler: @escaping (ModelResponse) -> Void) {
+        var trainingData = DataFrame()
+        let filteredToRemoveNan = userData.filter { data in
+            return data.data.isNormal && !data.data.isNaN
+        }
+        let filteredToTarget = filteredToRemoveNan.filter { data in
+            return data.type == target
+        }
+        
+        var filteredToTarget2 = filteredToRemoveNan.filter { data in
+            return data.type == target2
+        }
+      
+           
+           
+            
+          
+            if !filteredToTarget2.isEmpty {
+              
+                if filteredToTarget2.count > filteredToTarget.count {
+                    for i in 0...filteredToTarget2.count - filteredToTarget.count {
+                        filteredToTarget2.removeFirst()
+                    }
+                    
+                } else if filteredToTarget.count < filteredToTarget2.count {
+                    let average =   average(numbers: filteredToTarget2.map{$0.data})
+                    for i in 0...filteredToTarget.count - filteredToTarget2.count {
+                        filteredToTarget2.append(UserData(id: UUID().uuidString, type: target2, title: "", date: Date(), data: average, goal: 0.0))
+                         
+                      
+                }
+                } else {
+                }
+                
+                
+               // print(trainingData.summary())
+                let dataArray = filteredToTarget.map{Double($0.data)}
+                let dataArray2 = filteredToTarget2.map{Double($0.data)}
+                print(average(numbers: dataArray))
+                trainingData.append(column: Column(name: target.rawValue, contents: dataArray))
+               
+                trainingData.append(column: Column(name: target2.rawValue, contents: dataArray2))
+                    
+                                }
+        
+        var dataArray = [Double]()
+        
+       
+        trainingData.append(column: Column(name: DataType.Score.rawValue, contents: dataArray))
+
+        let randomSplit = trainingData.randomSplit(by: 0.5)
+        print(randomSplit)
+        let testingData = DataFrame(randomSplit.0)
+        trainingData = DataFrame(randomSplit.1)
+        do {
+            let model = try MLRandomForestRegressor(trainingData: trainingData, targetColumn:  target.rawValue)
+           
+           // try model.write(to: getDocumentsDirectory().appendingPathComponent(DataType.HappinessScore.rawValue + ".mlmodel"))
+            print(model.trainingMetrics)
+            print(model.validationMetrics)
+            let predictions = try model.predictions(from: testingData)
+        
+            completionHandler(ModelResponse(id: UUID().uuidString, predicted: predictions.map{($0.unsafelyUnwrapped) as! Double}, actual: filteredToTarget.map{Double($0.data)}))
+        } catch {
+            print(error)
+
+        }
+
+    }
+    func trainOnDevice(userData: [UserData], target: DataType, completionHandler: @escaping (PredictedScore) -> Void) {
+        do {
+            let csvFile = Bundle.main.url(forResource: "BaseData", withExtension: "csv")!
+            let baseData = try DataFrame(contentsOfCSVFile: csvFile)
+        var trainingData = DataFrame()
+        let filteredToRemoveNan = userData.filter { data in
+            return data.data.isNormal && !data.data.isNaN
+        }
+        var filteredToBalance = filteredToRemoveNan.filter { data in
+            return data.type == .Balance
+        }
+        
+        for type in DataType.allCases {
+            print(type)
+           
+            var filteredToType = filteredToRemoveNan.filter { data in
+                return data.type == type && data.type != .Score
+            }
+            
+          
+            if !filteredToType.isEmpty {
+              
+                
+                if filteredToType.count > 2000 {
+                    for i in 0...filteredToType.count - 2000 {
+                    filteredToType.removeFirst()
+                    }
+                    filteredToBalance = filteredToType
+                } else if 2000 < filteredToType.count {
+                    let average =   average(numbers: filteredToType.map{$0.data})
+                    for i in 0...2000 - filteredToType.count {
+                        filteredToType.append(UserData(id: UUID().uuidString, type: type, title: "", date: Date(), data: average, goal: 0.0))
+                         
+                        filteredToBalance = filteredToType
+                }
+                } else {
+                }
+                
+                
+               // print(trainingData.summary())
+                let dataArray = filteredToType.map{Double($0.data)}
+                print(average(numbers: dataArray))
+            trainingData.append(column: Column(name: type.rawValue, contents: dataArray))
+                
+                print(filteredToType.count)
+                                }
+        }
+        var dataArray = [Double]()
+        
+        print(trainingData.rows.count )
+        for i in 0...filteredToBalance.count - 1 {
+            dataArray.append(Double(0))
+        }
+        trainingData.append(column: Column(name: DataType.Score.rawValue, contents: dataArray))
+           
+        let randomSplit = trainingData.randomSplit(by: 0.5)
+        print(randomSplit)
+        let testingData = DataFrame(randomSplit.0)
+        trainingData = DataFrame(randomSplit.1)
+            trainingData.append(baseData)
+        do {
+            let model = try MLRandomForestRegressor(trainingData: trainingData, targetColumn:  target.rawValue)
+           
+           // try model.write(to: getDocumentsDirectory().appendingPathComponent(DataType.HappinessScore.rawValue + ".mlmodel"))
+            print(model.trainingMetrics)
+            print(model.validationMetrics)
+            let predictions = try model.predictions(from: testingData)
+            print(average(numbers: predictions.map{($0.unsafelyUnwrapped) as! Double}))
+        } catch {
+            print(error)
+
+        }
+
+        } catch {
+            
+        }
+        }
 //    func predictWithOnDeviceModel(userData: [UserData], target: DataType, completionHandler: @escaping (PredictedScore) -> Void) {
 //
 //        do {

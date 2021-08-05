@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HabitsCard: View {
    
-    @Binding var habitsUserData: [UserData]
+    @State var habitsUserData: [UserData] = []
     @Binding var userData: [UserData]
     @Binding var tutorialNum: Int
     @Binding var isTutorial: Bool
@@ -18,6 +18,14 @@ struct HabitsCard: View {
     @State var refresh = false
     var columns = [GridItem(.flexible(minimum: 80)), GridItem(.flexible(minimum: 80)), GridItem(.flexible(minimum: 80))]
     var body: some View {
+        ZStack {
+            Color.clear
+                .onAppear() {
+                    habitsUserData = userData.filter { data in
+                        return data.type == .Habit
+                    }
+                   
+                }
         HStack {
         ForEach($habitsUserData, id: \.self) { $data in
             HabitsCell(habitsUserData: $data, userData: $userData, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
@@ -25,7 +33,16 @@ struct HabitsCard: View {
                     print(data)
                 }
         }
-        if !habitsUserData.indices.contains(3) {
+           
+        
+        .onChange(of: habitsUserData) { value in
+            userData = userData.filter { data in
+                return data.type != .Habit
+            }
+            userData.append(contentsOf: habitsUserData)
+        }
+        
+        if habitsUserData.count < 3 {
             Button(action: {
             add = true
             }) {
@@ -42,9 +59,11 @@ struct HabitsCard: View {
             }.sheet(isPresented: $add, content: {
                 CreateHabitView(habitsUserData: $habitsUserData)
             })
+        }
     }
         } .padding(.vertical)
 }
 }
+
 
 

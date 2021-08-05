@@ -15,7 +15,7 @@ struct UserData: Identifiable, Codable, Hashable {
     var date: Date
     var data: Double
     var goal: Double
-    
+    var unit: String?
     
 }
 enum DataType: String, Codable, CaseIterable {
@@ -25,6 +25,7 @@ enum DataType: String, Codable, CaseIterable {
     case Stride = "Stride"
     case Asymmetry = "Asymmetry"
     case Habit = "Habit"
+    case Meds = "Meds"
     case Score = "Score"
     case HappinessScore = "HappinessScore"
     
@@ -38,6 +39,19 @@ enum DataType: String, Codable, CaseIterable {
 //    case HappinessScorePredicted = "HappinessScorePredicted"
 }
 
+enum DateDistanceType: String, Codable, CaseIterable {
+    case Week = "Week"
+    case Month = "Month"
+    
+}
+
+struct ModelResponse: Identifiable, Codable, Hashable {
+    var id: String
+    var predicted: [Double]
+    var actual: [Double]
+    
+    
+}
 //struct Tremor: Identifiable, Codable, Hashable{
 //    var id: String
 //    var severity: Double

@@ -19,7 +19,7 @@ struct ContentView: View {
     @State var habitsUserData = [UserData(id: UUID().uuidString, type: .Habit, title: "", date: Date(), data: 0.0, goal: 0.0)]
     @State var values = [Double]()
    @State var isTutorial = false
-        //@State var week = Week(id: UUID().uuidString,  sun: Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), mon:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), tue:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), wed:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), thur:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), fri:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()), sat:  Day(id: "", score: [Score](), tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()))
+     
     @State var settings =  [Setting(title: "Notifications", text: "We'll send notifications to remind you to keep your phone in your pocket to gain insights and send updates on habits", onOff: true, dates: [9]), Setting(title: "Accessability", text: "Enable these features to make it easier to use the app", onOff: true), Setting(title: "Customize Your Widget", text: "You track your score on your home screen with widgets", onOff: true)]
     // Setting(title: "Share Your Experience", text: "By sharing your experience with the app, we can make it even better!  ", onOff: true), Setting(title: "Share Your Data", text: "By sharing your data, we can make scoring even better!  ", onOff: true), Setting(title: "Share With Your Doctor", text: "Export your data to your doctor to give important insights to your doctor to help you.", onOff: true)
     @State private var useCount = UserDefaults.standard.integer(forKey: "useCount")
@@ -28,6 +28,8 @@ struct ContentView: View {
     @State var userData = [ UserData(id: UUID().uuidString, type: .Habit, title: "", date: Date(), data: 0.0, goal: 0.0)]
     @State var isOnboarding: Bool =  false
     @State var isOnboarding2: Bool =  false
+    
+    @State var healthDataTypes = [HKQuantityTypeIdentifier]()
     var body: some View {
         ZStack {
             Color.clear
@@ -52,24 +54,24 @@ struct ContentView: View {
                         
                 })
                 .ignoresSafeArea()
-                .onDisappear() {
-                    let encoder = JSONEncoder()
-                    
-                    if let encoded = try? encoder.encode(userData) {
-                        if let json = String(data: encoded, encoding: .utf8) {
-                          
-                            do {
-                                let url = self.getDocumentsDirectory().appendingPathComponent("userData.txt")
-                                try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
-                                
-                            } catch {
-                                print("erorr")
-                            }
-                        }
-                        
-                        
-                    }
-                }
+//                .onDisappear() {
+//                    let encoder = JSONEncoder()
+//                    
+//                    if let encoded = try? encoder.encode(userData) {
+//                        if let json = String(data: encoded, encoding: .utf8) {
+//
+//                            do {
+//                                let url = self.getDocumentsDirectory().appendingPathComponent("userData.txt")
+//                                try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
+//
+//                            } catch {
+//                                print("erorr")
+//                            }
+//                        }
+//
+//
+//                    }
+//                }
                 .onAppear() {
                     
                    
@@ -85,7 +87,7 @@ struct ContentView: View {
                             
                             do {
                                 let note = try decoder.decode([UserData].self, from: jsonData)
-                                
+                               
                                 userData = note
                                 //                                if i.first!.id == "1" {
                                 //                                    notes.removeFirst()
@@ -157,7 +159,32 @@ struct ContentView: View {
                     } catch {
                         
                     }
-                    getHealthData()
+                    healthDataTypes.append(contentsOf: [.walkingStepLength, .walkingSpeed, .walkingAsymmetryPercentage, .walkingDoubleSupportPercentage])
+                    let readData = Set(
+                        healthDataTypes.map{HKObjectType.quantityType(forIdentifier: $0)!}
+                    )
+                    
+                    self.healthStore.requestAuthorization(toShare: [], read: readData) { (success, error) in
+                        
+                        
+                    }
+                    for type in healthDataTypes {
+                       
+                        getHealthData(type: type, dateDistanceType: .Month, dateDistance: 12) { (healthValues) in
+                           
+                            let filteredToSpecificHealthTitle = healthValues.filter { data in
+                                return data.title == type.rawValue
+                            }
+                            
+                              
+                           
+                            ready = true
+                            animate2 = true
+                           // userData = healthValues
+                        }
+                       
+                    }
+                    
                     if !isOnboarding {
                    
                     } else {
@@ -231,13 +258,38 @@ struct ContentView: View {
                 
                 HomeView(userData: $userData, isTutorial: $isTutorial, settings2: $settings, habitsUserData: $habitsUserData)
                     .transition(.opacity)
-                    .onAppear(){
-                       
+                    .onAppear() {
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 30.0) {
+//                        let filteredToDouble = userData.filter { data in
+//                            return data.type == .Balance
+//                        }.map{$0.data}
+//                        let filteredToSpeed = userData.filter { data in
+//                            return data.type == .WalkingSpeed
+//                        }.map{$0.data}
+//
+//                        let filteredToLength = userData.filter { data in
+//                            return data.type == .Stride
+//                        }.map{$0.data}
+//                        var scores = [Double]()
+//                        for i in filteredToDouble.indices {
+//                            print(i)
+//                            if filteredToDouble.indices.contains(i) && filteredToSpeed.indices.contains(i) && filteredToLength.indices.contains(i) {
+//                            getLocalScore(double: filteredToDouble[i], speed: filteredToSpeed[i], length: filteredToLength[i]) { (score) in
+//                                scores.append(score.prediction)
+//                            }
+//                            }
+//                        }
+//                        let averageScore = average(numbers: scores)
+//                    print(averageScore)
+//                    }
                     }
                     .onChange(of: userData, perform: { value in
-                        
+                        let filtered = userData.filter { data in
+                                                      
+                            return data.type == .Habit || data.type == .Meds ||  data.type == .Score
+                                                            }
                         let encoder = JSONEncoder()
-                        if let encoded = try? encoder.encode(userData) {
+                        if let encoded = try? encoder.encode(filtered) {
                             if let json = String(data: encoded, encoding: .utf8) {
                               
                                 do {
@@ -278,7 +330,11 @@ struct ContentView: View {
             
             if !isOnboarding {
                 animate2 = false
-            getHealthData()
+                for type in healthDataTypes {
+                   
+                    getHealthData(type: type, dateDistanceType: .Month, dateDistance: 12) { (healthValues) in
+                    }
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 animate2 = true
                 }
@@ -310,110 +366,9 @@ struct ContentView: View {
     }
     
     let healthStore = HKHealthStore()
-    func getHealthData() {
-        
-        
-        
-        
-        
-        let readData = Set([
-            HKObjectType.quantityType(forIdentifier: .walkingSpeed)!,
-            HKObjectType.quantityType(forIdentifier: .walkingStepLength)!,
-            HKObjectType.quantityType(forIdentifier: .walkingDoubleSupportPercentage)!
-        ])
-        
-        healthStore.requestAuthorization(toShare: [], read: readData) { (success, error) in
-            if success {
-                if HKHealthStore.isHealthDataAvailable() {
-                    
-                    
-                    
-                  
-                    
-                    
-                    let readData = Set([
-                        HKObjectType.quantityType(forIdentifier: .walkingSpeed)!,
-                        HKObjectType.quantityType(forIdentifier: .walkingStepLength)!,
-                        HKObjectType.quantityType(forIdentifier: .walkingDoubleSupportPercentage)!,
-                        HKObjectType.quantityType(forIdentifier: .walkingAsymmetryPercentage)!
-                    ])
-                    
-                    healthStore.requestAuthorization(toShare: [], read: readData) { (success, error) in
-                        if success {
-                            
-                            
-                            getDouble()
-                            
-                            getAsym()
-                            
-                            getSpeed()
-                            
-                            getLength()
-                            
-                            //days = days.removeDuplicates()
-                            
-                            
-                        } else {
-                            print("Authorization failed")
-                            animate2 = true
-                        }
-                        
-                        //  completionHandler()
-                        
-                        
-                        
-                        
-                        // defaults?.set(try? PropertyListEncoder().encode(data), forKey:"data")
-                        
-                    }
-                    
-                }
-                //defaults?.set(dates, forKey: "dates")
-                
-                
-                
-                //defaults?.set(self.values.reduce(0, +)/Double(self.values.count), forKey: "avg")
-                //WidgetCenter.shared.reloadAllTimelines()
-            }
-        }
-        
-        ready = true
-    }
-    
-//    func loadUsersExperiments(performAction: @escaping ([Experiment]) -> Void) {
-//        let db = Firestore.firestore()
-//        let docRef = db.collection("experiments")
-//        var userList = [Experiment]()
-//        let query = docRef.whereField("usersIDs", arrayContains: user.id.uuidString)
-//        query.getDocuments { (documents, error) in
-//            if !(documents?.isEmpty ?? true) {
-//                for document in documents!.documents {
-//                    let result = Result {
-//                        try document.data(as: Experiment.self)
-//                    }
-//
-//                    switch result {
-//                    case .success(let user):
-//                        if let user = user {
-//                            userList.append(user)
-//
-//                        } else {
-//
-//                            print("Document does not exist")
-//                        }
-//                    case .failure(let error):
-//                        print("Error decoding user: \(error)")
-//                    }
-//
-//
-//                }
-//            }
-//            performAction(userList)
-//        }
-//    }
-    func getLength() {
+    func getHealthData(type: HKQuantityTypeIdentifier, dateDistanceType: DateDistanceType, dateDistance: Int, completionHandler: @escaping ([UserData]) -> Void) {
+        var data = [UserData]()
         let calendar = NSCalendar.current
-        
         var anchorComponents = calendar.dateComponents([.day, .month, .year, .weekday], from: NSDate() as Date)
         
         let offset = (7 + anchorComponents.weekday! - 2) % 7
@@ -430,262 +385,49 @@ struct ContentView: View {
         
         let endDate = Date()
         
-        guard let startDate = calendar.date(byAdding: .day, value: -6, to: endDate) else {
+        guard let startDate = calendar.date(byAdding: (dateDistanceType == .Week ? .day : .month), value: -dateDistance, to: endDate) else {
             fatalError("*** Unable to calculate the start date ***")
         }
-        guard let quantityType3 = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.walkingStepLength) else {
+        guard let quantityType3 = HKObjectType.quantityType(forIdentifier: type) else {
             fatalError("*** Unable to create a step count type ***")
         }
         
         let query3 = HKStatisticsCollectionQuery(quantityType: quantityType3,
                                                  quantitySamplePredicate: nil,
-                                                 options: .discreteAverage,
+                                                 options: [.discreteAverage],
                                                  anchorDate: anchorDate,
                                                  intervalComponents: interval as DateComponents)
         
         query3.initialResultsHandler = {
             query, results, error in
             
-            guard let statsCollection = results else {
-                fatalError("*** An error occurred while calculating the statistics: \(String(describing: error?.localizedDescription)) ***")
+            if let statsCollection = results {
                 
-            }
+            
             
             statsCollection.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
+              
                 if let quantity = statistics.averageQuantity() {
                     let date = statistics.startDate
                     //for: E.g. for steps it's HKUnit.count()
-                    let value = quantity.doubleValue(for: HKUnit.inch())
-                    //  self.week.mon.strideLength.append(Stride(id: UUID().uuidString, length: value, date: date))
-                    let today = date.get(.weekday)
+                    let value = quantity.is(compatibleWith: .percent()) ? quantity.doubleValue(for: .percent()) : quantity.is(compatibleWith: .count()) ? quantity.doubleValue(for: .count()) : quantity.is(compatibleWith: .inch()) ? quantity.doubleValue(for: .inch()) : quantity.doubleValue(for: HKUnit.mile().unitDivided(by: HKUnit.hour()))
+                    //data.append(UserData(id: UUID().uuidString, type: .Balance, title: type.rawValue, text: "", date: date, data: value))
+                    userData.append(UserData(id: UUID().uuidString, type: type == .walkingSpeed ? .WalkingSpeed : type == .walkingDoubleSupportPercentage ? .Balance : .Stride, title: type.rawValue, date: date, data: value, goal: 0.0))
+                    print(type.rawValue)
+                  
                     
-                    userData.append(UserData(id: UUID().uuidString, type: .Stride,  title: "", date: date, data: value, goal: 0.0))
-                   
-                }
-                
-                
+    }
+            
             }
-            
-            
-            //if (self.values.last ?? 0.0) - 11 > ((defaults.double(forKey: "avg")))  {
-            
-            
-            
-            
-            
-            animate2 = true
-            
+                
         }
+            
+            completionHandler(data)
+        }
+        
         healthStore.execute(query3)
         
-    }
-    func getSpeed() {
-        let calendar = NSCalendar.current
-        
-        var anchorComponents = calendar.dateComponents([.day, .month, .year, .weekday], from: NSDate() as Date)
-        
-        let offset = (7 + anchorComponents.weekday! - 2) % 7
-        
-        anchorComponents.day! -= offset
-        anchorComponents.hour = 2
-        
-        guard let anchorDate = Calendar.current.date(from: anchorComponents) else {
-            fatalError("*** unable to create a valid date from the given components ***")
-        }
-        
-        let interval = NSDateComponents()
-        interval.minute = 30
-        
-        let endDate = Date()
-        
-        guard let startDate = calendar.date(byAdding: .day, value: -6, to: endDate) else {
-            fatalError("*** Unable to calculate the start date ***")
-        }
-        
-        guard let quantityType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.walkingSpeed) else {
-            fatalError("*** Unable to create a step count type ***")
-        }
-        
-        let query = HKStatisticsCollectionQuery(quantityType: quantityType,
-                                                quantitySamplePredicate: nil,
-                                                options: .discreteAverage,
-                                                anchorDate: anchorDate,
-                                                intervalComponents: interval as DateComponents)
-        
-        query.initialResultsHandler = {
-            query, results, error in
-            
-            guard let statsCollection = results else {
-                fatalError("*** An error occurred while calculating the statistics: \(String(describing: error?.localizedDescription)) ***")
-                
-            }
-            
-            statsCollection.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
-                if let quantity = statistics.averageQuantity() {
-                    let date = statistics.startDate
-                    //for: E.g. for steps it's HKUnit.count()
-                    let value = quantity.doubleValue(for: HKUnit.mile().unitDivided(by: HKUnit.hour()))
-                    //  self.week.mon.walkingSpeed.append(WalkingSpeed(id: UUID().uuidString, speed: value, date: date))
-                    let today = date.get(.weekday)
-                    // print("Value")
-                    // print(statsCollection)
-                    
-                    userData.append(UserData(id: UUID().uuidString, type: .WalkingSpeed, title: "", date: date, data: value, goal: 0.0))
-                    
-                    
-                }
-                
-                
-            }
-            
-            
-            //if (self.values.last ?? 0.0) - 11 > ((defaults.double(forKey: "avg")))  {
-            
-            
-        }
-        healthStore.execute(query)
-    }
-    
-    
-    
-    func getDouble() {
-        
-        let calendar = NSCalendar.current
-        
-        var anchorComponents = calendar.dateComponents([.day, .month, .year, .weekday], from: NSDate() as Date)
-        
-        let offset = (7 + anchorComponents.weekday! - 2) % 7
-        
-        anchorComponents.day! -= offset
-        anchorComponents.hour = 2
-        
-        guard let anchorDate = Calendar.current.date(from: anchorComponents) else {
-            fatalError("*** unable to create a valid date from the given components ***")
-        }
-        
-        let interval = NSDateComponents()
-        interval.minute = 30
-        
-        let endDate = Date()
-        
-        guard let startDate = calendar.date(byAdding: .day, value: -6, to: endDate) else {
-            fatalError("*** Unable to calculate the start date ***")
-        }
-        
-        guard let quantityType2 = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.walkingDoubleSupportPercentage) else {
-            fatalError("*** Unable to create a step count type ***")
-        }
-        
-        let query2 = HKStatisticsCollectionQuery(quantityType: quantityType2,
-                                                 quantitySamplePredicate: nil,
-                                                 options: .discreteAverage,
-                                                 anchorDate: anchorDate,
-                                                 intervalComponents: interval as DateComponents)
-        
-        query2.initialResultsHandler = {
-            query, results, error in
-            
-            guard let statsCollection = results else {
-                fatalError("*** An error occurred while calculating the statistics: \(String(describing: error?.localizedDescription)) ***")
-                
-            }
-            
-            statsCollection.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
-                if let quantity = statistics.averageQuantity() {
-                    let date = statistics.startDate
-                    //for: E.g. for steps it's HKUnit.count()
-                    let value = quantity.doubleValue(for: HKUnit.percent())
-                    values.append(value*100)
-                    // self.week.mon.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                    // print(quantity)
-                    // self.week.mon.balance.append(Balance(id: UUID().uuidString, value: value, date: date))
-                    
-                    let today = date.get(.weekday)
-                    
-                    
-                    
-                    
-                    userData.append(UserData(id: UUID().uuidString, type: .Balance, title: "", date: date, data: value, goal: 0.0))
-                }
-                
-                
-            }
-            
-            
-            //if (self.values.last ?? 0.0) - 11 > ((defaults.double(forKey: "avg")))  {
-        }
-        healthStore.execute(query2)
-    }
-    
-    func getAsym() {
-        
-        let calendar = NSCalendar.current
-        
-        var anchorComponents = calendar.dateComponents([.day, .month, .year, .weekday], from: NSDate() as Date)
-        
-        let offset = (7 + anchorComponents.weekday! - 2) % 7
-        
-        anchorComponents.day! -= offset
-        anchorComponents.hour = 2
-        
-        guard let anchorDate = Calendar.current.date(from: anchorComponents) else {
-            fatalError("*** unable to create a valid date from the given components ***")
-        }
-        
-        let interval = NSDateComponents()
-        interval.minute = 30
-        
-        let endDate = Date()
-        
-        guard let startDate = calendar.date(byAdding: .day, value: -6, to: endDate) else {
-            fatalError("*** Unable to calculate the start date ***")
-        }
-        guard let quantityType4 = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.walkingAsymmetryPercentage) else {
-            fatalError("*** Unable to create a step count type ***")
-        }
-        
-        let query4 = HKStatisticsCollectionQuery(quantityType: quantityType4,
-                                                 quantitySamplePredicate: nil,
-                                                 options: .discreteAverage,
-                                                 anchorDate: anchorDate,
-                                                 intervalComponents: interval as DateComponents)
-        
-        query4.initialResultsHandler = {
-            query, results, error in
-            
-            guard let statsCollection = results else {
-                fatalError("*** An error occurred while calculating the statistics: \(String(describing: error?.localizedDescription)) ***")
-                
-            }
-            
-            statsCollection.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
-                if let quantity = statistics.averageQuantity() {
-                    let date = statistics.startDate
-                    //for: E.g. for steps it's HKUnit.count()
-                    let value = quantity.doubleValue(for: HKUnit.percent())
-                    values.append(value*100)
-                    // print(quantity)
-                    // self.week.mon.aysm.append(Asymmetry(id: UUID().uuidString, asym: value, date: date))
-                    
-                    let components2 = date.get(.weekday, .month, .year)
-                    if let today = components2.weekday {
-                
-                        userData.append(UserData(id: UUID().uuidString, type: .Balance, title: "", date: date, data: value, goal: 0.0))
-                    
-                    
-                }
-                
-                
-            }
-            
-            
-            //if (self.values.last ?? 0.0) - 11 > ((defaults.double(forKey: "avg")))  {
-            
-            
-            
-        }
-        healthStore.execute(query4)
-    }
+       
     }
     
     func getDocumentsDirectory() -> URL {
