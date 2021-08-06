@@ -15,7 +15,6 @@ struct ButtonGridView: View {
     ]
     @Binding var userData: [UserData]
     @State var buttons = [GridButton(title: "Score", image: Image(systemName: "heart")), GridButton(title: "Balance", image: Image(systemName: "scalemass")),GridButton(title: "Stride", image: Image(systemName: "ruler"))]
-    //GridButton(title: "Speed", image: Image(systemName: "figure.walk")), GridButton(title: "Steps", image: Image(systemName: "arrow.forward")), GridButton(title: "Friends", image: Image(systemName: "person.3"))
     @Binding var tutorialNum: Int
     @Binding var isTutorial: Bool
     var body: some View {

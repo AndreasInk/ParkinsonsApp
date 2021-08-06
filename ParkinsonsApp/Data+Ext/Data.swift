@@ -8,16 +8,16 @@
 import SwiftUI
 
 
-struct UserData: Identifiable, Codable, Hashable {
-    var id: String
-    var type: DataType
-    var title: String
-    var date: Date
-    var data: Double
-    var goal: Double
-    var unit: String?
-    
-}
+//struct UserData: Identifiable, Codable, Hashable {
+//    var id: String
+//    var type: DataType
+//    var title: String
+//    var date: Date
+//    var data: Double
+//    var goal: Double
+//    var unit: String?
+//
+//}
 enum DataType: String, Codable, CaseIterable {
     case Tremor = "Tremor"
     case Balance = "Balance"
@@ -28,7 +28,8 @@ enum DataType: String, Codable, CaseIterable {
     case Meds = "Meds"
     case Score = "Score"
     case HappinessScore = "HappinessScore"
-    
+    case Health = "Health"
+
 //    case TremorPredicted = "TremorPredicted"
 //    case BalancePredicted = "BalancePredicted"
 //    case WalkingSpeedPredicted = "WalkingSpeedPredicted"
@@ -45,13 +46,47 @@ enum DateDistanceType: String, Codable, CaseIterable {
     
 }
 
-struct ModelResponse: Identifiable, Codable, Hashable {
+
+//enum DataType: String, Codable, CaseIterable {
+//    case StepLength = "StepLength"
+//    case Health = "Health"
+//    case EmotionTagging = "EmotionTagging"
+//    case Heartrate = "Heartrate"
+//    case PhoneUsage = "PhoneUsage"
+//    case Habit = "Habit"
+//    case Meds = "Meds"
+//    case Food = "Food"
+//    case HappinessScore = "HappinessScore"
+//    case Score = "Score"
+//    
+//}
+
+
+
+struct UserData: Identifiable, Codable, Hashable {
     var id: String
-    var predicted: [Double]
-    var actual: [Double]
+    var type: DataType
+    var title: String
+    var text: String
+    var date: Date
+    var data: Double
+
     
     
 }
+struct Habit:  Identifiable, Codable, Hashable {
+    var id: String
+    var data: [UserData]
+    var title: String
+}
+
+struct ModelResponse: Codable {
+    var type: String
+    var predicted: [Double]
+    var actual: [Double]
+    var accuracy: Double
+}
+
 //struct Tremor: Identifiable, Codable, Hashable{
 //    var id: String
 //    var severity: Double

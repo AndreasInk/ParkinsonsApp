@@ -152,7 +152,7 @@ struct DataView: View {
                                     //.opacity(isTutorial ? (tutorialNum == 1 ? 1.0 : 0.1) : 1.0)
                                     .onChange(of: date, perform: { value in
                                         
-                                        
+                                        refresh = true
                                         loadData  { (score) in
                                             let numbers = userData.filter { data in
                                                 return data.type == .Score && data.data != 21
@@ -180,7 +180,12 @@ struct DataView: View {
                                             maxText = "At \(max.points.last?.0 ?? "") your score was higher than any other hour today."
                                             
                                         }
-                                       
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                            withAnimation(.easeInOut) {
+                                                refresh = false
+                                            }
+                                            
+                                        }
                                     })
                                 HStack {
                                     Text("Total Score")
@@ -589,7 +594,7 @@ struct DataView: View {
                 } else if filteredToTarget.count < filteredToHabitTitle.count {
                     let average =   average(numbers: filteredToHabitTitle.map{$0.data})
                     for i in 0...filteredToTarget.count - filteredToTarget2.count {
-                        filteredToHabitTitle.append(UserData(id: UUID().uuidString, type: .Habit, title: "", date: Date(), data: average, goal: 0.0))
+                        filteredToHabitTitle.append(UserData(id: UUID().uuidString, type: .Habit, title: "", text: "", date: Date(), data: average))
                          
                       
                 }
@@ -624,7 +629,7 @@ struct DataView: View {
             print(model.validationMetrics)
             let predictions = try model.predictions(from: testingData)
             print(average(numbers: predictions.map{($0.unsafelyUnwrapped) as! Double}))
-            completionHandler(ModelResponse(id: UUID().uuidString, predicted: predictions.map{($0.unsafelyUnwrapped) as! Double}, actual: filteredToTarget.map{Double($0.data)}))
+            completionHandler(ModelResponse(type: target.rawValue, predicted: predictions.map{($0.unsafelyUnwrapped) as! Double}, actual: filteredToTarget.map{Double($0.data)}, accuracy: model.trainingMetrics.rootMeanSquaredError))
         } catch {
             print(error)
 
@@ -658,7 +663,7 @@ struct DataView: View {
                 } else if filteredToTarget.count < filteredToTarget2.count {
                     let average =   average(numbers: filteredToTarget2.map{$0.data})
                     for i in 0...filteredToTarget.count - filteredToTarget2.count {
-                        filteredToTarget2.append(UserData(id: UUID().uuidString, type: target2, title: "", date: Date(), data: average, goal: 0.0))
+                        filteredToTarget2.append(UserData(id: UUID().uuidString, type: target2, title: "", text: "", date: Date(), data: average))
                          
                       
                 }
@@ -693,7 +698,7 @@ struct DataView: View {
             print(model.validationMetrics)
             let predictions = try model.predictions(from: testingData)
         
-            completionHandler(ModelResponse(id: UUID().uuidString, predicted: predictions.map{($0.unsafelyUnwrapped) as! Double}, actual: filteredToTarget.map{Double($0.data)}))
+            completionHandler(ModelResponse(type: target.rawValue, predicted: predictions.map{($0.unsafelyUnwrapped) as! Double}, actual: filteredToTarget.map{Double($0.data)}, accuracy: model.trainingMetrics.rootMeanSquaredError))
         } catch {
             print(error)
 
@@ -731,7 +736,7 @@ struct DataView: View {
                 } else if 2000 < filteredToType.count {
                     let average =   average(numbers: filteredToType.map{$0.data})
                     for i in 0...2000 - filteredToType.count {
-                        filteredToType.append(UserData(id: UUID().uuidString, type: type, title: "", date: Date(), data: average, goal: 0.0))
+                        filteredToType.append(UserData(id: UUID().uuidString, type: type, title: "", text: "", date: Date(), data: average))
                          
                         filteredToBalance = filteredToType
                 }
@@ -777,61 +782,7 @@ struct DataView: View {
             
         }
         }
-//    func predictWithOnDeviceModel(userData: [UserData], target: DataType, completionHandler: @escaping (PredictedScore) -> Void) {
-//
-//        do {
-//            var inputData = DataFrame()
-//            for type in DataType.allCases {
-//                let filteredToType = userData.filter { data in
-//                    return data.type == type
-//                }
-//                inputData.append(column: Column(name: type.rawValue, contents: filteredToType))
-//                                    }
-//
-//            let model = try  MLModel(contentsOf: getDocumentsDirectory().appendingPathComponent(DataType.HappinessScore.rawValue + ".mlmodel"))
-//
-//
-//            return predictions
-//        } catch {
-//
-//        }
-//        return
-//    }
-    
-//    func featuresFromData(happinessScore: Double, data: [UserData]) -> [Double: [UserData]] {
-//
-//        var filtered = data.filter { data in
-//            return data.date.get(.weekOfYear) == Date().get(.weekOfYear) && date.get(.weekday) == data.date.get(.weekday)
-//        }
-//        let double = filtered.filter { data in
-//            return  data.type == .Balance
-//        }
-//
-//        let asymmetry = filtered.filter { data in
-//            return  data.type == .Asymmetry
-//        }
-//        let stepLength = filtered.filter { data in
-//            return  data.type == .Stride
-//        }
-//        let score = filtered.filter { data in
-//            return  data.type == .Score
-//        }
-//        let habits = filtered.filter { data in
-//            return  data.type == .Habit
-//        }
-//        let habitsTypeFiltered = habits.filter { data in
-//            return  data.id == habitUserData.id
-//        }
-//
-//        let averageScore = average(numbers: score.map{$0.data})
-//        let averageDouble = average(numbers: double.map{$0.data})
-//        let averageAsymmetry = average(numbers: asymmetry.map{$0.data})
-//        let averageLength = average(numbers: stepLength.map{$0.data})
-//
-//        let dataDict = [DataType.Balance.rawValue: averageDouble, DataType.Asymmetry.rawValue: averageAsymmetry ]
-//        let featureNames = filtered + filtered.map { happinessScore: $0 }
-//        return featureNames
-//    }
+
     func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {
         do {
             let model = try reg_model(configuration: MLModelConfiguration())

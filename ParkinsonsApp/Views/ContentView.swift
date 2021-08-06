@@ -16,16 +16,15 @@ struct ContentView: View {
     @State var animate2 = false
     @State var ready = true
     //@State var days = [Day]()
-    @State var habitsUserData = [UserData(id: UUID().uuidString, type: .Habit, title: "", date: Date(), data: 0.0, goal: 0.0)]
+    @State var habitsUserData = [UserData(id: UUID().uuidString, type: .Habit, title: "", text: "", date: Date(), data: 0.0)]
     @State var values = [Double]()
    @State var isTutorial = false
      
     @State var settings =  [Setting(title: "Notifications", text: "We'll send notifications to remind you to keep your phone in your pocket to gain insights and send updates on habits", onOff: true, dates: [9]), Setting(title: "Accessability", text: "Enable these features to make it easier to use the app", onOff: true), Setting(title: "Customize Your Widget", text: "You track your score on your home screen with widgets", onOff: true)]
-    // Setting(title: "Share Your Experience", text: "By sharing your experience with the app, we can make it even better!  ", onOff: true), Setting(title: "Share Your Data", text: "By sharing your data, we can make scoring even better!  ", onOff: true), Setting(title: "Share With Your Doctor", text: "Export your data to your doctor to give important insights to your doctor to help you.", onOff: true)
+
     @State private var useCount = UserDefaults.standard.integer(forKey: "useCount")
-   // @State var user = User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]())
-    
-    @State var userData = [ UserData(id: UUID().uuidString, type: .Habit, title: "", date: Date(), data: 0.0, goal: 0.0)]
+
+    @State var userData = [UserData]()
     @State var isOnboarding: Bool =  false
     @State var isOnboarding2: Bool =  false
     
@@ -54,24 +53,6 @@ struct ContentView: View {
                         
                 })
                 .ignoresSafeArea()
-//                .onDisappear() {
-//                    let encoder = JSONEncoder()
-//                    
-//                    if let encoded = try? encoder.encode(userData) {
-//                        if let json = String(data: encoded, encoding: .utf8) {
-//
-//                            do {
-//                                let url = self.getDocumentsDirectory().appendingPathComponent("userData.txt")
-//                                try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
-//
-//                            } catch {
-//                                print("erorr")
-//                            }
-//                        }
-//
-//
-//                    }
-//                }
                 .onAppear() {
                     
                    
@@ -89,10 +70,7 @@ struct ContentView: View {
                                 let note = try decoder.decode([UserData].self, from: jsonData)
                                
                                 userData = note
-                                //                                if i.first!.id == "1" {
-                                //                                    notes.removeFirst()
-                                //                                }
-                                
+                       
                                 
                             } catch {
                                 print(error.localizedDescription)
@@ -119,10 +97,7 @@ struct ContentView: View {
                                 
                                 settings =  note.removeDuplicates()
                                
-                                //                                if i.first!.id == "1" {
-                                //                                    notes.removeFirst()
-                                //                                }
-                                
+                              
                                 
                             } catch {
                                 print(error.localizedDescription)
@@ -147,11 +122,7 @@ struct ContentView: View {
                                 
                                 habitsUserData = note
                                 print(note)
-                                //                                if i.first!.id == "1" {
-                                //                                    notes.removeFirst()
-                                //                                }
-                                
-                                
+                             
                             } catch {
                                 print(error.localizedDescription)
                             }
@@ -191,64 +162,10 @@ struct ContentView: View {
                         ready = true
                         animate2 = true
                     }
-//                    if ready {
-//                        let url = self.getDocumentsDirectory().appendingPathComponent("data2.txt")
-//                        do {
-//
-//                            let input = try String(contentsOf: url)
-//
-//
-//                            let jsonData = Data(input.utf8)
-//                            do {
-//                                let decoder = JSONDecoder()
-//
-//                                do {
-//                                    let note = try decoder.decode([Day].self, from: jsonData)
-//
-//                                    let filtered = note.filter { day in
-//                                        #warning("double check")
-//                                        return Date().addingTimeInterval(-604800) > day.date
-//                                    }
-//                                    days = filtered
-//
-//
-//                                    days =  days.removeDuplicates()
-//
-//                                    //                                if i.first!.id == "1" {
-//                                    //                                    notes.removeFirst()
-//                                    //                                }
-//
-//
-//                                } catch {
-//                                    print(error.localizedDescription)
-//                                }
-//                            }
-//                        } catch {
-//                            print(error.localizedDescription)
-//
-//                        }
-//
-//
-//
-//
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                            withAnimation(.easeInOut(duration: 1.5)) {
-//                                animate = true
-//                            }
-//
-//                        }
-//
-//
-//                    }
-//                    self.loadUsersExperiments() { experiments in
-//                        self.user.experiments = experiments
-                      //  print(experiments)
-                       // #warning("Remove after testing")
-                       // days.append(Day(id: UUID().uuidString, score: [Score(id: UUID().uuidString, score: 1.0, date: Date())], tremor: [Tremor](), balance: [Balance](), walkingSpeed: [WalkingSpeed](), strideLength: [Stride](), aysm: [Asymmetry](), habit: [Habit](), date: Date(), totalScore: 0.0, meds: [Med]()))
-                    //}
+
                 }
             if animate {
-                // LoadingView()
+             
                 EmptyView()
                     .transition(.opacity)
             }
@@ -258,31 +175,7 @@ struct ContentView: View {
                 
                 HomeView(userData: $userData, isTutorial: $isTutorial, settings2: $settings, habitsUserData: $habitsUserData)
                     .transition(.opacity)
-                    .onAppear() {
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 30.0) {
-//                        let filteredToDouble = userData.filter { data in
-//                            return data.type == .Balance
-//                        }.map{$0.data}
-//                        let filteredToSpeed = userData.filter { data in
-//                            return data.type == .WalkingSpeed
-//                        }.map{$0.data}
-//
-//                        let filteredToLength = userData.filter { data in
-//                            return data.type == .Stride
-//                        }.map{$0.data}
-//                        var scores = [Double]()
-//                        for i in filteredToDouble.indices {
-//                            print(i)
-//                            if filteredToDouble.indices.contains(i) && filteredToSpeed.indices.contains(i) && filteredToLength.indices.contains(i) {
-//                            getLocalScore(double: filteredToDouble[i], speed: filteredToSpeed[i], length: filteredToLength[i]) { (score) in
-//                                scores.append(score.prediction)
-//                            }
-//                            }
-//                        }
-//                        let averageScore = average(numbers: scores)
-//                    print(averageScore)
-//                    }
-                    }
+                    
                     .onChange(of: userData, perform: { value in
                         let filtered = userData.filter { data in
                                                       
@@ -412,7 +305,7 @@ struct ContentView: View {
                     //for: E.g. for steps it's HKUnit.count()
                     let value = quantity.is(compatibleWith: .percent()) ? quantity.doubleValue(for: .percent()) : quantity.is(compatibleWith: .count()) ? quantity.doubleValue(for: .count()) : quantity.is(compatibleWith: .inch()) ? quantity.doubleValue(for: .inch()) : quantity.doubleValue(for: HKUnit.mile().unitDivided(by: HKUnit.hour()))
                     //data.append(UserData(id: UUID().uuidString, type: .Balance, title: type.rawValue, text: "", date: date, data: value))
-                    userData.append(UserData(id: UUID().uuidString, type: type == .walkingSpeed ? .WalkingSpeed : type == .walkingDoubleSupportPercentage ? .Balance : .Stride, title: type.rawValue, date: date, data: value, goal: 0.0))
+                    userData.append(UserData(id: UUID().uuidString, type: type == .walkingSpeed ? .WalkingSpeed : type == .walkingDoubleSupportPercentage ? .Balance : .Stride, title: type.rawValue, text: "", date: date, data: value))
                     print(type.rawValue)
                   
                     

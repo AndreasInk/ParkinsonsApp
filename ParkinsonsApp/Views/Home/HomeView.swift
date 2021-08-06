@@ -9,6 +9,7 @@ import SwiftUI
 import CoreML
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import HealthKit
 struct HomeView: View {
     @State var welcome = ["Welcome!", "Hello!", "Hello there!"]
     @State var social = false
@@ -16,10 +17,14 @@ struct HomeView: View {
     @State var openMeds = false
     @State var animateBanner = false
     @State var meds = [Med]()
-//    @Binding var week: Week
-//    @Binding var days: [Day]
-//    @State var experiment = Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post]())])], week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
+    @State var dataTypes = UserDefaults.standard.stringArray(forKey: "types") ?? []
+    @State var notFirstRun = UserDefaults.standard.bool(forKey: "notFirstRun")
+
     @Binding var userData: [UserData]
+    
+    @State var habits = [Habit]()
+    @State var data = [UserData]()
+    
     @State var ready = false
     @Binding var isTutorial: Bool
     @State var tutorialNum = 0
@@ -36,40 +41,57 @@ struct HomeView: View {
                     load()
                     }
                 })
+                .onChange(of: habits) { value in
+                    let encoder = JSONEncoder()
+                    if let encoded = try? encoder.encode(habits) {
+                        if let json = String(data: encoded, encoding: .utf8) {
+                          
+                            do {
+                                let url = self.getDocumentsDirectory().appendingPathComponent("habits.txt")
+                                try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
+                                
+                            } catch {
+                                print("erorr")
+                            }
+                        }
+                        
+                        
+                    }
+                }
                 .onAppear() {
+                    let url3 = self.getDocumentsDirectory().appendingPathComponent("habits.txt")
+                    do {
+                        
+                        let input = try String(contentsOf: url3)
+                        
+                        
+                        let jsonData = Data(input.utf8)
+                        do {
+                            let decoder = JSONDecoder()
+                            
+                            do {
+                                let note = try decoder.decode([Habit].self, from: jsonData)
+                                
+                                habits = note
+                                print(note)
+                               
+                                
+                            } catch {
+                                print(error.localizedDescription)
+                            }
+                        }
+                }  catch {
+                    print(error.localizedDescription)
+                }
+            }
+                .onAppear() {
+                    let types: [HKQuantityTypeIdentifier] = [.walkingStepLength, .walkingSpeed, .walkingAsymmetryPercentage, .walkingDoubleSupportPercentage]
+                    if !notFirstRun {
+                    dataTypes.append(contentsOf: types.map{$0.rawValue})
+                        UserDefaults.standard.set(notFirstRun, forKey:  "notFirstRun")
+                    }
                     load()
-//                    self.loadPopularExperiments() { experiments in
-//                        experiment = experiments.first ?? Experiment(id: UUID(), date: Date(), title: "Running", description: "Will running improve our health?", users: [User](), usersIDs: [String](), groupScore: [PredictedScore](), posts: [Post(id: UUID(), title: "Hello world", text: "Hi there", createdBy: User(id: UUID(), name: "Steve", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post(id: UUID(), title: "", text: "Good morning", createdBy: User(id: UUID(), name: "Andreas", experiments: [Experiment](), createdExperiments: [Experiment](), posts: [Post](), habit: [Habit]()), comments: [Post]())])], week: [Week](), habit: [Habit](), imageName: "data2", upvotes: 0)
-//
-//                    }
-                    
-                    
-//                     let url = self.getDocumentsDirectory().appendingPathComponent("experiments.txt")
-//                     do {
-//                         
-//                         let input = try String(contentsOf: url)
-//                         
-//                         
-//                         let jsonData = Data(input.utf8)
-//                         do {
-//                             let decoder = JSONDecoder()
-//                             
-//                             do {
-//                                 let note = try decoder.decode([Experiment].self, from: jsonData)
-//                                 
-//                                 experiments = note
-//                                 //                                if i.first!.id == "1" {
-//                                 //                                    notes.removeFirst()
-//                                 //                                }
-//                                 
-//                                 
-//                             } catch {
-//                                 print(error.localizedDescription)
-//                             }
-//                         }
-//                     } catch {
-//                         
-//                     }
+
                 }
                 
                 
@@ -106,34 +128,15 @@ struct HomeView: View {
                     }
                 }
                 HStack {
-//                    Text(welcome.randomElement() ?? "Hello there!")
-//                        .bold()
-//                        .font(.custom("Poppins-Bold", size: 20, relativeTo: .title))
-//                        .foregroundColor(Color("blue"))
-//                        .padding(.horizontal)
-//                        .opacity(isTutorial ? (tutorialNum == -1 ? 1.0 : 0.1) : 1.0)
-                    Spacer()
-                        
-//                    Button(action: {
-//                        social.toggle()
-//                    }) {
-//                        Image(systemName: "person.3")
-//                            .font(.largeTitle)
-//                            .padding()
-//                    }  .opacity(isTutorial ? (tutorialNum == 3 ? 1.0 : 0.1) : 1.0)
-//                    .sheet(isPresented: $social, content: {
-//                      //  ExperimentFeedView(user: $user, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-//                    })
-//
                     Button(action: {
                         openMeds.toggle()
                     }) {
-                        Image(systemName: "pills")
+                        Image(systemName: "chart.bar")
                             .font(.largeTitle)
                             .padding()
                     }  .opacity(isTutorial ? (tutorialNum == 4 ? 1.0 : 0.1) : 1.0)
                     .sheet(isPresented: $openMeds, content: {
-                       // MedsView(userData: $userData, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                        CollectListView(habits: $habits, dataTypes: $dataTypes)
                     })
 //
                     Button(action: {
@@ -163,27 +166,6 @@ struct HomeView: View {
                         }
                     }
                 
-               // ExperimentCard(user: $user, experiment: $experiment, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-                HabitsCard(habitsUserData: habitsUserData, userData: $userData, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-//                    .opacity(isTutorial ? (tutorialNum == -1 ? 1.0 : 0.1) : 1.0)
-//                    .onChange(of: experiments, perform: { value in
-//                        let encoder = JSONEncoder()
-//
-//                        if let encoded = try? encoder.encode(experiments) {
-//                            if let json = String(data: encoded, encoding: .utf8) {
-//
-//                                do {
-//                                    let url = self.getDocumentsDirectory().appendingPathComponent("experiments.txt")
-//                                    try json.write(to: url, atomically: false, encoding: String.Encoding.utf8)
-//
-//                                } catch {
-//                                    print("erorr")
-//                                }
-//                            }
-//
-//
-//                        }
-//                    })
                 WeekChartView(userData: $userData)
                     .opacity(isTutorial ? (tutorialNum == 6 ? 1.0 : 0.1) : 1.0)
                     .padding(.bottom)
@@ -273,11 +255,9 @@ struct HomeView: View {
             
             
                getLocalScore(double: average(numbers: double.map{$0.data}), speed: average(numbers: speed.map{$0.data}), length: average(numbers: length.map{$0.data})) { (score) in
-               // week.mon.totalScore = score.prediction
-                    userData.append(UserData(id: UUID().uuidString, type: .Score, title: "", date: length.last?.date ?? Date(), data: score.prediction, goal: 0.0))
-//                if week.mon.balance.last?.date.get(.day) ?? 0 == Date().get(.day) {
-//                    // progressValue = score.prediction
-//                }
+         
+                   userData.append(UserData(id: UUID().uuidString, type: .Score, title: "", text: "", date: length.last?.date ?? Date(), data: score.prediction))
+
             
                 }
         }

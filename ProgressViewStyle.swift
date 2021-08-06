@@ -16,14 +16,7 @@ struct GaugeProgressStyle: ProgressViewStyle {
         let fractionCompleted = configuration.fractionCompleted ?? 0
 
         return ZStack {
-            VStack {
-//            Image(experiment.imageName)
-//                .resizable()
-//                .scaledToFit()
-//                .frame(width: 40, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                
-               
-            }  .padding()
+       
             Circle()
                 .trim(from: 0, to: CGFloat(fractionCompleted))
                 .stroke(strokeColor, style: StrokeStyle(lineWidth: CGFloat(strokeWidth), lineCap: .round))
