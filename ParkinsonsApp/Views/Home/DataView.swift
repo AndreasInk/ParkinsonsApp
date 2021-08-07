@@ -574,7 +574,7 @@ struct DataView: View {
             return data.type == target
         }
         
-        var filteredToTarget2 = filteredToRemoveNan.filter { data in
+        let filteredToTarget2 = filteredToRemoveNan.filter { data in
             return data.type == .Habit
         }
         var filteredToHabitTitle = filteredToRemoveNan.filter { data in
@@ -587,13 +587,13 @@ struct DataView: View {
             if !filteredToHabitTitle.isEmpty {
               
                 if filteredToHabitTitle.count > filteredToTarget.count {
-                    for i in 0...filteredToTarget2.count - filteredToTarget.count {
+                    for _ in 0...filteredToTarget2.count - filteredToTarget.count {
                         filteredToHabitTitle.removeFirst()
                     }
                     
                 } else if filteredToTarget.count < filteredToHabitTitle.count {
                     let average =   average(numbers: filteredToHabitTitle.map{$0.data})
-                    for i in 0...filteredToTarget.count - filteredToTarget2.count {
+                    for _ in 0...filteredToTarget.count - filteredToTarget2.count {
                         filteredToHabitTitle.append(UserData(id: UUID().uuidString, type: .Habit, title: "", text: "", date: Date(), data: average))
                          
                       
@@ -656,13 +656,13 @@ struct DataView: View {
             if !filteredToTarget2.isEmpty {
               
                 if filteredToTarget2.count > filteredToTarget.count {
-                    for i in 0...filteredToTarget2.count - filteredToTarget.count {
+                    for _ in 0...filteredToTarget2.count - filteredToTarget.count {
                         filteredToTarget2.removeFirst()
                     }
                     
                 } else if filteredToTarget.count < filteredToTarget2.count {
                     let average =   average(numbers: filteredToTarget2.map{$0.data})
-                    for i in 0...filteredToTarget.count - filteredToTarget2.count {
+                    for _ in 0...filteredToTarget.count - filteredToTarget2.count {
                         filteredToTarget2.append(UserData(id: UUID().uuidString, type: target2, title: "", text: "", date: Date(), data: average))
                          
                       
@@ -681,7 +681,7 @@ struct DataView: View {
                     
                                 }
         
-        var dataArray = [Double]()
+        let dataArray = [Double]()
         
        
         trainingData.append(column: Column(name: DataType.Score.rawValue, contents: dataArray))
@@ -729,13 +729,13 @@ struct DataView: View {
               
                 
                 if filteredToType.count > 2000 {
-                    for i in 0...filteredToType.count - 2000 {
+                    for _ in 0...filteredToType.count - 2000 {
                     filteredToType.removeFirst()
                     }
                     filteredToBalance = filteredToType
                 } else if 2000 < filteredToType.count {
                     let average =   average(numbers: filteredToType.map{$0.data})
-                    for i in 0...2000 - filteredToType.count {
+                    for _ in 0...2000 - filteredToType.count {
                         filteredToType.append(UserData(id: UUID().uuidString, type: type, title: "", text: "", date: Date(), data: average))
                          
                         filteredToBalance = filteredToType
@@ -755,7 +755,7 @@ struct DataView: View {
         var dataArray = [Double]()
         
         print(trainingData.rows.count )
-        for i in 0...filteredToBalance.count - 1 {
+            for _ in 0...filteredToBalance.count - 1 {
             dataArray.append(Double(0))
         }
         trainingData.append(column: Column(name: DataType.Score.rawValue, contents: dataArray))

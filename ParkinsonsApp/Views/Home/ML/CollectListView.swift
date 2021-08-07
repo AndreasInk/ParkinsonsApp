@@ -17,6 +17,7 @@ struct CollectListView: View {
     var body: some View {
         NavigationView {
         VStack {
+        DismissSheetBtn()
             HStack {
                 Spacer()
                 Button(action: {

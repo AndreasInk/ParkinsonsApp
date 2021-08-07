@@ -42,30 +42,7 @@ struct TrainingView: View {
                 healthDataTypes = types
     
                 
-//                let readData = Set(
-//                    healthDataTypes.map{HKObjectType.quantityType(forIdentifier: $0)!}
-//                )
-//                
-//                self.healthStore.requestAuthorization(toShare: [], read: readData) { (success, error) in
-//                    
-//                    
-//                }
-//                for type in healthDataTypes {
-//                   
-//                    getHealthData(type: type, dateDistanceType: .Month, dateDistance: 12) { (healthValues) in
-//                        let filteredToSpecificHealthTitle = healthValues.filter { data in
-//                            return data.title == type.rawValue
-//                        }
-//                        
-//                          
-//                        print(chartData)
-//                        ready = true
-//                       // userData = healthValues
-//                    }
-//                   
-//                }
-                
-               
+
                
             }
             if ready {
@@ -259,7 +236,7 @@ struct TrainingView: View {
             return data.type.rawValue == target || data.title == target
         }
         
-        var filteredToTarget2 = filteredToRemoveNan.filter { data in
+        let filteredToTarget2 = filteredToRemoveNan.filter { data in
             return data.type.rawValue == target || data.title == target
         }
       

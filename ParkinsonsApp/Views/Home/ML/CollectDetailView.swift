@@ -10,19 +10,31 @@ import SwiftUI
 struct CollectDetailView: View {
     @Binding var habit: Habit
     @State var showEditView = false
+    @State var refresh = false
+    @State var chartData = ChartData(points: [Double]())
     var body: some View {
+       
         VStack {
+            DayChartView(title: "", chartData: $chartData, refresh: $refresh)
+//                .ignoresSafeArea(.all, edges: .top)
+//                .padding()
+//                .padding(.top)
             HStack {
                 Spacer()
+                    .onAppear() {
+                        chartData =   ChartData(points: habit.data.map{$0.data})
+                    }
             Button(action: {
                 habit.data.append(UserData(id: UUID().uuidString, type: .Health, title: "", text: "", date: Date(), data: 0.0))
             }) {
                 Image(systemSymbol: .plus)
-                    .frame(width: 75, height: 75)
+                    .font(.title)
                     .padding()
             }
                 
             } .padding()
+            
+           
             HStack {
             Text("Title of Data:")
                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
@@ -31,11 +43,11 @@ struct CollectDetailView: View {
            
                 TextField("Title", text: $habit.title)
                 .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
-                    .padding(.vertical)
+                    .padding(.bottom)
                     .padding()
             
             List {
-                ForEach($habit.data, id: \.self) { $data in
+                ForEach($habit.data, id: \.id) { $data in
                     NavigationLink(destination:  CollectEditView(userData: $data)) {
                         Text(data.title == "" ? "No Title" : data.title)
                             .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
@@ -43,9 +55,9 @@ struct CollectDetailView: View {
                     }
                  
                 }
-            }
             
         }
+    }
     }
 }
 

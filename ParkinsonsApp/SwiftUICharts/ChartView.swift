@@ -51,7 +51,7 @@ struct WeekChartView: View {
                             
                         }
                         
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         refresh = false
                     }
                     }

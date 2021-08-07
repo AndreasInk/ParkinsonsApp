@@ -143,15 +143,13 @@ struct ContentView: View {
                        
                         getHealthData(type: type, dateDistanceType: .Month, dateDistance: 12) { (healthValues) in
                            
-                            let filteredToSpecificHealthTitle = healthValues.filter { data in
-                                return data.title == type.rawValue
-                            }
+                           
                             
                               
                            
                             ready = true
                             animate2 = true
-                           // userData = healthValues
+                     
                         }
                        
                     }
@@ -260,7 +258,7 @@ struct ContentView: View {
     
     let healthStore = HKHealthStore()
     func getHealthData(type: HKQuantityTypeIdentifier, dateDistanceType: DateDistanceType, dateDistance: Int, completionHandler: @escaping ([UserData]) -> Void) {
-        var data = [UserData]()
+        let data = [UserData]()
         let calendar = NSCalendar.current
         var anchorComponents = calendar.dateComponents([.day, .month, .year, .weekday], from: NSDate() as Date)
         
@@ -305,7 +303,7 @@ struct ContentView: View {
                     //for: E.g. for steps it's HKUnit.count()
                     let value = quantity.is(compatibleWith: .percent()) ? quantity.doubleValue(for: .percent()) : quantity.is(compatibleWith: .count()) ? quantity.doubleValue(for: .count()) : quantity.is(compatibleWith: .inch()) ? quantity.doubleValue(for: .inch()) : quantity.doubleValue(for: HKUnit.mile().unitDivided(by: HKUnit.hour()))
                     //data.append(UserData(id: UUID().uuidString, type: .Balance, title: type.rawValue, text: "", date: date, data: value))
-                    userData.append(UserData(id: UUID().uuidString, type: type == .walkingSpeed ? .WalkingSpeed : type == .walkingDoubleSupportPercentage ? .Balance : .Stride, title: type.rawValue, text: "", date: date, data: value))
+                    userData.append(UserData(id: UUID().uuidString, type: type == .walkingSpeed ? .WalkingSpeed : type == .walkingDoubleSupportPercentage ? .Balance : type ==   .walkingStepLength ? .Stride : .Health, title: type.rawValue, text: "", date: date, data: value))
                     print(type.rawValue)
                   
                     

@@ -30,7 +30,6 @@ struct HomeView: View {
     @State var tutorialNum = 0
     @Binding var settings2: [Setting]
     @State private var useCount = UserDefaults.standard.integer(forKey: "useCount")
-   // @State var experiments = [Experiment]()
     @Binding var habitsUserData: [UserData]
     var body: some View {
         ZStack {
@@ -41,6 +40,11 @@ struct HomeView: View {
                     load()
                     }
                 })
+                .onAppear() {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                    load()
+                    }
+                }
                 .onChange(of: habits) { value in
                     let encoder = JSONEncoder()
                     if let encoded = try? encoder.encode(habits) {
@@ -128,6 +132,7 @@ struct HomeView: View {
                     }
                 }
                 HStack {
+                    Spacer()
                     Button(action: {
                         openMeds.toggle()
                     }) {
@@ -149,6 +154,7 @@ struct HomeView: View {
                     .sheet(isPresented: $settings, content: {
                         SettingsView(settings: $settings2, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
                     })
+                    
                 }
                 
                
@@ -165,17 +171,15 @@ struct HomeView: View {
                         }
                         }
                     }
-                
+                if ready {
                 WeekChartView(userData: $userData)
                     .opacity(isTutorial ? (tutorialNum == 6 ? 1.0 : 0.1) : 1.0)
                     .padding(.bottom)
             }
-            
+            }
         }
         }
-        .onAppear() {
-            load()
-        }
+     
         } 
         
     }
@@ -185,7 +189,7 @@ struct HomeView: View {
             do {
                 let model = try reg_model(configuration: MLModelConfiguration())
                 let prediction =  try model.prediction(double_: double, speed: speed, length: length)
-                completionHandler(PredictedScore(prediction: prediction.sourceName ?? 0.0, predicted_parkinsons: (prediction.sourceName ?? 0.0) > 0.5 ? 1 : 0, date: Date()))
+                completionHandler(PredictedScore(prediction: prediction.sourceName, predicted_parkinsons: (prediction.sourceName) > 0.5 ? 1 : 0, date: Date()))
             } catch {
                 
             }
@@ -237,7 +241,8 @@ struct HomeView: View {
                 return data.date.get(.weekOfYear) == Date().get(.weekOfYear)
             }
         for day in 0...7 {
-                let filteredDay = userData.filter { data2 in
+            print(day)
+                let filteredDay = filtered.filter { data2 in
                     return data2.date.get(.weekday) == day
                 }
                 
@@ -266,13 +271,7 @@ struct HomeView: View {
            
         
         
-        if isTutorial {
-            ready = true
-            print(tutorialNum)
-        } else {
-           
-            
-        }
+       
      
         
         let filteredhabits = userData.filter { data in
@@ -280,7 +279,7 @@ struct HomeView: View {
         }
         habitsUserData = filteredhabits
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
             ready = true
         }
     }
