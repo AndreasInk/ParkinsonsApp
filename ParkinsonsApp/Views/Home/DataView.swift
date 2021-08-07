@@ -338,7 +338,7 @@ struct DataView: View {
                         case "Steps":
                             DayChartView(title: "Steps", chartData: $score, refresh: $refresh, dataTypes: $dataTypes, userData: $userData)
                             
-                        case "Score and Habits":
+                        case "Habits":
                             VStack {
                                 HStack {
                                     
