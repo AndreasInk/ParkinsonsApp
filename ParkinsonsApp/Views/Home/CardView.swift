@@ -9,7 +9,7 @@ import SwiftUI
 import CodableCSV
 import HealthKit
 import CoreML
-import FirebaseStorage
+//import FirebaseStorage
 
 struct CardView: View {
     @State var image = "doc"

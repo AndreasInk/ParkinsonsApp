@@ -95,10 +95,6 @@
 		E18496372644355C00A69834 /* SettingsDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18496362644355C00A69834 /* SettingsDetailsView.swift */; };
 		E184963A2644375200A69834 /* GridButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18496392644375200A69834 /* GridButtonStyle.swift */; };
 		E184963D2644393B00A69834 /* CTAButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E184963C2644393B00A69834 /* CTAButtonStyle.swift */; };
-		E193F41126A223510050BA0E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E193F41026A223510050BA0E /* FirebaseFirestore */; };
-		E193F41326A223510050BA0E /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E193F41226A223510050BA0E /* FirebaseFirestoreSwift-Beta */; };
-		E193F41526A223510050BA0E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E193F41426A223510050BA0E /* FirebaseStorage */; };
-		E193F41726A223510050BA0E /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E193F41626A223510050BA0E /* FirebaseStorageSwift-Beta */; };
 		E193F41926A226840050BA0E /* Experiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193F41826A226830050BA0E /* Experiment.swift */; };
 		E196E39526BEE09600DC7446 /* HappinessScoreInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E196E39426BEE09500DC7446 /* HappinessScoreInputView.swift */; };
 		E1AD1EED26430C1D0086BC84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1AD1EEC26430C1D0086BC84 /* GoogleService-Info.plist */; };
@@ -268,13 +264,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E10BEF22264208B800317E38 /* HealthKit.framework in Frameworks */,
-				E193F41126A223510050BA0E /* FirebaseFirestore in Frameworks */,
-				E193F41326A223510050BA0E /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				E13A18CF2643868D00FC66B0 /* NiceNotifications in Frameworks */,
 				E1583AAA2648B05E002F9DB3 /* CodableCSV in Frameworks */,
-				E193F41726A223510050BA0E /* FirebaseStorageSwift-Beta in Frameworks */,
 				E1BA92D726BCA8CB00A97691 /* SFSafeSymbols in Frameworks */,
-				E193F41526A223510050BA0E /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,10 +576,6 @@
 			packageProductDependencies = (
 				E13A18CE2643868D00FC66B0 /* NiceNotifications */,
 				E1583AA92648B05E002F9DB3 /* CodableCSV */,
-				E193F41026A223510050BA0E /* FirebaseFirestore */,
-				E193F41226A223510050BA0E /* FirebaseFirestoreSwift-Beta */,
-				E193F41426A223510050BA0E /* FirebaseStorage */,
-				E193F41626A223510050BA0E /* FirebaseStorageSwift-Beta */,
 				E1BA92D626BCA8CB00A97691 /* SFSafeSymbols */,
 			);
 			productName = ParkinsonsApp;
@@ -660,7 +648,6 @@
 			packageReferences = (
 				E13A18CD2643868D00FC66B0 /* XCRemoteSwiftPackageReference "NiceNotifications" */,
 				E1583AA82648B05D002F9DB3 /* XCRemoteSwiftPackageReference "CodableCSV" */,
-				E193F40F26A223510050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				E1BA92D526BCA8CB00A97691 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 			);
 			productRefGroup = E10BEEC62641FE0B00317E38 /* Products */;
@@ -1168,14 +1155,6 @@
 				minimumVersion = 0.6.6;
 			};
 		};
-		E193F40F26A223510050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
 		E1BA92D526BCA8CB00A97691 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/piknotech/SFSafeSymbols.git";
@@ -1196,26 +1175,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E1583AA82648B05D002F9DB3 /* XCRemoteSwiftPackageReference "CodableCSV" */;
 			productName = CodableCSV;
-		};
-		E193F41026A223510050BA0E /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E193F40F26A223510050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		E193F41226A223510050BA0E /* FirebaseFirestoreSwift-Beta */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E193F40F26A223510050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseFirestoreSwift-Beta";
-		};
-		E193F41426A223510050BA0E /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E193F40F26A223510050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
-		E193F41626A223510050BA0E /* FirebaseStorageSwift-Beta */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E193F40F26A223510050BA0E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseStorageSwift-Beta";
 		};
 		E1BA92D626BCA8CB00A97691 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;

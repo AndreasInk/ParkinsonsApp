@@ -8,8 +8,8 @@
 import SwiftUI
 import HealthKit
 import CoreMotion
-import FirebaseFirestoreSwift
-import FirebaseFirestore
+//import FirebaseFirestoreSwift
+//import FirebaseFirestore
 import CoreML
 struct ContentView: View {
     @State var animate = false
@@ -41,6 +41,29 @@ struct ContentView: View {
                     } else {
                       
                         UserDefaults.standard.setValue(useCount + 1, forKey: "useCount")
+                    }
+                    healthDataTypes.append(contentsOf: [.walkingStepLength, .walkingSpeed, .walkingAsymmetryPercentage, .walkingDoubleSupportPercentage])
+                    let readData = Set(
+                        healthDataTypes.map{HKObjectType.quantityType(forIdentifier: $0)!}
+                    )
+                    
+                    self.healthStore.requestAuthorization(toShare: [], read: readData) { (success, error) in
+                        
+                        
+                    }
+                    for type in healthDataTypes {
+                      
+                        getHealthData(type: type, dateDistanceType: .Month, dateDistance: 12) { (healthValues) in
+                           
+                           
+                            
+                              
+                           
+                            ready = true
+                            animate2 = true
+                     
+                        }
+                       
                     }
                 
            
@@ -130,29 +153,7 @@ struct ContentView: View {
                     } catch {
                         
                     }
-                    healthDataTypes.append(contentsOf: [.walkingStepLength, .walkingSpeed, .walkingAsymmetryPercentage, .walkingDoubleSupportPercentage])
-                    let readData = Set(
-                        healthDataTypes.map{HKObjectType.quantityType(forIdentifier: $0)!}
-                    )
-                    
-                    self.healthStore.requestAuthorization(toShare: [], read: readData) { (success, error) in
-                        
-                        
-                    }
-                    for type in healthDataTypes {
-                       
-                        getHealthData(type: type, dateDistanceType: .Month, dateDistance: 12) { (healthValues) in
-                           
-                           
-                            
-                              
-                           
-                            ready = true
-                            animate2 = true
-                     
-                        }
-                       
-                    }
+                  
                     
                     if !isOnboarding {
                    
@@ -233,15 +234,15 @@ struct ContentView: View {
         })
         
     }
-    func saveExperiment(experiment: Experiment) {
-        let db = Firestore.firestore()
-        do {
-            try db.collection("experiments").document(experiment.id.uuidString).setData(from: experiment)
-            //print(experiment)
-        } catch let error {
-            print("Error writing city to Firestore: \(error)")
-        }
-    }
+//    func saveExperiment(experiment: Experiment) {
+//        let db = Firestore.firestore()
+//        do {
+//            try db.collection("experiments").document(experiment.id.uuidString).setData(from: experiment)
+//            //print(experiment)
+//        } catch let error {
+//            print("Error writing city to Firestore: \(error)")
+//        }
+//    }
     func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {
         if double.isNormal {
             do {
@@ -297,10 +298,10 @@ struct ContentView: View {
             
                 
             statsCollection.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
-               print(statsCollection.sources().first?.name)
+               //print(statsCollection.sources().first?.name)
                
                 //if statsCollection.sources().last?.name == UIDevice.current.name {
-                    print(UIDevice.current.name)
+                //print(UIDevice.current.name)
                 if let quantity = statistics.averageQuantity() {
                     
                     let date = statistics.startDate
