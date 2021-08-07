@@ -45,11 +45,9 @@ struct ButtonGridButton: View {
         } .buttonStyle(GridButtonStyle())
         
         .sheet(isPresented: $open, content: {
-            if #available(iOS 15, *) {
+           
                 DataView(userData: $userData, dataTypes: $dataTypes, habitUserData: $userData[0], gridButton: gridButton, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
-            } else {
-                // Fallback on earlier versions
-            }
+            
         })
         
     }

@@ -26,13 +26,7 @@ struct CollectDetailView: View {
                     .onAppear() {
                         chartData =   ChartData(points: habit.data.map{$0.data})
                     }
-            Button(action: {
-                habit.data.append(UserData(id: UUID().uuidString, type: .Health, title: "", text: "", date: Date(), data: 0.0))
-            }) {
-                Image(systemSymbol: .plus)
-                    .font(.title)
-                    .padding()
-            }
+            
                 
             } .padding()
             
@@ -59,7 +53,13 @@ struct CollectDetailView: View {
                 }
             
         }
-    }
+        } .navigationBarItems( trailing: Button(action: {
+            habit.data.append(UserData(id: UUID().uuidString, type: .Health, title: "", text: "", date: Date(), data: 0.0))
+        }) {
+            Image(systemSymbol: .plus)
+                .font(.title)
+                .padding()
+        })
     }
 }
 

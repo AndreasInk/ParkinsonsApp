@@ -100,6 +100,7 @@
 		E193F41526A223510050BA0E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E193F41426A223510050BA0E /* FirebaseStorage */; };
 		E193F41726A223510050BA0E /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E193F41626A223510050BA0E /* FirebaseStorageSwift-Beta */; };
 		E193F41926A226840050BA0E /* Experiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193F41826A226830050BA0E /* Experiment.swift */; };
+		E196E39526BEE09600DC7446 /* HappinessScoreInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E196E39426BEE09500DC7446 /* HappinessScoreInputView.swift */; };
 		E1AD1EED26430C1D0086BC84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1AD1EEC26430C1D0086BC84 /* GoogleService-Info.plist */; };
 		E1AD1F0F264367650086BC84 /* ClassSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0B264367650086BC84 /* ClassSelectionView.swift */; };
 		E1AD1F10264367650086BC84 /* FontSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD1F0C264367650086BC84 /* FontSelectionView.swift */; };
@@ -231,6 +232,7 @@
 		E18496392644375200A69834 /* GridButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButtonStyle.swift; sourceTree = "<group>"; };
 		E184963C2644393B00A69834 /* CTAButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTAButtonStyle.swift; sourceTree = "<group>"; };
 		E193F41826A226830050BA0E /* Experiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experiment.swift; sourceTree = "<group>"; };
+		E196E39426BEE09500DC7446 /* HappinessScoreInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HappinessScoreInputView.swift; sourceTree = "<group>"; };
 		E1AD1EEC26430C1D0086BC84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1AD1EF326431E1A0086BC84 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E1AD1EF526431E1A0086BC84 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -474,6 +476,7 @@
 			isa = PBXGroup;
 			children = (
 				E10BEEE02641FEC200317E38 /* HomeView.swift */,
+				E196E39426BEE09500DC7446 /* HappinessScoreInputView.swift */,
 				E1DE28B12649822A001C3D9B /* ShareDataBanner.swift */,
 				E10BEF102642017B00317E38 /* ButtonGridView.swift */,
 				E10BEF122642018500317E38 /* ButtonGridButton.swift */,
@@ -767,6 +770,7 @@
 				E10BEF4226420B6200317E38 /* LineView.swift in Sources */,
 				E1DE28B22649822B001C3D9B /* ShareDataBanner.swift in Sources */,
 				E1BA92D226BCA68500A97691 /* JournalInput.swift in Sources */,
+				E196E39526BEE09600DC7446 /* HappinessScoreInputView.swift in Sources */,
 				E184963D2644393B00A69834 /* CTAButtonStyle.swift in Sources */,
 				E10BEF4426420B6200317E38 /* LineChartView.swift in Sources */,
 				E1BA92D026BCA68500A97691 /* CollectEditView.swift in Sources */,
@@ -979,7 +983,7 @@
 				DEVELOPMENT_TEAM = MC27HKM86M;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ParkinsonsApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1004,7 +1008,7 @@
 				DEVELOPMENT_TEAM = MC27HKM86M;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ParkinsonsApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

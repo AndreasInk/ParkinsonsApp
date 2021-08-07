@@ -97,7 +97,13 @@ struct HomeView: View {
                     let types: [HKQuantityTypeIdentifier] = [.walkingStepLength, .walkingSpeed, .walkingAsymmetryPercentage, .walkingDoubleSupportPercentage]
                     if !notFirstRun {
                     dataTypes.append(contentsOf: types.map{$0.rawValue})
-                        UserDefaults.standard.set(notFirstRun, forKey:  "notFirstRun")
+                       
+                        let presetHabitsTitles = ["Happiness Score", "Medications", "Doctor Appointments", "Push-ups"]
+                        let presetHabits = presetHabitsTitles.map{Habit(id: UUID().uuidString, data: [UserData](), title: $0)}
+                        habits.append(contentsOf: presetHabits)
+                        UserDefaults.standard.set(true, forKey:  "notFirstRun")
+                        notFirstRun = true
+                        
                     }
                     load()
 
@@ -176,7 +182,9 @@ struct HomeView: View {
                         }
                         }
                     }
+                HappinessScoreInputView(habit: $habits[habits.firstIndex{$0.title == "Happiness Score"} ?? 0])
                 if ready {
+                    
                     WeekChartView(userData: $userData, dataTypes: $dataTypes)
                     .opacity(isTutorial ? (tutorialNum == 6 ? 1.0 : 0.1) : 1.0)
                     .padding(.bottom)

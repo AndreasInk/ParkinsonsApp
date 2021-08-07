@@ -295,20 +295,25 @@ struct ContentView: View {
             if let statsCollection = results {
                 
             
-            
+                
             statsCollection.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
-              
+               print(statsCollection.sources().first?.name)
+               
+                //if statsCollection.sources().last?.name == UIDevice.current.name {
+                    print(UIDevice.current.name)
                 if let quantity = statistics.averageQuantity() {
+                    
                     let date = statistics.startDate
                     //for: E.g. for steps it's HKUnit.count()
                     let value = quantity.is(compatibleWith: .percent()) ? quantity.doubleValue(for: .percent()) : quantity.is(compatibleWith: .count()) ? quantity.doubleValue(for: .count()) : quantity.is(compatibleWith: .inch()) ? quantity.doubleValue(for: .inch()) : quantity.doubleValue(for: HKUnit.mile().unitDivided(by: HKUnit.hour()))
                     //data.append(UserData(id: UUID().uuidString, type: .Balance, title: type.rawValue, text: "", date: date, data: value))
+                   
                     userData.append(UserData(id: UUID().uuidString, type: type == .walkingSpeed ? .WalkingSpeed : type == .walkingDoubleSupportPercentage ? .Balance : type ==   .walkingStepLength ? .Stride : .Health, title: type.rawValue, text: "", date: date, data: value))
                     print(type.rawValue)
                   
                     
     }
-            
+              //  }
             }
                 
         }

@@ -71,7 +71,7 @@ import SwiftUI
                             ml = true
                         }
                         .sheet(isPresented: $ml) {
-                            TrainingView(userData: $userData, dataTypes: $dataTypes)
+                           // TrainingView(userData: $userData, dataTypes: $dataTypes)
                         }
                 }.padding()
                 .onChange(of: data.points.map{$0.0}, perform: { value in

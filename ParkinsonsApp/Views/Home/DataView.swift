@@ -10,7 +10,7 @@ import CreateML
 import TabularData
 import CoreML
 
-@available(iOS 15, *)
+
 struct DataView: View {
     @Binding var userData: [UserData]
     @Binding var dataTypes: [String]
@@ -365,14 +365,14 @@ struct DataView: View {
                                             
                                         }
                                         
-                                        trainHabitCompareOnDevice(userData: userData, target: .Score, target2: habitName) { (score) in
-                                            for i in score.predicted.indices {
-                                                self.score.points = [((String(i), score.actual[i]))]
-                                            
-                                                self.scorePredicted.points = [((String(i), score.predicted[i]))]
-                                                
-                                        }
-                                        }
+//                                        trainHabitCompareOnDevice(userData: userData, target: .Score, target2: habitName) { (score) in
+//                                            for i in score.predicted.indices {
+//                                                self.score.points = [((String(i), score.actual[i]))]
+//
+//                                                self.scorePredicted.points = [((String(i), score.predicted[i]))]
+//
+//                                        }
+//                                        }
                                         let maximum =  ChartData(values: [("", 0.0)])
                                         let filtered2 = length.points.filter { word in
                                             return word.0 != "NA"
@@ -433,13 +433,13 @@ struct DataView: View {
                                             
                                             
                                         }
-                                        trainCompareOnDevice(userData: userData, target: .Score, target2: .Meds) { (score) in
-                                            for i in score.predicted.indices {
-                                                self.score.points = [((String(i), score.actual[i]))]
-                                            
-                                                self.scorePredicted.points = [((String(i), score.predicted[i]))]
-                                        }
-                                        }
+//                                        trainCompareOnDevice(userData: userData, target: .Score, target2: .Meds) { (score) in
+//                                            for i in score.predicted.indices {
+//                                                self.score.points = [((String(i), score.actual[i]))]
+//                                            
+//                                                self.scorePredicted.points = [((String(i), score.predicted[i]))]
+//                                        }
+//                                        }
                                         max.points.removeAll()
                                         let filtered2 = meds.points.filter { word in
                                             return word.0 != "NA"
@@ -536,6 +536,7 @@ struct DataView: View {
                 if double.indices.contains(i) && speed.indices.contains(i) && stepLength.indices.contains(i) {
                 getLocalScore(double: double[i].data, speed: speed[i].data, length: stepLength[i].data) { (score) in
                     scores.append(score.prediction)
+                    
                 }
                 }
             }
@@ -566,223 +567,223 @@ struct DataView: View {
         habits = habitPoints
         
         }
-    func trainHabitCompareOnDevice(userData: [UserData], target: DataType, target2: String, completionHandler: @escaping (ModelResponse) -> Void) {
-        var trainingData = DataFrame()
-        let filteredToRemoveNan = userData.filter { data in
-            return data.data.isNormal && !data.data.isNaN
-        }
-        let filteredToTarget = filteredToRemoveNan.filter { data in
-            return data.type == target
-        }
-        
-        let filteredToTarget2 = filteredToRemoveNan.filter { data in
-            return data.type == .Habit
-        }
-        var filteredToHabitTitle = filteredToRemoveNan.filter { data in
-            return data.title == target2
-        }
-           
-           
-            
-          
-            if !filteredToHabitTitle.isEmpty {
-              
-                if filteredToHabitTitle.count > filteredToTarget.count {
-                    for _ in 0...filteredToTarget2.count - filteredToTarget.count {
-                        filteredToHabitTitle.removeFirst()
-                    }
-                    
-                } else if filteredToTarget.count < filteredToHabitTitle.count {
-                    let average =   average(numbers: filteredToHabitTitle.map{$0.data})
-                    for _ in 0...filteredToTarget.count - filteredToTarget2.count {
-                        filteredToHabitTitle.append(UserData(id: UUID().uuidString, type: .Habit, title: "", text: "", date: Date(), data: average))
-                         
-                      
-                }
-                } else {
-                }
-                
-                
-               // print(trainingData.summary())
-                let dataArray = filteredToTarget.map{Double($0.data)}
-                let dataArray2 = filteredToTarget2.map{Double($0.data)}
-                print(average(numbers: dataArray))
-                trainingData.append(column: Column(name: target.rawValue, contents: dataArray))
-               
-                trainingData.append(column: Column(name: target2, contents: dataArray2))
-                    
-                                }
-        
-//        var dataArray = [Double]()
+//    func trainHabitCompareOnDevice(userData: [UserData], target: DataType, target2: String, completionHandler: @escaping (ModelResponse) -> Void) {
+//        var trainingData = DataFrame()
+//        let filteredToRemoveNan = userData.filter { data in
+//            return data.data.isNormal && !data.data.isNaN
+//        }
+//        let filteredToTarget = filteredToRemoveNan.filter { data in
+//            return data.type == target
+//        }
+//        
+//        let filteredToTarget2 = filteredToRemoveNan.filter { data in
+//            return data.type == .Habit
+//        }
+//        var filteredToHabitTitle = filteredToRemoveNan.filter { data in
+//            return data.title == target2
+//        }
+//           
+//           
+//            
+//          
+//            if !filteredToHabitTitle.isEmpty {
+//              
+//                if filteredToHabitTitle.count > filteredToTarget.count {
+//                    for _ in 0...filteredToTarget2.count - filteredToTarget.count {
+//                        filteredToHabitTitle.removeFirst()
+//                    }
+//                    
+//                } else if filteredToTarget.count < filteredToHabitTitle.count {
+//                    let average =   average(numbers: filteredToHabitTitle.map{$0.data})
+//                    for _ in 0...filteredToTarget.count - filteredToTarget2.count {
+//                        filteredToHabitTitle.append(UserData(id: UUID().uuidString, type: .Habit, title: "", text: "", date: Date(), data: average))
+//                         
+//                      
+//                }
+//                } else {
+//                }
+//                
+//                
+//               // print(trainingData.summary())
+//                let dataArray = filteredToTarget.map{Double($0.data)}
+//                let dataArray2 = filteredToTarget2.map{Double($0.data)}
+//                print(average(numbers: dataArray))
+//                trainingData.append(column: Column(name: target.rawValue, contents: dataArray))
+//               
+//                trainingData.append(column: Column(name: target2, contents: dataArray2))
+//                    
+//                                }
+//        
+////        var dataArray = [Double]()
+////
+////
+////        trainingData.append(column: Column(name: DataType.Score.rawValue, contents: dataArray))
 //
+//        let randomSplit = trainingData.randomSplit(by: 0.5)
+//        print(randomSplit)
+//        let testingData = DataFrame(randomSplit.0)
+//        trainingData = DataFrame(randomSplit.1)
+//        do {
+//            let model = try MLRandomForestRegressor(trainingData: trainingData, targetColumn:  target.rawValue)
+//           
+//           // try model.write(to: getDocumentsDirectory().appendingPathComponent(DataType.HappinessScore.rawValue + ".mlmodel"))
+//            print(model.trainingMetrics)
+//            print(model.validationMetrics)
+//            let predictions = try model.predictions(from: testingData)
+//            print(average(numbers: predictions.map{($0.unsafelyUnwrapped) as! Double}))
+//            completionHandler(ModelResponse(type: target.rawValue, predicted: predictions.map{($0.unsafelyUnwrapped) as! Double}, actual: filteredToTarget.map{Double($0.data)}, accuracy: model.trainingMetrics.rootMeanSquaredError))
+//        } catch {
+//            print(error)
 //
+//        }
+//
+//    }
+//    func trainCompareOnDevice(userData: [UserData], target: DataType, target2: DataType, completionHandler: @escaping (ModelResponse) -> Void) {
+//        var trainingData = DataFrame()
+//        let filteredToRemoveNan = userData.filter { data in
+//            return data.data.isNormal && !data.data.isNaN
+//        }
+//        let filteredToTarget = filteredToRemoveNan.filter { data in
+//            return data.type == target
+//        }
+//        
+//        var filteredToTarget2 = filteredToRemoveNan.filter { data in
+//            return data.type == target2
+//        }
+//      
+//           
+//           
+//            
+//          
+//            if !filteredToTarget2.isEmpty {
+//              
+//                if filteredToTarget2.count > filteredToTarget.count {
+//                    for _ in 0...filteredToTarget2.count - filteredToTarget.count {
+//                        filteredToTarget2.removeFirst()
+//                    }
+//                    
+//                } else if filteredToTarget.count < filteredToTarget2.count {
+//                    let average =   average(numbers: filteredToTarget2.map{$0.data})
+//                    for _ in 0...filteredToTarget.count - filteredToTarget2.count {
+//                        filteredToTarget2.append(UserData(id: UUID().uuidString, type: target2, title: "", text: "", date: Date(), data: average))
+//                         
+//                      
+//                }
+//                } else {
+//                }
+//                
+//                
+//               // print(trainingData.summary())
+//                let dataArray = filteredToTarget.map{Double($0.data)}
+//                let dataArray2 = filteredToTarget2.map{Double($0.data)}
+//                print(average(numbers: dataArray))
+//                trainingData.append(column: Column(name: target.rawValue, contents: dataArray))
+//               
+//                trainingData.append(column: Column(name: target2.rawValue, contents: dataArray2))
+//                    
+//                                }
+//        
+//        let dataArray = [Double]()
+//        
+//       
 //        trainingData.append(column: Column(name: DataType.Score.rawValue, contents: dataArray))
-
-        let randomSplit = trainingData.randomSplit(by: 0.5)
-        print(randomSplit)
-        let testingData = DataFrame(randomSplit.0)
-        trainingData = DataFrame(randomSplit.1)
-        do {
-            let model = try MLRandomForestRegressor(trainingData: trainingData, targetColumn:  target.rawValue)
-           
-           // try model.write(to: getDocumentsDirectory().appendingPathComponent(DataType.HappinessScore.rawValue + ".mlmodel"))
-            print(model.trainingMetrics)
-            print(model.validationMetrics)
-            let predictions = try model.predictions(from: testingData)
-            print(average(numbers: predictions.map{($0.unsafelyUnwrapped) as! Double}))
-            completionHandler(ModelResponse(type: target.rawValue, predicted: predictions.map{($0.unsafelyUnwrapped) as! Double}, actual: filteredToTarget.map{Double($0.data)}, accuracy: model.trainingMetrics.rootMeanSquaredError))
-        } catch {
-            print(error)
-
-        }
-
-    }
-    func trainCompareOnDevice(userData: [UserData], target: DataType, target2: DataType, completionHandler: @escaping (ModelResponse) -> Void) {
-        var trainingData = DataFrame()
-        let filteredToRemoveNan = userData.filter { data in
-            return data.data.isNormal && !data.data.isNaN
-        }
-        let filteredToTarget = filteredToRemoveNan.filter { data in
-            return data.type == target
-        }
-        
-        var filteredToTarget2 = filteredToRemoveNan.filter { data in
-            return data.type == target2
-        }
-      
-           
-           
-            
-          
-            if !filteredToTarget2.isEmpty {
-              
-                if filteredToTarget2.count > filteredToTarget.count {
-                    for _ in 0...filteredToTarget2.count - filteredToTarget.count {
-                        filteredToTarget2.removeFirst()
-                    }
-                    
-                } else if filteredToTarget.count < filteredToTarget2.count {
-                    let average =   average(numbers: filteredToTarget2.map{$0.data})
-                    for _ in 0...filteredToTarget.count - filteredToTarget2.count {
-                        filteredToTarget2.append(UserData(id: UUID().uuidString, type: target2, title: "", text: "", date: Date(), data: average))
-                         
-                      
-                }
-                } else {
-                }
-                
-                
-               // print(trainingData.summary())
-                let dataArray = filteredToTarget.map{Double($0.data)}
-                let dataArray2 = filteredToTarget2.map{Double($0.data)}
-                print(average(numbers: dataArray))
-                trainingData.append(column: Column(name: target.rawValue, contents: dataArray))
-               
-                trainingData.append(column: Column(name: target2.rawValue, contents: dataArray2))
-                    
-                                }
-        
-        let dataArray = [Double]()
-        
-       
-        trainingData.append(column: Column(name: DataType.Score.rawValue, contents: dataArray))
-
-        let randomSplit = trainingData.randomSplit(by: 0.5)
-        print(randomSplit)
-        let testingData = DataFrame(randomSplit.0)
-        trainingData = DataFrame(randomSplit.1)
-        do {
-            let model = try MLRandomForestRegressor(trainingData: trainingData, targetColumn:  target.rawValue)
-           
-           // try model.write(to: getDocumentsDirectory().appendingPathComponent(DataType.HappinessScore.rawValue + ".mlmodel"))
-            print(model.trainingMetrics)
-            print(model.validationMetrics)
-            let predictions = try model.predictions(from: testingData)
-        
-            completionHandler(ModelResponse(type: target.rawValue, predicted: predictions.map{($0.unsafelyUnwrapped) as! Double}, actual: filteredToTarget.map{Double($0.data)}, accuracy: model.trainingMetrics.rootMeanSquaredError))
-        } catch {
-            print(error)
-
-        }
-
-    }
-    func trainOnDevice(userData: [UserData], target: DataType, completionHandler: @escaping (PredictedScore) -> Void) {
-        do {
-            let csvFile = Bundle.main.url(forResource: "BaseData", withExtension: "csv")!
-            let baseData = try DataFrame(contentsOfCSVFile: csvFile)
-        var trainingData = DataFrame()
-        let filteredToRemoveNan = userData.filter { data in
-            return data.data.isNormal && !data.data.isNaN
-        }
-        var filteredToBalance = filteredToRemoveNan.filter { data in
-            return data.type == .Balance
-        }
-        
-        for type in DataType.allCases {
-            print(type)
-           
-            var filteredToType = filteredToRemoveNan.filter { data in
-                return data.type == type && data.type != .Score
-            }
-            
-          
-            if !filteredToType.isEmpty {
-              
-                
-                if filteredToType.count > 2000 {
-                    for _ in 0...filteredToType.count - 2000 {
-                    filteredToType.removeFirst()
-                    }
-                    filteredToBalance = filteredToType
-                } else if 2000 < filteredToType.count {
-                    let average =   average(numbers: filteredToType.map{$0.data})
-                    for _ in 0...2000 - filteredToType.count {
-                        filteredToType.append(UserData(id: UUID().uuidString, type: type, title: "", text: "", date: Date(), data: average))
-                         
-                        filteredToBalance = filteredToType
-                }
-                } else {
-                }
-                
-                
-               // print(trainingData.summary())
-                let dataArray = filteredToType.map{Double($0.data)}
-                print(average(numbers: dataArray))
-            trainingData.append(column: Column(name: type.rawValue, contents: dataArray))
-                
-                print(filteredToType.count)
-                                }
-        }
-        var dataArray = [Double]()
-        
-        print(trainingData.rows.count )
-            for _ in 0...filteredToBalance.count - 1 {
-            dataArray.append(Double(0))
-        }
-        trainingData.append(column: Column(name: DataType.Score.rawValue, contents: dataArray))
-           
-        let randomSplit = trainingData.randomSplit(by: 0.5)
-        print(randomSplit)
-        let testingData = DataFrame(randomSplit.0)
-        trainingData = DataFrame(randomSplit.1)
-            trainingData.append(baseData)
-        do {
-            let model = try MLRandomForestRegressor(trainingData: trainingData, targetColumn:  target.rawValue)
-           
-           // try model.write(to: getDocumentsDirectory().appendingPathComponent(DataType.HappinessScore.rawValue + ".mlmodel"))
-            print(model.trainingMetrics)
-            print(model.validationMetrics)
-            let predictions = try model.predictions(from: testingData)
-            print(average(numbers: predictions.map{($0.unsafelyUnwrapped) as! Double}))
-        } catch {
-            print(error)
-
-        }
-
-        } catch {
-            
-        }
-        }
+//
+//        let randomSplit = trainingData.randomSplit(by: 0.5)
+//        print(randomSplit)
+//        let testingData = DataFrame(randomSplit.0)
+//        trainingData = DataFrame(randomSplit.1)
+//        do {
+//            let model = try MLRandomForestRegressor(trainingData: trainingData, targetColumn:  target.rawValue)
+//           
+//           // try model.write(to: getDocumentsDirectory().appendingPathComponent(DataType.HappinessScore.rawValue + ".mlmodel"))
+//            print(model.trainingMetrics)
+//            print(model.validationMetrics)
+//            let predictions = try model.predictions(from: testingData)
+//        
+//            completionHandler(ModelResponse(type: target.rawValue, predicted: predictions.map{($0.unsafelyUnwrapped) as! Double}, actual: filteredToTarget.map{Double($0.data)}, accuracy: model.trainingMetrics.rootMeanSquaredError))
+//        } catch {
+//            print(error)
+//
+//        }
+//
+//    }
+//    func trainOnDevice(userData: [UserData], target: DataType, completionHandler: @escaping (PredictedScore) -> Void) {
+//        do {
+//            let csvFile = Bundle.main.url(forResource: "BaseData", withExtension: "csv")!
+//            let baseData = try DataFrame(contentsOfCSVFile: csvFile)
+//        var trainingData = DataFrame()
+//        let filteredToRemoveNan = userData.filter { data in
+//            return data.data.isNormal && !data.data.isNaN
+//        }
+//        var filteredToBalance = filteredToRemoveNan.filter { data in
+//            return data.type == .Balance
+//        }
+//        
+//        for type in DataType.allCases {
+//            print(type)
+//           
+//            var filteredToType = filteredToRemoveNan.filter { data in
+//                return data.type == type && data.type != .Score
+//            }
+//            
+//          
+//            if !filteredToType.isEmpty {
+//              
+//                
+//                if filteredToType.count > 2000 {
+//                    for _ in 0...filteredToType.count - 2000 {
+//                    filteredToType.removeFirst()
+//                    }
+//                    filteredToBalance = filteredToType
+//                } else if 2000 < filteredToType.count {
+//                    let average =   average(numbers: filteredToType.map{$0.data})
+//                    for _ in 0...2000 - filteredToType.count {
+//                        filteredToType.append(UserData(id: UUID().uuidString, type: type, title: "", text: "", date: Date(), data: average))
+//                         
+//                        filteredToBalance = filteredToType
+//                }
+//                } else {
+//                }
+//                
+//                
+//               // print(trainingData.summary())
+//                let dataArray = filteredToType.map{Double($0.data)}
+//                print(average(numbers: dataArray))
+//            trainingData.append(column: Column(name: type.rawValue, contents: dataArray))
+//                
+//                print(filteredToType.count)
+//                                }
+//        }
+//        var dataArray = [Double]()
+//        
+//        print(trainingData.rows.count )
+//            for _ in 0...filteredToBalance.count - 1 {
+//            dataArray.append(Double(0))
+//        }
+//        trainingData.append(column: Column(name: DataType.Score.rawValue, contents: dataArray))
+//           
+//        let randomSplit = trainingData.randomSplit(by: 0.5)
+//        print(randomSplit)
+//        let testingData = DataFrame(randomSplit.0)
+//        trainingData = DataFrame(randomSplit.1)
+//            trainingData.append(baseData)
+//        do {
+//            let model = try MLRandomForestRegressor(trainingData: trainingData, targetColumn:  target.rawValue)
+//           
+//           // try model.write(to: getDocumentsDirectory().appendingPathComponent(DataType.HappinessScore.rawValue + ".mlmodel"))
+//            print(model.trainingMetrics)
+//            print(model.validationMetrics)
+//            let predictions = try model.predictions(from: testingData)
+//            print(average(numbers: predictions.map{($0.unsafelyUnwrapped) as! Double}))
+//        } catch {
+//            print(error)
+//
+//        }
+//
+//        } catch {
+//            
+//        }
+//        }
 
     func getLocalScore(double: Double, speed: Double, length: Double, completionHandler: @escaping (PredictedScore) -> Void) {
         do {
