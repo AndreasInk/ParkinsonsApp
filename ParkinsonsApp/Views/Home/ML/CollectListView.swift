@@ -14,6 +14,7 @@ struct CollectListView: View {
     @State var addHabit = false
     @State var showDetailsView = false
     @Binding var dataTypes: [String]
+    @Binding var userData: [UserData]
     var body: some View {
         NavigationView {
         VStack {
@@ -28,7 +29,7 @@ struct CollectListView: View {
                         .padding()
                 } .buttonStyle(PlainButtonStyle())
             } .sheet(isPresented: $addHabit) {
-                CollectDetailView(habit: $newHabit)
+                CollectDetailView(habit: $newHabit, userData: $userData, dataTypes: $dataTypes)
                     .onDisappear() {
                         if !newHabit.title.isEmpty {
                         habits.append(newHabit)
@@ -42,14 +43,14 @@ struct CollectListView: View {
             
         List {
             ForEach($habits, id: \.id) { $habit in
-                NavigationLink(destination: CollectDetailView(habit: $habit)) {
+                NavigationLink(destination: CollectDetailView(habit: $habit, userData: $userData, dataTypes: $dataTypes)) {
                     Text($habit.wrappedValue.title)
                         .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
                     .padding()
                 }
             }
         }
-        }
+        } .navigationBarHidden(true)
         } 
     }
 }

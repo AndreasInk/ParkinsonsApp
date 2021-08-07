@@ -43,7 +43,9 @@ struct HomeView: View {
                 .onAppear() {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                     load()
+                       
                     }
+                    
                 }
                 .onChange(of: habits) { value in
                     let encoder = JSONEncoder()
@@ -60,6 +62,9 @@ struct HomeView: View {
                         }
                         
                         
+                    }
+                    for data in habits.map{$0.data} {
+                    userData.append(contentsOf: data)
                     }
                 }
                 .onAppear() {
@@ -99,7 +104,7 @@ struct HomeView: View {
                 }
                 
                 
-        ScrollView {
+       
             if ready {
             VStack {
                 if isTutorial {
@@ -141,7 +146,7 @@ struct HomeView: View {
                             .padding()
                     }  .opacity(isTutorial ? (tutorialNum == 4 ? 1.0 : 0.1) : 1.0)
                     .sheet(isPresented: $openMeds, content: {
-                        CollectListView(habits: $habits, dataTypes: $dataTypes)
+                        CollectListView(habits: $habits, dataTypes: $dataTypes, userData: $userData)
                     })
 //
                     Button(action: {
@@ -163,7 +168,7 @@ struct HomeView: View {
                 ShareDataBanner()
                     .transition(.move(edge: .top))
                 }
-                ButtonGridView(userData: $userData, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                ButtonGridView(userData: $userData, dataTypes: $dataTypes, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
                     .onAppear() {
                         if useCount > 3 && useCount < 8 {
                         withAnimation(.easeInOut) {
@@ -172,12 +177,12 @@ struct HomeView: View {
                         }
                     }
                 if ready {
-                WeekChartView(userData: $userData)
+                    WeekChartView(userData: $userData, dataTypes: $dataTypes)
                     .opacity(isTutorial ? (tutorialNum == 6 ? 1.0 : 0.1) : 1.0)
                     .padding(.bottom)
             }
             }
-        }
+        
         }
      
         } 
@@ -278,9 +283,12 @@ struct HomeView: View {
             return data.type == .Habit
         }
         habitsUserData = filteredhabits
-        
+       
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
             ready = true
+            for data in habits.map{$0.data} {
+            userData.append(contentsOf: data)
+            }
         }
     }
     func getDocumentsDirectory() -> URL {

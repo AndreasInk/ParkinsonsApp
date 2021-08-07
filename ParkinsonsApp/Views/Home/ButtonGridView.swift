@@ -14,6 +14,7 @@ struct ButtonGridView: View {
         GridItem(.adaptive(minimum: 80))
     ]
     @Binding var userData: [UserData]
+    @Binding var dataTypes: [String]
     @State var buttons = [GridButton(title: "Score", image: Image(systemName: "heart")), GridButton(title: "Balance", image: Image(systemName: "scalemass")),GridButton(title: "Stride", image: Image(systemName: "ruler"))]
     @Binding var tutorialNum: Int
     @Binding var isTutorial: Bool
@@ -21,7 +22,7 @@ struct ButtonGridView: View {
         
         LazyVGrid(columns: columns, spacing: 20) {
             ForEach(buttons.indices, id: \.self) { i in
-                ButtonGridButton(gridButton: buttons[i], tutorialNum: $tutorialNum, isTutorial: $isTutorial, userData: $userData)
+                ButtonGridButton(gridButton: buttons[i], tutorialNum: $tutorialNum, isTutorial: $isTutorial, userData: $userData, dataTypes: $dataTypes)
                     .frame(width: 125, height: 125, alignment: .center)
                     
                     .opacity(isTutorial ? (tutorialNum == i ? 1.0 : 0.1) : 1.0)

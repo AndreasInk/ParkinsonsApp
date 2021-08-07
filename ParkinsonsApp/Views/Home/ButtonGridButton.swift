@@ -18,6 +18,7 @@ struct ButtonGridButton: View {
     @Binding var isTutorial: Bool
     
     @Binding var userData: [UserData]
+    @Binding var dataTypes: [String]
     var body: some View {
         
         Button(action: {
@@ -45,7 +46,7 @@ struct ButtonGridButton: View {
         
         .sheet(isPresented: $open, content: {
             if #available(iOS 15, *) {
-                DataView(userData: $userData, habitUserData: $userData[0], gridButton: gridButton, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
+                DataView(userData: $userData, dataTypes: $dataTypes, habitUserData: $userData[0], gridButton: gridButton, tutorialNum: $tutorialNum, isTutorial: $isTutorial)
             } else {
                 // Fallback on earlier versions
             }

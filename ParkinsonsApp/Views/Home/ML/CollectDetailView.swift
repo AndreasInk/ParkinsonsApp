@@ -12,10 +12,12 @@ struct CollectDetailView: View {
     @State var showEditView = false
     @State var refresh = false
     @State var chartData = ChartData(points: [Double]())
+    @Binding var userData: [UserData]
+    @Binding var dataTypes: [String]
     var body: some View {
        
         VStack {
-            DayChartView(title: "", chartData: $chartData, refresh: $refresh)
+            DayChartView(title: "", chartData: $chartData, refresh: $refresh, dataTypes: $dataTypes, userData: $userData)
 //                .ignoresSafeArea(.all, edges: .top)
 //                .padding()
 //                .padding(.top)

@@ -33,17 +33,10 @@ import SwiftUI
     var isFullWidth:Bool {
         return self.formSize == ChartForm.large
     }
-//    init(title: String, legend: String? = nil, style: ChartStyle =  Styles.lineChartStyleOne, form: CGSize? = ChartForm.extraLarge, dropShadow: Bool? = false, cornerImage:Image? = Image(systemName: "waveform.path.ecg"), valueSpecifier: String? = "%.1f"){
-//        self.title = title
-//        self.legend = legend
-//        self.style = style
-//        self.darkModeStyle =  Styles.lineChartStyleOne
-//        self.formSize = form!
-//        self.dropShadow = dropShadow!
-//        self.cornerImage = cornerImage!
-//        self.valueSpecifier = valueSpecifier!
-//    }
-    
+
+    @State var ml = false
+     @Binding var userData: [UserData]
+     @Binding var dataTypes: [String]
      var body: some View {
         if !refresh {
         ZStack{
@@ -51,7 +44,7 @@ import SwiftUI
                 .fill(Color("teal"))
                    
                 .cornerRadius(20)
-               // .shadow(color: self.style.dropShadowColor, radius: self.dropShadow ? 8 : 0)
+              
             VStack(alignment: .leading){
                 HStack{
                     if(!showValue){
@@ -74,7 +67,12 @@ import SwiftUI
                     self.cornerImage
                         .imageScale(.large)
                         .foregroundColor(.white)
-                  
+                        .onTapGesture() {
+                            ml = true
+                        }
+                        .sheet(isPresented: $ml) {
+                            TrainingView(userData: $userData, dataTypes: $dataTypes)
+                        }
                 }.padding()
                 .onChange(of: data.points.map{$0.0}, perform: { value in
                     self.currentValue = self.getCurrentValue()?.1 ?? 0

@@ -13,6 +13,7 @@ import CoreML
 @available(iOS 15, *)
 struct DataView: View {
     @Binding var userData: [UserData]
+    @Binding var dataTypes: [String]
     @Binding var habitUserData: UserData
     @State var balance = ChartData(values: [("", 0.0)])
     @State var meds = ChartData(values: [("", 0.0)])
@@ -194,7 +195,7 @@ struct DataView: View {
                                 }  //.opacity(isTutorial ? (tutorialNum == 2 ? 1.0 : 0.1) : 1.0)
                                 if !refresh {
                                     
-                                DayChartView(title: "Score", chartData: $score, refresh: $refresh)
+                                DayChartView(title: "Score", chartData: $score, refresh: $refresh, dataTypes: $dataTypes, userData: $userData)
                                 Text("1 indicates poorer health while a 0 indicates a healthier condition")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
@@ -202,7 +203,7 @@ struct DataView: View {
                                     //.opacity(isTutorial ? (tutorialNum == 2 ? 1.0 : 0.1) : 1.0)
                                 
                                 if max.points.last?.1 != max.points.first?.1 {
-                                    DayChartView(title: "Score", chartData: $max, refresh: $refresh)
+                                    DayChartView(title: "Score", chartData: $max, refresh: $refresh, dataTypes: $dataTypes, userData: $userData)
                                     Text(maxText)
                                         .multilineTextAlignment(.leading)
                                         .fixedSize(horizontal: false, vertical: true)
@@ -258,13 +259,13 @@ struct DataView: View {
                                     Spacer()
                                 }
                                 if !refresh {
-                                    DayChartView(title: "Balance", chartData: $balance, refresh: $refresh)
+                                    DayChartView(title: "Balance", chartData: $balance, refresh: $refresh, dataTypes: $dataTypes, userData: $userData)
                                 Text("A higher balance value indicates poorer health.")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
                                 if max.points.last?.1 != max.points.first?.1 {
-                                    DayChartView(title: "Balance", chartData: $max, refresh: $refresh)
+                                    DayChartView(title: "Balance", chartData: $max, refresh: $refresh, dataTypes: $dataTypes, userData: $userData)
                                     Text(maxText)
                                         .multilineTextAlignment(.leading)
                                         .fixedSize(horizontal: false, vertical: true)
@@ -316,13 +317,13 @@ struct DataView: View {
                                     Spacer()
                                 }
                                 if !refresh {
-                                    DayChartView(title: "Step Length", chartData: $length, refresh: $refresh)
+                                    DayChartView(title: "Step Length", chartData: $length, refresh: $refresh, dataTypes: $dataTypes, userData: $userData)
                                 Text("A lower step length indicates poorer health.")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                                     .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
                                 if max.points.last?.1 != max.points.first?.1 {
-                                    DayChartView(title: "Step Length", chartData: $max, refresh: $refresh)
+                                    DayChartView(title: "Step Length", chartData: $max, refresh: $refresh, dataTypes: $dataTypes, userData: $userData)
                                     Text(maxText)
                                         .multilineTextAlignment(.leading)
                                         .fixedSize(horizontal: false, vertical: true)
@@ -333,9 +334,9 @@ struct DataView: View {
                             .transition(.opacity)
                             
                         case "Speed":
-                            DayChartView(title: "Walking Speed", chartData: $score, refresh: $refresh)
+                            DayChartView(title: "Walking Speed", chartData: $score, refresh: $refresh, dataTypes: $dataTypes, userData: $userData)
                         case "Steps":
-                            DayChartView(title: "Steps", chartData: $score, refresh: $refresh)
+                            DayChartView(title: "Steps", chartData: $score, refresh: $refresh, dataTypes: $dataTypes, userData: $userData)
                             
                         case "Score and Habits":
                             VStack {
@@ -477,7 +478,7 @@ struct DataView: View {
                             } .padding()
                             .transition(.opacity)
                         default:
-                            DayChartView(title: "Score", chartData: $score, refresh: $refresh)
+                            DayChartView(title: "Score", chartData: $score, refresh: $refresh, dataTypes: $dataTypes, userData: $userData)
                         }
                     }
                

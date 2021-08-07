@@ -9,6 +9,7 @@ import SwiftUI
 struct WeekChartView: View {
     
     @Binding var userData: [UserData]
+    @Binding var dataTypes: [String]
     @State var chartData = ChartData(values: [("", 0.0)])
     @State var refresh = false
     var body: some View {
@@ -57,7 +58,7 @@ struct WeekChartView: View {
                     }
                     
                 }
-            BarChartView(data: $chartData, title: "Score", legend: "", refresh: $refresh)
+            BarChartView(data: $chartData, title: "Score", legend: "", refresh: $refresh, userData: $userData, dataTypes: $dataTypes)
             
         }
     }
@@ -155,12 +156,16 @@ struct WeekChartView: View {
 //}
 struct DayChartView: View {
     @State var title: String
+    
     @Binding var chartData: ChartData
-    @Binding var refresh: Bool 
+    @Binding var refresh: Bool
+   
+    @Binding var dataTypes: [String]
+    @Binding var userData: [UserData]
     var body: some View {
         ZStack {
             if !refresh {
-            BarChartView(data: $chartData , title: title, legend: "", refresh: $refresh)
+                BarChartView(data: $chartData , title: title, legend: "", refresh: $refresh, userData: $userData, dataTypes: $dataTypes)
         }
     }
 }
