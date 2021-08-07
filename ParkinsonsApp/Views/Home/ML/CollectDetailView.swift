@@ -45,8 +45,13 @@ struct CollectDetailView: View {
             List {
                 ForEach($habit.data, id: \.id) { $data in
                     NavigationLink(destination:  CollectEditView(userData: $data)) {
-                        Text(data.title == "" ? "No Title" : data.title)
+                        HStack {
+                        Text(data.title == "" ? "No Title:" : data.title + ":")
                             .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                            Text(String(data.data))
+                                .font(.custom("Poppins-Bold", size: 16, relativeTo: .headline))
+                            Spacer()
+                        }
                             .padding()
                     }
                  
