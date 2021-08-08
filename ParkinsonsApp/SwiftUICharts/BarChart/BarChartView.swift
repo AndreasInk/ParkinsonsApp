@@ -71,7 +71,11 @@ import SwiftUI
                             ml = true
                         }
                         .sheet(isPresented: $ml) {
-                           // TrainingView(userData: $userData, dataTypes: $dataTypes)
+                            if #available(iOS 15, *) {
+                                TrainingView(userData: $userData, dataTypes: $dataTypes)
+                            } else {
+                                // Fallback on earlier versions
+                            }
                         }
                 }.padding()
                 .onChange(of: data.points.map{$0.0}, perform: { value in

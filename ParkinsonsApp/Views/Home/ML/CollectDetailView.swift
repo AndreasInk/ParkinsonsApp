@@ -28,6 +28,10 @@ struct CollectDetailView: View {
                 Spacer()
                     .onAppear() {
                         chartData = ChartData(points: habit.data.map{$0.data})
+                        for data in habit.data {
+                            userData.append(data)
+                            print(data.type)
+                        }
                     }
             
                 

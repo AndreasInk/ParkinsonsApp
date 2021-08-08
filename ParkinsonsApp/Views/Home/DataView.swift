@@ -408,7 +408,7 @@ struct DataView: View {
                                     }
                                 }
                                 
-                                MultiLineChartView(data: [(self.score.onlyPoints(), GradientColor.init(start: Color(.red), end: Color(.purple))), (self.scorePredicted.onlyPoints(), GradientColor.init(start: Color(.green), end: Color(.systemTeal))), (self.meds.onlyPoints(), GradientColor.init(start: Color(.blue), end: Color(.systemTeal)))], title: "")
+                                DayChartView(title: "Habit", chartData: $habits, refresh: $refresh, dataTypes: $dataTypes, userData: $userData)
 //                                DayChartView(title: "Score", chartData: $score, refresh: $refresh)
 //
 //
@@ -470,7 +470,7 @@ struct DataView: View {
                                     Spacer()
                                 }
                                 
-                                MultiLineChartView(data: [(self.score.onlyPoints(), GradientColor.init(start: Color(.red), end: Color(.purple))), (self.scorePredicted.onlyPoints(), GradientColor.init(start: Color(.green), end: Color(.systemTeal))), (self.meds.onlyPoints(), GradientColor.init(start: Color(.blue), end: Color(.systemTeal)))], title: "")
+                                DayChartView(title: "Score", chartData: $score, refresh: $refresh, dataTypes: $dataTypes, userData: $userData)
                                 
                                // DayChartView(title: "Meds", chartData: $meds, refresh: $refresh)
                                 
@@ -520,11 +520,9 @@ struct DataView: View {
                 return  data.type == .WalkingSpeed
             }
             let habits = filteredHour.filter { data in
-                return  data.type == .Habit
+                return  data.title == habitName
             }
-            let habitsTypeFiltered = habits.filter { data in
-                return  data.id == habitUserData.id
-            }
+            
 //            let scoreValues = filteredHour.filter { data in
 //                return  data.type == .Score
 //            }
@@ -548,7 +546,7 @@ struct DataView: View {
             balancePoints.points.append((String(hour), average(numbers: double.map{$0.data})))
             asymPoints.points.append((String(hour), average(numbers: asymmetry.map{$0.data})))
             lengthPoints.points.append((String(hour), average(numbers: stepLength.map{$0.data})))
-            habitPoints.points.append((String(hour), average(numbers: habitsTypeFiltered.map{$0.data})))
+            habitPoints.points.append((String(hour), average(numbers: habits.map{$0.data})))
            
            // }
         
