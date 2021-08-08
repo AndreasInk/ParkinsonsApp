@@ -27,7 +27,8 @@ struct CollectDetailView: View {
             HStack {
                 Spacer()
                     .onAppear() {
-                        chartData = ChartData(points: habit.data.map{$0.data})
+                        
+                        chartData = ChartData(points: habit.data.reversed().map{$0.data})
                         for data in habit.data {
                             userData.append(data)
                             print(data.type)
@@ -66,7 +67,8 @@ struct CollectDetailView: View {
             
         }
         } .navigationBarItems( trailing: HStack {Button(action: {
-            habit.data.append(UserData(id: UUID().uuidString, type: .Health, title: "", text: "", date: Date(), data: 0.0))
+           
+            habit.data.insert(UserData(id: UUID().uuidString, type: .Health, title: "", text: "", date: Date(), data: 0.0), at: 0)
         }) {
             Image(systemSymbol: .plus)
                 .font(.title)
