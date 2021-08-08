@@ -520,7 +520,7 @@ struct DataView: View {
                 return  data.type == .WalkingSpeed
             }
             let habits = filteredHour.filter { data in
-                return  data.id == habitName
+                return  data.title == habitName
             }
             
 

@@ -68,7 +68,7 @@ struct CollectDetailView: View {
         }
         } .navigationBarItems( trailing: HStack {Button(action: {
            
-            habit.data.insert(UserData(id: habit.title, type: .Health, title: habit.title, text: "", date: Date(), data: 0.0), at: 0)
+            habit.data.insert(UserData(id: UUID().uuidString, type: .Health, title: habit.title, text: "", date: Date(), data: 0.0), at: 0)
         }) {
             Image(systemSymbol: .plus)
                 .font(.title)

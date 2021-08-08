@@ -23,7 +23,7 @@ struct HappinessScoreInputView: View {
             ForEach(1...5, id:\.self) { i in
                 Spacer()
                 Button(action: {
-                    habit.data.append(UserData(id: habit.id, type: .Health, title: habit.id, text: "", date: Date(), data: Double(i)))
+                    habit.data.append(UserData(id: UUID().uuidString, type: .Health, title: habit.id, text: "", date: Date(), data: Double(i)))
                     tapped = true
                 }) {
                  
