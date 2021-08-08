@@ -8,3 +8,4 @@ If you'd like to contribute to Park feel free to contact me at andreasink17@gmai
 
 ![alt text](https://github.com/AndreasInk/ParkinsonsApp/blob/main/screenshots.svg?raw=true)
 
+
