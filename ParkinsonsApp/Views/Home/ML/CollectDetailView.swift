@@ -68,7 +68,7 @@ struct CollectDetailView: View {
         }
         } .navigationBarItems( trailing: HStack {Button(action: {
            
-            habit.data.insert(UserData(id: UUID().uuidString, type: .Health, title: "", text: "", date: Date(), data: 0.0), at: 0)
+            habit.data.insert(UserData(id: habit.title, type: .Health, title: habit.title, text: "", date: Date(), data: 0.0), at: 0)
         }) {
             Image(systemSymbol: .plus)
                 .font(.title)
@@ -81,7 +81,7 @@ struct CollectDetailView: View {
                 Text("Details")
                     .font(.custom("Poppins-Bold", size: 18, relativeTo: .headline))
             } .sheet(isPresented: $details) {
-                DataView(userData: $userData, dataTypes: $dataTypes, habitUserData: $filler, gridButton: GridButton(title: "Habits", image: Image("")), tutorialNum: $i, isTutorial: $refresh)
+                DataView(userData: $userData, dataTypes: $dataTypes, habitUserData: $filler, gridButton: GridButton(title: "Habits", image: Image("")), tutorialNum: $i, isTutorial: $refresh, habitName: habit.title)
             }
 
         })

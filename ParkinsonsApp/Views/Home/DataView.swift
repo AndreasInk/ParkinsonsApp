@@ -520,15 +520,10 @@ struct DataView: View {
                 return  data.type == .WalkingSpeed
             }
             let habits = filteredHour.filter { data in
-                return  data.title == habitName
+                return  data.id == habitName
             }
             
-//            let scoreValues = filteredHour.filter { data in
-//                return  data.type == .Score
-//            }
-//            let scoreValuesWithoutNan = scoreValues.filter { data in
-//                return  data.data.isNormal && data.data != 21
-           // }
+
             var scores = [Double]()
             for i in double.indices {
                 if double.indices.contains(i) && speed.indices.contains(i) && stepLength.indices.contains(i) {
@@ -548,23 +543,14 @@ struct DataView: View {
             lengthPoints.points.append((String(hour), average(numbers: stepLength.map{$0.data})))
             habitPoints.points.append((String(hour), average(numbers: habits.map{$0.data})))
            
-           // }
-        
-//        refresh = true
-//            ready = false
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-//            refresh = false
-//            ready = true
-//        }
-    
-        }
+ 
         score = scorePoints
         length = lengthPoints
         balance = balancePoints
-        habits = habitPoints
+            self.habits = habitPoints
         
         }
+    }
 //    func trainHabitCompareOnDevice(userData: [UserData], target: DataType, target2: String, completionHandler: @escaping (ModelResponse) -> Void) {
 //        var trainingData = DataFrame()
 //        let filteredToRemoveNan = userData.filter { data in

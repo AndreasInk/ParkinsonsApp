@@ -99,7 +99,7 @@ struct HomeView: View {
                     dataTypes.append(contentsOf: types.map{$0.rawValue})
                        
                         let presetHabitsTitles = ["Happiness Score", "Medications", "Doctor Appointments", "Push-ups"]
-                        let presetHabits = presetHabitsTitles.map{Habit(id: UUID().uuidString, data: [UserData](), title: $0)}
+                        let presetHabits = presetHabitsTitles.map{Habit(id: $0, data: [UserData](), title: $0)}
                         habits.append(contentsOf: presetHabits)
                         UserDefaults.standard.set(true, forKey:  "notFirstRun")
                         notFirstRun = true

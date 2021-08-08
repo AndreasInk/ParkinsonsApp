@@ -19,11 +19,11 @@ struct HappinessScoreInputView: View {
                 Spacer()
             }
         HStack {
-            if habit.title ==  "Happiness Score" {
+            if habit.id ==  "Happiness Score" {
             ForEach(1...5, id:\.self) { i in
                 Spacer()
                 Button(action: {
-                    habit.data.append(UserData(id: UUID().uuidString, type: .Habit, title: habit.title, text: "", date: Date(), data: Double(i)))
+                    habit.data.append(UserData(id: habit.id, type: .Health, title: habit.id, text: "", date: Date(), data: Double(i)))
                     tapped = true
                 }) {
                  
