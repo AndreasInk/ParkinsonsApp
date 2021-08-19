@@ -1,4 +1,5 @@
 # Park
+Empowering Parkinson's Patients with mobility metrics and ML
 
 ![alt text](https://github.com/AndreasInk/ParkinsonsApp/blob/main/park.svg?raw=true)
 
